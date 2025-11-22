@@ -5,7 +5,7 @@ import SocialRanks from './pages/social_ranks/SocialRanks';
 import Districts from './pages/districts/Districts';
 import Currencies from './pages/currencies/Currencies';
 import './AppStyles.css';
- 
+
 
 interface NavLinkStyleProps {
   isActive: boolean;
