@@ -1,0 +1,107 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', 'Lucida Console', monospace;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  color: #c0c0c0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+
+/* Navigation Styles */
+
+.main-nav {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+  border-bottom: 3px solid #333;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  position: relative;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.nav-link {
+  text-decoration: none;
+  padding: 12px 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, transparent 0%, rgba(45, 45, 45, 0.5) 100%);
+  border: 1px solid transparent;
+}
+
+.nav-link:hover {
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.1) 0%, rgba(45, 45, 45, 0.7) 100%);
+  border-color: #555;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.nav-icon {
+  font-size: 1rem;
+  filter: grayscale(0.3) brightness(0.9);
+}
+
+.nav-separator {
+  color: #555;
+  font-weight: bold;
+  margin: 0 5px;
+  text-shadow: 0 0 5px rgba(184, 134, 11, 0.3);
+}
+
+
+/* Main content area */
+.main-content {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 80px);
+}
+
+
+/* Global scrollbar styling */
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-left: 1px solid #333;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #b8860b 0%, #8b0000 100%);
+  border: 1px solid #444;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffd700 0%, #a00000 100%);
+}
+
