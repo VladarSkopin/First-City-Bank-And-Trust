@@ -42,11 +42,22 @@ public class CurrencyDataAccessService implements CurrencyDao {
 
     @Override
     public int deleteCurrency(String currencyCode) {
-        return 0;
+        var sql = """
+                DELETE FROM currencies
+                WHERE currency_code = ?
+                """;
+        return jdbcTemplate.update(sql, currencyCode);
     }
 
     @Override
     public Optional<Currency> selectCurrencyByCode(String currencyCode) {
-        return Optional.empty();
+        var sql = """
+                SELECT currency_code, currency_name, currency_symbol
+                FROM currencies
+                WHERE currency_code = ?
+                 """;
+        return jdbcTemplate.query(sql, new CurrencyRowMapper(), currencyCode)
+                .stream()
+                .findFirst();
     }
 }

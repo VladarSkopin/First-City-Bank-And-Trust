@@ -24,7 +24,7 @@ public class CurrencyController {
         currencyService.addNewCurrency(currency);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{code}")
     public void deleteCurrency(@PathVariable("code") String code) {
         currencyService.deleteCurrency(code);
     }
