@@ -29,11 +29,19 @@ public class CurrencyService {
             throw new IllegalArgumentException("Currency name cannot be empty");
         }
 
-        // 2. todo: Check if currency exists
+        // 2. Check if currency exists
+        boolean currencyExists = currencyDao.existsByName(currency.currencyName());
+        if (currencyExists) {
+            throw new IllegalStateException("Currency with name '" + currency.currencyName() + "' already exists");
+        }
 
-        // 3. todo: Insert new currency
+        // 3. Insert new currency
+        Integer rowsAffected = currencyDao.insertCurrency(currency);
 
-        // 4. todo: Check if insertion was successful
+        // 4. Check if insertion was successful
+        if (rowsAffected == null || rowsAffected <= 0) {
+            throw new IllegalStateException("Failed to insert Currency");
+        }
     }
 
     public void deleteCurrency(String currencyCode) {

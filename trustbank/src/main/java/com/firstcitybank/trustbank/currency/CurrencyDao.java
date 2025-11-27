@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface CurrencyDao {
     List<Currency> selectCurrencies();
-    void insertCurrency(Currency currency);
+    int insertCurrency(Currency currency);
     boolean existsByName(String currencyName);
     boolean existsByCode(String currencyCode);
     int deleteCurrency(String currencyCode);

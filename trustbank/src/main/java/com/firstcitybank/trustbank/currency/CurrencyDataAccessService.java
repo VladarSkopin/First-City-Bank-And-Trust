@@ -26,18 +26,34 @@ public class CurrencyDataAccessService implements CurrencyDao {
     }
 
     @Override
-    public void insertCurrency(Currency currency) {
+    public int insertCurrency(Currency currency) {
+        var sql = """
+            INSERT INTO currencies(currency_code, currency_name, currency_symbol)
+            VALUES (?, ?, ?)
+            """;
 
+        int rowsAffected = jdbcTemplate.update(
+                sql,
+                currency.currencyCode(),
+                currency.currencyName(),
+                currency.currencySymbol()
+        );
+
+        return rowsAffected;
     }
 
     @Override
     public boolean existsByName(String currencyName) {
-        return false;
+        var sql = "SELECT COUNT(*) FROM currencies WHERE currency_name = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, currencyName);
+        return count != null && count > 0;
     }
 
     @Override
     public boolean existsByCode(String currencyCode) {
-        return false;
+        var sql = "SELECT COUNT(*) FROM currencies WHERE currency_code = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, currencyCode);
+        return count != null && count > 0;
     }
 
     @Override
@@ -55,7 +71,7 @@ public class CurrencyDataAccessService implements CurrencyDao {
                 SELECT currency_code, currency_name, currency_symbol
                 FROM currencies
                 WHERE currency_code = ?
-                 """;
+                """;
         return jdbcTemplate.query(sql, new CurrencyRowMapper(), currencyCode)
                 .stream()
                 .findFirst();
