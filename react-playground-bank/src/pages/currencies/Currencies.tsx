@@ -1,20 +1,47 @@
 import './CurrenciesStyles.css';
-
+import { useState, useEffect } from 'react';
 
 interface Currency {
   currencyCode: string;
   currencyName: string;
-  symbol: string;
+  currencySymbol: string;
 }
 
 
 function Currencies() {
+  	
+  const [currencies, setCurrencies] = useState<Currency[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const currencies: Currency[] = [
-    {currencyCode: 'BBC-123', currencyName: 'Gold', symbol: '₲'},
-    {currencyCode: 'BBC-321', currencyName: 'Silver', symbol: '₴'},
-    {currencyCode: 'BBC-555', currencyName: 'Copper', symbol: '₡'}
-  ];
+  // Fetch currencies from Spring Boot API
+  useEffect(() => {
+    const fetchCurrencies = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:8080/api/v1/currencies');
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setCurrencies(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch currencies');
+        console.error('Error fetching currencies:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCurrencies();
+  }, [])
+
+
+
+
+
 
   const getCoinColor = (currencyName: string): string => {
     const colors: Record<string, string> = {
@@ -33,6 +60,36 @@ function Currencies() {
     };
     return icons[currencyName] || '●';
   };
+
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="currencies-container">
+        <div className="loading-state">Loading currencies...</div>
+      </div>
+    );
+  }
+
+  // Error state
+    if (error) {
+    return (
+      <div className="currencies-container">
+        <div className="error-state">Error: {error}</div>
+      </div>
+    );
+  }
+
+  // Empty state
+  if (currencies.length === 0) {
+    return (
+      <div className="currencies-container">
+        <div className="empty-state">No currencies found</div>
+      </div>
+    );
+  }
+
+
 
   return (
     <div className="currencies-container">
@@ -58,7 +115,7 @@ function Currencies() {
                   {getCoinIcon(currency.currencyName)}
                 </div>
                 <div className="currency-symbol">
-                  {currency.symbol}
+                  {currency.currencySymbol}
                 </div>
               </div>
               
