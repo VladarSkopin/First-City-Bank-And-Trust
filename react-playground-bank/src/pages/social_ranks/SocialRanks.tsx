@@ -3,6 +3,8 @@ import './SocialRanksStyles.css';
 import './ModalStyles.css';
 
 
+// TODO: 📜 !!! (No ranks found !!!)
+
 interface SocialRank {
   rankCode: string;
   rankName: string;

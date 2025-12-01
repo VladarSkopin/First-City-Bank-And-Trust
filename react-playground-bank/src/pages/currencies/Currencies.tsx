@@ -1,4 +1,5 @@
 import './CurrenciesStyles.css';
+import './LoadingStyles.css';
 import { useState, useEffect } from 'react';
 
 interface Currency {
@@ -66,7 +67,10 @@ function Currencies() {
   if (loading) {
     return (
       <div className="currencies-container">
-        <div className="loading-state">Loading currencies...</div>
+        <div className="loading-state">
+          <div className="loading-spinner"></div>
+          <p>Loading currencies...</p>
+        </div>
       </div>
     );
   }
@@ -75,7 +79,17 @@ function Currencies() {
     if (error) {
     return (
       <div className="currencies-container">
-        <div className="error-state">Error: {error}</div>
+        <div className="error-state">
+          <div className="error-icon">⚠️</div>
+          <h3>Failed to Load Currencies</h3>
+          <p>{error}</p>
+          <button 
+            className="retry-btn" 
+            onClick={() => window.location.reload()}
+          >
+            Retry
+          </button>
+        </div>
       </div>
     );
   }
@@ -84,7 +98,11 @@ function Currencies() {
   if (currencies.length === 0) {
     return (
       <div className="currencies-container">
-        <div className="empty-state">No currencies found</div>
+        <div className="empty-state">
+          <div className="empty-icon">💰</div>
+          <h3>No Currencies Found</h3>
+          <p>No currency data is currently available</p>
+        </div>
       </div>
     );
   }

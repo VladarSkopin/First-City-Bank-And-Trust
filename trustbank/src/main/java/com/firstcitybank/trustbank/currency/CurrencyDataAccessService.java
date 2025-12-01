@@ -28,7 +28,7 @@ public class CurrencyDataAccessService implements CurrencyDao {
     @Override
     public int insertCurrency(Currency currency) {
         var sql = """
-            INSERT INTO currencies(currency_code, currency_name, currency_symbol)
+            INSERT INTO currencies (currency_code, currency_name, currency_symbol)
             VALUES (?, ?, ?)
             """;
 
