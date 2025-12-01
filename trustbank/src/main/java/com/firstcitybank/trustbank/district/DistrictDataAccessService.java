@@ -32,21 +32,36 @@ public class DistrictDataAccessService implements DistrictDao {
 
     @Override
     public boolean existsByName(String districtName) {
-        return false;
+        var sql = "SELECT COUNT(*) FROM districts WHERE district_name = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, districtName);
+        return count != null && count > 0;
     }
 
     @Override
     public boolean existsByCode(String districtCode) {
-        return false;
+        var sql = "SELECT COUNT(*) FROM districts WHERE district_code = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, districtCode);
+        return count != null && count > 0;
     }
 
     @Override
     public int deleteDistrict(String districtCode) {
-        return 0;
+        var sql = """
+                DELETE FROM districts
+                WHERE district_code = ?
+                """;
+        return jdbcTemplate.update(sql, districtCode);
     }
 
     @Override
     public Optional<District> selectDistrictByCode(String districtCode) {
-        return Optional.empty();
+        var sql = """
+                SELECT district_code, district_name
+                FROM districts
+                WHERE district_code = ?
+                """;
+        return jdbcTemplate.query(sql, new DistrictRowMapper(), districtCode)
+                .stream()
+                .findFirst();
     }
 }
