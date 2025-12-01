@@ -7,4 +7,6 @@ public class Paths {
     public static final String CODE_PATH = "/{code}";
 
     public static final String DISTRICTS_PATH = "api/v1/districts";
+
+    public static final String SOCIAL_RANKS_PATH = "api/v1/socialranks";
 }
