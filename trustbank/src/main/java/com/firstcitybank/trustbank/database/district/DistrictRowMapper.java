@@ -1,5 +1,6 @@
-package com.firstcitybank.trustbank.district;
+package com.firstcitybank.trustbank.database.district;
 
+import com.firstcitybank.trustbank.model.District;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

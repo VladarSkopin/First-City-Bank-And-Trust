@@ -1,6 +1,8 @@
-package com.firstcitybank.trustbank.currency;
+package com.firstcitybank.trustbank.service;
 
+import com.firstcitybank.trustbank.database.dao.CurrencyDao;
 import com.firstcitybank.trustbank.exception.NotFoundException;
+import com.firstcitybank.trustbank.model.Currency;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

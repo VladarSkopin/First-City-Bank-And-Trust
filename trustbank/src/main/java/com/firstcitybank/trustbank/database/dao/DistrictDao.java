@@ -1,4 +1,6 @@
-package com.firstcitybank.trustbank.district;
+package com.firstcitybank.trustbank.database.dao;
+
+import com.firstcitybank.trustbank.model.District;
 
 import java.util.List;
 import java.util.Optional;

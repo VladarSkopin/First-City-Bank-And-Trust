@@ -1,5 +1,7 @@
-package com.firstcitybank.trustbank.district;
+package com.firstcitybank.trustbank.database.district;
 
+import com.firstcitybank.trustbank.database.dao.DistrictDao;
+import com.firstcitybank.trustbank.model.District;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

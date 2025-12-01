@@ -1,4 +1,6 @@
-package com.firstcitybank.trustbank.currency;
+package com.firstcitybank.trustbank.database.dao;
+
+import com.firstcitybank.trustbank.model.Currency;
 
 import java.util.List;
 import java.util.Optional;

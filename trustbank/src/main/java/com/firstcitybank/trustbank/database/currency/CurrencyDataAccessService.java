@@ -1,5 +1,7 @@
-package com.firstcitybank.trustbank.currency;
+package com.firstcitybank.trustbank.database.currency;
 
+import com.firstcitybank.trustbank.database.dao.CurrencyDao;
+import com.firstcitybank.trustbank.model.Currency;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
