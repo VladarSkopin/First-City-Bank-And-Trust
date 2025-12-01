@@ -27,7 +27,18 @@ public class DistrictDataAccessService implements DistrictDao {
 
     @Override
     public int insertDistrict(District district) {
-        return 0;
+        var sql = """
+            INSERT INTO districts (district_code, district_name)
+            VALUES (?, ?)
+            """;
+
+        int rowsAffected = jdbcTemplate.update(
+                sql,
+                district.districtCode(),
+                district.districtName()
+        );
+
+        return rowsAffected;
     }
 
     @Override
