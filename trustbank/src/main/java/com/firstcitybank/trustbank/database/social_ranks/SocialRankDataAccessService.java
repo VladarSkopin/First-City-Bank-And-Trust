@@ -1,5 +1,6 @@
 package com.firstcitybank.trustbank.database.social_ranks;
 
+import com.firstcitybank.trustbank.database.currency.CurrencyRowMapper;
 import com.firstcitybank.trustbank.database.dao.SocialRankDao;
 import com.firstcitybank.trustbank.model.SocialRank;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,11 +45,22 @@ public class SocialRankDataAccessService implements SocialRankDao {
 
     @Override
     public int deleteSocialRank(String rankCode) {
-        return 0;
+        var sql = """
+                DELETE FROM social_ranks
+                WHERE rank_code = ?
+                """;
+        return jdbcTemplate.update(sql, rankCode);
     }
 
     @Override
     public Optional<SocialRank> selectSocialRankByCode(String rankCode) {
-        return Optional.empty();
+        var sql = """
+                SELECT rank_code, rank_name, description, privilege_level, regulations
+                FROM social_ranks
+                WHERE rank_code = ?
+                """;
+        return jdbcTemplate.query(sql, new SocialRankRowMapper(), rankCode)
+                .stream()
+                .findFirst();
     }
 }
