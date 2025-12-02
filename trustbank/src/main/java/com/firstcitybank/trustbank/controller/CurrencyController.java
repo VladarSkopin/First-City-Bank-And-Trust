@@ -1,11 +1,16 @@
-package com.firstcitybank.trustbank.currency;
+package com.firstcitybank.trustbank.controller;
 
+import com.firstcitybank.trustbank.service.CurrencyService;
+import com.firstcitybank.trustbank.model.Currency;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.firstcitybank.trustbank.helper.Paths.CODE_PATH;
+import static com.firstcitybank.trustbank.helper.Paths.CURRENCIES_PATH;
+
 @RestController
-@RequestMapping(path = "api/v1/currencies")
+@RequestMapping(path = CURRENCIES_PATH)
 public class CurrencyController {
 
     private final CurrencyService currencyService;
@@ -24,7 +29,7 @@ public class CurrencyController {
         currencyService.addNewCurrency(currency);
     }
 
-    @DeleteMapping("{code}")
+    @DeleteMapping(CODE_PATH)
     public void deleteCurrency(@PathVariable("code") String code) {
         currencyService.deleteCurrency(code);
     }

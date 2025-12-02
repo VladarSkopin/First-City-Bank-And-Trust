@@ -1,6 +1,7 @@
-package com.firstcitybank.trustbank.currency;
+package com.firstcitybank.trustbank.database.currency;
 
 
+import com.firstcitybank.trustbank.model.Currency;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

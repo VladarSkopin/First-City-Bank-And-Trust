@@ -71,14 +71,13 @@ function Districts() {
   }
 
 
-
   // Error state
   if (error) {
     return (
       <div className="districts-container">
         <div className="error-state">
           <div className="error-icon">⚠️</div>
-          <h3>Failed to Load Districts</h3>
+          <h2>Failed to Load Districts</h2>
           <p>{error}</p>
           <button 
             className="retry-btn" 

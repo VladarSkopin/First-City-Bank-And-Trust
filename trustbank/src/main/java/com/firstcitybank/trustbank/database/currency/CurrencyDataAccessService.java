@@ -1,5 +1,7 @@
-package com.firstcitybank.trustbank.currency;
+package com.firstcitybank.trustbank.database.currency;
 
+import com.firstcitybank.trustbank.database.dao.CurrencyDao;
+import com.firstcitybank.trustbank.model.Currency;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -34,9 +36,9 @@ public class CurrencyDataAccessService implements CurrencyDao {
 
         int rowsAffected = jdbcTemplate.update(
                 sql,
-                currency.currencyCode(),
-                currency.currencyName(),
-                currency.currencySymbol()
+                currency.currencyCode().toUpperCase().trim(),
+                currency.currencyName().trim(),
+                currency.currencySymbol().trim()
         );
 
         return rowsAffected;

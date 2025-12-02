@@ -1,6 +1,8 @@
-package com.firstcitybank.trustbank.currency;
+package com.firstcitybank.trustbank.service;
 
+import com.firstcitybank.trustbank.database.dao.CurrencyDao;
 import com.firstcitybank.trustbank.exception.NotFoundException;
+import com.firstcitybank.trustbank.model.Currency;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +27,12 @@ public class CurrencyService {
             throw new IllegalArgumentException("Currency data cannot be null");
         }
 
+        if (currency.currencyCode() == null || currency.currencyCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("Currency code is required");
+        }
+
         if (currency.currencyName() == null || currency.currencyName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Currency name cannot be empty");
+            throw new IllegalArgumentException("Currency name is required");
         }
 
         // 2. Check if currency exists

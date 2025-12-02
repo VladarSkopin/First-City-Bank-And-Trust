@@ -1,11 +1,16 @@
-package com.firstcitybank.trustbank.district;
+package com.firstcitybank.trustbank.controller;
 
+import com.firstcitybank.trustbank.service.DistrictService;
+import com.firstcitybank.trustbank.model.District;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.firstcitybank.trustbank.helper.Paths.CODE_PATH;
+import static com.firstcitybank.trustbank.helper.Paths.DISTRICTS_PATH;
+
 @RestController
-@RequestMapping(path = "api/v1/districts")
+@RequestMapping(path = DISTRICTS_PATH)
 public class DistrictController {
 
     private final DistrictService districtService;
@@ -24,7 +29,7 @@ public class DistrictController {
         districtService.addNewDistrict(district);
     }
 
-    @DeleteMapping("{code}")
+    @DeleteMapping(CODE_PATH)
     public void deleteDistrict(@PathVariable("code") String code) {
         districtService.deleteDistrict(code);
     }
