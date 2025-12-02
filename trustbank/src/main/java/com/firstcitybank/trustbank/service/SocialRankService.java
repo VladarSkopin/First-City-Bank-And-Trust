@@ -1,13 +1,10 @@
 package com.firstcitybank.trustbank.service;
 
 import com.firstcitybank.trustbank.database.dao.SocialRankDao;
-import com.firstcitybank.trustbank.exception.NotFoundException;
-import com.firstcitybank.trustbank.model.Currency;
 import com.firstcitybank.trustbank.model.SocialRank;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SocialRankService {
