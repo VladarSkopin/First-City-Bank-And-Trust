@@ -41,9 +41,6 @@ function Currencies() {
 
 
 
-
-
-
   const getCoinColor = (currencyName: string): string => {
     const colors: Record<string, string> = {
       'Gold': '#ffd700',
@@ -63,6 +60,7 @@ function Currencies() {
   };
 
 
+
   // Loading state
   if (loading) {
     return (
@@ -75,13 +73,14 @@ function Currencies() {
     );
   }
 
+
   // Error state
     if (error) {
     return (
       <div className="currencies-container">
         <div className="error-state">
           <div className="error-icon">⚠️</div>
-          <h3>Failed to Load Currencies</h3>
+          <h2>Failed to Load Currencies</h2>
           <p>{error}</p>
           <button 
             className="retry-btn" 
@@ -93,6 +92,7 @@ function Currencies() {
       </div>
     );
   }
+
 
   // Empty state
   if (currencies.length === 0) {
