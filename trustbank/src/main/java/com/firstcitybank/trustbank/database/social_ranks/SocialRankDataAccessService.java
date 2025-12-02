@@ -1,7 +1,7 @@
 package com.firstcitybank.trustbank.database.social_ranks;
 
-import com.firstcitybank.trustbank.database.currency.CurrencyRowMapper;
 import com.firstcitybank.trustbank.database.dao.SocialRankDao;
+import com.firstcitybank.trustbank.helper.Utils;
 import com.firstcitybank.trustbank.model.SocialRank;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -30,17 +30,35 @@ public class SocialRankDataAccessService implements SocialRankDao {
 
     @Override
     public int insertSocialRank(SocialRank socialRank) {
-        return 0;
+        var sql = """
+            INSERT INTO social_ranks (rank_code, rank_name, description, privilege_level, regulations)
+            VALUES (?, ?, ?, ?, ?)
+            """;
+
+        int rowsAffected = jdbcTemplate.update(
+                sql,
+                socialRank.rankCode().toUpperCase().trim(),
+                socialRank.rankName().trim(),
+                socialRank.description() != null ? socialRank.description().trim() : null,
+                Utils.validateAndGetPrivilegeLevel(socialRank.privilegeLevel()),
+                socialRank.regulations() != null ? socialRank.regulations().trim() : null
+        );
+
+        return rowsAffected;
     }
 
     @Override
     public boolean existsByName(String rankName) {
-        return false;
+        var sql = "SELECT COUNT(*) FROM social_ranks WHERE rank_name = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, rankName);
+        return count != null && count > 0;
     }
 
     @Override
     public boolean existsByCode(String rankCode) {
-        return false;
+        var sql = "SELECT COUNT(*) FROM social_ranks WHERE rank_code = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, rankCode);
+        return count != null && count > 0;
     }
 
     @Override

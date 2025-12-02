@@ -27,8 +27,12 @@ public class CurrencyService {
             throw new IllegalArgumentException("Currency data cannot be null");
         }
 
+        if (currency.currencyCode() == null || currency.currencyCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("Currency code is required");
+        }
+
         if (currency.currencyName() == null || currency.currencyName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Currency name cannot be empty");
+            throw new IllegalArgumentException("Currency name is required");
         }
 
         // 2. Check if currency exists

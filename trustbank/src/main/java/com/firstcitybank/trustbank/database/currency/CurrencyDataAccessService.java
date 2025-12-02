@@ -36,9 +36,9 @@ public class CurrencyDataAccessService implements CurrencyDao {
 
         int rowsAffected = jdbcTemplate.update(
                 sql,
-                currency.currencyCode(),
-                currency.currencyName(),
-                currency.currencySymbol()
+                currency.currencyCode().toUpperCase().trim(),
+                currency.currencyName().trim(),
+                currency.currencySymbol().trim()
         );
 
         return rowsAffected;

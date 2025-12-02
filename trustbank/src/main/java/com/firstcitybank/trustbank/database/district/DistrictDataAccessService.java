@@ -36,8 +36,8 @@ public class DistrictDataAccessService implements DistrictDao {
 
         int rowsAffected = jdbcTemplate.update(
                 sql,
-                district.districtCode(),
-                district.districtName()
+                district.districtCode().toUpperCase().trim(),
+                district.districtName().trim()
         );
 
         return rowsAffected;

@@ -27,8 +27,12 @@ public class DistrictService {
             throw new IllegalArgumentException("District data cannot be null");
         }
 
+        if (district.districtCode() == null || district.districtCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("District code is required");
+        }
+
         if (district.districtName() == null || district.districtName().trim().isEmpty()) {
-            throw new IllegalArgumentException("District name cannot be empty");
+            throw new IllegalArgumentException("District name is required");
         }
 
         // 2. Check if district exists
