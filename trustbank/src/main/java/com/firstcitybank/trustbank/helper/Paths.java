@@ -9,4 +9,6 @@ public class Paths {
     public static final String DISTRICTS_PATH = "api/v1/districts";
 
     public static final String SOCIAL_RANKS_PATH = "api/v1/socialranks";
+
+    public static final String CLIENT_TYPES_PATH = "api/v1/clienttypes";
 }
