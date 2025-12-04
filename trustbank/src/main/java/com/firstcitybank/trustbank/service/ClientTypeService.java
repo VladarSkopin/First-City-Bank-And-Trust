@@ -52,7 +52,7 @@ public class ClientTypeService {
 
     public void deleteClientType(String clientTypeCode) {
         Optional<ClientType> clientTypes = clientTypeDao.selectClientTypeByCode(clientTypeCode);
-        clientTypes.ifPresentOrElse(currency -> {
+        clientTypes.ifPresentOrElse(clientType -> {
             int result = clientTypeDao.deleteClientType(clientTypeCode);
             if (result != 1) {
                 throw new IllegalStateException("Oops cannot delete Client Type");

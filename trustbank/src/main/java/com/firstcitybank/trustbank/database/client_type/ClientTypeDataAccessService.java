@@ -44,11 +44,22 @@ public class ClientTypeDataAccessService implements ClientTypeDao {
 
     @Override
     public int deleteClientType(String clientTypeCode) {
-        return 0;
+        var sql = """
+                DELETE FROM client_types
+                WHERE client_type_code = ?
+                """;
+        return jdbcTemplate.update(sql, clientTypeCode);
     }
 
     @Override
     public Optional<ClientType> selectClientTypeByCode(String clientTypeCode) {
-        return Optional.empty();
+        var sql = """
+                SELECT client_type_code, client_type_name, description
+                FROM client_types
+                WHERE client_type_code = ?
+                """;
+        return jdbcTemplate.query(sql, new ClientTypeRowMapper(), clientTypeCode)
+                .stream()
+                .findFirst();
     }
 }
