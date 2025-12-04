@@ -2,6 +2,7 @@ package com.firstcitybank.trustbank.database.client_type;
 
 import com.firstcitybank.trustbank.database.dao.ClientTypeDao;
 import com.firstcitybank.trustbank.model.ClientType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,9 +10,21 @@ import java.util.Optional;
 
 @Repository
 public class ClientTypeDataAccessService implements ClientTypeDao {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public ClientTypeDataAccessService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     @Override
     public List<ClientType> selectClientTypes() {
-        return List.of();
+        var sql = """
+                SELECT client_type_code, client_type_name, description
+                FROM client_types
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new ClientTypeRowMapper());
     }
 
     @Override
