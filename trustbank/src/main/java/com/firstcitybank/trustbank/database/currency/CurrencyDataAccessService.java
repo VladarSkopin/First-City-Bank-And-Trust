@@ -20,7 +20,7 @@ public class CurrencyDataAccessService implements CurrencyDao {
     @Override
     public List<Currency> selectCurrencies() {
         var sql = """
-                SELECT currency_code, currency_name, currency_symbol
+                SELECT currency_code, currency_name, currency_symbol, metal_type
                 FROM currencies
                 LIMIT 100;
                 """;
@@ -30,15 +30,16 @@ public class CurrencyDataAccessService implements CurrencyDao {
     @Override
     public int insertCurrency(Currency currency) {
         var sql = """
-            INSERT INTO currencies (currency_code, currency_name, currency_symbol)
-            VALUES (?, ?, ?)
+            INSERT INTO currencies (currency_code, currency_name, currency_symbol, metal_type)
+            VALUES (?, ?, ?, ?)
             """;
 
         int rowsAffected = jdbcTemplate.update(
                 sql,
                 currency.currencyCode().toUpperCase().trim(),
                 currency.currencyName().trim(),
-                currency.currencySymbol().trim()
+                currency.currencySymbol().trim(),
+                currency.metalType().toUpperCase().trim()
         );
 
         return rowsAffected;
@@ -70,7 +71,7 @@ public class CurrencyDataAccessService implements CurrencyDao {
     @Override
     public Optional<Currency> selectCurrencyByCode(String currencyCode) {
         var sql = """
-                SELECT currency_code, currency_name, currency_symbol
+                SELECT currency_code, currency_name, currency_symbol, metal_type
                 FROM currencies
                 WHERE currency_code = ?
                 """;

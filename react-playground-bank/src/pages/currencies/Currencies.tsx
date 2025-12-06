@@ -6,6 +6,7 @@ interface Currency {
   currencyCode: string;
   currencyName: string;
   currencySymbol: string;
+  metalType: string;
 }
 
 
@@ -147,7 +148,7 @@ function Currencies() {
               <div className="currency-stats">
                 <div className="stat-row">
                   <span className="stat-label">METAL TYPE:</span>
-                  <span className="stat-value">{currency.currencyName}</span>
+                  <span className="stat-value">{currency.metalType}</span>
                 </div>
               </div>
             </div>
