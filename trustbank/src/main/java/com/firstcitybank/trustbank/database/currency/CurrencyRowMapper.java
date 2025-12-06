@@ -13,6 +13,7 @@ public class CurrencyRowMapper implements RowMapper<Currency> {
         return new Currency(
                 rs.getString("currency_code"),
                 rs.getString("currency_name"),
-                rs.getString("currency_symbol"));
+                rs.getString("currency_symbol"),
+                rs.getString("metal_type"));
     }
 }

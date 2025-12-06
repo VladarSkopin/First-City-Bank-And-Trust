@@ -1,4 +1,4 @@
-package com.firstcitybank.trustbank.database.social_ranks;
+package com.firstcitybank.trustbank.database.social_rank;
 
 import com.firstcitybank.trustbank.database.dao.SocialRankDao;
 import com.firstcitybank.trustbank.helper.Utils;

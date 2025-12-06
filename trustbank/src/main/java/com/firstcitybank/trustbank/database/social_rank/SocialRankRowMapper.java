@@ -1,4 +1,4 @@
-package com.firstcitybank.trustbank.database.social_ranks;
+package com.firstcitybank.trustbank.database.social_rank;
 
 import com.firstcitybank.trustbank.model.SocialRank;
 import org.springframework.jdbc.core.RowMapper;
