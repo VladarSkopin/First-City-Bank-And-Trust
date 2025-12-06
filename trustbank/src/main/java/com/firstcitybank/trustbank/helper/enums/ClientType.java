@@ -10,7 +10,10 @@ public enum ClientType {
     TRST("Trust"),
     NPO("Non-Profit Organization"),
     GOVT("Government Entity"),
-    UNK("Unknown");
+    UNK("Unknown"),
+    SS("Secret Society"),
+    RO("Religious Order"),
+    DC("Diseased Clients");
 
     @Getter
     private final String text;
