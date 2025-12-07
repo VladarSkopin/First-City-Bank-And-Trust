@@ -2,7 +2,7 @@ CREATE TABLE if not exists clients (
     client_code TEXT PRIMARY KEY,
     name_or_title TEXT NOT NULL UNIQUE,
     client_type_code TEXT NOT NULL DEFAULT 'UNK',
-    social_rank_code TEXT NOT NULL,
+    social_rank_code TEXT,
     district_code TEXT,
     is_blocked BOOLEAN NOT NULL DEFAULT false,
 
@@ -17,12 +17,14 @@ CREATE TABLE if not exists clients (
     CONSTRAINT fk_social_rank
         FOREIGN KEY (social_rank_code)
         REFERENCES social_ranks(rank_code)
-        ON UPDATE CASCADE,
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
 
     CONSTRAINT fk_district
         FOREIGN KEY (district_code)
         REFERENCES districts(district_code)
         ON UPDATE CASCADE
+        ON DELETE SET NULL
 );
 
 COMMENT ON TABLE clients IS 'This table stores all banking clients with their categorization and location data.';
