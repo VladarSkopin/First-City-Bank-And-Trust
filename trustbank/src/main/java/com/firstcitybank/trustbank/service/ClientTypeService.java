@@ -41,7 +41,7 @@ public class ClientTypeService {
             throw new IllegalStateException("Client Type with name '" + clientType.clientTypeName() + "' already exists");
         }
 
-        // 3. Insert new currency
+        // 3. Insert new client type
         Integer rowsAffected = clientTypeDao.insertClientType(clientType);
 
         // 4. Check if insertion was successful
