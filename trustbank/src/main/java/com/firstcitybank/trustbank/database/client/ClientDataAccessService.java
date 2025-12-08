@@ -44,11 +44,22 @@ public class ClientDataAccessService implements ClientDao {
 
     @Override
     public int deleteClient(String clientCode) {
-        return 0;
+        var sql = """
+                DELETE FROM clients
+                WHERE client_code = ?
+                """;
+        return jdbcTemplate.update(sql, clientCode);
     }
 
     @Override
     public Optional<Client> selectClientByCode(String clientCode) {
-        return Optional.empty();
+        var sql = """
+                SELECT client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked
+                FROM clients
+                WHERE client_code = ?
+                """;
+        return jdbcTemplate.query(sql, new ClientRowMapper(), clientCode)
+                .stream()
+                .findFirst();
     }
 }
