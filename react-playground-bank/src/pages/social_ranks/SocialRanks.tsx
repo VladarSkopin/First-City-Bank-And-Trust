@@ -7,7 +7,7 @@ interface SocialRank {
   rankCode: string;
   rankName: string;
   description: string;
-  privilegeLevel: 'Highest' | 'High' | 'Elevated' | 'Standard' | 'Restricted';
+  privilegeLevel: 'HIGHEST' | 'HIGH' | 'ELEVATED' | 'STANDARD' | 'RESTRICTED';
   regulations: string;
 }
 
@@ -61,11 +61,11 @@ function SocialRanks() {
 
 const getAccessLevel = (privilege: SocialRank['privilegeLevel']): string => {
   const access: Record<SocialRank['privilegeLevel'], string> = {
-    'Highest': 'UNRESTRICTED',
-    'High': 'ELEVATED',
-    'Elevated': 'MODERATE',
-    'Standard': 'BASIC',
-    'Restricted': 'ESCORTED'
+    'HIGHEST': 'UNRESTRICTED',
+    'HIGH': 'ELEVATED',
+    'ELEVATED': 'MODERATE',
+    'STANDARD': 'BASIC',
+    'RESTRICTED': 'ESCORTED'
   };
   return access[privilege] || 'UNKNOWN';
 };
@@ -181,13 +181,6 @@ return (
             </div>
           </div>
         ))}
-      </div>
-      
-      <div className="hierarchy-footer">
-        <div className="footnote">
-          <span className="warning">⚠️</span>
-          Social mobility requires official approval from the City Council
-        </div>
       </div>
 
 

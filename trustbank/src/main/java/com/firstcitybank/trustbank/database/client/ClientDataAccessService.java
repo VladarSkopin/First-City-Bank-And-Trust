@@ -19,7 +19,12 @@ public class ClientDataAccessService implements ClientDao {
 
     @Override
     public List<Client> selectClients() {
-        return List.of();
+        var sql = """
+                SELECT client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked
+                FROM clients
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new ClientRowMapper());
     }
 
     @Override
