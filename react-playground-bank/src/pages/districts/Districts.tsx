@@ -162,7 +162,6 @@ function Districts() {
                       <span className="fallback-icon">🗺️</span>
                       <h3>MAP UNAVAILABLE</h3>
                       <p>Cartographic data for {selectedDistrict.districtName} is currently classified</p>
-                      <span className="fallback-code">REF: {selectedDistrict.districtCode}-MAP-404</span>
                     </div>
                   </div>
                 </div>

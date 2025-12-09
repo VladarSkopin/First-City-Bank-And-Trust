@@ -11,4 +11,6 @@ public class Paths {
     public static final String SOCIAL_RANKS_PATH = "api/v1/socialranks";
 
     public static final String CLIENT_TYPES_PATH = "api/v1/clienttypes";
+
+    public static final String CLIENTS_PATH = "api/v1/clients";
 }
