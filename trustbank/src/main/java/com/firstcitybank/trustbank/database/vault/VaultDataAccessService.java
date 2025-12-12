@@ -19,7 +19,12 @@ public class VaultDataAccessService implements VaultDao {
 
     @Override
     public List<Vault> selectVaults() {
-        return List.of();
+        var sql = """
+                SELECT vault_code, client_code, created_at, modified_at, amount, currency_code, is_archived
+                FROM vault
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper());
     }
 
     @Override
