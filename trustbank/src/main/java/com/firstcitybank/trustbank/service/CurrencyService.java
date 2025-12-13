@@ -51,14 +51,20 @@ public class CurrencyService {
     }
 
     public void deleteCurrency(String currencyCode) {
-        Optional<Currency> currencies = currencyDao.selectCurrencyByCode(currencyCode);
+        if (currencyCode == null || currencyCode.trim().isEmpty()) {
+            throw new IllegalArgumentException("Currency code cannot be null or empty");
+        }
+
+        String normalizedCode = currencyCode.trim().toUpperCase();
+
+        Optional<Currency> currencies = currencyDao.selectCurrencyByCode(normalizedCode);
         currencies.ifPresentOrElse(currency -> {
-            int result = currencyDao.deleteCurrency(currencyCode);
+            int result = currencyDao.deleteCurrency(normalizedCode);
             if (result != 1) {
                 throw new IllegalStateException("Oops cannot delete Currency");
             }
         }, () -> {
-            throw new NotFoundException(String.format("Currency with code %s not found", currencyCode));
+            throw new NotFoundException(String.format("Currency with code %s not found", normalizedCode));
         });
     }
 

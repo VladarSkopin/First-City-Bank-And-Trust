@@ -64,14 +64,20 @@ public class ClientService {
     }
 
     public void deleteClient(String clientCode) {
-        Optional<Client> clients = clientDao.selectClientByCode(clientCode);
+        if (clientCode == null || clientCode.trim().isEmpty()) {
+            throw new IllegalArgumentException("Client code cannot be null or empty");
+        }
+
+        String normalizedCode = clientCode.trim().toUpperCase();
+
+        Optional<Client> clients = clientDao.selectClientByCode(normalizedCode);
         clients.ifPresentOrElse(client -> {
-            int result = clientDao.deleteClient(clientCode);
+            int result = clientDao.deleteClient(normalizedCode);
             if (result != 1) {
                 throw new IllegalStateException("Oops cannot delete Client");
             }
         }, () -> {
-            throw new NotFoundException(String.format("Client with code %s not found", clientCode));
+            throw new NotFoundException(String.format("Client with code %s not found", normalizedCode));
         });
     }
 
