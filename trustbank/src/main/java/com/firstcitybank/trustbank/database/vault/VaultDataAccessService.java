@@ -68,22 +68,35 @@ public class VaultDataAccessService implements VaultDao {
     }
 
     @Override
-    public boolean existsByName(String clientTypeName) {
+    public boolean existsByName(String vaultName) {
         return false;
     }
 
     @Override
-    public boolean existsByCode(String clientTypeCode) {
+    public boolean existsByCode(String vaultCode) {
         return false;
     }
 
     @Override
-    public int deleteVault(String clientTypeCode) {
-        return 0;
+    public int deleteVault(String vaultCode) {
+        var sql = """
+                DELETE FROM vault
+                WHERE vault_code = ?
+                AND amount = 0
+                AND is_archived = true
+                """;
+        return jdbcTemplate.update(sql, vaultCode);
     }
 
     @Override
-    public Optional<Vault> selectVaultByCode(String clientTypeCode) {
-        return Optional.empty();
+    public Optional<Vault> selectVaultByCode(String vaultCode) {
+        var sql = """
+                SELECT vault_code, client_code, created_at, modified_at, amount, currency_code, is_archived
+                FROM vault
+                WHERE vault_code = ?
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), vaultCode)
+                .stream()
+                .findFirst();
     }
 }
