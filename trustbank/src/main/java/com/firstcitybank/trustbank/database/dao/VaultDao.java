@@ -15,7 +15,6 @@ public interface VaultDao {
     int insertVault(Vault vault);
     int insertAmount(Integer amountToInsert);
     int withdrawAmount(Integer amountToWithdraw);
-    boolean existsByName(String vaultName);
     boolean existsByCode(String vaultCode);
     int deleteVault(String vaultCode);
     Optional<Vault> selectVaultByCode(String vaultCode);

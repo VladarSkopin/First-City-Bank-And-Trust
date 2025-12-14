@@ -54,27 +54,45 @@ public class VaultDataAccessService implements VaultDao {
 
     @Override
     public int insertVault(Vault vault) {
-        return 0;
+        var sql = """
+            INSERT INTO vault (vault_code, client_code, amount, currency_code, is_archived)
+            VALUES (?, ?, ?, ?, ?)
+            """;
+
+        int rowsAffected = jdbcTemplate.update(
+                sql,
+                vault.vaultCode().toUpperCase().trim(),
+                validateAndGetClientCode(vault.clientCode()),
+                vault.amount(),
+                validateAndGetCurrencyCode(vault.currencyCode()),
+                vault.isArchived()
+        );
+
+        return rowsAffected;
     }
 
     @Override
     public int insertAmount(Integer amountToInsert) {
+        // todo: check isArchived for vault, isBlocked for client
+        // todo: check amountToInsert is > 0
+        // todo: update 'modified_at' field
         return 0;
     }
 
     @Override
     public int withdrawAmount(Integer amountToWithdraw) {
+        // todo: check isArchived for vault, isBlocked for client
+        // todo: check amountToWithdraw is > 0
+        // todo: check amountToWithdraw is <= vault.amount
+        // todo: update 'modified_at' field
         return 0;
     }
 
     @Override
-    public boolean existsByName(String vaultName) {
-        return false;
-    }
-
-    @Override
     public boolean existsByCode(String vaultCode) {
-        return false;
+        var sql = "SELECT COUNT(*) FROM vault WHERE vault_code = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, vaultCode);
+        return count != null && count > 0;
     }
 
     @Override
@@ -98,5 +116,40 @@ public class VaultDataAccessService implements VaultDao {
         return jdbcTemplate.query(sql, new VaultRowMapper(), vaultCode)
                 .stream()
                 .findFirst();
+    }
+
+
+    // Helpers
+
+    private String validateAndGetClientCode(String clientCode) {
+        String normalizedCode = clientCode.trim().toUpperCase();
+
+        // Check if client exists in the database
+        var checkSql = "SELECT COUNT(*) FROM clients WHERE client_code = ?";
+        Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, normalizedCode);
+
+        if (count == null || count == 0) {
+            throw new IllegalArgumentException(
+                    "Invalid client code: '" + normalizedCode + "'. Code does not exist."
+            );
+        }
+
+        return normalizedCode;
+    }
+
+    private String validateAndGetCurrencyCode(String currencyCode) {
+        String normalizedCode = currencyCode.trim().toUpperCase();
+
+        // Check if currency exists in the database
+        var checkSql = "SELECT COUNT(*) FROM currencies WHERE currency_code = ?";
+        Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, normalizedCode);
+
+        if (count == null || count == 0) {
+            throw new IllegalArgumentException(
+                    "Invalid currency code: '" + normalizedCode + "'. Code does not exist."
+            );
+        }
+
+        return normalizedCode;
     }
 }

@@ -10,5 +10,5 @@ public record Vault (
         LocalDateTime createdAt,
         LocalDateTime modifiedAt,
         String currencyCode,
-        boolean isArchived
+        Boolean isArchived
 ) { }

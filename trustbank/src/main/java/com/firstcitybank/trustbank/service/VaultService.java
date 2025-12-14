@@ -22,7 +22,48 @@ public class VaultService {
     }
 
     public void addNewVault(Vault vault) {
-        // todo: vault insertion
+        // 1. Validate input
+        if (vault == null) {
+            throw new IllegalArgumentException("Vault data cannot be null");
+        }
+
+        if (vault.vaultCode() == null || vault.vaultCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("Vault code is required");
+        }
+
+        if (vault.clientCode() == null || vault.clientCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("Vault client code is required");
+        }
+
+        if (vault.amount() == null) {
+            throw new IllegalArgumentException("Amount field is required");
+        }
+
+        if (vault.amount().signum() < 0) {
+            throw new IllegalArgumentException("Amount should be a positive number");
+        }
+
+        if (vault.currencyCode() == null || vault.currencyCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("Vault currency code is required");
+        }
+
+        if (vault.isArchived() == null) {
+            throw new IllegalArgumentException("Vault 'isArchived' field is required");
+        }
+
+        // 2. Check if vault exists
+        boolean vaultExists = vaultDao.existsByCode(vault.vaultCode());
+        if (vaultExists) {
+            throw new IllegalStateException("Vault with code '" + vault.vaultCode() + "' already exists");
+        }
+
+        // 3. Insert new vault
+        Integer rowsAffected = vaultDao.insertVault(vault);
+
+        // 4. Check if insertion was successful
+        if (rowsAffected == null || rowsAffected <= 0) {
+            throw new IllegalStateException("Failed to insert Vault");
+        }
     }
 
     public void deleteVault(String vaultCode) {
