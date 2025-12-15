@@ -83,7 +83,7 @@ function Districts() {
             className="retry-btn" 
             onClick={() => window.location.reload()}
           >
-            Retry
+            RETRY
           </button>
         </div>
       </div>
