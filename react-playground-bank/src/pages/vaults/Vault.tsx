@@ -468,17 +468,17 @@ function Vault() {
             
             <div className="vault-footer">
               <button 
-                className="vault-btn deposit" 
+                className="vault-btn" 
                 onClick={() => openModal(vault, 'INSERT')}
               >
-                <span className="btn-icon">⬆️</span> DEPOSIT
+                DEPOSIT
               </button>
               <button 
-                className="vault-btn withdraw" 
+                className="vault-btn" 
                 onClick={() => openModal(vault, 'WITHDRAW')}
                 disabled={vault.amount <= 0}
               >
-                <span className="btn-icon">⬇️</span> WITHDRAW
+                WITHDRAW
               </button>
             </div>
           </div>
@@ -491,9 +491,6 @@ function Vault() {
           <div className="modal-content vault-modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <h2>
-                <span className="modal-icon">
-                  {currentOperation === 'INSERT' ? '⬆️' : '⬇️'}
-                </span>
                 {currentOperation === 'INSERT' ? 'Deposit to ' : 'Withdraw from '}
                 Vault {currentVault.vaultCode}
               </h2>
@@ -578,14 +575,14 @@ function Vault() {
             
             <div className="modal-footer">
               <button
-                className="modal-btn cancel"
+                className="vault-btn"
                 onClick={closeModal}
                 disabled={isLoadingOperation}
               >
                 CANCEL
               </button>
               <button
-                className={`modal-btn ${currentOperation.toLowerCase()}`}
+                className="vault-btn"
                 onClick={handleSubmit}
                 disabled={!amount || parseInt(amount) <= 0 || isLoadingOperation}
               >
@@ -595,7 +592,7 @@ function Vault() {
                     Processing...
                   </>
                 ) : (
-                  `Confirm ${currentOperation}`
+                  `CONFIRM`
                 )}
               </button>
             </div>
