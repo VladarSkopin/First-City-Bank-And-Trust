@@ -51,14 +51,20 @@ public class SocialRankService {
     }
 
     public void deleteSocialRank(String rankCode) {
-        Optional<SocialRank> socialRanks = socialRankDao.selectSocialRankByCode(rankCode);
+        if (rankCode == null || rankCode.trim().isEmpty()) {
+            throw new IllegalArgumentException("Rank code cannot be null or empty");
+        }
+
+        String normalizedCode = rankCode.trim().toUpperCase();
+
+        Optional<SocialRank> socialRanks = socialRankDao.selectSocialRankByCode(normalizedCode);
         socialRanks.ifPresentOrElse(socialRank -> {
-            int result = socialRankDao.deleteSocialRank(rankCode);
+            int result = socialRankDao.deleteSocialRank(normalizedCode);
             if (result != 1) {
                 throw new IllegalStateException("Oops cannot delete Social Rank");
             }
         }, () -> {
-            throw new NotFoundException(String.format("Social Rank with code %s not found", rankCode));
+            throw new NotFoundException(String.format("Social Rank with code %s not found", normalizedCode));
         });
     }
 }

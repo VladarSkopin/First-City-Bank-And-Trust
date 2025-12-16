@@ -51,14 +51,20 @@ public class ClientTypeService {
     }
 
     public void deleteClientType(String clientTypeCode) {
-        Optional<ClientType> clientTypes = clientTypeDao.selectClientTypeByCode(clientTypeCode);
+        if (clientTypeCode == null || clientTypeCode.trim().isEmpty()) {
+            throw new IllegalArgumentException("Client Type code cannot be null or empty");
+        }
+
+        String normalizedCode = clientTypeCode.trim().toUpperCase();
+
+        Optional<ClientType> clientTypes = clientTypeDao.selectClientTypeByCode(normalizedCode);
         clientTypes.ifPresentOrElse(clientType -> {
-            int result = clientTypeDao.deleteClientType(clientTypeCode);
+            int result = clientTypeDao.deleteClientType(normalizedCode);
             if (result != 1) {
                 throw new IllegalStateException("Oops cannot delete Client Type");
             }
         }, () -> {
-            throw new NotFoundException(String.format("Client Type with code %s not found", clientTypeCode));
+            throw new NotFoundException(String.format("Client Type with code %s not found", normalizedCode));
         });
     }
 }

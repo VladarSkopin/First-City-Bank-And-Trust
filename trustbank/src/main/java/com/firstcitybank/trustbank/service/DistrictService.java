@@ -51,14 +51,20 @@ public class DistrictService {
     }
 
     public void deleteDistrict(String districtCode) {
-        Optional<District> districts = districtDao.selectDistrictByCode(districtCode);
+        if (districtCode == null || districtCode.trim().isEmpty()) {
+            throw new IllegalArgumentException("District code cannot be null or empty");
+        }
+
+        String normalizedCode = districtCode.trim().toUpperCase();
+
+        Optional<District> districts = districtDao.selectDistrictByCode(normalizedCode);
         districts.ifPresentOrElse(district -> {
-            int result = districtDao.deleteDistrict(districtCode);
+            int result = districtDao.deleteDistrict(normalizedCode);
             if (result != 1) {
                 throw new IllegalStateException("Oops cannot delete District");
             }
         }, () -> {
-            throw new NotFoundException(String.format("District with code %s not found", districtCode));
+            throw new NotFoundException(String.format("District with code %s not found", normalizedCode));
         });
     }
 }
