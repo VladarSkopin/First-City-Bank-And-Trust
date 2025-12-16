@@ -4,7 +4,9 @@ import com.firstcitybank.trustbank.database.dao.VaultDao;
 import com.firstcitybank.trustbank.model.Vault;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,20 +74,106 @@ public class VaultDataAccessService implements VaultDao {
     }
 
     @Override
-    public int insertAmount(Integer amountToInsert) {
-        // todo: check isArchived for vault, isBlocked for client
-        // todo: check amountToInsert is > 0
-        // todo: update 'modified_at' field
-        return 0;
+    @Transactional
+    public int insertAmount(String vaultCode, BigInteger amountToInsert) {
+        validateInsertAmountParameters(vaultCode, amountToInsert);
+
+        // Use PostgreSQL's RETURNING clause to get updated row
+        var sql = """
+                UPDATE vault 
+                SET amount = amount + ?,
+                    modified_at = CURRENT_TIMESTAMP
+                WHERE vault_code = ?
+                  AND is_archived = false
+                  AND EXISTS (
+                      SELECT 1 FROM clients 
+                      WHERE client_code = vault.client_code 
+                      AND is_blocked = false
+                  )
+                RETURNING amount
+                """;
+
+        try {
+            // Execute update and get the new amount
+            BigInteger newAmount = jdbcTemplate.queryForObject(
+                    sql,
+                    BigInteger.class,
+                    amountToInsert,
+                    vaultCode
+            );
+
+            logTransaction(vaultCode, amountToInsert, "INSERT", newAmount);
+
+            return 1; // Success
+        } catch (Exception e) {
+            throw new IllegalStateException(
+                    String.format("Failed to insert amount %s into vault %s: %s",
+                            amountToInsert, vaultCode, e.getMessage()),
+                    e
+            );
+        }
     }
 
     @Override
-    public int withdrawAmount(Integer amountToWithdraw) {
-        // todo: check isArchived for vault, isBlocked for client
-        // todo: check amountToWithdraw is > 0
-        // todo: check amountToWithdraw is <= vault.amount
-        // todo: update 'modified_at' field
-        return 0;
+    @Transactional
+    public int withdrawAmount(String vaultCode, BigInteger amountToWithdraw) {
+        validateWithdrawAmountParameters(vaultCode, amountToWithdraw);
+
+        // Check if vault has sufficient funds first
+        var checkSql = """
+                SELECT amount FROM vault 
+                WHERE vault_code = ? 
+                FOR UPDATE
+                """;
+
+        BigInteger currentAmount = jdbcTemplate.queryForObject(
+                checkSql,
+                BigInteger.class,
+                vaultCode
+        );
+
+        if (currentAmount == null || currentAmount.compareTo(amountToWithdraw) < 0) {
+            throw new IllegalStateException(
+                    String.format("Insufficient funds in vault '%s'. Available: %s, Requested: %s",
+                            vaultCode, currentAmount, amountToWithdraw)
+            );
+        }
+
+        // Perform the withdrawal
+        var updateSql = """
+                UPDATE vault 
+                SET amount = amount - ?,
+                    modified_at = CURRENT_TIMESTAMP
+                WHERE vault_code = ?
+                  AND is_archived = false
+                  AND amount >= ?
+                  AND EXISTS (
+                      SELECT 1 FROM clients 
+                      WHERE client_code = vault.client_code 
+                      AND is_blocked = false
+                  )
+                RETURNING amount
+                """;
+
+        try {
+            BigInteger newAmount = jdbcTemplate.queryForObject(
+                    updateSql,
+                    BigInteger.class,
+                    amountToWithdraw,
+                    vaultCode,
+                    amountToWithdraw
+            );
+
+            logTransaction(vaultCode, amountToWithdraw, "WITHDRAW", newAmount);
+
+            return 1; // Success
+        } catch (Exception e) {
+            throw new IllegalStateException(
+                    String.format("Failed to withdraw amount %s from vault %s: %s",
+                            amountToWithdraw, vaultCode, e.getMessage()),
+                    e
+            );
+        }
     }
 
     @Override
@@ -151,5 +239,55 @@ public class VaultDataAccessService implements VaultDao {
         }
 
         return normalizedCode;
+    }
+
+    private void validateInsertAmountParameters(String vaultCode, BigInteger amountToInsert) {
+        if (vaultCode == null || vaultCode.trim().isEmpty()) {
+            throw new IllegalArgumentException("Vault code cannot be null or empty");
+        }
+
+        if (amountToInsert == null) {
+            throw new IllegalArgumentException("Amount to insert cannot be null");
+        }
+
+        if (amountToInsert.signum() <= 0) {
+            throw new IllegalArgumentException("Amount to insert must be greater than 0");
+        }
+    }
+
+    private void validateWithdrawAmountParameters(String vaultCode, BigInteger amountToWithdraw) {
+        if (vaultCode == null || vaultCode.trim().isEmpty()) {
+            throw new IllegalArgumentException("Vault code cannot be null or empty");
+        }
+
+        if (amountToWithdraw == null) {
+            throw new IllegalArgumentException("Amount to withdraw cannot be null");
+        }
+
+        if (amountToWithdraw.signum() <= 0) {
+            throw new IllegalArgumentException("Amount to withdraw must be greater than 0");
+        }
+    }
+
+    private void logTransaction(String vaultCode, BigInteger amount, String operation, BigInteger newBalance) {
+        // Optional: Insert into transaction log table
+        var logSql = """
+                INSERT INTO vault_transactions 
+                (vault_code, operation_type, amount, new_balance, transaction_time)
+                VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+                """;
+
+        jdbcTemplate.update(logSql, vaultCode, operation, amount, newBalance);
+    }
+
+    // Helper method to check if client is blocked
+    private boolean isClientBlocked(String clientCode) {
+        var sql = "SELECT is_blocked FROM clients WHERE client_code = ?";
+        try {
+            Boolean isBlocked = jdbcTemplate.queryForObject(sql, Boolean.class, clientCode);
+            return isBlocked != null && isBlocked;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

@@ -39,7 +39,7 @@ public class ClientDataAccessService implements ClientDao {
                 client.clientCode().toUpperCase().trim(),
                 client.nameOrTitle().trim(),
                 validateAndGetClientTypeCode(client.clientTypeCode()),
-                validateAndGetSocialRankCode(client.socialRankCode()),
+                client.socialRankCode() == null ? null : validateAndGetSocialRankCode(client.socialRankCode()),
                 validateAndGetDistrictCode(client.districtCode()),
                 client.isBlocked()
         );
