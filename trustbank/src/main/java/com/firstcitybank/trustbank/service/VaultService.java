@@ -180,14 +180,6 @@ public class VaultService {
             );
         }
 
-        // Check client status (you'll need to implement this check)
-        // if (!clientService.isClientActive(vault.clientCode())) {
-        //     throw new BusinessRuleException(
-        //             String.format("Client '%s' is blocked. Cannot perform vault operations",
-        //                     vault.clientCode())
-        //     );
-        // }
-
         // Additional validation for withdrawal
         if (request.operationName().equalsIgnoreCase("WITHDRAW")) {
             if (vault.amount().compareTo(request.amount()) < 0) {

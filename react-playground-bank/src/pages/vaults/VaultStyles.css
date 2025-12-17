@@ -343,6 +343,31 @@
 }
 
 
+/* Blocked text styling */
+.blocked-text {
+  color: #e74c3c !important;
+  font-weight: bold;
+}
+
+.active-text {
+  color: #27ae60 !important;
+  font-weight: bold;
+}
+
+.disabled-amount {
+  opacity: 0.9;
+  color: #7cda7c;
+}
+
+
+/* Disabled button styling (browser default enhanced) */
+.vault-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #83a9ac !important;
+}
+
+
 
 
 /* Lock animation on hover */
