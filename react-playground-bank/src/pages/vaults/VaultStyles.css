@@ -343,6 +343,52 @@
 }
 
 
+/* Blocked text styling */
+.blocked-text {
+  color: #e74c3c !important;
+  font-weight: bold;
+}
+
+.active-text {
+  color: #27ae60 !important;
+  font-weight: bold;
+}
+
+.disabled-amount {
+  opacity: 0.9;
+  color: #7cda7c;
+}
+
+
+/* Disabled button styling (browser default enhanced) */
+.vault-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #83a9ac !important;
+}
+
+
+.validation-message {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.validation-message.error {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+}
+
+.validation-message.success {
+  background-color: rgba(46, 204, 113, 0.1);
+  color: #27ae60;
+  border: 1px solid #27ae60;
+}
+
+
 
 
 /* Lock animation on hover */

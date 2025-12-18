@@ -4,8 +4,11 @@ import com.firstcitybank.trustbank.database.dao.VaultDao;
 import com.firstcitybank.trustbank.exception.BusinessRuleException;
 import com.firstcitybank.trustbank.exception.NotFoundException;
 import com.firstcitybank.trustbank.model.Vault;
+import com.firstcitybank.trustbank.model.VaultOperationRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Service
@@ -108,6 +111,144 @@ public class VaultService {
                     String.format("Vault '%s' must be archived before deletion", vault.vaultCode())
             );
         }
+    }
+
+
+
+    @Transactional
+    public Vault executeVaultOperation(VaultOperationRequest operationRequest) {
+        // 1. Validate input
+        validateOperationRequest(operationRequest);
+
+        String normalizedVaultCode = operationRequest.vaultCode().trim().toUpperCase();
+
+        // 2. Fetch and validate vault
+        Vault vault = vaultDao.selectVaultByCode(normalizedVaultCode)
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Vault with code '%s' not found", operationRequest.vaultCode())
+                ));
+
+        // 3. Validate vault for operation
+        validateVaultForOperation(vault, operationRequest);
+
+        // 4. Execute the operation
+        Vault updatedVault = switch (operationRequest.operationName().toUpperCase()) {
+            case "INSERT" -> executeInsertOperation(vault, operationRequest.amount());
+            case "WITHDRAW" -> executeWithdrawOperation(vault, operationRequest.amount());
+            default -> throw new IllegalArgumentException(
+                    String.format("Invalid operation: '%s'. Must be 'INSERT' or 'WITHDRAW'",
+                            operationRequest.operationName())
+            );
+        };
+
+        return updatedVault;
+    }
+
+    private void validateOperationRequest(VaultOperationRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("Operation request cannot be null");
+        }
+
+        if (request.vaultCode() == null || request.vaultCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("Vault code is required");
+        }
+
+        if (request.amount() == null) {
+            throw new IllegalArgumentException("Amount is required");
+        }
+
+        if (request.amount().signum() <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than 0");
+        }
+
+        if (request.operationName() == null || request.operationName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Operation name is required");
+        }
+
+        String operation = request.operationName().toUpperCase();
+        if (!operation.equals("INSERT") && !operation.equals("WITHDRAW")) {
+            throw new IllegalArgumentException("Operation must be 'INSERT' or 'WITHDRAW'");
+        }
+    }
+
+
+    private void validateVaultForOperation(Vault vault, VaultOperationRequest request) {
+        // Check if vault is archived
+        if (vault.isArchived()) {
+            throw new BusinessRuleException(
+                    String.format("Cannot perform operations on archived vault '%s'", vault.vaultCode())
+            );
+        }
+
+        // Additional validation for withdrawal
+        if (request.operationName().equalsIgnoreCase("WITHDRAW")) {
+            if (vault.amount().compareTo(request.amount()) < 0) {
+                throw new BusinessRuleException(
+                        String.format("Insufficient funds in vault '%s'. " +
+                                        "Available: %s, Requested: %s",
+                                vault.vaultCode(), vault.amount(), request.amount())
+                );
+            }
+        }
+
+        // Check for very large amounts (optional)
+        BigInteger maxSingleOperation = new BigInteger("1000000000"); // 1 billion
+        if (request.amount().compareTo(maxSingleOperation) > 0) {
+            throw new BusinessRuleException(
+                    String.format("Amount %s exceeds maximum single operation limit of %s",
+                            request.amount(), maxSingleOperation)
+            );
+        }
+    }
+
+    private Vault executeInsertOperation(Vault vault, BigInteger amountToInsert) {
+        // Calculate new amount
+        BigInteger newAmount = vault.amount().add(amountToInsert);
+
+        // Update vault in database
+        int rowsUpdated = vaultDao.insertAmount(vault.vaultCode(), amountToInsert);
+
+        if (rowsUpdated != 1) {
+            throw new IllegalStateException(
+                    String.format("Failed to insert amount into vault '%s'", vault.vaultCode())
+            );
+        }
+
+        // Return updated vault
+        return new Vault(
+                vault.vaultCode(),
+                vault.clientCode(),
+                newAmount,
+                vault.createdAt(),
+                vault.modifiedAt(), // This will be updated by the database trigger
+                vault.currencyCode(),
+                vault.isArchived()
+        );
+    }
+
+    private Vault executeWithdrawOperation(Vault vault, BigInteger amountToWithdraw) {
+        // Calculate new amount
+        BigInteger newAmount = vault.amount().subtract(amountToWithdraw);
+
+        // Update vault in database
+        int rowsUpdated = vaultDao.withdrawAmount(vault.vaultCode(), amountToWithdraw);
+
+        if (rowsUpdated != 1) {
+            throw new IllegalStateException(
+                    String.format("Failed to withdraw amount from vault '%s'", vault.vaultCode())
+            );
+        }
+
+        // Return updated vault
+        return new Vault(
+                vault.vaultCode(),
+                vault.clientCode(),
+                newAmount,
+                vault.createdAt(),
+                vault.modifiedAt(), // This will be updated by the database trigger
+                vault.currencyCode(),
+                vault.isArchived()
+        );
     }
 
 }

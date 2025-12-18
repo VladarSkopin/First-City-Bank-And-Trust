@@ -39,6 +39,7 @@ interface VaultDisplayData {
   currencyCode: string;
   currencyName: string;
   isArchived: boolean;
+  clientIsBlocked: boolean;
 }
 
 interface OperationData {
@@ -54,6 +55,7 @@ function Vault() {
   const [clients, setClients] = useState<Client[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [displayVaults, setDisplayVaults] = useState<VaultDisplayData[]>([]);
+  const [clientBlockedStatus, setClientBlockedStatus] = useState<Map<string, boolean>>(new Map());
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -132,9 +134,19 @@ function Vault() {
   // Combine vaults with client and currency data when all data is loaded
   useEffect(() => {
     if (vaults.length > 0 && clients.length > 0 && currencies.length > 0) {
+      const blockedStatusMap = new Map<string, boolean>();
+      
+      // Build map of client blocked statuses
+      clients.forEach(client => {
+        blockedStatusMap.set(client.clientCode, client.isBlocked);
+      });
+      
+      setClientBlockedStatus(blockedStatusMap);
+
       const combinedData: VaultDisplayData[] = vaults.map(vault => {
         // Find client data
         const client = clients.find(c => c.clientCode === vault.clientCode);
+        const isClientBlocked = client?.isBlocked || false;
         
         // Find currency data
         const currency = currencies.find(curr => curr.currencyCode === vault.currencyCode);
@@ -167,7 +179,8 @@ function Vault() {
           amount: parseInt(vault.amount) || 0, // Convert BigInteger string to number
           currencyCode: vault.currencyCode,
           currencyName: currency?.currencyName || vault.currencyCode,
-          isArchived: vault.isArchived
+          isArchived: vault.isArchived,
+          clientIsBlocked: isClientBlocked
         };
       }).filter(vault => !vault.isArchived); // Filter out archived vaults for display
 
@@ -178,6 +191,18 @@ function Vault() {
 
   // Modal handlers
   const openModal = (vault: VaultDisplayData, operation: 'INSERT' | 'WITHDRAW') => {
+    // Check if client is blocked
+    if (vault.clientIsBlocked) {
+      alert(`Cannot perform ${operation} operation. Client ${vault.clientName} is BLOCKED.`);
+      return;
+    }
+    
+    // Check if vault is archived
+    if (vault.isArchived) {
+      alert(`Cannot perform operations on archived vault ${vault.vaultCode}.`);
+      return;
+    }
+
     setCurrentVault(vault);
     setCurrentOperation(operation);
     setAmount('');
@@ -200,6 +225,13 @@ function Vault() {
 
   const handleSubmit = async () => {
     if (!currentVault || !currentOperation || !amount) return;
+
+    // Double-check client blocked status before submitting
+    if (currentVault.clientIsBlocked) {
+      alert(`Operation cancelled. Client ${currentVault.clientName} is BLOCKED.`);
+      closeModal();
+      return;
+    }
     
     const operationData: OperationData = {
       vaultCode: currentVault.vaultCode,
@@ -245,6 +277,18 @@ function Vault() {
     }
   };
 
+
+  // Check if operations are disabled for a vault
+  const isVaultOperationDisabled = (vault: VaultDisplayData): boolean => {
+    return vault.clientIsBlocked || vault.isArchived;
+  };
+
+  // Add helper function to get disabled reason
+  const getVaultDisabledReason = (vault: VaultDisplayData): string => {
+    if (vault.clientIsBlocked) return 'CLIENT BLOCKED';
+    if (vault.isArchived) return 'VAULT ARCHIVED';
+    return '';
+  };
 
   // Helper functions
   const formatAmount = (amount: number): string => {
@@ -419,71 +463,88 @@ function Vault() {
         </div>
       </div>
       
-      <div className="vaults-grid">
-        {displayVaults.map((vault) => (
-          <div key={vault.vaultCode} className="vault-card">
-            <div className="vault-header">
-              <div className="vault-icon">
-                <div className="safe-wheel">⚙️</div>
-              </div>
-              <div className="vault-info">
-                <h2>VAULT {vault.vaultCode}</h2>
-                <span 
-                  className="security-level"
-                  style={{ 
-                    color: getCurrencyColor(vault.currencyCode),
-                    borderColor: getCurrencyColor(vault.currencyCode)
-                  }}
-                >
-                  {vault.currencyName}
-                </span>
-              </div>
-            </div>
-            
-            <div className="vault-body">
-              <div className="data-row">
-                <span className="data-label">CLIENT ID:</span>
-                <span className="data-value code">{vault.clientCode}</span>
-              </div>
-              <div className="data-row">
-                <span className="data-label">CLIENT:</span>
-                <span className="data-value">
-                  {vault.clientName} {vault.clientTitle && <span className="client-title">{vault.clientTitle}</span>}
-                </span>
-              </div>
-              <div className="data-row">
-                <span className="data-label">ESTABLISHED:</span>
-                <span className="data-value">{formatDate(vault.createdAt)}</span>
-              </div>
-              <div className="data-row">
-                <span className="data-label">LAST ACCESS:</span>
-                <span className="data-value">{formatDateTime(vault.modifiedAt)}</span>
-              </div>
-              
-              <div className="amount-display">
-                <div className="amount-label">CURRENT BALANCE:</div>
-                <div className="amount-value">{formatAmount(vault.amount)}</div>
-              </div>
-            </div>
-            
-            <div className="vault-footer">
-              <button 
-                className="vault-btn" 
-                onClick={() => openModal(vault, 'INSERT')}
-              >
-                DEPOSIT
-              </button>
-              <button 
-                className="vault-btn" 
-                onClick={() => openModal(vault, 'WITHDRAW')}
-                disabled={vault.amount <= 0}
-              >
-                WITHDRAW
-              </button>
+<div className="vaults-grid">
+  {displayVaults.map((vault) => {
+    const isDisabled = vault.clientIsBlocked;
+    
+    return (
+      <div key={vault.vaultCode} className={`vault-card ${isDisabled ? 'blocked' : ''}`}>
+        <div className="vault-header">
+          <div className="vault-icon">
+            <div className="safe-wheel">⚙️</div>
+          </div>
+          <div className="vault-info">
+            <h2>VAULT {vault.vaultCode}</h2>
+            <span 
+              className={`security-level ${isDisabled ? 'blocked' : ''}`}
+              style={{ 
+                color: getCurrencyColor(vault.currencyCode),
+                borderColor: getCurrencyColor(vault.currencyCode)
+              }}
+            >
+              {vault.currencyName}
+            </span>
+          </div>
+        </div>
+        
+        <div className="vault-body">
+          <div className="data-row">
+            <span className="data-label">CLIENT ID:</span>
+            <span className={`data-value code ${isDisabled ? 'blocked-text' : ''}`}>
+              {vault.clientCode}
+            </span>
+          </div>
+          <div className="data-row">
+            <span className="data-label">CLIENT:</span>
+            <span className={`data-value ${isDisabled ? 'blocked-text' : ''}`}>
+              {vault.clientName} {vault.clientTitle && <span className="client-title">{vault.clientTitle}</span>}
+              {vault.clientIsBlocked && <span className="blocked-indicator"> (BLOCKED)</span>}
+            </span>
+          </div>
+          <div className="data-row">
+            <span className="data-label">STATUS:</span>
+            <span className={`data-value ${isDisabled ? 'blocked-text' : 'active-text'}`}>
+              {vault.clientIsBlocked ? 'BLOCKED 🔒' : 'ACTIVE ✅'}
+            </span>
+          </div>
+          <div className="data-row">
+            <span className="data-label">LAST ACCESS:</span>
+            <span className="data-value">{formatDateTime(vault.modifiedAt)}</span>
+          </div>
+          
+          <div className="amount-display">
+            <div className="amount-label">CURRENT BALANCE:</div>
+            <div className={`amount-value ${isDisabled ? 'disabled-amount' : ''}`}>
+              {formatAmount(vault.amount)}
             </div>
           </div>
-        ))}
+        </div>
+        
+        <div className="vault-footer">
+          <button 
+            className="vault-btn" 
+            onClick={() => openModal(vault, 'INSERT')}
+            disabled={isDisabled}
+            title={isDisabled ? 'Client is blocked. No operations allowed.' : 'Deposit into vault'}
+          >
+            DEPOSIT
+          </button>
+          <button 
+            className="vault-btn" 
+            onClick={() => openModal(vault, 'WITHDRAW')}
+            disabled={isDisabled || vault.amount <= 0}
+            title={
+              isDisabled ? 'Client is blocked. No operations allowed.' : 
+              vault.amount <= 0 ? 'Insufficient funds' : 'Withdraw from vault'
+            }
+          >
+            WITHDRAW
+          </button>
+        </div>
       </div>
+    );
+  })}
+</div>
 
       {/* Operation Modal */}
       {isModalOpen && currentVault && currentOperation && (
@@ -517,12 +578,9 @@ function Vault() {
               
               <div className="amount-input-section">
                 <label htmlFor="amount-input" className="amount-label">
-                  Enter Amount:
+                  Enter Amount ({currentVault.currencyName}):
                 </label>
                 <div className="input-wrapper">
-                  <span className="currency-symbol">
-                    ⚙️
-                  </span>
                   <input
                     id="amount-input"
                     type="text"
@@ -535,8 +593,19 @@ function Vault() {
                     autoFocus
                   />
                 </div>
+                
+                {/* Validation message */}
+                {amount && parseInt(amount) > 0 && currentOperation === 'WITHDRAW' && (
+                  <div className={`validation-message ${parseInt(amount) > currentVault.amount ? 'error' : 'success'}`}>
+                    {parseInt(amount) > currentVault.amount 
+                      ? `❌ Exceeds available balance of ${formatAmount(currentVault.amount)}`
+                      : `✅ Within available balance`
+                    }
+                  </div>
+                )}
+                
                 <div className="input-hint">
-                  Enter numeric value only. Maximum withdrawal: {formatAmount(currentVault.amount)}
+                  Enter numeric value only.
                 </div>
                 
                 {amount && parseInt(amount) > 0 && (
@@ -584,7 +653,8 @@ function Vault() {
               <button
                 className="vault-btn"
                 onClick={handleSubmit}
-                disabled={!amount || parseInt(amount) <= 0 || isLoadingOperation}
+                disabled={!amount || parseInt(amount) <= 0 || isLoadingOperation ||
+                  (currentOperation === 'WITHDRAW' && parseInt(amount) > currentVault.amount)}
               >
                 {isLoadingOperation ? (
                   <>

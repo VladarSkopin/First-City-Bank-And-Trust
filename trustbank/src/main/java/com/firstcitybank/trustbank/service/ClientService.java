@@ -48,6 +48,11 @@ public class ClientService {
             throw new IllegalArgumentException("District code cannot be empty if provided");
         }
 
+        // Social rank code validation (can be null, but if provided must be valid)
+        if (client.socialRankCode() != null && client.socialRankCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("Social rank code cannot be empty if provided");
+        }
+
         // 2. Check if client exists
         boolean clientExists = clientDao.existsByName(client.nameOrTitle());
         if (clientExists) {
