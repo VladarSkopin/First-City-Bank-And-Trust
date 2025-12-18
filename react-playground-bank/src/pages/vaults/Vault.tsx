@@ -653,7 +653,8 @@ function Vault() {
               <button
                 className="vault-btn"
                 onClick={handleSubmit}
-                disabled={!amount || parseInt(amount) <= 0 || isLoadingOperation}
+                disabled={!amount || parseInt(amount) <= 0 || isLoadingOperation ||
+                  (currentOperation === 'WITHDRAW' && parseInt(amount) > currentVault.amount)}
               >
                 {isLoadingOperation ? (
                   <>
