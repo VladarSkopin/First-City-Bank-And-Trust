@@ -368,6 +368,27 @@
 }
 
 
+.validation-message {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.validation-message.error {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+}
+
+.validation-message.success {
+  background-color: rgba(46, 204, 113, 0.1);
+  color: #27ae60;
+  border: 1px solid #27ae60;
+}
+
+
 
 
 /* Lock animation on hover */

@@ -578,12 +578,9 @@ function Vault() {
               
               <div className="amount-input-section">
                 <label htmlFor="amount-input" className="amount-label">
-                  Enter Amount:
+                  Enter Amount ({currentVault.currencyName}):
                 </label>
                 <div className="input-wrapper">
-                  <span className="currency-symbol">
-                    ⚙️
-                  </span>
                   <input
                     id="amount-input"
                     type="text"
@@ -596,8 +593,19 @@ function Vault() {
                     autoFocus
                   />
                 </div>
+                
+                {/* Validation message */}
+                {amount && parseInt(amount) > 0 && currentOperation === 'WITHDRAW' && (
+                  <div className={`validation-message ${parseInt(amount) > currentVault.amount ? 'error' : 'success'}`}>
+                    {parseInt(amount) > currentVault.amount 
+                      ? `❌ Exceeds available balance of ${formatAmount(currentVault.amount)}`
+                      : `✅ Within available balance`
+                    }
+                  </div>
+                )}
+                
                 <div className="input-hint">
-                  Enter numeric value only. Maximum withdrawal: {formatAmount(currentVault.amount)}
+                  Enter numeric value only.
                 </div>
                 
                 {amount && parseInt(amount) > 0 && (
