@@ -1,0 +1,246 @@
+.sectors-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #c0c0c0;
+}
+
+.page-title {
+  text-align: center;
+  color: #b8860b;
+  margin-bottom: 40px;
+  font-size: 2.8rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(184, 134, 11, 0.5);
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #b8860b, transparent);
+}
+
+.sectors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 25px;
+  padding: 20px 0;
+}
+
+.sector-card {
+  background: linear-gradient(145deg, #1e1e1e 0%, #2d2d2d 50%, #1a1a1a 100%);
+  border-radius: 4px;
+  padding: 25px;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  border: 1px solid #333;
+  border-left: 1px solid;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #222;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sector-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #b8860b 20%, 
+    #ffd700 50%, 
+    #b8860b 80%, 
+    transparent 100%);
+  box-shadow: 0 0 10px rgba(184, 134, 11, 0.3);
+}
+
+.sector-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(184, 134, 11, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.sector-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.9),
+    0 0 20px rgba(184, 134, 11, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: #555;
+}
+
+.sector-card:hover::after {
+  left: 100%;
+}
+
+.sector-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #333;
+  position: relative;
+}
+
+.sector-title {
+  flex: 1;
+}
+
+.sector-title h2 {
+  margin: 0 0 5px 0;
+  color: #e8e8e8;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+}
+
+.sector-code {
+  color: #8b8b8b;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 8px;
+  border-radius: 2px;
+  border: 1px solid #444;
+}
+
+.sector-body {
+  margin-bottom: 25px;
+}
+
+.sector-description {
+  color: #ffffff;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 2px solid #333;
+  border-radius: 2px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #2a2a2a;
+  position: relative;
+}
+
+.info-item::before {
+  content: '■';
+  color: #b8860b;
+  margin-right: 10px;
+  font-size: 0.7rem;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #eeeeee;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  flex: 1;
+}
+
+.info-value {
+  color: #f5f5f5;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-align: right;
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sector-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.view-description-btn {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 2px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: 'Courier New', monospace;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2d2d2d 0%, #64582d 100%);
+  color: #abec80;
+  border: 1px solid #b8860b;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.view-description-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ffd700,
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.view-description-btn:hover::before {
+  left: 100%;
+}
+
+.view-description-btn:hover {
+  background: linear-gradient(135deg, #3d2d2d 0%, #b8860b 100%);
+  color: #ffd700;
+  border-color: #b8860b;
+  box-shadow: 
+    0 0 15px #ffd700,
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
