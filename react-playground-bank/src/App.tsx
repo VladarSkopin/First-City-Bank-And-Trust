@@ -4,6 +4,7 @@ import Vault from './pages/vaults/Vault';
 import SocialRanks from './pages/social_ranks/SocialRanks';
 import Districts from './pages/districts/Districts';
 import Currencies from './pages/currencies/Currencies';
+import Sectors from './pages/sectors/Sectors';
 import './AppStyles.css';
 
 
@@ -26,7 +27,7 @@ function App() {
         <nav className="main-nav">
           <div className="nav-container">
             <NavLink to="/" style={navLinkStyles} className="nav-link">
-              <span className="nav-icon">🗄️</span>
+              <span className="nav-icon">⚙️</span>
               VAULT
             </NavLink>
             <span className="nav-separator">|</span>
@@ -49,6 +50,11 @@ function App() {
               <span className="nav-icon">💰</span>
               CURRENCIES
             </NavLink>
+            <span className="nav-separator">|</span>
+            <NavLink to="/sectors" style={navLinkStyles} className="nav-link">
+              <span className="nav-icon">📋</span>
+              SECTORS
+            </NavLink>
           </div>
         </nav>
 
@@ -60,6 +66,7 @@ function App() {
             <Route path="/socialranks" element={<SocialRanks />} />
             <Route path="/districts" element={<Districts />} />
             <Route path="/currencies" element={<Currencies />} />
+            <Route path="/sectors" element={<Sectors />} />
           </Routes>
         </main>
       </div>

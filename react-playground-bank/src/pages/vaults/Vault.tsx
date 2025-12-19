@@ -277,38 +277,9 @@ function Vault() {
     }
   };
 
-
-  // Check if operations are disabled for a vault
-  const isVaultOperationDisabled = (vault: VaultDisplayData): boolean => {
-    return vault.clientIsBlocked || vault.isArchived;
-  };
-
-  // Add helper function to get disabled reason
-  const getVaultDisabledReason = (vault: VaultDisplayData): string => {
-    if (vault.clientIsBlocked) return 'CLIENT BLOCKED';
-    if (vault.isArchived) return 'VAULT ARCHIVED';
-    return '';
-  };
-
   // Helper functions
   const formatAmount = (amount: number): string => {
     return new Intl.NumberFormat().format(amount);
-  };
-
-  const formatDate = (dateString: string): string => {
-    try {
-      const date = new Date(dateString);
-      if (isNaN(date.getTime())) {
-        return 'Unknown date';
-      }
-      return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      });
-    } catch {
-      return 'Invalid date';
-    }
   };
 
   const formatDateTime = (dateString: string): string => {
@@ -327,18 +298,6 @@ function Vault() {
     } catch {
       return 'Invalid date';
     }
-  };
-
-  const getCurrencyIcon = (currencyCode: string): string => {
-    const currency = currencies.find(c => c.currencyCode === currencyCode);
-    const name = currency?.currencyName?.toLowerCase() || '';
-    
-    if (name.includes('gold')) return '👑';
-    if (name.includes('silver')) return '⚓';
-    if (name.includes('copper')) return '⚙️';
-    if (name.includes('bronze')) return '🛡️';
-    if (name.includes('iron')) return '⚔️';
-    return '💰';
   };
 
   const getCurrencyColor = (currencyCode: string): string => {
