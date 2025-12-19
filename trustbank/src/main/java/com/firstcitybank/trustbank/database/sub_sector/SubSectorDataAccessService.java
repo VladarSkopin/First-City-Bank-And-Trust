@@ -1,6 +1,7 @@
 package com.firstcitybank.trustbank.database.sub_sector;
 
 import com.firstcitybank.trustbank.database.dao.SubSectorDao;
+import com.firstcitybank.trustbank.database.social_rank.SocialRankRowMapper;
 import com.firstcitybank.trustbank.model.SubSector;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -45,11 +46,22 @@ public class SubSectorDataAccessService implements SubSectorDao {
 
     @Override
     public int deleteSubSector(String subSectorCode) {
-        return 0;
+        var sql = """
+                DELETE FROM sub_sectors
+                WHERE sub_sector_code = ?
+                """;
+        return jdbcTemplate.update(sql, subSectorCode);
     }
 
     @Override
     public Optional<SubSector> selectSubSectorByCode(String subSectorCode) {
-        return Optional.empty();
+        var sql = """
+                SELECT sub_sector_code, sub_sector_name, description, sector_code
+                FROM sub_sectors
+                WHERE sub_sector_code = ?
+                """;
+        return jdbcTemplate.query(sql, new SubSectorRowMapper(), subSectorCode)
+                .stream()
+                .findFirst();
     }
 }
