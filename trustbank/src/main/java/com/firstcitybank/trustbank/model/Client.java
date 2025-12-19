@@ -6,5 +6,6 @@ public record Client (
         String clientTypeCode,
         String socialRankCode,
         String districtCode,
-        Boolean isBlocked) {
+        Boolean isBlocked,
+        String subSectorCode) {
 }
