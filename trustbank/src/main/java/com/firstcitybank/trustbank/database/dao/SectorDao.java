@@ -11,5 +11,5 @@ public interface SectorDao {
     boolean existsByName(String sectorName);
     boolean existsByCode(String sectorCode);
     int deleteSector(String sectorCode);
-    Optional<Sector> selectSectorCode(String sectorCode);
+    Optional<Sector> selectSectorByCode(String sectorCode);
 }

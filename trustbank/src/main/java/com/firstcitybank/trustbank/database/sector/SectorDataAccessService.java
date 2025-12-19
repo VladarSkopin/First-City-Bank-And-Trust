@@ -20,7 +20,12 @@ public class SectorDataAccessService implements SectorDao {
 
     @Override
     public List<Sector> selectSectors() {
-        return List.of();
+        var sql = """
+                SELECT sector_code, sector_name, description
+                FROM sectors
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new SectorRowMapper());
     }
 
     @Override
@@ -44,7 +49,7 @@ public class SectorDataAccessService implements SectorDao {
     }
 
     @Override
-    public Optional<Sector> selectSectorCode(String sectorCode) {
+    public Optional<Sector> selectSectorByCode(String sectorCode) {
         return Optional.empty();
     }
 }

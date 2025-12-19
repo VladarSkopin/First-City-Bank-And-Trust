@@ -20,7 +20,12 @@ public class SubSectorDataAccessService implements SubSectorDao {
 
     @Override
     public List<SubSector> selectSubSectors() {
-        return List.of();
+        var sql = """
+                SELECT sub_sector_code, sub_sector_name, description, sector_code
+                FROM sub_sectors
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new SubSectorRowMapper());
     }
 
     @Override
