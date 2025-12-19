@@ -15,4 +15,8 @@ public class Paths {
     public static final String CLIENTS_PATH = "api/v1/clients";
 
     public static final String VAULTS_PATH = "api/v1/vaults";
+
+    public static final String SECTORS_PATH = "api/v1/sectors";
+
+    public static final String SUB_SECTORS_PATH = "api/v1/subsectors";
 }
