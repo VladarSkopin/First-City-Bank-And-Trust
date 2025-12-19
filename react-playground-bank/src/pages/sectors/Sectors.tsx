@@ -17,6 +17,8 @@ interface SubSector {
 }
 
 function Sectors() {
+  const [selectedSubSector, setSelectedSubSector] = useState<SubSector | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [sectors, setSectors] = useState<Sector[]>([]);
   const [subSectors, setSubSectors] = useState<SubSector[]>([]);
   
@@ -81,11 +83,22 @@ function Sectors() {
   }, []);
 
 
-  const getSectorName = (sectorCode: string): string => {
-    const sector = sectors.find(s => s.sectorCode === sectorCode);
-    return sector?.sectorName || sectorCode;
-  };
+    const getSectorName = (sectorCode: string): string => {
+        const sector = sectors.find(s => s.sectorCode === sectorCode);
+        return sector?.sectorName || sectorCode;
+    };
 
+
+
+    const handleViewInfo = (subSector: SubSector) => {
+      setSelectedSubSector(subSector);
+      setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+      setIsModalOpen(false);
+      setSelectedSubSector(null);
+    };
 
 
   // Loading state
@@ -149,10 +162,94 @@ function Sectors() {
 
 
     return (
-        <div>
+        <div className="sectors-container">
+            <h1 className="page-title">Economic Sub-Sectors</h1>
+            
+            {/* Stats bar */}
+            <div className="sectors-stats">
+                <div className="stat-item">
+                <span className="count-label">TOTAL SUB-SECTORS: </span>
+                <span className="count-value">{subSectors.length}</span>
+                </div>
+                <div className="stat-item">
+                <span className="count-label">TOTAL SECTORS: </span>
+                <span className="count-value">{sectors.length}</span>
+                </div>
+            </div>
+            
+            <div className="sectors-grid">
+                {subSectors.map(subSector => (
+                <div key={subSector.subSectorCode} className="sector-card">
+                    <div className="card-header">
+                        <div className="client-name">
+                            <h2>{subSector.subSectorName}</h2>
+                        </div>
+                    </div>
+
+                    <div className="card-body">
+                        <div className="info-item">
+                            <span className="label">SUB-SECTOR ID: </span>
+                            <span className="value code">{subSector.subSectorCode}</span>
+                        </div>
+
+                        <div className="info-item">
+                            <span className="label">SECTOR: </span>
+                            <span className="value">
+                            {getSectorName(subSector.sectorCode) || 'Unknown Sector'}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="sector-footer">
+                        <button className="view-description-btn" 
+                        onClick={() => handleViewInfo(subSector)}>INFO</button>
+                    </div>
+                    
+                </div>
+                ))}
+            </div>
+
+
+      {/* Description Modal */}
+      {isModalOpen && selectedSubSector && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>{selectedSubSector.subSectorName} Description</h2>
+              <button className="modal-close-btn" onClick={closeModal}>✕</button>
+            </div>
+            
+            <div className="modal-body">
+              <div className="regulation-info">
+                <div className="regulation-meta">
+                  <span className="regulation-code">CODE: {selectedSubSector.subSectorCode}</span>
+                  <span className="regulation-code">SECTOR: {getSectorName(selectedSubSector.sectorCode)}</span>
+                </div>
+                
+                <div className="regulation-text">
+                  <p>{selectedSubSector.description}</p>
+                </div>
+                
+              </div>
+            </div>
+            
+            <div className="modal-footer">
+              <button className="modal-confirm-btn" onClick={closeModal}>
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
 
 
+
+            <div className="sector-footer">
+                <div className="last-updated">
+                Data fetched: {new Date().toLocaleString()}
+                </div>
+            </div>
         </div>
     );
 }
