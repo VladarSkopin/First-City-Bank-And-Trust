@@ -9,6 +9,7 @@ interface Client {
   socialRankCode: string;
   districtCode: string;
   isBlocked: boolean;
+  subSectorCode: string;
 }
 
 interface ClientType {
@@ -30,11 +31,20 @@ interface District {
   districtName: string;
 }
 
+interface SubSector {
+  subSectorCode: string;
+  subSectorName: string;
+  description: string;
+  sectorCode: string;
+}
+
+
 function Clients() {
   const [clients, setClients] = useState<Client[]>([]);
   const [clientTypes, setClientTypes] = useState<ClientType[]>([]);
   const [socialRanks, setSocialRanks] = useState<SocialRank[]>([]);
   const [districts, setDistricts] = useState<District[]>([]);
+  const [subSectors, setSubSectors] = useState<SubSector[]>([]);
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +52,8 @@ function Clients() {
     clients: false,
     clientTypes: false,
     socialRanks: false,
-    districts: false
+    districts: false,
+    subSectors: false
   });
 
   // Fetch all required data in parallel
@@ -53,11 +64,12 @@ function Clients() {
         setError(null);
 
         // Fetch all data in parallel
-        const [clientsRes, clientTypesRes, socialRanksRes, districtsRes] = await Promise.allSettled([
+        const [clientsRes, clientTypesRes, socialRanksRes, districtsRes, subSectorsRes] = await Promise.allSettled([
           fetch('http://localhost:8080/api/v1/clients'),
           fetch('http://localhost:8080/api/v1/clienttypes'),
           fetch('http://localhost:8080/api/v1/socialranks'),
-          fetch('http://localhost:8080/api/v1/districts')
+          fetch('http://localhost:8080/api/v1/districts'),
+          fetch('http://localhost:8080/api/v1/subsectors'),
         ]);
 
         // Process each response
@@ -104,6 +116,16 @@ function Clients() {
           errors.push('Failed to fetch districts');
         }
 
+        // Sub-Sectors
+        if (subSectorsRes.status === 'fulfilled' && subSectorsRes.value.ok) {
+          const data = await subSectorsRes.value.json();
+          setSubSectors(data);
+          setFetchStatus(prev => ({ ...prev, subSectors: true }));
+        } else {
+          hasError = true;
+          errors.push('Failed to fetch sub-sectors');
+        }
+
         if (hasError) {
           setError(errors.join(', '));
         }
@@ -119,7 +141,10 @@ function Clients() {
     fetchAllData();
   }, []);
 
+
+
   // Helper functions to get display names from codes
+
   const getClientTypeName = (clientTypeCode: string): string => {
     const clientType = clientTypes.find(ct => ct.clientTypeCode === clientTypeCode);
     return clientType?.clientTypeName || clientTypeCode;
@@ -135,7 +160,14 @@ function Clients() {
     return district?.districtName || districtCode;
   };
 
+  const getSectorName = (subSectorCode: string): string => {
+    const subSector = subSectors.find(s => s.subSectorCode === subSectorCode);
+    return subSector?.subSectorName || subSectorCode;
+};
+
+
   // Get social rank color/icon based on rank name
+
   const getRankBadgeClass = (socialRankCode: string): string => {
     const socialRank = socialRanks.find(sr => sr.rankCode === socialRankCode);
     if (!socialRank) return 'rank-unknown';
@@ -149,7 +181,9 @@ function Clients() {
     return 'rank-unknown';
   };
 
+
   // Get client type icon
+
   const getClientTypeIcon = (clientTypeCode: string): string => {
     const clientType = clientTypes.find(ct => ct.clientTypeCode === clientTypeCode);
     const typeName = clientType?.clientTypeName?.toLowerCase() || '';
@@ -165,6 +199,7 @@ function Clients() {
 
 
   // Loading state
+
   if (loading) {
     const loadedItems = Object.values(fetchStatus).filter(Boolean).length;
     const totalItems = Object.keys(fetchStatus).length;
@@ -186,7 +221,9 @@ function Clients() {
     );
   }
 
+
   // Error state
+
     if (error) {
     return (
       <div className="clients-container">
@@ -205,7 +242,9 @@ function Clients() {
     );
   }
 
+
   // Empty state
+
   if (clients.length === 0) {
     return (
       <div className="clients-container">
@@ -218,6 +257,7 @@ function Clients() {
     );
   }
 
+  
   return (
     <div className="clients-container">
       <h1 className="page-title">Banking Clients</h1>
@@ -293,6 +333,13 @@ function Clients() {
                 <span className="label">STATUS:</span>
                 <span className={`value status ${client.isBlocked ? 'blocked' : 'active'}`}>
                   {client.isBlocked ? 'BLOCKED 🔒' : 'ACTIVE ✅'}
+                </span>
+              </div>
+
+              <div className="info-item">
+                <span className="label">SECTOR:</span>
+                <span className={`value status ${client.isBlocked ? 'blocked' : 'active'}`}>
+                  {getSectorName(client.subSectorCode) || 'Unknown Sector'}
                 </span>
               </div>
             </div>

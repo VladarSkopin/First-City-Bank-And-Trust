@@ -16,6 +16,7 @@ interface SubSector {
   sectorCode: string;
 }
 
+
 function Sectors() {
   const [selectedSubSector, setSelectedSubSector] = useState<SubSector | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -20,7 +20,7 @@ public class ClientDataAccessService implements ClientDao {
     @Override
     public List<Client> selectClients() {
         var sql = """
-                SELECT client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked
+                SELECT client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked, sub_sector_code
                 FROM clients
                 LIMIT 100;
                 """;
@@ -30,8 +30,8 @@ public class ClientDataAccessService implements ClientDao {
     @Override
     public int insertClient(Client client) {
         var sql = """
-            INSERT INTO clients (client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO clients (client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked, sub_sector_code)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             """;
 
         int rowsAffected = jdbcTemplate.update(
@@ -41,7 +41,8 @@ public class ClientDataAccessService implements ClientDao {
                 validateAndGetClientTypeCode(client.clientTypeCode()),
                 client.socialRankCode() == null ? null : validateAndGetSocialRankCode(client.socialRankCode()),
                 validateAndGetDistrictCode(client.districtCode()),
-                client.isBlocked()
+                client.isBlocked(),
+                client.subSectorCode() == null ? null : validateAndGetSubSectorCode(client.subSectorCode())
         );
 
         return rowsAffected;
@@ -73,7 +74,7 @@ public class ClientDataAccessService implements ClientDao {
     @Override
     public Optional<Client> selectClientByCode(String clientCode) {
         var sql = """
-                SELECT client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked
+                SELECT client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked, sub_sector_code
                 FROM clients
                 WHERE client_code = ?
                 """;
@@ -131,6 +132,22 @@ public class ClientDataAccessService implements ClientDao {
         if (count == null || count == 0) {
             throw new IllegalArgumentException(
                     "Invalid district code: '" + districtCode + "'. Code does not exist."
+            );
+        }
+
+        return normalizedCode;
+    }
+
+    private String validateAndGetSubSectorCode(String subSectorCode) {
+        String normalizedCode = subSectorCode.trim().toUpperCase();
+
+        // Check if sub-sector exists in the database
+        var checkSql = "SELECT COUNT(*) FROM sub_sectors WHERE sub_sector_code = ?";
+        Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, normalizedCode);
+
+        if (count == null || count == 0) {
+            throw new IllegalArgumentException(
+                    "Invalid sub-sector code: '" + subSectorCode + "'. Code does not exist."
             );
         }
 

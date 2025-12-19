@@ -15,6 +15,7 @@ public class ClientRowMapper implements RowMapper<Client> {
                 rs.getString("client_type_code"),
                 rs.getString("social_rank_code"),
                 rs.getString("district_code"),
-                rs.getBoolean("is_blocked"));
+                rs.getBoolean("is_blocked"),
+                rs.getString("sub_sector_code"));
     }
 }
