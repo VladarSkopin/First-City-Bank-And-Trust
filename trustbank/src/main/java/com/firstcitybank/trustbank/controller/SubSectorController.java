@@ -25,7 +25,7 @@ public class SubSectorController {
     }
 
     @PostMapping
-    public void addSubSector(SubSector subSector) {
+    public void addSubSector(@RequestBody SubSector subSector) {
         subSectorService.addNewSubSector(subSector);
     }
 

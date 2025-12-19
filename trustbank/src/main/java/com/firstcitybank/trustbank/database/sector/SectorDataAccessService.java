@@ -1,7 +1,6 @@
 package com.firstcitybank.trustbank.database.sector;
 
 import com.firstcitybank.trustbank.database.dao.SectorDao;
-import com.firstcitybank.trustbank.database.social_rank.SocialRankRowMapper;
 import com.firstcitybank.trustbank.model.Sector;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,17 +30,33 @@ public class SectorDataAccessService implements SectorDao {
 
     @Override
     public int insertSector(Sector sector) {
-        return 0;
+        var sql = """
+            INSERT INTO sectors (sector_code, sector_name, description)
+            VALUES (?, ?, ?)
+            """;
+
+        int rowsAffected = jdbcTemplate.update(
+                sql,
+                sector.sectorCode().toUpperCase().trim(),
+                sector.sectorName().trim(),
+                sector.description().trim()
+        );
+
+        return rowsAffected;
     }
 
     @Override
     public boolean existsByName(String sectorName) {
-        return false;
+        var sql = "SELECT COUNT(*) FROM sectors WHERE sector_name = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, sectorName);
+        return count != null && count > 0;
     }
 
     @Override
     public boolean existsByCode(String sectorCode) {
-        return false;
+        var sql = "SELECT COUNT(*) FROM sectors WHERE sector_code = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, sectorCode);
+        return count != null && count > 0;
     }
 
     @Override

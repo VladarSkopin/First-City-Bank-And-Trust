@@ -1,7 +1,6 @@
 package com.firstcitybank.trustbank.database.sub_sector;
 
 import com.firstcitybank.trustbank.database.dao.SubSectorDao;
-import com.firstcitybank.trustbank.database.social_rank.SocialRankRowMapper;
 import com.firstcitybank.trustbank.model.SubSector;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,17 +30,34 @@ public class SubSectorDataAccessService implements SubSectorDao {
 
     @Override
     public int insertSubSector(SubSector subSector) {
-        return 0;
+        var sql = """
+            INSERT INTO sub_sectors (sub_sector_code, sub_sector_name, description, sector_code)
+            VALUES (?, ?, ?, ?)
+            """;
+
+        int rowsAffected = jdbcTemplate.update(
+                sql,
+                subSector.subSectorCode().toUpperCase().trim(),
+                subSector.subSectorName().trim(),
+                subSector.description().trim(),
+                subSector.sectorCode().toUpperCase().trim()
+        );
+
+        return rowsAffected;
     }
 
     @Override
     public boolean existsByName(String subSectorName) {
-        return false;
+        var sql = "SELECT COUNT(*) FROM sub_sectors WHERE sub_sector_name = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, subSectorName);
+        return count != null && count > 0;
     }
 
     @Override
     public boolean existsByCode(String subSectorCode) {
-        return false;
+        var sql = "SELECT COUNT(*) FROM sub_sectors WHERE sub_sector_code = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, subSectorCode);
+        return count != null && count > 0;
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.firstcitybank.trustbank.service;
 
 import com.firstcitybank.trustbank.database.dao.SubSectorDao;
 import com.firstcitybank.trustbank.exception.NotFoundException;
-import com.firstcitybank.trustbank.model.SocialRank;
 import com.firstcitybank.trustbank.model.SubSector;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,36 @@ public class SubSectorService {
     }
 
     public void addNewSubSector(SubSector subSector) {
-        // todo: insert Sector
+        // 1. Validate input
+        if (subSector == null) {
+            throw new IllegalArgumentException("Sub-Sector data cannot be null");
+        }
+
+        if (subSector.subSectorCode() == null || subSector.subSectorCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("Sub-Sector code is required");
+        }
+
+        if (subSector.subSectorName() == null || subSector.subSectorName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Sub-Sector name is required");
+        }
+
+        if (subSector.sectorCode() == null || subSector.sectorCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("Sector code is required");
+        }
+
+        // 2. Check if sub-sector exists
+        boolean rankExists = subSectorDao.existsByName(subSector.subSectorName());
+        if (rankExists) {
+            throw new IllegalStateException("Sub-Sector with name '" + subSector.subSectorName() + "' already exists");
+        }
+
+        // 3. Insert new sub-sector
+        Integer rowsAffected = subSectorDao.insertSubSector(subSector);
+
+        // 4. Check if insertion was successful
+        if (rowsAffected == null || rowsAffected <= 0) {
+            throw new IllegalStateException("Failed to insert Sub-Sector");
+        }
     }
 
     public void deleteSubSector(String subSectorCode) {
