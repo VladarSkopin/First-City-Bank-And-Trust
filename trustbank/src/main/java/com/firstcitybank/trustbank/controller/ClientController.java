@@ -33,5 +33,4 @@ public class ClientController {
     public void deleteClient(@PathVariable("code") String code) {
         clientService.deleteClient(code);
     }
-
 }
