@@ -411,11 +411,11 @@ function Vault() {
       {/* Vault stats */}
       <div className="vault-stats">
         <div className="stat-item">
-          <span className="stat-label">ACTIVE VAULTS:</span>
+          <span className="stat-label">ACTIVE VAULTS: </span>
           <span className="stat-value">{displayVaults.length}</span>
         </div>
         <div className="stat-item">
-          <span className="stat-label">UNIQUE CURRENCIES:</span>
+          <span className="stat-label">UNIQUE CURRENCIES: </span>
           <span className="stat-value">
             {Array.from(new Set(displayVaults.map(v => v.currencyCode))).length}
           </span>

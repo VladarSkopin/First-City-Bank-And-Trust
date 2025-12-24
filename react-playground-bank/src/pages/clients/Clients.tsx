@@ -353,9 +353,6 @@ function Clients() {
           <span className="warning-icon">⚠️</span>
           Client information is confidential. Unauthorized access is prohibited.
         </div>
-        <div className="last-updated">
-          Data fetched: {new Date().toLocaleString()}
-        </div>
       </div>
     </div>
   );
