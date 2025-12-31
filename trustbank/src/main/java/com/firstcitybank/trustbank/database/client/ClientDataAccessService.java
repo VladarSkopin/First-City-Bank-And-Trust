@@ -64,21 +64,6 @@ public class ClientDataAccessService implements ClientDao {
     }
 
     @Override
-    public boolean clientTypeExists(String clientTypeCode) {
-        return false;
-    }
-
-    @Override
-    public boolean socialRankExists(String socialRankCode) {
-        return false;
-    }
-
-    @Override
-    public boolean districtExists(String districtCode) {
-        return false;
-    }
-
-    @Override
     public int deleteClient(String clientCode) {
         var sql = """
                 DELETE FROM clients

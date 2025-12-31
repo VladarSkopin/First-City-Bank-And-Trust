@@ -38,6 +38,11 @@ public class SearchClientsController {
         return searchClientsService.getClientsBySector(sectorCode);
     }
 
+    @GetMapping("/by-district/{districtCode}")
+    public List<Client> getClientsByDistrict(@PathVariable String districtCode) {
+        return searchClientsService.getClientsByDistrict(districtCode);
+    }
+
     @GetMapping
     public List<Client> searchClients(
             @RequestParam(required = false) String socialRankCode,

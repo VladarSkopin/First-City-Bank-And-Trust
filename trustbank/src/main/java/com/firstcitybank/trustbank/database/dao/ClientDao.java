@@ -39,7 +39,4 @@ public interface ClientDao {
     // Existence checks
     boolean existsByName(String nameOrTitle);
     boolean existsByCode(String clientCode);
-    boolean clientTypeExists(String clientTypeCode);
-    boolean socialRankExists(String socialRankCode);
-    boolean districtExists(String districtCode);
 }
