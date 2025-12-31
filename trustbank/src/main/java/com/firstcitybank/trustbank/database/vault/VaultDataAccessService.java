@@ -89,7 +89,16 @@ public class VaultDataAccessService implements VaultDao {
 
     @Override
     public List<Vault> selectVaultsByClientSector(String sectorCode) {
-        return List.of();
+        var sql = """
+                SELECT v.*
+                FROM vault v
+                JOIN clients c ON v.client_code = c.client_code
+                JOIN sub_sectors ss ON c.sub_sector_code = ss.sub_sector_code
+                JOIN sectors s ON ss.sector_code = s.sector_code
+                WHERE s.sector_code = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), sectorCode.trim().toUpperCase());
     }
 
 
