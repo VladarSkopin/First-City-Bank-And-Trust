@@ -30,8 +30,14 @@ public class VaultDataAccessService implements VaultDao {
     }
 
     @Override
-    public List<Vault> selectVaultsByClientName(String clientName) {
-        return List.of();
+    public List<Vault> selectVaultsByCurrencyCode(String currencyCode) {
+        var sql = """
+                SELECT vault_code, client_code, created_at, modified_at, amount, currency_code, is_archived
+                FROM vault
+                WHERE currency_code = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), currencyCode);
     }
 
     @Override
@@ -40,19 +46,20 @@ public class VaultDataAccessService implements VaultDao {
     }
 
     @Override
-    public List<Vault> selectNobilityVaults() {
+    public List<Vault> selectVaultsByClientName(String clientName) {
         return List.of();
     }
 
     @Override
-    public List<Vault> selectForeignVaults() {
+    public List<Vault> selectVaultsByClientRank(String rankCode) {
         return List.of();
     }
 
     @Override
-    public List<Vault> selectGoldenVaults() {
+    public List<Vault> selectVaultsByClientType(String typeCode) {
         return List.of();
     }
+
 
     @Override
     public int insertVault(Vault vault) {

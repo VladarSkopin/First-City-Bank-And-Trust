@@ -81,4 +81,10 @@ public class VaultValidator {
             );
         }
     }
+
+    public static void validateCurrencyCode(String code) {
+        if (code == null || code.trim().isEmpty()) {
+            throw new IllegalArgumentException("Currency code cannot be null or empty");
+        }
+    }
 }
