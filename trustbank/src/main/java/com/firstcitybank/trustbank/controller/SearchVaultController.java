@@ -23,8 +23,33 @@ public class SearchVaultController {
     }
 
     @GetMapping("/by-currency/{currencyCode}")
-    public List<Vault> getClientsBySector(@PathVariable String currencyCode) {
+    public List<Vault> getVaultsByCurrencyCode(@PathVariable String currencyCode) {
         return searchVaultsService.getVaultsByCurrencyCode(currencyCode);
+    }
+
+    @GetMapping("/by-client-code/{clientCode}")
+    public List<Vault> getVaultsByClientCode(@PathVariable String clientCode) {
+        return searchVaultsService.getVaultsByClientCode(clientCode);
+    }
+
+    @GetMapping("/by-client-rank/{rankCode}")
+    public List<Vault> getVaultsByClientRank(@PathVariable String rankCode) {
+        return searchVaultsService.getVaultsByClientRank(rankCode);
+    }
+
+    @GetMapping("/by-client-name/{clientName}")
+    public List<Vault> getVaultsByClientName(@PathVariable String clientName) {
+        return searchVaultsService.getVaultsByClientName(clientName);
+    }
+
+    @GetMapping("/by-client-type/{clientTypeCode}")
+    public List<Vault> getVaultsByClientType(@PathVariable String clientTypeCode) {
+        return searchVaultsService.getVaultsByClientTypeCode(clientTypeCode);
+    }
+
+    @GetMapping("/by-client-sector/{sectorCode}")
+    public List<Vault> getVaultsByClientSector(@PathVariable String sectorCode) {
+        return searchVaultsService.getVaultsByClientSector(sectorCode);
     }
 
 }

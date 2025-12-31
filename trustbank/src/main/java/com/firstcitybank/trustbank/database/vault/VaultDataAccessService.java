@@ -42,7 +42,13 @@ public class VaultDataAccessService implements VaultDao {
 
     @Override
     public List<Vault> selectVaultsByClientCode(String clientCode) {
-        return List.of();
+        var sql = """
+                SELECT vault_code, client_code, created_at, modified_at, amount, currency_code, is_archived
+                FROM vault
+                WHERE client_code = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), clientCode);
     }
 
     @Override
@@ -57,6 +63,11 @@ public class VaultDataAccessService implements VaultDao {
 
     @Override
     public List<Vault> selectVaultsByClientType(String typeCode) {
+        return List.of();
+    }
+
+    @Override
+    public List<Vault> selectVaultsByClientSector(String sectorCode) {
         return List.of();
     }
 

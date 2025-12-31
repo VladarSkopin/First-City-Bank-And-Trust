@@ -2,6 +2,12 @@ package com.firstcitybank.trustbank.helper;
 
 public class ClientValidator {
 
+    public static void validateClientCode(String code) {
+        if (code == null || code.trim().isEmpty()) {
+            throw new IllegalArgumentException("Client code cannot be null or empty");
+        }
+    }
+
     public static void validateSocialRankCode(String code) {
         if (code == null || code.trim().isEmpty()) {
             throw new IllegalArgumentException("Social rank code cannot be null or empty");
