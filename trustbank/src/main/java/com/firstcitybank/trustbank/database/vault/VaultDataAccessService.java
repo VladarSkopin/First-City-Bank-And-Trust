@@ -37,7 +37,7 @@ public class VaultDataAccessService implements VaultDao {
                 WHERE currency_code = ?
                 LIMIT 100;
                 """;
-        return jdbcTemplate.query(sql, new VaultRowMapper(), currencyCode);
+        return jdbcTemplate.query(sql, new VaultRowMapper(), currencyCode.trim().toUpperCase());
     }
 
     @Override
@@ -48,22 +48,43 @@ public class VaultDataAccessService implements VaultDao {
                 WHERE client_code = ?
                 LIMIT 100;
                 """;
-        return jdbcTemplate.query(sql, new VaultRowMapper(), clientCode);
+        return jdbcTemplate.query(sql, new VaultRowMapper(), clientCode.trim().toUpperCase());
     }
 
     @Override
     public List<Vault> selectVaultsByClientName(String clientName) {
-        return List.of();
+        var sql = """
+                SELECT v.*
+                FROM vault v
+                JOIN clients c ON v.client_code = c.client_code
+                WHERE c.name_or_title = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), clientName.trim());
     }
 
     @Override
     public List<Vault> selectVaultsByClientRank(String rankCode) {
-        return List.of();
+        var sql = """
+                SELECT v.*
+                FROM vault v
+                JOIN clients c ON v.client_code = c.client_code
+                WHERE c.social_rank_code = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), rankCode.trim().toUpperCase());
     }
 
     @Override
     public List<Vault> selectVaultsByClientType(String typeCode) {
-        return List.of();
+        var sql = """
+                SELECT v.*
+                FROM vault v
+                JOIN clients c ON v.client_code = c.client_code
+                WHERE c.client_type_code = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), typeCode.trim().toUpperCase());
     }
 
     @Override
@@ -75,9 +96,9 @@ public class VaultDataAccessService implements VaultDao {
     @Override
     public int insertVault(Vault vault) {
         var sql = """
-            INSERT INTO vault (vault_code, client_code, amount, currency_code, is_archived)
-            VALUES (?, ?, ?, ?, ?)
-            """;
+                INSERT INTO vault (vault_code, client_code, amount, currency_code, is_archived)
+                VALUES (?, ?, ?, ?, ?)
+                """;
 
         int rowsAffected = jdbcTemplate.update(
                 sql,

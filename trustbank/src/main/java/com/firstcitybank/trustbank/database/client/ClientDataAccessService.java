@@ -94,7 +94,7 @@ public class ClientDataAccessService implements ClientDao {
                 FROM clients
                 WHERE client_code = ?
                 """;
-        return jdbcTemplate.query(sql,  new ClientRowMapper(), clientCode.trim().toUpperCase())
+        return jdbcTemplate.query(sql, new ClientRowMapper(), clientCode.trim().toUpperCase())
                 .stream()
                 .findFirst();
     }
@@ -107,7 +107,7 @@ public class ClientDataAccessService implements ClientDao {
             WHERE social_rank_code = ?
             ORDER BY name_or_title
             """;
-        return jdbcTemplate.query(sql,  new ClientRowMapper(), socialRankCode.trim().toUpperCase());
+        return jdbcTemplate.query(sql, new ClientRowMapper(), socialRankCode.trim().toUpperCase());
     }
 
     @Override
@@ -118,7 +118,7 @@ public class ClientDataAccessService implements ClientDao {
             WHERE client_type_code = ?
             ORDER BY name_or_title
             """;
-        return jdbcTemplate.query(sql,  new ClientRowMapper(), clientTypeCode.trim().toUpperCase());
+        return jdbcTemplate.query(sql, new ClientRowMapper(), clientTypeCode.trim().toUpperCase());
     }
 
     @Override
@@ -129,7 +129,7 @@ public class ClientDataAccessService implements ClientDao {
             WHERE sub_sector_code = ?
             ORDER BY name_or_title
             """;
-        return jdbcTemplate.query(sql,  new ClientRowMapper(), subSectorCode.trim().toUpperCase());
+        return jdbcTemplate.query(sql, new ClientRowMapper(), subSectorCode.trim().toUpperCase());
     }
 
     @Override
@@ -141,7 +141,7 @@ public class ClientDataAccessService implements ClientDao {
             WHERE ss.sector_code = ?
             ORDER BY c.name_or_title
             """;
-        return jdbcTemplate.query(sql,  new ClientRowMapper(), sectorCode.trim().toUpperCase());
+        return jdbcTemplate.query(sql, new ClientRowMapper(), sectorCode.trim().toUpperCase());
     }
 
     @Override
@@ -152,7 +152,7 @@ public class ClientDataAccessService implements ClientDao {
             WHERE district_code = ?
             ORDER BY name_or_title
             """;
-        return jdbcTemplate.query(sql,  new ClientRowMapper(), districtCode.trim().toUpperCase());
+        return jdbcTemplate.query(sql, new ClientRowMapper(), districtCode.trim().toUpperCase());
     }
 
     @Override
@@ -232,13 +232,13 @@ public class ClientDataAccessService implements ClientDao {
     @Override
     public long countClientsBySocialRank(String socialRankCode) {
         var sql = "SELECT COUNT(*) FROM clients WHERE social_rank_code = ?";
-        return jdbcTemplate.queryForObject(sql, Long.class, socialRankCode);
+        return jdbcTemplate.queryForObject(sql, Long.class, socialRankCode.trim().toUpperCase());
     }
 
     @Override
     public long countClientsByClientType(String clientTypeCode) {
         var sql = "SELECT COUNT(*) FROM clients WHERE client_type_code = ?";
-        return jdbcTemplate.queryForObject(sql, Long.class, clientTypeCode);
+        return jdbcTemplate.queryForObject(sql, Long.class, clientTypeCode.trim().toUpperCase());
     }
 
     @Override
@@ -249,7 +249,7 @@ public class ClientDataAccessService implements ClientDao {
             JOIN sub_sectors ss ON c.sub_sector_code = ss.sub_sector_code
             WHERE ss.sector_code = ?
             """;
-        return jdbcTemplate.queryForObject(sql, Long.class, sectorCode);
+        return jdbcTemplate.queryForObject(sql, Long.class, sectorCode.trim().toUpperCase());
     }
 
 
