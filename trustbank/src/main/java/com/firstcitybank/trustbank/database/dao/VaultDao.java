@@ -9,10 +9,11 @@ import java.util.Optional;
 public interface VaultDao {
     List<Vault> selectVaults();
     List<Vault> selectVaultsByClientName(String clientName);
+    List<Vault> selectVaultsByCurrencyCode(String currencyCode);
     List<Vault> selectVaultsByClientCode(String clientCode);
-    List<Vault> selectNobilityVaults();
-    List<Vault> selectForeignVaults();
-    List<Vault> selectGoldenVaults();
+    List<Vault> selectVaultsByClientRank(String rankCode);
+    List<Vault> selectVaultsByClientType(String typeCode);
+    List<Vault> selectVaultsByClientSector(String sectorCode);
     int insertVault(Vault vault);
     int insertAmount(String vaultCode, BigInteger amountToInsert);
     int withdrawAmount(String vaultCode, BigInteger amountToWithdraw);

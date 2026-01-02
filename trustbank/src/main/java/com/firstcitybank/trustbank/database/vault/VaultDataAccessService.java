@@ -30,36 +30,84 @@ public class VaultDataAccessService implements VaultDao {
     }
 
     @Override
-    public List<Vault> selectVaultsByClientName(String clientName) {
-        return List.of();
+    public List<Vault> selectVaultsByCurrencyCode(String currencyCode) {
+        var sql = """
+                SELECT vault_code, client_code, created_at, modified_at, amount, currency_code, is_archived
+                FROM vault
+                WHERE currency_code = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), currencyCode.trim().toUpperCase());
     }
 
     @Override
     public List<Vault> selectVaultsByClientCode(String clientCode) {
-        return List.of();
+        var sql = """
+                SELECT vault_code, client_code, created_at, modified_at, amount, currency_code, is_archived
+                FROM vault
+                WHERE client_code = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), clientCode.trim().toUpperCase());
     }
 
     @Override
-    public List<Vault> selectNobilityVaults() {
-        return List.of();
+    public List<Vault> selectVaultsByClientName(String clientName) {
+        var sql = """
+                SELECT v.*
+                FROM vault v
+                JOIN clients c ON v.client_code = c.client_code
+                WHERE c.name_or_title = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), clientName.trim());
     }
 
     @Override
-    public List<Vault> selectForeignVaults() {
-        return List.of();
+    public List<Vault> selectVaultsByClientRank(String rankCode) {
+        var sql = """
+                SELECT v.*
+                FROM vault v
+                JOIN clients c ON v.client_code = c.client_code
+                WHERE c.social_rank_code = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), rankCode.trim().toUpperCase());
     }
 
     @Override
-    public List<Vault> selectGoldenVaults() {
-        return List.of();
+    public List<Vault> selectVaultsByClientType(String typeCode) {
+        var sql = """
+                SELECT v.*
+                FROM vault v
+                JOIN clients c ON v.client_code = c.client_code
+                WHERE c.client_type_code = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), typeCode.trim().toUpperCase());
     }
+
+    @Override
+    public List<Vault> selectVaultsByClientSector(String sectorCode) {
+        var sql = """
+                SELECT v.*
+                FROM vault v
+                JOIN clients c ON v.client_code = c.client_code
+                JOIN sub_sectors ss ON c.sub_sector_code = ss.sub_sector_code
+                JOIN sectors s ON ss.sector_code = s.sector_code
+                WHERE s.sector_code = ?
+                LIMIT 100;
+                """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), sectorCode.trim().toUpperCase());
+    }
+
 
     @Override
     public int insertVault(Vault vault) {
         var sql = """
-            INSERT INTO vault (vault_code, client_code, amount, currency_code, is_archived)
-            VALUES (?, ?, ?, ?, ?)
-            """;
+                INSERT INTO vault (vault_code, client_code, amount, currency_code, is_archived)
+                VALUES (?, ?, ?, ?, ?)
+                """;
 
         int rowsAffected = jdbcTemplate.update(
                 sql,

@@ -21,4 +21,6 @@ public class Paths {
     public static final String SUB_SECTORS_PATH = "api/v1/subsectors";
 
     public static final String SEARCH_CLIENTS_PATH = "api/v1/clients/search";
+
+    public static final String SEARCH_VAULTS_PATH = "api/v1/vaults/search";
 }
