@@ -195,46 +195,47 @@ public class ClientDataAccessService implements ClientDao {
         return jdbcTemplate.query(sqlBuilder.toString(),  new ClientRowMapper(), params.toArray());
     }
 
+
     @Override
-    public long countAllClients() {
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM clients", Long.class);
+    public int countAllClients() {
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM clients", Integer.class);
     }
 
     @Override
-    public long countActiveClients() {
+    public int countActiveClients() {
         return jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM clients WHERE is_blocked = false", Long.class
+                "SELECT COUNT(*) FROM clients WHERE is_blocked = false", Integer.class
         );
     }
 
     @Override
-    public long countBlockedClients() {
+    public int countBlockedClients() {
         return jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM clients WHERE is_blocked = true", Long.class
+                "SELECT COUNT(*) FROM clients WHERE is_blocked = true", Integer.class
         );
     }
 
     @Override
-    public long countClientsBySocialRank(String socialRankCode) {
+    public int countClientsBySocialRank(String socialRankCode) {
         var sql = "SELECT COUNT(*) FROM clients WHERE social_rank_code = ?";
-        return jdbcTemplate.queryForObject(sql, Long.class, socialRankCode.trim().toUpperCase());
+        return jdbcTemplate.queryForObject(sql, Integer.class, socialRankCode.trim().toUpperCase());
     }
 
     @Override
-    public long countClientsByClientType(String clientTypeCode) {
+    public int countClientsByClientType(String clientTypeCode) {
         var sql = "SELECT COUNT(*) FROM clients WHERE client_type_code = ?";
-        return jdbcTemplate.queryForObject(sql, Long.class, clientTypeCode.trim().toUpperCase());
+        return jdbcTemplate.queryForObject(sql, Integer.class, clientTypeCode.trim().toUpperCase());
     }
 
     @Override
-    public long countClientsBySector(String sectorCode) {
+    public int countClientsBySector(String sectorCode) {
         var sql = """
             SELECT COUNT(*)
             FROM clients c
             JOIN sub_sectors ss ON c.sub_sector_code = ss.sub_sector_code
             WHERE ss.sector_code = ?
             """;
-        return jdbcTemplate.queryForObject(sql, Long.class, sectorCode.trim().toUpperCase());
+        return jdbcTemplate.queryForObject(sql, Integer.class, sectorCode.trim().toUpperCase());
     }
 
 

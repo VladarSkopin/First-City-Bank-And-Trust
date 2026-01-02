@@ -57,4 +57,38 @@ public class SearchClientsController {
         );
     }
 
+
+    // Counting clients
+
+    @GetMapping("/count-by-rank/{rankCode}")
+    public Integer countClientsByRank(@PathVariable String rankCode) {
+        return searchClientsService.countClientsBySocialRank(rankCode);
+    }
+
+    @GetMapping("/count-by-type/{clientType}")
+    public Integer countClientsByType(@PathVariable String clientType) {
+        return searchClientsService.countClientsByClientType(clientType);
+    }
+
+    @GetMapping("/count-by-sector/{sectorCode}")
+    public Integer countClientsBySector(@PathVariable String sectorCode) {
+        return searchClientsService.countClientsBySector(sectorCode);
+    }
+
+    @GetMapping("/count-all")
+    public Integer countClients() {
+        return searchClientsService.countClients();
+    }
+
+    @GetMapping("/count-active")
+    public Integer countClientsActive() {
+        return searchClientsService.countClientsActive();
+    }
+
+    @GetMapping("/count-blocked")
+    public Integer countClientsBlocked() {
+        return searchClientsService.countClientsBlocked();
+    }
+
+
 }

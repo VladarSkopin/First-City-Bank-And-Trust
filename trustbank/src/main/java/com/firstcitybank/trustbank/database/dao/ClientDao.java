@@ -29,12 +29,12 @@ public interface ClientDao {
     );
 
     // Count operations
-    long countAllClients();
-    long countActiveClients();
-    long countBlockedClients();
-    long countClientsBySocialRank(String socialRankCode);
-    long countClientsByClientType(String clientTypeCode);
-    long countClientsBySector(String sectorCode);
+    int countAllClients();
+    int countActiveClients();
+    int countBlockedClients();
+    int countClientsBySocialRank(String socialRankCode);
+    int countClientsByClientType(String clientTypeCode);
+    int countClientsBySector(String sectorCode);
 
     // Existence checks
     boolean existsByName(String nameOrTitle);
