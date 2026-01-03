@@ -521,7 +521,7 @@ function Vault() {
               <div className="vault-info-summary">
                 <div className="info-row">
                   <span>Client:</span>
-                  <span className="highlight">{currentVault.clientName}</span>
+                  <span className="highlight">{currentVault.clientName} {currentVault.clientTitle}</span>
                 </div>
                 <div className="info-row">
                   <span>Vault ID:</span>

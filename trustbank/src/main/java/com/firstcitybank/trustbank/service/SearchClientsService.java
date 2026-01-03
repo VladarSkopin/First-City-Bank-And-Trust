@@ -71,19 +71,34 @@ public class SearchClientsService {
 
     // Statistics and counts
 
-    public long countClientsBySocialRank(String socialRankCode) {
+    public int countClientsBySocialRank(String socialRankCode) {
         ClientValidator.validateSocialRankCode(socialRankCode);
         return clientDao.countClientsBySocialRank(socialRankCode);
     }
 
-    public long countClientsByClientType(String clientTypeCode) {
+    public int countClientsByClientType(String clientTypeCode) {
         ClientValidator.validateClientTypeCode(clientTypeCode);
         return clientDao.countClientsByClientType(clientTypeCode);
     }
 
-    public long countClientsBySector(String sectorCode) {
+    public int countClientsBySector(String sectorCode) {
         ClientValidator.validateSectorCode(sectorCode);
         return clientDao.countClientsBySector(sectorCode);
     }
+
+
+    public int countClients() {
+        return clientDao.countAllClients();
+    }
+
+    public int countClientsActive() {
+        return clientDao.countActiveClients();
+    }
+
+    public int countClientsBlocked() {
+        return clientDao.countBlockedClients();
+    }
+
+
 
 }

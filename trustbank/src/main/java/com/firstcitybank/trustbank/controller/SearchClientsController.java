@@ -38,6 +38,11 @@ public class SearchClientsController {
         return searchClientsService.getClientsBySector(sectorCode);
     }
 
+    @GetMapping("/by-district/{districtCode}")
+    public List<Client> getClientsByDistrict(@PathVariable String districtCode) {
+        return searchClientsService.getClientsByDistrict(districtCode);
+    }
+
     @GetMapping
     public List<Client> searchClients(
             @RequestParam(required = false) String socialRankCode,
@@ -51,5 +56,39 @@ public class SearchClientsController {
                 socialRankCode, clientTypeCode, subSectorCode, sectorCode, districtCode, isBlocked
         );
     }
+
+
+    // Counting clients
+
+    @GetMapping("/count-by-rank/{rankCode}")
+    public Integer countClientsByRank(@PathVariable String rankCode) {
+        return searchClientsService.countClientsBySocialRank(rankCode);
+    }
+
+    @GetMapping("/count-by-type/{clientType}")
+    public Integer countClientsByType(@PathVariable String clientType) {
+        return searchClientsService.countClientsByClientType(clientType);
+    }
+
+    @GetMapping("/count-by-sector/{sectorCode}")
+    public Integer countClientsBySector(@PathVariable String sectorCode) {
+        return searchClientsService.countClientsBySector(sectorCode);
+    }
+
+    @GetMapping("/count-all")
+    public Integer countClients() {
+        return searchClientsService.countClients();
+    }
+
+    @GetMapping("/count-active")
+    public Integer countClientsActive() {
+        return searchClientsService.countClientsActive();
+    }
+
+    @GetMapping("/count-blocked")
+    public Integer countClientsBlocked() {
+        return searchClientsService.countClientsBlocked();
+    }
+
 
 }
