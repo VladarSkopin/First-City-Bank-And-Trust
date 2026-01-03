@@ -8,6 +8,12 @@ allprojects {
 
     repositories {
         mavenCentral()
+        // Add these alternative repositories
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+        maven { url 'https://maven.aliyun.com/repository/public' } // Chinese mirror, faster for some regions
     }
 }
 
@@ -24,6 +30,10 @@ subprojects {
     dependencies {
         testImplementation platform('org.junit:junit-bom:5.10.0')
         testImplementation 'org.junit.jupiter:junit-jupiter'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+        compileOnly 'org.projectlombok:lombok:1.18.28' // Older stable version
+        annotationProcessor 'org.projectlombok:lombok:1.18.28'
     }
 
     test {
