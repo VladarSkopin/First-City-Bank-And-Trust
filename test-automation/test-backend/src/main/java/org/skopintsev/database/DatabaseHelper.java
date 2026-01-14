@@ -3,11 +3,11 @@ package org.skopintsev.database;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
-import org.skopintsev.database.currency.CurrencyDb;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 @Slf4j
 public class DatabaseHelper {
@@ -42,37 +42,28 @@ public class DatabaseHelper {
     }
 
     /**
-     * Execute a SELECT query and map results to CurrencyDb objects
+     * Generic query execution with result mapping
      */
     @Step("Execute SELECT query: {query}")
-    public static List<CurrencyDb> executeQuery(String query, Object... params) {
+    public static <T> List<T> executeQuery(String query, Function<ResultSet, T> rowMapper, Object... params) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<CurrencyDb> results = new ArrayList<>();
+        List<T> results = new ArrayList<>();
 
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(query);
 
-            // Set parameters if any
             for (int i = 0; i < params.length; i++) {
                 stmt.setObject(i + 1, params[i]);
             }
 
             rs = stmt.executeQuery();
-
-            // Attach SQL to Allure report
             Allure.addAttachment("SQL Query", "text/plain", query);
 
             while (rs.next()) {
-                CurrencyDb currency = CurrencyDb.builder()
-                        .currencyCode(rs.getString("currency_code"))
-                        .currencyName(rs.getString("currency_name"))
-                        .currencySymbol(rs.getString("currency_symbol"))
-                        .metalType(rs.getString("metal_type"))
-                        .build();
-                results.add(currency);
+                results.add(rowMapper.apply(rs));
             }
 
             log.info("Query executed successfully. Found {} records", results.size());
@@ -86,6 +77,14 @@ public class DatabaseHelper {
         } finally {
             closeResources(conn, stmt, rs);
         }
+    }
+
+    /**
+     * Generic query for single result
+     */
+    public static <T> T queryForObject(String query, Function<ResultSet, T> rowMapper, Object... params) {
+        List<T> results = executeQuery(query, rowMapper, params);
+        return results.isEmpty() ? null : results.get(0);
     }
 
     /**

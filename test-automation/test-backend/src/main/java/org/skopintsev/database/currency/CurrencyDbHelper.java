@@ -1,23 +1,52 @@
 package org.skopintsev.database.currency;
 
 import io.qameta.allure.Step;
+import lombok.SneakyThrows;
 import org.skopintsev.database.DatabaseHelper;
 
 import java.util.List;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
 public class CurrencyDbHelper {
 
+    /**
+     * Row mapper for CurrencyDb
+     */
+    private static CurrencyDb mapRow(ResultSet rs) {
+        try {
+            return CurrencyDb.builder()
+                    .currencyCode(rs.getString("currency_code"))
+                    .currencyName(rs.getString("currency_name"))
+                    .currencySymbol(rs.getString("currency_symbol"))
+                    .metalType(rs.getString("metal_type"))
+                    .build();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error mapping CurrencyDb from ResultSet", e);
+        }
+    }
+
+    @SneakyThrows
     @Step("Select all currencies from database")
     public static List<CurrencyDb> selectAllCurrencies() {
         String query = "SELECT currency_code, currency_name, currency_symbol, metal_type FROM currencies ORDER BY currency_code";
-        return DatabaseHelper.executeQuery(query);
+        return DatabaseHelper.executeQuery(query, CurrencyDbHelper::mapRow);
     }
 
+    @SneakyThrows
     @Step("Select currency by code: {currencyCode}")
     public static CurrencyDb selectCurrencyByCode(String currencyCode) {
         String query = "SELECT currency_code, currency_name, currency_symbol, metal_type FROM currencies WHERE currency_code = ?";
-        List<CurrencyDb> results = DatabaseHelper.executeQuery(query, currencyCode);
-        return results.isEmpty() ? null : results.get(0);
+        return DatabaseHelper.queryForObject(query, CurrencyDbHelper::mapRow, currencyCode);
+    }
+
+    @SneakyThrows
+    @Step("Select currencies by metal type: {metalType}")
+    public static List<CurrencyDb> selectCurrenciesByMetalType(String metalType) {
+        String query = "SELECT currency_code, currency_name, currency_symbol, metal_type FROM currencies WHERE metal_type = ?";
+        return DatabaseHelper.executeQuery(query, CurrencyDbHelper::mapRow, metalType);
     }
 
     @Step("Insert new currency: {currency}")
@@ -41,13 +70,25 @@ public class CurrencyDbHelper {
         return DatabaseHelper.executeUpdate(query, currencyCode);
     }
 
-    @Step("Delete all currencies")
-    public static int deleteAllTestCurrencies() {
+    @Step("Delete all test currencies")
+    public static void deleteAllTestCurrencies() {
         String query = "DELETE FROM currencies WHERE currency_code NOT LIKE 'BBC-%'";
-        return DatabaseHelper.executeUpdate(query);
+        DatabaseHelper.executeUpdate(query);
     }
 
-
-
+    @Step("Get currencies count")
+    public static int getCurrenciesCount() {
+        String query = "SELECT COUNT(*) FROM currencies";
+        Integer count = DatabaseHelper.queryForObject(query,
+                rs -> {
+                    try {
+                        return rs.getInt(1);
+                    } catch (SQLException e) {
+                        throw new RuntimeException("Error getting count", e);
+                    }
+                }
+        );
+        return count != null ? count : 0;
+    }
 
 }
