@@ -27,10 +27,9 @@ public class PostApiReqHelper {
     }
 
     @Step("POST " + Api.CURRENCIES + " by expected status code {1}")
-    public static Response saveCurrencyAndValidate(Currency currency, int expectedStatusCode) {
+    public static void saveCurrencyAndValidate(Currency currency, int expectedStatusCode) {
         Response response = saveCurrency(currency);
         response.then().statusCode(expectedStatusCode);
-        return response;
     }
 
 }

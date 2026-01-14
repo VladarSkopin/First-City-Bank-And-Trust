@@ -35,7 +35,6 @@ dependencies {
     implementation 'io.rest-assured:rest-assured:5.4.0'
     implementation 'org.apache.httpcomponents:httpclient:4.5.14'
     implementation 'io.qameta.allure:allure-rest-assured:2.24.0'
-    runtimeOnly 'org.postgresql:postgresql:42.6.0'
 
     // ========== TEST DEPENDENCIES ==========
     testImplementation platform('org.junit:junit-bom:5.10.0')
@@ -48,6 +47,18 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.30'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
     testImplementation 'org.hamcrest:hamcrest:2.2'
+
+    // PostgreSQL JDBC Driver
+    implementation 'org.postgresql:postgresql:42.6.0'
+
+    // SLF4J for logging
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+
+    // AssertJ for fluent assertions
+    implementation 'org.assertj:assertj-core:3.24.2'
+    // Optional but useful
+    implementation 'org.awaitility:awaitility:4.2.0'  // For async assertions
 }
 
 test {

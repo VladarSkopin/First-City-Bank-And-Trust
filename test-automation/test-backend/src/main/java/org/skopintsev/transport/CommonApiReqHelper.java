@@ -33,13 +33,13 @@ public class CommonApiReqHelper {
             Map<String, Object> params) {
         RequestSpecification requestSpecification = prepareRequest(baseUrl);  // todo: add auth token here
 
-            if (bodyreq != null) {
-                requestSpecification.body(bodyreq);
-            }
+        if (bodyreq != null) {
+            requestSpecification.body(bodyreq);
+        }
 
-            requestSpecification.queryParams(params);
+        requestSpecification.queryParams(params);
 
-            return requestSpecification.post(contextReq);
+        return requestSpecification.post(contextReq);
     }
 
     public static Response getRequestWithQueryParams(
