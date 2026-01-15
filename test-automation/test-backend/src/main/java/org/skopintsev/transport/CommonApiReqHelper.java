@@ -1,8 +1,7 @@
 package org.skopintsev.transport;
 
 import static org.apache.http.HttpHeaders.*;
-import static org.skopintsev.constants.Constants.HTTP_HEADER_CHARSET;
-import static org.skopintsev.constants.Constants.UTF_8;
+import static org.skopintsev.constants.Constants.*;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
@@ -17,21 +16,20 @@ import java.util.Map;
 
 public class CommonApiReqHelper {
 
-    public static Response postRequest(String bodyReq, String contextReq, String baseUrl) {
-        return postRequestWithQueryParams(bodyReq, contextReq, baseUrl, Collections.emptyMap());
+    public static Response postRequest(String bodyReq, String contextReq) {
+        return postRequestWithQueryParams(bodyReq, contextReq, Collections.emptyMap());
     }
 
-    public static Response getRequest(String contextReq, String baseUrl) {
-        return getRequestWithQueryParams(contextReq, baseUrl, Collections.emptyMap());
+    public static Response getRequest(String contextReq) {
+        return getRequestWithQueryParams(contextReq, Collections.emptyMap());
     }
 
     public static Response postRequestWithQueryParams(
             String bodyreq,
             String contextReq,
             // String authToken,
-            String baseUrl,
             Map<String, Object> params) {
-        RequestSpecification requestSpecification = prepareRequest(baseUrl);  // todo: add auth token here
+        RequestSpecification requestSpecification = prepareRequest();  // todo: add auth token here
 
         if (bodyreq != null) {
             requestSpecification.body(bodyreq);
@@ -45,18 +43,17 @@ public class CommonApiReqHelper {
     public static Response getRequestWithQueryParams(
             String contextReq,
             // String authToken,
-            String baseUrl,
             Map<String, Object> params) {
-        RequestSpecification requestSpecification = prepareRequest(baseUrl);  // todo: add auth token here
+        RequestSpecification requestSpecification = prepareRequest();  // todo: add auth token here
 
         requestSpecification.queryParams(params);
 
         return requestSpecification.get(contextReq);
     }
 
-    private static RequestSpecification prepareRequest(String baseUrl) {
+    private static RequestSpecification prepareRequest() {
         return RestAssured.given()
-                .baseUri(baseUrl)
+                .baseUri(BANK_API_URL)
                 .config(getRelaxedHttpsValidationSslConfig())
                 .contentType(ContentType.JSON)
                 .header(ACCEPT, ContentType.ANY)  // Accept: */* -> accepts any response

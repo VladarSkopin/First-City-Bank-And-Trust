@@ -9,7 +9,6 @@ import org.skopintsev.model.Currency;
 
 import java.util.List;
 
-import static org.skopintsev.constants.Constants.BANK_API_URL;
 import static org.skopintsev.transport.CommonApiReqHelper.getRequest;
 
 
@@ -17,7 +16,7 @@ public class GetApiReqHelper {
 
     @SneakyThrows
     public static Response getApiReq(String contextReq) {
-        return getRequest(contextReq, BANK_API_URL);
+        return getRequest(contextReq);
     }
 
     public static Response getCurrencies() {

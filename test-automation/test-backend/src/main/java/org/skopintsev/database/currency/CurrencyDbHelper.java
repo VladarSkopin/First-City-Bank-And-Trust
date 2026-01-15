@@ -72,7 +72,7 @@ public class CurrencyDbHelper {
 
     @Step("Delete all test currencies")
     public static void deleteAllTestCurrencies() {
-        String query = "DELETE FROM currencies WHERE currency_code NOT LIKE 'BBC-%'";
+        String query = "DELETE FROM currencies WHERE currency_code LIKE 'TEST-%'";
         DatabaseHelper.executeUpdate(query);
     }
 

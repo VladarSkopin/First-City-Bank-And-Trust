@@ -6,7 +6,6 @@ import lombok.SneakyThrows;
 import org.skopintsev.constants.Api;
 import org.skopintsev.model.Currency;
 
-import static org.skopintsev.constants.Constants.BANK_API_URL;
 import static org.skopintsev.constants.Constants.OBJECT_MAPPER;
 import static org.skopintsev.transport.CommonApiReqHelper.postRequest;
 
@@ -19,7 +18,7 @@ public class PostApiReqHelper {
     }
 
     public static Response postApiReq(String bodyReq, String contextReq) {
-        return postRequest(bodyReq, contextReq, BANK_API_URL);
+        return postRequest(bodyReq, contextReq);
     }
 
     public static Response saveCurrency(Currency currency) {

@@ -24,7 +24,11 @@ public class Constants {
     public static final String BEARER = "Bearer ";
 
 
-    // statuses
+    // HTTP status codes
 
     public static final int SC_OK = 200;
+
+    public static final int SC_NOT_FOUND = 404;
+
+    public static final int SC_SERVER_ERROR = 500;
 }
