@@ -24,6 +24,11 @@ public class CommonApiReqHelper {
         return getRequestWithQueryParams(contextReq, Collections.emptyMap());
     }
 
+    public static Response deleteRequest(String contextReq, String pathParam) {
+        String completePath = contextReq + "/" + pathParam;
+        return deleteRequestWithPathParams(completePath);
+    }
+
     public static Response postRequestWithQueryParams(
             String bodyreq,
             String contextReq,
@@ -49,6 +54,15 @@ public class CommonApiReqHelper {
         requestSpecification.queryParams(params);
 
         return requestSpecification.get(contextReq);
+    }
+
+    public static Response deleteRequestWithPathParams(
+            // String authToken,
+            String completePath
+            ) {
+        RequestSpecification requestSpecification = prepareRequest();  // todo: add auth token here
+
+        return requestSpecification.delete(completePath);
     }
 
     private static RequestSpecification prepareRequest() {

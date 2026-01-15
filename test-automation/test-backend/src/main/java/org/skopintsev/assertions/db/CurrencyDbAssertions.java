@@ -2,6 +2,7 @@ package org.skopintsev.assertions.db;
 
 import io.qameta.allure.Step;
 import org.assertj.core.api.Assertions;
+import org.skopintsev.database.currency.CurrencyDb;
 import org.skopintsev.helper.enums.MetalType;
 
 
@@ -34,5 +35,18 @@ public class CurrencyDbAssertions {
         Assertions.assertThat(actualCurrencySymbol)
                 .withFailMessage("Expected currency symbol = " + expectedCurrencySymbol + ", but actual = " + actualCurrencySymbol)
                 .isEqualTo(expectedCurrencySymbol);
+    }
+
+    @Step("Check currency is not null.")
+    public static void checkCurrencyPresence(CurrencyDb currencyDb, boolean shouldBePresent) {
+        if (shouldBePresent) {
+            Assertions.assertThat(currencyDb)
+                    .withFailMessage("Expected currency to be NOT NULL in the Database.")
+                    .isNotNull();
+        } else {
+            Assertions.assertThat(currencyDb)
+                    .withFailMessage("Expected currency to be NULL in the Database.")
+                    .isNull();
+        }
     }
 }

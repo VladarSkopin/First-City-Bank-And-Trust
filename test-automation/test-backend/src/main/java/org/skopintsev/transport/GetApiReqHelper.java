@@ -9,23 +9,17 @@ import org.skopintsev.model.Currency;
 
 import java.util.List;
 
-import static org.skopintsev.transport.CommonApiReqHelper.getRequest;
-
 
 public class GetApiReqHelper {
 
     @SneakyThrows
     public static Response getApiReq(String contextReq) {
-        return getRequest(contextReq);
-    }
-
-    public static Response getCurrencies() {
-        return getApiReq(Api.CURRENCIES);
+        return CommonApiReqHelper.getRequest(contextReq);
     }
 
     @Step("GET " + Api.CURRENCIES + " by expected status code {0}")
     public static List<Currency> getCurrenciesAndValidate(int expectedStatusCode) {
-        Response response = getCurrencies();
+        Response response = getApiReq(Api.CURRENCIES);
         response.then().statusCode(expectedStatusCode);
 
         // Use TypeRef to handle generic types
