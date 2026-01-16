@@ -10,7 +10,7 @@ public class DeleteApiReqHelper {
         return CommonApiReqHelper.deleteRequest(Api.CURRENCIES, currencyCode);
     }
 
-    @Step("DELETE " + Api.CURRENCIES + " by expected status code {1}")
+    @Step("DELETE " + Api.CURRENCIES + " with expected status code {1}")
     public static void deleteCurrencyAndValidate(String currencyCode, int expectedStatusCode) {
         Response response = deleteCurrency(currencyCode);
         response.then().statusCode(expectedStatusCode);

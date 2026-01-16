@@ -4,12 +4,17 @@ import io.qameta.allure.Description;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.assertions.db.CurrencyDbAssertions;
 import org.skopintsev.database.currency.CurrencyDb;
 import org.skopintsev.database.currency.CurrencyDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.transport.DeleteApiReqHelper;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.skopintsev.constants.Constants.*;
@@ -40,39 +45,29 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
         CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
     }
 
-    @Test
+    @ParameterizedTest(name = "[{index}] currencyCode = {0}")
+    @MethodSource("currencyCodeRequest")
     @Tag("regression")
-    @Description("Test uses API to delete a currency with code = null.")
-    public void deleteCurrencyNullCode() {
+    @Description("""
+        Test uses API to delete a currency:
+        1) with code = null,
+        2) with code = empty string,
+        3) a currency that is absent in the Database.
+        """)
+    public void deleteCurrencyNegativeTest(String currencyCode) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
-        DeleteApiReqHelper.deleteCurrencyAndValidate(null, SC_NOT_FOUND);
+        DeleteApiReqHelper.deleteCurrencyAndValidate(currencyCode, SC_NOT_FOUND);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
         CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
     }
 
-    @Test
-    @Tag("regression")
-    @Description("Test uses API to delete a currency with code = empty string.")
-    public void deleteCurrencyEmptyCode() {
-        int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
-
-        DeleteApiReqHelper.deleteCurrencyAndValidate("", SC_NOT_FOUND);
-
-        int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
-        CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
-    }
-
-    @Test
-    @Tag("regression")
-    @Description("Test uses API to delete a currency that is absent in the Database.")
-    public void deleteCurrencyAbsent() {
-        int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
-
-        DeleteApiReqHelper.deleteCurrencyAndValidate(GeneratorBuilder.generateTestCode(), SC_NOT_FOUND);
-
-        int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
-        CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
+    private static Stream<Arguments> currencyCodeRequest() {
+            return Stream.of(
+                    Arguments.of((String) null),
+                    Arguments.of(""),
+                    Arguments.of(GeneratorBuilder.generateTestCode())
+            );
     }
 }

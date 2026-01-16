@@ -17,7 +17,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.skopintsev.constants.Constants.SC_OK;
 
-// PER_CLASS -> class variables = single instance created once, used in all test methods
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BasicCurrencyTest extends BaseCurrencyTest {
 

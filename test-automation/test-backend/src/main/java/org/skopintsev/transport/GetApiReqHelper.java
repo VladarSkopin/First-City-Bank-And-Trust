@@ -17,7 +17,7 @@ public class GetApiReqHelper {
         return CommonApiReqHelper.getRequest(contextReq);
     }
 
-    @Step("GET " + Api.CURRENCIES + " by expected status code {0}")
+    @Step("GET " + Api.CURRENCIES + " with expected status code {0}")
     public static List<Currency> getCurrenciesAndValidate(int expectedStatusCode) {
         Response response = getApiReq(Api.CURRENCIES);
         response.then().statusCode(expectedStatusCode);

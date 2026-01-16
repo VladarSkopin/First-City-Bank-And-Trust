@@ -4,10 +4,14 @@ import io.qameta.allure.Description;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.skopintsev.assertions.db.CommonDbAssertions;
+import org.skopintsev.assertions.db.CurrencyDbAssertions;
+import org.skopintsev.database.currency.CurrencyDb;
 import org.skopintsev.database.currency.CurrencyDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.helper.enums.MetalType;
 import org.skopintsev.model.Currency;
 import org.skopintsev.transport.PostApiReqHelper;
 
@@ -19,7 +23,6 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
 
     String currencyCode = GeneratorBuilder.generateTestCode();
     String currencyName = GeneratorBuilder.generateString(5);
-    String metalType = MetalType.COPPER.getText();
 
     @Test
     @Tag("regression")
@@ -28,87 +31,128 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         Currency newCurrencyApi = Currency.builder()
                 .currencyCode(currencyCode)
                 .currencyName(currencyName)
-                .metalType(metalType)
                 .build();
         PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_OK);
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
         PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
-
         CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
     }
 
-
-    // todo: code null
-    @Test
+    @ParameterizedTest(name = "[{index}] currencyCode = {0}")
+    @ValueSource(strings = {""})
+    @NullSource
     @Tag("regression")
-    @Description(".")
-    public void createCurrencyNullCode() {
+    @Description("""
+        Test uses API to post a Currency:
+        1) with currency code = null,
+        2) with currency code = empty string.
+        """)
+    public void createCurrencyWithInvalidCode(String currencyCode) {
+        int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
+        Currency newCurrencyApi = Currency.builder()
+                .currencyCode(currencyCode)
+                .currencyName(currencyName)
+                .build();
+        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
+
+        int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
+        CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
     }
 
-    // todo: code empty
     @Test
     @Tag("regression")
-    @Description(".")
-    public void createCurrencyEmptyCode() {
-
-    }
-
-    // todo: name already exists
-    @Test
-    @Tag("regression")
-    @Description(".")
+    @Description("Test uses API to post a Currency with currency name already present in the Database.")
     public void createCurrencyNameAlreadyExists() {
+        Currency newCurrencyApi = Currency.builder()
+                .currencyCode(currencyCode)
+                .currencyName(currencyName)
+                .build();
+        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_OK);
 
+        int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
+
+        Currency newCurrencyApiSameName = Currency.builder()
+                .currencyCode(GeneratorBuilder.generateTestCode())
+                .currencyName(currencyName)
+                .build();
+        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApiSameName, SC_SERVER_ERROR);
+
+        int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
+        CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
     }
 
-    // todo: name null
-    @Test
+    @ParameterizedTest(name = "[{index}] currencyName = {0}")
+    @ValueSource(strings = {""})
+    @NullSource
     @Tag("regression")
-    @Description(".")
-    public void createCurrencyNullName() {
+    @Description("""
+        Test uses API to post a Currency:
+        1) with currency name = null,
+        2) with currency name = empty string.
+        """)
+    public void createCurrencyWithInvalidName(String currencyName) {
+        int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
+        Currency newCurrencyApi = Currency.builder()
+                .currencyCode(currencyCode)
+                .currencyName(currencyName)
+                .build();
+        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
+
+        int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
+        CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
     }
 
-    // todo: name empty
-    @Test
+    @ParameterizedTest(name = "[{index}] currencySymbol = {0}")
+    @ValueSource(strings = {""})
+    @NullSource
     @Tag("regression")
-    @Description(".")
-    public void createCurrencyEmptyName() {
+    @Description("""
+        Test uses API to post a Currency:
+        1) with currency symbol = null,
+        2) with currency symbol = empty string.
+        """)
+    public void createCurrencyWithInvalidSymbol(String currencySymbol) {
+        int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
+        Currency newCurrencyApi = Currency.builder()
+                .currencyCode(currencyCode)
+                .currencyName(currencyName)
+                .currencySymbol(currencySymbol)
+                .build();
+        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
+
+        int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
+        CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
     }
 
-    // todo: symbol null
-    @Test
+    @ParameterizedTest(name = "[{index}] metalType = {0}")
+    @ValueSource(strings = {""})
+    @NullSource
     @Tag("regression")
-    @Description(".")
-    public void createCurrencyNullSymbol() {
+    @Description("""
+        Test uses API to post a Currency:
+        1) with currency metal type = null,
+        2) with currency metal type = empty string.
+        In both cases expected metal type should be = 'UNKNOWN'.
+        """)
+    public void createCurrencyWithDefaultMetalType(String metalType) {
+        int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
-    }
+        Currency newCurrencyApi = Currency.builder()
+                .currencyCode(currencyCode)
+                .currencyName(currencyName)
+                .metalType(metalType)
+                .build();
+        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_OK);
 
-    // todo: symbol empty
-    @Test
-    @Tag("regression")
-    @Description(".")
-    public void createCurrencyEmptySymbol() {
+        int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount() - 1;
+        CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
 
-    }
-
-    // todo: metal type null
-    @Test
-    @Tag("regression")
-    @Description(".")
-    public void createCurrencyNullMetalType() {
-
-    }
-
-    // todo: metal type empty
-    @Test
-    @Tag("regression")
-    @Description(".")
-    public void createCurrencyEmptyMetalType() {
-
+        CurrencyDb newAddedCurrencyDb = CurrencyDbHelper.selectCurrencyByCode(currencyCode);
+        CurrencyDbAssertions.checkDefaultMetalType(newAddedCurrencyDb.getMetalType());
     }
 }

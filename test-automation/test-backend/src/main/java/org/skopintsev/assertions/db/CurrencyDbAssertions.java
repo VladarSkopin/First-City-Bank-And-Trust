@@ -37,7 +37,7 @@ public class CurrencyDbAssertions {
                 .isEqualTo(expectedCurrencySymbol);
     }
 
-    @Step("Check currency is not null.")
+    @Step("Check currency presence in the Database.")
     public static void checkCurrencyPresence(CurrencyDb currencyDb, boolean shouldBePresent) {
         if (shouldBePresent) {
             Assertions.assertThat(currencyDb)
