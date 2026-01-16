@@ -39,7 +39,7 @@ public class CurrencyDataAccessService implements CurrencyDao {
                 currency.currencyCode().toUpperCase().trim(),
                 currency.currencyName().trim(),
                 currency.currencySymbol().trim(),
-                currency.metalType().toUpperCase().trim()
+                normalizeMetalType(currency.metalType())
         );
 
         return rowsAffected;
@@ -78,5 +78,15 @@ public class CurrencyDataAccessService implements CurrencyDao {
         return jdbcTemplate.query(sql, new CurrencyRowMapper(), currencyCode)
                 .stream()
                 .findFirst();
+    }
+
+
+    // Helpers
+
+    private String normalizeMetalType(String metalType) {
+        if (metalType == null || metalType.trim().isEmpty()) {
+            return "UNKNOWN";
+        }
+        return metalType.trim().toUpperCase();
     }
 }

@@ -35,6 +35,10 @@ public class CurrencyService {
             throw new IllegalArgumentException("Currency name is required");
         }
 
+        if (currency.currencySymbol() == null || currency.currencySymbol().trim().isEmpty()) {
+            throw new IllegalArgumentException("Currency symbol is required");
+        }
+
         // 2. Check if currency exists
         boolean currencyExists = currencyDao.existsByName(currency.currencyName());
         if (currencyExists) {

@@ -1,0 +1,4 @@
+rootProject.name = 'test-automation'
+
+include 'test-backend'
+include 'test-frontend'
