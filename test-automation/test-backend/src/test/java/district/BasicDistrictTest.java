@@ -14,6 +14,7 @@ import org.skopintsev.database.district.DistrictDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.District;
 import org.skopintsev.transport.GetApiReqHelper;
+import org.skopintsev.transport.PostApiReqHelper;
 
 import java.util.List;
 
@@ -46,5 +47,23 @@ public class BasicDistrictTest extends BaseDistrictTest {
                 .findFirst()
                 .orElse(null);
         DistrictDbAssertions.checkDistrictName(newAddedDistrictApi.getDistrictName(), districtName);
+    }
+
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to post a new District object and checks Database for the new added district.")
+    @Severity(SeverityLevel.BLOCKER)
+    public void createDistrictApiTest() {
+        District newAddedDistrictApi = District.builder()
+                .districtCode(districtCode)
+                .districtName(districtName)
+                .build();
+        PostApiReqHelper.saveDistrictAndValidate(newAddedDistrictApi, SC_OK);
+
+        List<District> districts = GetApiReqHelper.getDistrictsAndValidate(SC_OK);
+        DistrictApiAssertions.checkNotNullDistricts(districts);
+
+        DistrictDb newAddedDistrictDb = DistrictDbHelper.selectDistrictByCode(districtCode);
+        DistrictDbAssertions.checkDistrictName(newAddedDistrictDb.getDistrictName(), districtName);
     }
 }
