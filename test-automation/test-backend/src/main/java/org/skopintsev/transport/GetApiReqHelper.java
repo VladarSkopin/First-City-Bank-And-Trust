@@ -6,6 +6,7 @@ import io.restassured.response.Response;
 import lombok.SneakyThrows;
 import org.skopintsev.constants.Api;
 import org.skopintsev.model.Currency;
+import org.skopintsev.model.District;
 
 import java.util.List;
 
@@ -22,7 +23,15 @@ public class GetApiReqHelper {
         Response response = getApiReq(Api.CURRENCIES);
         response.then().statusCode(expectedStatusCode);
 
-        // Use TypeRef to handle generic types
+        // TypeRef to handle generic types
         return response.as(new TypeRef<List<Currency>>() {});
+    }
+
+    @Step("GET " + Api.DISTRICTS + " with expected status code {0}")
+    public static List<District> getDistrictsAndValidate(int expectedStatusCode) {
+        Response response = getApiReq(Api.DISTRICTS);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<District>>() {});
     }
 }

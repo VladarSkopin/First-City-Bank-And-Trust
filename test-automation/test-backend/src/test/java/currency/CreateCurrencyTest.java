@@ -1,6 +1,8 @@
 package currency;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -27,6 +29,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
     @Test
     @Tag("regression")
     @Description("Test uses API to post a Currency that is already present in the Database.")
+    @Severity(SeverityLevel.CRITICAL)
     public void createCurrencyAlreadyExists() {
         Currency newCurrencyApi = Currency.builder()
                 .currencyCode(currencyCode)
@@ -49,6 +52,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         1) with currency code = null,
         2) with currency code = empty string.
         """)
+    @Severity(SeverityLevel.CRITICAL)
     public void createCurrencyWithInvalidCode(String currencyCode) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
@@ -65,6 +69,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
     @Test
     @Tag("regression")
     @Description("Test uses API to post a Currency with currency name already present in the Database.")
+    @Severity(SeverityLevel.CRITICAL)
     public void createCurrencyNameAlreadyExists() {
         Currency newCurrencyApi = Currency.builder()
                 .currencyCode(currencyCode)
@@ -93,6 +98,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         1) with currency name = null,
         2) with currency name = empty string.
         """)
+    @Severity(SeverityLevel.CRITICAL)
     public void createCurrencyWithInvalidName(String currencyName) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
@@ -115,6 +121,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         1) with currency symbol = null,
         2) with currency symbol = empty string.
         """)
+    @Severity(SeverityLevel.CRITICAL)
     public void createCurrencyWithInvalidSymbol(String currencySymbol) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
@@ -139,6 +146,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         2) with currency metal type = empty string.
         In both cases expected metal type should be = 'UNKNOWN'.
         """)
+    @Severity(SeverityLevel.CRITICAL)
     public void createCurrencyWithDefaultMetalType(String metalType) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
