@@ -21,23 +21,15 @@ public class PostApiReqHelper {
         return CommonApiReqHelper.postRequest(bodyReq, contextReq);
     }
 
-    public static Response saveCurrency(Currency currency) {
-        return postApiReq(currency, Api.CURRENCIES);
-    }
-
-    public static Response saveDistrict(District district) {
-        return postApiReq(district, Api.DISTRICTS);
-    }
-
     @Step("POST " + Api.CURRENCIES + " with expected status code {1}")
     public static void saveCurrencyAndValidate(Currency currency, int expectedStatusCode) {
-        Response response = saveCurrency(currency);
+        Response response = postApiReq(currency, Api.CURRENCIES);
         response.then().statusCode(expectedStatusCode);
     }
 
     @Step("POST " + Api.DISTRICTS + " with expected status code {1}")
     public static void saveDistrictAndValidate(District district, int expectedStatusCode) {
-        Response response = saveDistrict(district);
+        Response response = postApiReq(district, Api.DISTRICTS);
         response.then().statusCode(expectedStatusCode);
     }
 

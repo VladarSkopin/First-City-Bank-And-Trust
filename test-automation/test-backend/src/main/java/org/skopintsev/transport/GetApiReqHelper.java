@@ -14,13 +14,13 @@ import java.util.List;
 public class GetApiReqHelper {
 
     @SneakyThrows
-    public static Response getApiReq(String contextReq) {
+    public static Response getApiRequest(String contextReq) {
         return CommonApiReqHelper.getRequest(contextReq);
     }
 
     @Step("GET " + Api.CURRENCIES + " with expected status code {0}")
     public static List<Currency> getCurrenciesAndValidate(int expectedStatusCode) {
-        Response response = getApiReq(Api.CURRENCIES);
+        Response response = getApiRequest(Api.CURRENCIES);
         response.then().statusCode(expectedStatusCode);
 
         // TypeRef to handle generic types
@@ -29,7 +29,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.DISTRICTS + " with expected status code {0}")
     public static List<District> getDistrictsAndValidate(int expectedStatusCode) {
-        Response response = getApiReq(Api.DISTRICTS);
+        Response response = getApiRequest(Api.DISTRICTS);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<District>>() {});
