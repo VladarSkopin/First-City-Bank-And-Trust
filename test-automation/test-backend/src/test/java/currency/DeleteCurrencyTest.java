@@ -1,6 +1,8 @@
 package currency;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -16,7 +18,6 @@ import org.skopintsev.transport.DeleteApiReqHelper;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.skopintsev.constants.Constants.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -25,6 +26,7 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
     @Test
     @Tag("regression")
     @Description("Test creates a new currency in the Database and uses API to delete it.")
+    @Severity(SeverityLevel.CRITICAL)
     public void deleteCurrency() {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
@@ -34,7 +36,7 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
                 .currencyName(GeneratorBuilder.generateString(5))
                 .build();
         int rowsInserted = CurrencyDbHelper.insertCurrency(newCurrencyDb);
-        assertEquals(1, rowsInserted, "Should insert 1 row");
+        CommonDbAssertions.checkRowsInserted(rowsInserted);
 
         DeleteApiReqHelper.deleteCurrencyAndValidate(currencyCode, SC_OK);
 
@@ -54,6 +56,7 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
         2) with code = empty string,
         3) a currency that is absent in the Database.
         """)
+    @Severity(SeverityLevel.CRITICAL)
     public void deleteCurrencyNegativeTest(String currencyCode) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 

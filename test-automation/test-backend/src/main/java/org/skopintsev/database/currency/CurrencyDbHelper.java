@@ -12,9 +12,6 @@ import java.sql.SQLException;
 
 public class CurrencyDbHelper {
 
-    /**
-     * Row mapper for CurrencyDb
-     */
     private static CurrencyDb mapRow(ResultSet rs) {
         try {
             return CurrencyDb.builder()
@@ -29,7 +26,7 @@ public class CurrencyDbHelper {
     }
 
     @SneakyThrows
-    @Step("Select all currencies from database")
+    @Step("Select all currencies from database.")
     public static List<CurrencyDb> selectAllCurrencies() {
         String query = "SELECT currency_code, currency_name, currency_symbol, metal_type FROM currencies ORDER BY currency_code";
         return DatabaseHelper.executeQuery(query, CurrencyDbHelper::mapRow);
@@ -50,17 +47,17 @@ public class CurrencyDbHelper {
     }
 
     @Step("Insert new currency: {currency}")
-    public static int insertCurrency(CurrencyDb currency) {
+    public static int insertCurrency(CurrencyDb currencyDb) {
         String query = """
             INSERT INTO currencies (currency_code, currency_name, currency_symbol, metal_type)
             VALUES (?, ?, ?, ?)
             """;
         return DatabaseHelper.executeUpdate(
                 query,
-                currency.getCurrencyCode(),
-                currency.getCurrencyName(),
-                currency.getCurrencySymbol(),
-                currency.getMetalType()
+                currencyDb.getCurrencyCode(),
+                currencyDb.getCurrencyName(),
+                currencyDb.getCurrencySymbol(),
+                currencyDb.getMetalType()
         );
     }
 
@@ -70,13 +67,13 @@ public class CurrencyDbHelper {
         return DatabaseHelper.executeUpdate(query, currencyCode);
     }
 
-    @Step("Delete all test currencies")
+    @Step("Delete all test currencies.")
     public static void deleteAllTestCurrencies() {
         String query = "DELETE FROM currencies WHERE currency_code LIKE 'TEST-%'";
         DatabaseHelper.executeUpdate(query);
     }
 
-    @Step("Get currencies count")
+    @Step("Get currencies count.")
     public static int getCurrenciesCount() {
         String query = "SELECT COUNT(*) FROM currencies";
         Integer count = DatabaseHelper.queryForObject(query,
