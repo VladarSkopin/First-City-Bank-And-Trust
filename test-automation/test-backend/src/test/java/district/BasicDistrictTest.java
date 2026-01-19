@@ -64,6 +64,7 @@ public class BasicDistrictTest extends BaseDistrictTest {
         DistrictApiAssertions.checkNotNullDistricts(districts);
 
         DistrictDb newAddedDistrictDb = DistrictDbHelper.selectDistrictByCode(districtCode);
+        DistrictDbAssertions.checkDistrictPresence(newAddedDistrictDb, true);
         DistrictDbAssertions.checkDistrictName(newAddedDistrictDb.getDistrictName(), districtName);
     }
 }

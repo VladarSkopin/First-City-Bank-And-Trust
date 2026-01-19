@@ -5,10 +5,18 @@ import org.assertj.core.api.Assertions;
 import org.skopintsev.database.district.DistrictDb;
 
 public class DistrictDbAssertions {
+
+    @Step("Check district code.")
+    public static void checkDistrictCode(String actualDistrictCode, String expectedDistrictCode) {
+        Assertions.assertThat(actualDistrictCode)
+                .withFailMessage("Expected district code = '%s', but actual = '%s'", expectedDistrictCode, actualDistrictCode)
+                .isEqualTo(expectedDistrictCode);
+    }
+
     @Step("Check district name.")
     public static void checkDistrictName(String actualDistrictName, String expectedDistrictName) {
         Assertions.assertThat(actualDistrictName)
-                .withFailMessage("Expected district name = " + expectedDistrictName + ", but actual = " + actualDistrictName)
+                .withFailMessage("Expected district name = '%s', but actual = '%s'", expectedDistrictName, actualDistrictName)
                 .isEqualTo(expectedDistrictName);
     }
 

@@ -22,7 +22,7 @@ import static org.skopintsev.constants.Constants.SC_NOT_FOUND;
 import static org.skopintsev.constants.Constants.SC_OK;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class DeleteDistrictTest {
+public class DeleteDistrictTest extends BaseDistrictTest {
 
     @Test
     @Tag("regression")
@@ -48,7 +48,7 @@ public class DeleteDistrictTest {
         CommonDbAssertions.checkCounts(districtsCountNew, districtsCountOld);
     }
 
-    @ParameterizedTest(name = "[{index}] currencyCode = {0}")
+    @ParameterizedTest(name = "[{index}] districtCode = {0}")
     @MethodSource("districtCodeRequest")
     @Tag("regression")
     @Description("""

@@ -69,6 +69,7 @@ public class BasicCurrencyTest extends BaseCurrencyTest {
         CurrencyApiAssertions.checkNotNullCurrencies(currencies);
 
         CurrencyDb newAddedCurrencyDb = CurrencyDbHelper.selectCurrencyByCode(currencyCode);
+        CurrencyDbAssertions.checkCurrencyPresence(newAddedCurrencyDb, true);
         CurrencyDbAssertions.checkCurrencyName(newAddedCurrencyDb.getCurrencyName(), currencyName);
         CurrencyDbAssertions.checkMetalType(newAddedCurrencyDb.getMetalType(), metalType);
         CurrencyDbAssertions.checkCurrencySymbol(newAddedCurrencyDb.getCurrencySymbol(), "*");
