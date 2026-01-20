@@ -7,11 +7,11 @@ import org.skopintsev.database.district.DistrictDbHelper;
 public class BaseDistrictTest {
     @BeforeEach
     public void setUp() {
-        DistrictDbHelper.deleteAllDistricts();
+        DistrictDbHelper.deleteAllTestDistricts();
     }
 
     @AfterEach
     public void tearDown() {
-        DistrictDbHelper.deleteAllDistricts();
+        DistrictDbHelper.deleteAllTestDistricts();
     }
 }

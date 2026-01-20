@@ -60,13 +60,13 @@ public class DatabaseHelper {
             }
 
             rs = stmt.executeQuery();
-            Allure.addAttachment("SQL Query", "text/plain", query);
 
             while (rs.next()) {
                 results.add(rowMapper.apply(rs));
             }
 
             log.info("Query executed successfully. Found {} records", results.size());
+            Allure.addAttachment("SQL Query Result", "text/plain", String.valueOf(results));
             return results;
 
         } catch (SQLException e) {
@@ -107,7 +107,6 @@ public class DatabaseHelper {
             int rowsAffected = stmt.executeUpdate();
 
             // Attach SQL to Allure report
-            Allure.addAttachment("SQL Update Query", "text/plain", query);
             Allure.addAttachment("Rows Affected", "text/plain", String.valueOf(rowsAffected));
 
             log.info("Update executed successfully. Rows affected: {}", rowsAffected);
