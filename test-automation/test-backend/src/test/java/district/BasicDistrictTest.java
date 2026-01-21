@@ -23,8 +23,8 @@ import static org.skopintsev.constants.Constants.SC_OK;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BasicDistrictTest extends BaseDistrictTest {
 
-    String districtCode = GeneratorBuilder.generateTestCode();
-    String districtName = GeneratorBuilder.generateString(3);
+    private final String districtCode = GeneratorBuilder.generateTestCode();
+    private final String districtName = GeneratorBuilder.generateString(10);
 
     @Test
     @Tag("smoke")

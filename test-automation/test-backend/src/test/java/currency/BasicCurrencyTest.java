@@ -22,8 +22,8 @@ import static org.skopintsev.constants.Constants.SC_OK;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BasicCurrencyTest extends BaseCurrencyTest {
 
-    String currencyCode = GeneratorBuilder.generateTestCode();
-    String currencyName = GeneratorBuilder.generateString(5);
+    private final String currencyCode = GeneratorBuilder.generateTestCode();
+    private final String currencyName = GeneratorBuilder.generateString(5);
 
     @Test
     @Tag("smoke")

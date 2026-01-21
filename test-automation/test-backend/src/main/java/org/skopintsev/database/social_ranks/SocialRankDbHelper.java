@@ -30,7 +30,7 @@ public class SocialRankDbHelper {
         return DatabaseHelper.queryForObject(query, SocialRankDbHelper::mapRow, rankCode);
     }
 
-    @Step("Insert new social rank: {currency}")
+    @Step("Insert new social rank: {socialRankDb}")
     public static int insertSocialRank(SocialRankDb socialRankDb) {
         String query = """
             INSERT INTO social_ranks (rank_code, rank_name, description, privilege_level, regulations)

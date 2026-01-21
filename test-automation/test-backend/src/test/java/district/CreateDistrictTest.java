@@ -28,8 +28,8 @@ import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreateDistrictTest extends BaseDistrictTest {
 
-    String districtCode = GeneratorBuilder.generateTestCode();
-    String districtName = GeneratorBuilder.generateString(10);
+    private final String districtCode = GeneratorBuilder.generateTestCode();
+    private final String districtName = GeneratorBuilder.generateString(10);
 
     @Test
     @Tag("regression")
