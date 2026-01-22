@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class GeneratorBuilder {
 
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     // both lower and upper limits are inclusive
     public static int generateRandomNumberInclusive(int min, int max) {

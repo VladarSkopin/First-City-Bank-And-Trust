@@ -22,4 +22,10 @@ public class DeleteApiReqHelper {
         response.then().statusCode(expectedStatusCode);
     }
 
+    @Step("DELETE " + Api.SOCIAL_RANKS + " with expected status code {1}")
+    public static void deleteSocialRankAndValidate(String rankCode, int expectedStatusCode) {
+        Response response = deleteApiRequest(Api.SOCIAL_RANKS, rankCode);
+        response.then().statusCode(expectedStatusCode);
+    }
+
 }

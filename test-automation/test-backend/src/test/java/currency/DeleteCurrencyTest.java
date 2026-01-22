@@ -5,7 +5,6 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -20,7 +19,6 @@ import java.util.stream.Stream;
 
 import static org.skopintsev.constants.Constants.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DeleteCurrencyTest extends BaseCurrencyTest {
 
     @Test
