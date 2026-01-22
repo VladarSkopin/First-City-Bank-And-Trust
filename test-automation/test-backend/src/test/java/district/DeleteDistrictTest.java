@@ -49,7 +49,8 @@ public class DeleteDistrictTest extends BaseDistrictTest {
     @ParameterizedTest(name = "[{index}] districtCode = {0}")
     @MethodSource("districtCodeRequest")
     @Tag("regression")
-    @Description("""
+    @Description(
+        """
         Test uses API to delete a district:
         1) with code = null,
         2) with code = empty string,

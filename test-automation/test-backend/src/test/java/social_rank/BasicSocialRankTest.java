@@ -24,9 +24,11 @@ import static org.skopintsev.constants.Constants.SC_OK;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BasicSocialRankTest extends BaseSocialRankTest {
 
-    private final String rankCode = GeneratorBuilder.generateTestCode();
-    private final String rankName = GeneratorBuilder.generateString(10);
-    private final String defaultPrivilegeLevel = PrivilegeLevel.STANDARD.getText();
+    private final String RANK_CODE = GeneratorBuilder.generateTestCode();
+    private final String RANK_NAME = GeneratorBuilder.generateString(10);
+    private final String PRIVILEGE_LEVEL = PrivilegeLevel.RESTRICTED.getText();
+    private final String DESCRIPTION = GeneratorBuilder.generateString(1000);
+    private final String REGULATIONS = GeneratorBuilder.generateString(1000);
 
     @Test
     @Tag("smoke")
@@ -34,8 +36,11 @@ public class BasicSocialRankTest extends BaseSocialRankTest {
     @Severity(SeverityLevel.BLOCKER)
     public void createSocialRankDbTest() {
         SocialRankDb socialRankDb = SocialRankDb.builder()
-                .rankCode(rankCode)
-                .rankName(rankName)
+                .rankCode(RANK_CODE)
+                .rankName(RANK_NAME)
+                .description(DESCRIPTION)
+                .privilegeLevel(PRIVILEGE_LEVEL)
+                .regulations(REGULATIONS)
                 .build();
         int rowsInserted = SocialRankDbHelper.insertSocialRank(socialRankDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
@@ -45,16 +50,16 @@ public class BasicSocialRankTest extends BaseSocialRankTest {
 
         SocialRank newAddedSocialRankApi = ranks
                 .stream()
-                .filter(s -> s.getRankCode().equals(rankCode))
+                .filter(s -> s.getRankCode().equals(RANK_CODE))
                 .findFirst()
                 .orElse(null);
-        SocialRankDbAssertions.checkSocialRankField("rankName", newAddedSocialRankApi.getRankName(), rankName);
+        SocialRankDbAssertions.checkSocialRankField("rankName", newAddedSocialRankApi.getRankName(), RANK_NAME);
         SocialRankDbAssertions.checkSocialRankField("privilegeLevel", newAddedSocialRankApi.getPrivilegeLevel(),
-                defaultPrivilegeLevel);
+                PRIVILEGE_LEVEL);
         SocialRankDbAssertions.checkSocialRankField("description", newAddedSocialRankApi.getDescription(),
-                "");
+                DESCRIPTION);
         SocialRankDbAssertions.checkSocialRankField("regulations", newAddedSocialRankApi.getRegulations(),
-                "");
+                REGULATIONS);
     }
 
     @Test
@@ -63,23 +68,26 @@ public class BasicSocialRankTest extends BaseSocialRankTest {
     @Severity(SeverityLevel.BLOCKER)
     public void createSocialRankApiTest() {
         SocialRank socialRank = SocialRank.builder()
-                .rankCode(rankCode)
-                .rankName(rankName)
+                .rankCode(RANK_CODE)
+                .rankName(RANK_NAME)
+                .description(DESCRIPTION)
+                .privilegeLevel(PRIVILEGE_LEVEL)
+                .regulations(REGULATIONS)
                 .build();
         PostApiReqHelper.saveSocialRankAndValidate(socialRank, SC_OK);
 
         List<SocialRank> ranks = GetApiReqHelper.getSocialRanksAndValidate(SC_OK);
         SocialRankApiAssertions.checkNotNullSocialRanks(ranks);
 
-        SocialRankDb newAddedSocialRankDb = SocialRankDbHelper.selectSocialRankByCode(rankCode);
+        SocialRankDb newAddedSocialRankDb = SocialRankDbHelper.selectSocialRankByCode(RANK_CODE);
         SocialRankDbAssertions.checkSocialRankPresence(newAddedSocialRankDb, true);
         SocialRankDbAssertions.checkSocialRankField("rankName", newAddedSocialRankDb.getRankName(),
-                rankName);
+                RANK_NAME);
         SocialRankDbAssertions.checkSocialRankField("privilegeLevel", newAddedSocialRankDb.getPrivilegeLevel(),
-                defaultPrivilegeLevel);
+                PRIVILEGE_LEVEL);
         SocialRankDbAssertions.checkSocialRankField("description", newAddedSocialRankDb.getDescription(),
-                "");
+                DESCRIPTION);
         SocialRankDbAssertions.checkSocialRankField("regulations", newAddedSocialRankDb.getRegulations(),
-                "");
+                REGULATIONS);
     }
 }

@@ -23,8 +23,8 @@ import static org.skopintsev.constants.Constants.SC_OK;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BasicDistrictTest extends BaseDistrictTest {
 
-    private final String districtCode = GeneratorBuilder.generateTestCode();
-    private final String districtName = GeneratorBuilder.generateString(10);
+    private final String DISTRICT_CODE = GeneratorBuilder.generateTestCode();
+    private final String DISTRICT_NAME = GeneratorBuilder.generateString(10);
 
     @Test
     @Tag("smoke")
@@ -32,8 +32,8 @@ public class BasicDistrictTest extends BaseDistrictTest {
     @Severity(SeverityLevel.BLOCKER)
     public void createDistrictDbTest() {
         DistrictDb newDistrictDb = DistrictDb.builder()
-                .districtCode(districtCode)
-                .districtName(districtName)
+                .districtCode(DISTRICT_CODE)
+                .districtName(DISTRICT_NAME)
                 .build();
         int rowsInserted = DistrictDbHelper.insertDistrict(newDistrictDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
@@ -43,10 +43,10 @@ public class BasicDistrictTest extends BaseDistrictTest {
 
         District newAddedDistrictApi = districts
                 .stream()
-                .filter(d -> d.getDistrictCode().equals(districtCode))
+                .filter(d -> d.getDistrictCode().equals(DISTRICT_CODE))
                 .findFirst()
                 .orElse(null);
-        DistrictDbAssertions.checkDistrictName(newAddedDistrictApi.getDistrictName(), districtName);
+        DistrictDbAssertions.checkDistrictName(newAddedDistrictApi.getDistrictName(), DISTRICT_NAME);
     }
 
     @Test
@@ -55,16 +55,16 @@ public class BasicDistrictTest extends BaseDistrictTest {
     @Severity(SeverityLevel.BLOCKER)
     public void createDistrictApiTest() {
         District newAddedDistrictApi = District.builder()
-                .districtCode(districtCode)
-                .districtName(districtName)
+                .districtCode(DISTRICT_CODE)
+                .districtName(DISTRICT_NAME)
                 .build();
         PostApiReqHelper.saveDistrictAndValidate(newAddedDistrictApi, SC_OK);
 
         List<District> districts = GetApiReqHelper.getDistrictsAndValidate(SC_OK);
         DistrictApiAssertions.checkNotNullDistricts(districts);
 
-        DistrictDb newAddedDistrictDb = DistrictDbHelper.selectDistrictByCode(districtCode);
+        DistrictDb newAddedDistrictDb = DistrictDbHelper.selectDistrictByCode(DISTRICT_CODE);
         DistrictDbAssertions.checkDistrictPresence(newAddedDistrictDb, true);
-        DistrictDbAssertions.checkDistrictName(newAddedDistrictDb.getDistrictName(), districtName);
+        DistrictDbAssertions.checkDistrictName(newAddedDistrictDb.getDistrictName(), DISTRICT_NAME);
     }
 }

@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 import static org.skopintsev.constants.Constants.SC_NOT_FOUND;
 import static org.skopintsev.constants.Constants.SC_OK;
 
-public class DeleteSocialRankTest {
+public class DeleteSocialRankTest extends BaseSocialRankTest {
 
     @Test
     @Tag("regression")
@@ -49,7 +49,8 @@ public class DeleteSocialRankTest {
     @ParameterizedTest(name = "[{index}] rankCode = {0}")
     @MethodSource("rankCodeRequest")
     @Tag("regression")
-    @Description("""
+    @Description(
+        """
         Test uses API to delete a social rank:
         1) with code = null,
         2) with code = empty string,

@@ -48,7 +48,8 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
     @ParameterizedTest(name = "[{index}] currencyCode = {0}")
     @MethodSource("currencyCodeRequest")
     @Tag("regression")
-    @Description("""
+    @Description(
+        """
         Test uses API to delete a currency:
         1) with code = null,
         2) with code = empty string,
