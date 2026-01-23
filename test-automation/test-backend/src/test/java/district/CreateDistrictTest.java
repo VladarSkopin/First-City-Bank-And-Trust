@@ -28,8 +28,8 @@ import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreateDistrictTest extends BaseDistrictTest {
 
-    String districtCode = GeneratorBuilder.generateTestCode();
-    String districtName = GeneratorBuilder.generateString(10);
+    private final String DISTRICT_CODE = GeneratorBuilder.generateTestCode();
+    private final String DISTRICT_NAME = GeneratorBuilder.generateString(10);
 
     @Test
     @Tag("regression")
@@ -37,8 +37,8 @@ public class CreateDistrictTest extends BaseDistrictTest {
     @Severity(SeverityLevel.CRITICAL)
     public void createDistrictAlreadyExists() {
         District districtApi = District.builder()
-                .districtCode(districtCode)
-                .districtName(districtName)
+                .districtCode(DISTRICT_CODE)
+                .districtName(DISTRICT_NAME)
                 .build();
         PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_OK);
         int districtsCountOld = DistrictDbHelper.getDistrictsCount();
@@ -52,7 +52,8 @@ public class CreateDistrictTest extends BaseDistrictTest {
     @ValueSource(strings = {""})
     @NullSource
     @Tag("regression")
-    @Description("""
+    @Description(
+        """
         Test uses API to post a District:
         1) with district code = null,
         2) with district code = empty string.
@@ -63,7 +64,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
 
         District districtApi = District.builder()
                 .districtCode(districtCode)
-                .districtName(districtName)
+                .districtName(DISTRICT_NAME)
                 .build();
         PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_SERVER_ERROR);
 
@@ -74,7 +75,8 @@ public class CreateDistrictTest extends BaseDistrictTest {
     @ParameterizedTest(name = "[{index}] districtCode = {0}")
     @MethodSource("districtCodeRequest")
     @Tag("regression")
-    @Description("""
+    @Description(
+        """
         Test uses API to post a District:
         1) with district code that needs to be trimmed,
         2) with district code that should be modified to upper case.
@@ -85,7 +87,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
 
         District districtApi = District.builder()
                 .districtCode(districtCode)
-                .districtName(districtName)
+                .districtName(DISTRICT_NAME)
                 .build();
         PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_OK);
 
@@ -100,8 +102,8 @@ public class CreateDistrictTest extends BaseDistrictTest {
     @Severity(SeverityLevel.CRITICAL)
     public void createDistrictNameAlreadyExists() {
         District districtApi = District.builder()
-                .districtCode(districtCode)
-                .districtName(districtName)
+                .districtCode(DISTRICT_CODE)
+                .districtName(DISTRICT_NAME)
                 .build();
         PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_OK);
 
@@ -109,7 +111,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
 
         District districtApiSameName = District.builder()
                 .districtCode(GeneratorBuilder.generateTestCode())
-                .districtName(districtName)
+                .districtName(DISTRICT_NAME)
                 .build();
         PostApiReqHelper.saveDistrictAndValidate(districtApiSameName, SC_SERVER_ERROR);
 
@@ -121,7 +123,8 @@ public class CreateDistrictTest extends BaseDistrictTest {
     @ValueSource(strings = {""})
     @NullSource
     @Tag("regression")
-    @Description("""
+    @Description(
+        """
         Test uses API to post a District:
         1) with district name = null,
         2) with district name = empty string.
@@ -131,7 +134,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
         int districtsCountOld = DistrictDbHelper.getDistrictsCount();
 
         District districtApi = District.builder()
-                .districtCode(districtCode)
+                .districtCode(DISTRICT_CODE)
                 .districtName(districtName)
                 .build();
         PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_SERVER_ERROR);
@@ -145,18 +148,23 @@ public class CreateDistrictTest extends BaseDistrictTest {
     @Description("Test uses API to post a District with district name that needs to be trimmed.")
     @Severity(SeverityLevel.CRITICAL)
     public void createDistrictNameTrim() {
+        int districtsCountOld = DistrictDbHelper.getDistrictsCount();
+
         String districtNameToTrim = " " + GeneratorBuilder.generateString(10) + " ";
         String districtNameTrimmed = districtNameToTrim.trim();
 
         District districtApi = District.builder()
-                .districtCode(districtCode)
+                .districtCode(DISTRICT_CODE)
                 .districtName(districtNameToTrim)
                 .build();
         PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_OK);
 
-        DistrictDb districtDb = DistrictDbHelper.selectDistrictByCode(districtCode);
+        DistrictDb districtDb = DistrictDbHelper.selectDistrictByCode(DISTRICT_CODE);
         DistrictDbAssertions.checkDistrictPresence(districtDb, true);
         DistrictDbAssertions.checkDistrictName(districtDb.getDistrictName(), districtNameTrimmed);
+
+        int districtsCountNew = DistrictDbHelper.getDistrictsCount();
+        CommonDbAssertions.checkCounts(districtsCountNew - 1, districtsCountOld);
     }
 
     private static Stream<Arguments> districtCodeRequest() {

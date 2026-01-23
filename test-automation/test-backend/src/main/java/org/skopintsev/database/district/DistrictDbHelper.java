@@ -41,7 +41,7 @@ public class DistrictDbHelper {
     }
 
     @Step("Delete all test districts.")
-    public static void deleteAllDistricts() {
+    public static void deleteAllTestDistricts() {
         String query = "DELETE FROM districts WHERE district_code LIKE 'TEST-%'";
         DatabaseHelper.executeUpdate(query);
     }

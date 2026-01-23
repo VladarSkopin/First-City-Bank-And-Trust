@@ -5,14 +5,12 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.skopintsev.helper.enums.MetalType;
 
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString
 public class CurrencyDb {
     String currencyCode;
     String currencyName;

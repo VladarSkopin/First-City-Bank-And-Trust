@@ -22,8 +22,8 @@ import static org.skopintsev.constants.Constants.SC_OK;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BasicCurrencyTest extends BaseCurrencyTest {
 
-    String currencyCode = GeneratorBuilder.generateTestCode();
-    String currencyName = GeneratorBuilder.generateString(5);
+    private final String CURRENCY_CODE = GeneratorBuilder.generateTestCode();
+    private final String CURRENCY_NAME = GeneratorBuilder.generateString(5);
 
     @Test
     @Tag("smoke")
@@ -32,8 +32,8 @@ public class BasicCurrencyTest extends BaseCurrencyTest {
     public void createCurrencyDbTest() {
         String currencySymbol = "₿";
         CurrencyDb newCurrencyDb = CurrencyDb.builder()
-                .currencyCode(currencyCode)
-                .currencyName(currencyName)
+                .currencyCode(CURRENCY_CODE)
+                .currencyName(CURRENCY_NAME)
                 .currencySymbol(currencySymbol)
                 .build();
         int rowsInserted = CurrencyDbHelper.insertCurrency(newCurrencyDb);
@@ -44,10 +44,10 @@ public class BasicCurrencyTest extends BaseCurrencyTest {
 
         Currency newAddedCurrencyApi = currencies
                 .stream()
-                .filter(c -> c.getCurrencyCode().equals(currencyCode))
+                .filter(c -> c.getCurrencyCode().equals(CURRENCY_CODE))
                 .findFirst()
                 .orElse(null);
-        CurrencyDbAssertions.checkCurrencyName(newAddedCurrencyApi.getCurrencyName(), currencyName);
+        CurrencyDbAssertions.checkCurrencyName(newAddedCurrencyApi.getCurrencyName(), CURRENCY_NAME);
         CurrencyDbAssertions.checkDefaultMetalType(newAddedCurrencyApi.getMetalType());
         CurrencyDbAssertions.checkCurrencySymbol(newAddedCurrencyApi.getCurrencySymbol(), currencySymbol);
     }
@@ -59,8 +59,8 @@ public class BasicCurrencyTest extends BaseCurrencyTest {
     public void createCurrencyApiTest() {
         String metalType = MetalType.SILVER.getText();
         Currency newAddedCurrencyApi = Currency.builder()
-                .currencyCode(currencyCode)
-                .currencyName(currencyName)
+                .currencyCode(CURRENCY_CODE)
+                .currencyName(CURRENCY_NAME)
                 .metalType(metalType)
                 .build();
         PostApiReqHelper.saveCurrencyAndValidate(newAddedCurrencyApi, SC_OK);
@@ -68,9 +68,9 @@ public class BasicCurrencyTest extends BaseCurrencyTest {
         List<Currency> currencies = GetApiReqHelper.getCurrenciesAndValidate(SC_OK);
         CurrencyApiAssertions.checkNotNullCurrencies(currencies);
 
-        CurrencyDb newAddedCurrencyDb = CurrencyDbHelper.selectCurrencyByCode(currencyCode);
+        CurrencyDb newAddedCurrencyDb = CurrencyDbHelper.selectCurrencyByCode(CURRENCY_CODE);
         CurrencyDbAssertions.checkCurrencyPresence(newAddedCurrencyDb, true);
-        CurrencyDbAssertions.checkCurrencyName(newAddedCurrencyDb.getCurrencyName(), currencyName);
+        CurrencyDbAssertions.checkCurrencyName(newAddedCurrencyDb.getCurrencyName(), CURRENCY_NAME);
         CurrencyDbAssertions.checkMetalType(newAddedCurrencyDb.getMetalType(), metalType);
         CurrencyDbAssertions.checkCurrencySymbol(newAddedCurrencyDb.getCurrencySymbol(), "*");
     }
