@@ -11,4 +11,11 @@ public class CommonDbAssertions {
                 .withFailMessage("Expected count = " + expectedCount + ", but actual = " + actualCount)
                 .isEqualTo(expectedCount);
     }
+
+    @Step("Check how many rows were inserted.")
+    public static void checkRowsInserted(Integer rowsInserted) {
+        Assertions.assertThat(rowsInserted)
+                .withFailMessage("Should insert 1 row.")
+                .isEqualTo(1);
+    }
 }
