@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.skopintsev.database.client_types.ClientTypeDbHelper;
 
-public class BaseClientTypesTest {
+public class BaseClientTypeTest {
     @BeforeEach
     public void setUp() {
         ClientTypeDbHelper.deleteAllTestClientTypes();

@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.SneakyThrows;
 import org.skopintsev.constants.Api;
+import org.skopintsev.model.ClientType;
 import org.skopintsev.model.Currency;
 import org.skopintsev.model.District;
 import org.skopintsev.model.SocialRank;
@@ -39,5 +40,12 @@ public class PostApiReqHelper {
         Response response = postApiReq(socialRank, Api.SOCIAL_RANKS);
         response.then().statusCode(expectedStatusCode);
     }
+
+    @Step("POST " + Api.CLIENT_TYPES + " with expected status code {1}")
+    public static void saveClientTypeAndValidate(ClientType clientType, int expectedStatusCode) {
+        Response response = postApiReq(clientType, Api.CLIENT_TYPES);
+        response.then().statusCode(expectedStatusCode);
+    }
+
 
 }
