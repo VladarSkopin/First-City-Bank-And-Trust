@@ -83,6 +83,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void createDistrictCodeTrimUppercase(String districtCode) {
+        int districtsCountOld = DistrictDbHelper.getDistrictsCount();
         String districtCodeTrimmedUppercase = districtCode.trim().toUpperCase();
 
         District districtApi = District.builder()
@@ -94,6 +95,9 @@ public class CreateDistrictTest extends BaseDistrictTest {
         DistrictDb districtDb = DistrictDbHelper.selectDistrictByCode(districtCodeTrimmedUppercase);
         DistrictDbAssertions.checkDistrictPresence(districtDb, true);
         DistrictDbAssertions.checkDistrictCode(districtDb.getDistrictCode(), districtCodeTrimmedUppercase);
+
+        int districtsCountNew = DistrictDbHelper.getDistrictsCount();
+        CommonDbAssertions.checkCounts(districtsCountNew - 1, districtsCountOld);
     }
 
     @Test
