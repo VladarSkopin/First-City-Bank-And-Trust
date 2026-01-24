@@ -28,4 +28,9 @@ public class DeleteApiReqHelper {
         response.then().statusCode(expectedStatusCode);
     }
 
+    @Step("DELETE " + Api.CLIENT_TYPES + " with expected status code {1}")
+    public static void deleteClientTypeAndValidate(String rankCode, int expectedStatusCode) {
+        Response response = deleteApiRequest(Api.CLIENT_TYPES, rankCode);
+        response.then().statusCode(expectedStatusCode);
+    }
 }

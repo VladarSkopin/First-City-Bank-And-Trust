@@ -30,7 +30,7 @@ public class BasicClientTypeTest extends BaseClientTypeTest {
 
     @Test
     @Tag("smoke")
-    @Description("Test inserts a new ClientTypeName object into the Database and checks API for the new added client type.")
+    @Description("Test inserts a new ClientType object into the Database and checks API for the new added client type.")
     @Severity(SeverityLevel.BLOCKER)
     public void createClientTypeDbTest() {
         ClientTypeDb newClientTypeDb = ClientTypeDb.builder()
@@ -44,28 +44,28 @@ public class BasicClientTypeTest extends BaseClientTypeTest {
         List<ClientType> clientTypes = GetApiReqHelper.getClientTypesAndValidate(SC_OK);
         ClientTypeApiAssertions.checkNotNullClientTypes(clientTypes);
 
-        ClientType newAddedClientTypeNameApi = clientTypes
+        ClientType newAddedClientTypeApi = clientTypes
                 .stream()
                 .filter(c -> c.getClientTypeCode().equals(CLIENT_TYPE_CODE))
                 .findFirst()
                 .orElse(null);
         ClientTypeDbAssertions.checkClientTypeField("clientTypeName",
-                newAddedClientTypeNameApi.getClientTypeName(), CLIENT_TYPE_NAME);
+                newAddedClientTypeApi.getClientTypeName(), CLIENT_TYPE_NAME);
         ClientTypeDbAssertions.checkClientTypeField("description",
-                newAddedClientTypeNameApi.getDescription(), DESCRIPTION);
+                newAddedClientTypeApi.getDescription(), DESCRIPTION);
     }
 
     @Test
     @Tag("smoke")
-    @Description("Test uses API to post a new ClientTypeName object and checks Database for the new added client type.")
+    @Description("Test uses API to post a new ClientType object and checks Database for the new added client type.")
     @Severity(SeverityLevel.BLOCKER)
     public void createClientTypeApiTest() {
-        ClientType newAddedClientTypeNameApi = ClientType.builder()
+        ClientType newAddedClientTypeApi = ClientType.builder()
                 .clientTypeCode(CLIENT_TYPE_CODE)
                 .clientTypeName(CLIENT_TYPE_NAME)
                 .description(DESCRIPTION)
                 .build();
-        PostApiReqHelper.saveClientTypeAndValidate(newAddedClientTypeNameApi, SC_OK);
+        PostApiReqHelper.saveClientTypeAndValidate(newAddedClientTypeApi, SC_OK);
 
         List<ClientType> currencies = GetApiReqHelper.getClientTypesAndValidate(SC_OK);
         ClientTypeApiAssertions.checkNotNullClientTypes(currencies);
@@ -73,8 +73,8 @@ public class BasicClientTypeTest extends BaseClientTypeTest {
         ClientTypeDb newAddedClientTypeDb = ClientTypeDbHelper.selectClientTypeByCode(CLIENT_TYPE_CODE);
         ClientTypeDbAssertions.checkClientTypePresence(newAddedClientTypeDb, true);
         ClientTypeDbAssertions.checkClientTypeField("clientTypeName",
-                newAddedClientTypeNameApi.getClientTypeName(), CLIENT_TYPE_NAME);
+                newAddedClientTypeApi.getClientTypeName(), CLIENT_TYPE_NAME);
         ClientTypeDbAssertions.checkClientTypeField("description",
-                newAddedClientTypeNameApi.getDescription(), DESCRIPTION);
+                newAddedClientTypeApi.getDescription(), DESCRIPTION);
     }
 }

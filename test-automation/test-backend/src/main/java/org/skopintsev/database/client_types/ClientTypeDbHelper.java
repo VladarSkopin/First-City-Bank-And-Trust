@@ -17,7 +17,7 @@ public class ClientTypeDbHelper {
                     .description(rs.getString("description"))
                     .build();
         } catch (SQLException e) {
-            throw new RuntimeException("Error mapping ClientTypeName from ResultSet", e);
+            throw new RuntimeException("Error mapping ClientType from ResultSet", e);
         }
     }
 

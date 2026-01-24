@@ -5,6 +5,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,7 +20,10 @@ import java.util.stream.Stream;
 
 import static org.skopintsev.constants.Constants.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DeleteCurrencyTest extends BaseCurrencyTest {
+
+    private final String CURRENCY_CODE = GeneratorBuilder.generateTestCode();
 
     @Test
     @Tag("regression")
@@ -28,17 +32,16 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
     public void deleteCurrency() {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
-        String currencyCode = GeneratorBuilder.generateTestCode();
         CurrencyDb newCurrencyDb = CurrencyDb.builder()
-                .currencyCode(currencyCode)
+                .currencyCode(CURRENCY_CODE)
                 .currencyName(GeneratorBuilder.generateString(5))
                 .build();
         int rowsInserted = CurrencyDbHelper.insertCurrency(newCurrencyDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        DeleteApiReqHelper.deleteCurrencyAndValidate(currencyCode, SC_OK);
+        DeleteApiReqHelper.deleteCurrencyAndValidate(CURRENCY_CODE, SC_OK);
 
-        newCurrencyDb = CurrencyDbHelper.selectCurrencyByCode(currencyCode);
+        newCurrencyDb = CurrencyDbHelper.selectCurrencyByCode(CURRENCY_CODE);
         CurrencyDbAssertions.checkCurrencyPresence(newCurrencyDb, false);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
