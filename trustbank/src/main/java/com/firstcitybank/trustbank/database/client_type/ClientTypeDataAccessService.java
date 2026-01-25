@@ -38,7 +38,7 @@ public class ClientTypeDataAccessService implements ClientTypeDao {
         int rowsAffected = jdbcTemplate.update(
                 sql,
                 clientType.clientTypeCode().toUpperCase().trim(),
-                Utils.validateAndGetClientTypeName(clientType.clientTypeName()),
+                Utils.validateAndGetClientTypeName(clientType.clientTypeName().trim()),
                 clientType.description() != null ? clientType.description().trim() : null
         );
 

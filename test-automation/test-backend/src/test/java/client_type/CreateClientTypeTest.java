@@ -13,15 +13,11 @@ import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.skopintsev.assertions.db.ClientTypeDbAssertions;
 import org.skopintsev.assertions.db.CommonDbAssertions;
-import org.skopintsev.assertions.db.DistrictDbAssertions;
 import org.skopintsev.database.client_types.ClientTypeDb;
 import org.skopintsev.database.client_types.ClientTypeDbHelper;
-import org.skopintsev.database.district.DistrictDb;
-import org.skopintsev.database.district.DistrictDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.ClientTypeName;
 import org.skopintsev.model.ClientType;
-import org.skopintsev.model.District;
 import org.skopintsev.transport.PostApiReqHelper;
 
 import java.util.stream.Stream;
