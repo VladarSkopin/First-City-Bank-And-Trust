@@ -1,4 +1,7 @@
 package sectors.subsectors;
 
-public class DeleteSubSectorTest {
+import org.junit.jupiter.api.TestInstance;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class DeleteSubSectorTest extends BaseSubSectorTest {
 }

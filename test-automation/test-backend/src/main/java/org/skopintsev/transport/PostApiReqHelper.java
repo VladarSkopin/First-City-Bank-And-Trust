@@ -4,10 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.SneakyThrows;
 import org.skopintsev.constants.Api;
-import org.skopintsev.model.ClientType;
-import org.skopintsev.model.Currency;
-import org.skopintsev.model.District;
-import org.skopintsev.model.SocialRank;
+import org.skopintsev.model.*;
 
 import static org.skopintsev.constants.Constants.OBJECT_MAPPER;
 
@@ -47,5 +44,16 @@ public class PostApiReqHelper {
         response.then().statusCode(expectedStatusCode);
     }
 
+    @Step("POST " + Api.SECTORS + " with expected status code {1}")
+    public static void saveSectorAndValidate(Sector sector, int expectedStatusCode) {
+        Response response = postApiReq(sector, Api.SECTORS);
+        response.then().statusCode(expectedStatusCode);
+    }
+
+    @Step("POST " + Api.SUB_SECTORS + " with expected status code {1}")
+    public static void saveSubSectorAndValidate(SubSector subSector, int expectedStatusCode) {
+        Response response = postApiReq(subSector, Api.SUB_SECTORS);
+        response.then().statusCode(expectedStatusCode);
+    }
 
 }
