@@ -11,8 +11,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.assertions.db.DistrictDbAssertions;
-import org.skopintsev.database.district.DistrictDb;
-import org.skopintsev.database.district.DistrictDbHelper;
+import org.skopintsev.database.districts.DistrictDb;
+import org.skopintsev.database.districts.DistrictDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.transport.DeleteApiReqHelper;
 

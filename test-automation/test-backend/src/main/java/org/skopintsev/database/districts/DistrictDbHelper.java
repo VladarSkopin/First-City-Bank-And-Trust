@@ -1,4 +1,4 @@
-package org.skopintsev.database.district;
+package org.skopintsev.database.districts;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
