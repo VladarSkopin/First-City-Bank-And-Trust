@@ -30,7 +30,7 @@ public class DeleteDistrictTest extends BaseDistrictTest {
     @Tag("regression")
     @Description("Test creates a new district in the Database and uses API to delete it.")
     @Severity(SeverityLevel.CRITICAL)
-    public void deleteDistrict() {
+    public void deleteDistrictTest() {
         int districtsCountOld = DistrictDbHelper.getDistrictsCount();
 
         DistrictDb districtDb = DistrictDb.builder()

@@ -35,7 +35,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
     @Tag("regression")
     @Description("Test uses API to post a ClientType that is already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createClientTypeAlreadyExists() {
+    public void createClientTypeAlreadyExistsTest() {
         ClientType clientTypeApi = ClientType.builder()
                 .clientTypeCode(CLIENT_TYPE_CODE)
                 .clientTypeName(CLIENT_TYPE_NAME)
@@ -59,7 +59,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
             2) with code = empty string.
             """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createClientTypeWithInvalidCode(String clientTypeCode) {
+    public void createClientTypeWithInvalidCodeTest(String clientTypeCode) {
         int clientTypesCountOld = ClientTypeDbHelper.getClientTypesCount();
 
         ClientType clientTypeApi = ClientType.builder()
@@ -82,7 +82,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
             2) with code that should be modified to upper case.
             """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createClientTypeCodeTrimUppercase(String clientTypeCode) {
+    public void createClientTypeCodeTrimUppercaseTest(String clientTypeCode) {
         int clientTypesCountOld = ClientTypeDbHelper.getClientTypesCount();
         String clientTypeCodeTrimmedUppercase = clientTypeCode.trim().toUpperCase();
 
@@ -105,7 +105,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
     @Tag("regression")
     @Description("Test uses API to post a ClientType with client type name already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createClientTypeNameAlreadyExists() {
+    public void createClientTypeNameAlreadyExistsTest() {
         ClientType clientTypeApi = ClientType.builder()
                 .clientTypeCode(CLIENT_TYPE_CODE)
                 .clientTypeName(CLIENT_TYPE_NAME)

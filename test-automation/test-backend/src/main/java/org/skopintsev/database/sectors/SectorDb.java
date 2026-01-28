@@ -3,6 +3,7 @@ package org.skopintsev.database.sectors;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.skopintsev.helper.GeneratorBuilder;
 
 @Data
 @Builder
@@ -13,5 +14,5 @@ import lombok.experimental.FieldDefaults;
 public class SectorDb {
     String sectorCode;
     String sectorName;
-    String description;
+    @Builder.Default String description = GeneratorBuilder.generateString(50);
 }

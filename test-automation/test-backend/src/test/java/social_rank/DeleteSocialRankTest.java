@@ -26,7 +26,7 @@ public class DeleteSocialRankTest extends BaseSocialRankTest {
     @Tag("regression")
     @Description("Test creates a new social rank in the Database and uses API to delete it.")
     @Severity(SeverityLevel.CRITICAL)
-    public void deleteSocialRank() {
+    public void deleteSocialRankTest() {
         int socialRanksCountOld = SocialRankDbHelper.getSocialRanksCount();
 
         String rankCode = GeneratorBuilder.generateTestCode();

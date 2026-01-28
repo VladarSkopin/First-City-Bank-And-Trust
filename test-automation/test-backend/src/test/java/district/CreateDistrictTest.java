@@ -35,7 +35,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
     @Tag("regression")
     @Description("Test uses API to post a District that is already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createDistrictAlreadyExists() {
+    public void createDistrictAlreadyExistsTest() {
         District districtApi = District.builder()
                 .districtCode(DISTRICT_CODE)
                 .districtName(DISTRICT_NAME)
@@ -59,7 +59,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
         2) with district code = empty string.
         """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createDistrictWithInvalidCode(String districtCode) {
+    public void createDistrictWithInvalidCodeTest(String districtCode) {
         int districtsCountOld = DistrictDbHelper.getDistrictsCount();
 
         District districtApi = District.builder()
@@ -82,7 +82,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
         2) with district code that should be modified to upper case.
         """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createDistrictCodeTrimUppercase(String districtCode) {
+    public void createDistrictCodeTrimUppercaseTest(String districtCode) {
         int districtsCountOld = DistrictDbHelper.getDistrictsCount();
         String districtCodeTrimmedUppercase = districtCode.trim().toUpperCase();
 
@@ -104,7 +104,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
     @Tag("regression")
     @Description("Test uses API to post a District with district name already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createDistrictNameAlreadyExists() {
+    public void createDistrictNameAlreadyExistsTest() {
         District districtApi = District.builder()
                 .districtCode(DISTRICT_CODE)
                 .districtName(DISTRICT_NAME)
@@ -134,7 +134,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
         2) with district name = empty string.
         """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createDistrictWithInvalidName(String districtName) {
+    public void createDistrictWithInvalidNameTest(String districtName) {
         int districtsCountOld = DistrictDbHelper.getDistrictsCount();
 
         District districtApi = District.builder()
@@ -151,7 +151,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
     @Tag("regression")
     @Description("Test uses API to post a District with district name that needs to be trimmed.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createDistrictNameTrim() {
+    public void createDistrictNameTrimTest() {
         int districtsCountOld = DistrictDbHelper.getDistrictsCount();
 
         String districtNameToTrim = " " + GeneratorBuilder.generateString(10) + " ";

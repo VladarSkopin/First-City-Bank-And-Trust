@@ -2,6 +2,7 @@ package org.skopintsev.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.skopintsev.helper.GeneratorBuilder;
 
 @Data
 @Builder
@@ -11,5 +12,5 @@ import lombok.experimental.FieldDefaults;
 public class Sector {
     String sectorCode;
     String sectorName;
-    String description;
+    @Builder.Default String description = GeneratorBuilder.generateString(50);
 }

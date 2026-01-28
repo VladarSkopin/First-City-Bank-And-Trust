@@ -30,7 +30,7 @@ public class DeleteClientTypeTest extends BaseClientTypeTest {
     @Tag("regression")
     @Description("Test creates a new client type in the Database and uses API to delete it.")
     @Severity(SeverityLevel.CRITICAL)
-    public void deleteClientType() {
+    public void deleteClientTypeTest() {
         int clientTypesCountOld = ClientTypeDbHelper.getClientTypesCount();
 
         ClientTypeDb clientTypeDb = ClientTypeDb.builder()

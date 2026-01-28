@@ -29,7 +29,7 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
     @Tag("regression")
     @Description("Test creates a new currency in the Database and uses API to delete it.")
     @Severity(SeverityLevel.CRITICAL)
-    public void deleteCurrency() {
+    public void deleteCurrencyTest() {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
         CurrencyDb newCurrencyDb = CurrencyDb.builder()
