@@ -44,6 +44,12 @@ public class SubSectorDbHelper {
         );
     }
 
+    @Step("Delete sub-sector by code: {subSectorCode}")
+    public static void deleteSubSector(String subSectorCode) {
+        String query = "DELETE FROM sub_sectors WHERE sub_sector_code = ?";
+        DatabaseHelper.executeUpdate(query, subSectorCode);
+    }
+
     @Step("Delete all test sub-sectors.")
     public static void deleteAllTestSubSectors() {
         String query = "DELETE FROM sub_sectors WHERE sub_sector_code LIKE 'TEST-%'";

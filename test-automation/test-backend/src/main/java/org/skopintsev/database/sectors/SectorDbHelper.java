@@ -43,9 +43,9 @@ public class SectorDbHelper {
     }
 
     @Step("Delete sector by code: {sectorCode}")
-    public static int deleteSector(String sectorCode) {
+    public static void deleteSector(String sectorCode) {
         String query = "DELETE FROM sectors WHERE sector_code = ?";
-        return DatabaseHelper.executeUpdate(query, sectorCode);
+        DatabaseHelper.executeUpdate(query, sectorCode);
     }
 
     @Step("Delete all test sectors.")

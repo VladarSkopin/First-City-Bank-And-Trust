@@ -13,13 +13,14 @@ import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.assertions.db.sectors.SectorDbAssertions;
 import org.skopintsev.database.sectors.SectorDb;
 import org.skopintsev.database.sectors.SectorDbHelper;
+import org.skopintsev.database.sectors.subsectors.SubSectorDb;
+import org.skopintsev.database.sectors.subsectors.SubSectorDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.transport.DeleteApiReqHelper;
 
 import java.util.stream.Stream;
 
-import static org.skopintsev.constants.Constants.SC_NOT_FOUND;
-import static org.skopintsev.constants.Constants.SC_OK;
+import static org.skopintsev.constants.Constants.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DeleteSectorTest extends BaseSectorTest {
@@ -70,11 +71,35 @@ public class DeleteSectorTest extends BaseSectorTest {
         CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld);
     }
 
-    // todo: a sector with subsector -> 500
-    public void deleteSectorWithSubsectorTest() {
+    @Test
+    @Tag("regression")
+    @Description("Test tries to delete a sector that has a sub-sector linked to it in the Database.")
+    @Severity(SeverityLevel.CRITICAL)
+    public void deleteSectorWithSubSectorTest() {
+        int sectorsCountOld = SectorDbHelper.getSectorsCount();
 
+        SectorDb sectorDb = SectorDb.builder()
+                .sectorCode(SECTOR_CODE)
+                .sectorName(SECTOR_NAME)
+                .build();
+        int rowsInserted = SectorDbHelper.insertSector(sectorDb);
+        CommonDbAssertions.checkRowsInserted(rowsInserted);
+
+        SubSectorDb subSectorDb = SubSectorDb.builder()
+                .sectorCode(SECTOR_CODE)
+                .subSectorCode(GeneratorBuilder.generateTestCode())
+                .subSectorName(GeneratorBuilder.generateString(10))
+                .build();
+        rowsInserted = SubSectorDbHelper.insertSubSector(subSectorDb);
+        CommonDbAssertions.checkRowsInserted(rowsInserted);
+
+        DeleteApiReqHelper.deleteSectorAndValidate(SECTOR_CODE, SC_SERVER_ERROR);
+
+        int sectorsCountNew = SectorDbHelper.getSectorsCount();
+        CommonDbAssertions.checkCounts(sectorsCountNew - 1, sectorsCountOld);
+
+        SubSectorDbHelper.deleteSubSector(subSectorDb.getSubSectorCode());
     }
-
 
     private static Stream<Arguments> sectorCodeRequest() {
         return Stream.of(
