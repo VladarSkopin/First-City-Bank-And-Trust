@@ -49,9 +49,12 @@ public class BasicSubSectorTest extends BaseSubSectorTest {
                 .filter(s -> s.getSubSectorCode().equals(SUB_SECTOR_CODE))
                 .findFirst()
                 .orElse(null);
-        SubSectorDbAssertions.checkSubSectorField("subSectorName", newAddedSubSector.getSubSectorName(), SUB_SECTOR_NAME);
-        SubSectorDbAssertions.checkSubSectorField("description", newAddedSubSector.getDescription(), SUB_SECTOR_DESCRIPTION);
-        SubSectorDbAssertions.checkSubSectorField("sectorCode", newAddedSubSector.getSectorCode(), BASE_SECTOR_CODE);
+        SubSectorDbAssertions.checkSubSectorField("subSectorName", newAddedSubSector.getSubSectorName(),
+                SUB_SECTOR_NAME);
+        SubSectorDbAssertions.checkSubSectorField("description", newAddedSubSector.getDescription(),
+                SUB_SECTOR_DESCRIPTION);
+        SubSectorDbAssertions.checkSubSectorField("sectorCode", newAddedSubSector.getSectorCode(),
+                BASE_SECTOR_CODE);
     }
 
     @Test
@@ -72,8 +75,11 @@ public class BasicSubSectorTest extends BaseSubSectorTest {
 
         SubSectorDb subSectorDb = SubSectorDbHelper.selectSubSectorByCode(SUB_SECTOR_CODE);
         SubSectorDbAssertions.checkSubSectorPresence(subSectorDb, true);
-        SubSectorDbAssertions.checkSubSectorField("subSectorName", subSectorDb.getSubSectorName(), SUB_SECTOR_NAME);
-        SubSectorDbAssertions.checkSubSectorField("description", subSectorDb.getDescription(), SUB_SECTOR_DESCRIPTION);
-        SubSectorDbAssertions.checkSubSectorField("sectorCode", subSectorDb.getSectorCode(), BASE_SECTOR_CODE);
+        SubSectorDbAssertions.checkSubSectorField("subSectorName", subSectorDb.getSubSectorName(),
+                SUB_SECTOR_NAME);
+        SubSectorDbAssertions.checkSubSectorField("description", subSectorDb.getDescription(),
+                SUB_SECTOR_DESCRIPTION);
+        SubSectorDbAssertions.checkSubSectorField("sectorCode", subSectorDb.getSectorCode(),
+                BASE_SECTOR_CODE);
     }
 }
