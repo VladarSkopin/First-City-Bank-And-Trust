@@ -108,11 +108,12 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
     @Description("Test uses API to post a social rank with rank name already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
     public void createSocialRankNameAlreadyExistsTest() {
-        SocialRank newSocialRankApi = SocialRank.builder()
+        SocialRankDb socialRankDb = SocialRankDb.builder()
                 .rankCode(RANK_CODE)
                 .rankName(RANK_NAME)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(newSocialRankApi, SC_OK);
+        int rowsCount = SocialRankDbHelper.insertSocialRank(socialRankDb);
+        CommonDbAssertions.checkRowsInserted(rowsCount);
 
         int socialRanksCountOld = SocialRankDbHelper.getSocialRanksCount();
 
@@ -174,13 +175,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
 
     @Test
     @Tag("regression")
-    @Description(
-            """
-            Test uses API to post a Currency:
-            1) with currency metal type = null,
-            2) with currency metal type = empty string.
-            In both cases expected metal type should be = 'UNKNOWN'.
-            """)
+    @Description("Test uses API to post a social rank and checks its default fields.")
     @Severity(SeverityLevel.CRITICAL)
     public void createSocialRankWithDefaultParametersTest() {
         int socialRanksCountOld = SocialRankDbHelper.getSocialRanksCount();

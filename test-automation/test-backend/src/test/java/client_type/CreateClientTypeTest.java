@@ -109,11 +109,12 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
     @Description("Test uses API to post a ClientType with client type name already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
     public void createClientTypeNameAlreadyExistsTest() {
-        ClientType clientTypeApi = ClientType.builder()
+        ClientTypeDb clientTypeDb = ClientTypeDb.builder()
                 .clientTypeCode(CLIENT_TYPE_CODE)
                 .clientTypeName(CLIENT_TYPE_NAME)
                 .build();
-        PostApiReqHelper.saveClientTypeAndValidate(clientTypeApi, SC_OK);
+        int rowsCount = ClientTypeDbHelper.insertClientType(clientTypeDb);
+        CommonDbAssertions.checkRowsInserted(rowsCount);
 
         int clientTypesCountOld = ClientTypeDbHelper.getClientTypesCount();
 

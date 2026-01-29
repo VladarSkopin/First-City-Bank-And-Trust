@@ -98,9 +98,9 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
                 .build();
         PostApiReqHelper.saveCurrencyAndValidate(currencyApi, SC_OK);
 
-        CurrencyDb districtDb = CurrencyDbHelper.selectCurrencyByCode(currencyCodeTrimmedUppercase);
-        CurrencyDbAssertions.checkCurrencyPresence(districtDb, true);
-        CurrencyDbAssertions.checkCurrencyCode(districtDb.getCurrencyCode(), currencyCodeTrimmedUppercase);
+        CurrencyDb currencyDb = CurrencyDbHelper.selectCurrencyByCode(currencyCodeTrimmedUppercase);
+        CurrencyDbAssertions.checkCurrencyPresence(currencyDb, true);
+        CurrencyDbAssertions.checkCurrencyCode(currencyDb.getCurrencyCode(), currencyCodeTrimmedUppercase);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
         CommonDbAssertions.checkCounts(currenciesCountNew - 1, currenciesCountOld);
@@ -111,11 +111,12 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
     @Description("Test uses API to post a Currency with currency name already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
     public void createCurrencyNameAlreadyExistsTest() {
-        Currency newCurrencyApi = Currency.builder()
+        CurrencyDb currencyDb = CurrencyDb.builder()
                 .currencyCode(CURRENCY_CODE)
                 .currencyName(CURRENCY_NAME)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_OK);
+        int rowsCount = CurrencyDbHelper.insertCurrency(currencyDb);
+        CommonDbAssertions.checkRowsInserted(rowsCount);
 
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
@@ -137,11 +138,11 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         String currencyNameToTrim = " " + GeneratorBuilder.generateString(10) + " ";
         String currencyNameTrimmed = currencyNameToTrim.trim();
 
-        Currency districtApi = Currency.builder()
+        Currency currencyApi = Currency.builder()
                 .currencyCode(CURRENCY_CODE)
                 .currencyName(currencyNameToTrim)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(districtApi, SC_OK);
+        PostApiReqHelper.saveCurrencyAndValidate(currencyApi, SC_OK);
 
         CurrencyDb currencyDb = CurrencyDbHelper.selectCurrencyByCode(CURRENCY_CODE);
         CurrencyDbAssertions.checkCurrencyPresence(currencyDb, true);
