@@ -34,7 +34,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
     @Tag("regression")
     @Description("Test uses API to post a social rank that is already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createSocialRankAlreadyExists() {
+    public void createSocialRankAlreadyExistsTest() {
         SocialRank socialRankApi = SocialRank.builder()
                 .rankCode(RANK_CODE)
                 .rankName(RANK_NAME)
@@ -58,7 +58,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
             2) with rank code = empty string.
             """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createSocialRankWithInvalidCode(String rankCode) {
+    public void createSocialRankWithInvalidCodeTest(String rankCode) {
         int socialRanksCountOld = SocialRankDbHelper.getSocialRanksCount();
 
         SocialRank newSocialRankApi = SocialRank.builder()
@@ -84,7 +84,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
             2) with rank code that should be modified to upper case.
             """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createSocialRankCodeTrimUppercase(String rankCode) {
+    public void createSocialRankCodeTrimUppercaseTest(String rankCode) {
         int socialRanksCountOld = SocialRankDbHelper.getSocialRanksCount();
 
         String socialRankCodeTrimmedUppercase = rankCode.trim().toUpperCase();
@@ -107,12 +107,13 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
     @Tag("regression")
     @Description("Test uses API to post a social rank with rank name already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createSocialRankNameAlreadyExists() {
-        SocialRank newSocialRankApi = SocialRank.builder()
+    public void createSocialRankNameAlreadyExistsTest() {
+        SocialRankDb socialRankDb = SocialRankDb.builder()
                 .rankCode(RANK_CODE)
                 .rankName(RANK_NAME)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(newSocialRankApi, SC_OK);
+        int rowsCount = SocialRankDbHelper.insertSocialRank(socialRankDb);
+        CommonDbAssertions.checkRowsInserted(rowsCount);
 
         int socialRanksCountOld = SocialRankDbHelper.getSocialRanksCount();
 
@@ -130,7 +131,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
     @Tag("regression")
     @Description("Test uses API to post a social rank with rank name that needs to be trimmed.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createSocialRankNameTrim() {
+    public void createSocialRankNameTrimTest() {
         String rankNameToTrim = " " + GeneratorBuilder.generateString(10) + " ";
         String rankNameTrimmed = rankNameToTrim.trim();
 
@@ -156,7 +157,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
             2) with rank name = empty string.
             """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createSocialRankWithInvalidName(String rankName) {
+    public void createSocialRankWithInvalidNameTest(String rankName) {
         int socialRanksCountOld = SocialRankDbHelper.getSocialRanksCount();
 
         SocialRank newSocialRankApi = SocialRank.builder()
@@ -174,15 +175,9 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
 
     @Test
     @Tag("regression")
-    @Description(
-            """
-            Test uses API to post a Currency:
-            1) with currency metal type = null,
-            2) with currency metal type = empty string.
-            In both cases expected metal type should be = 'UNKNOWN'.
-            """)
+    @Description("Test uses API to post a social rank and checks its default fields.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createSocialRankWithDefaultParameters() {
+    public void createSocialRankWithDefaultParametersTest() {
         int socialRanksCountOld = SocialRankDbHelper.getSocialRanksCount();
 
         SocialRank newSocialRankApi = SocialRank.builder()

@@ -3,6 +3,8 @@ package client_type;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -26,16 +28,17 @@ import static org.skopintsev.constants.Constants.SC_OK;
 import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateClientTypeTest extends BaseClientTypeTest {
 
-    private final String CLIENT_TYPE_CODE = GeneratorBuilder.generateTestCode();
-    private final String CLIENT_TYPE_NAME = ClientTypeName.SS.getText();
+    final String CLIENT_TYPE_CODE = GeneratorBuilder.generateTestCode();
+    final String CLIENT_TYPE_NAME = ClientTypeName.SS.getText();
 
     @Test
     @Tag("regression")
     @Description("Test uses API to post a ClientType that is already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createClientTypeAlreadyExists() {
+    public void createClientTypeAlreadyExistsTest() {
         ClientType clientTypeApi = ClientType.builder()
                 .clientTypeCode(CLIENT_TYPE_CODE)
                 .clientTypeName(CLIENT_TYPE_NAME)
@@ -59,7 +62,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
             2) with code = empty string.
             """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createClientTypeWithInvalidCode(String clientTypeCode) {
+    public void createClientTypeWithInvalidCodeTest(String clientTypeCode) {
         int clientTypesCountOld = ClientTypeDbHelper.getClientTypesCount();
 
         ClientType clientTypeApi = ClientType.builder()
@@ -82,7 +85,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
             2) with code that should be modified to upper case.
             """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createClientTypeCodeTrimUppercase(String clientTypeCode) {
+    public void createClientTypeCodeTrimUppercaseTest(String clientTypeCode) {
         int clientTypesCountOld = ClientTypeDbHelper.getClientTypesCount();
         String clientTypeCodeTrimmedUppercase = clientTypeCode.trim().toUpperCase();
 
@@ -105,12 +108,13 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
     @Tag("regression")
     @Description("Test uses API to post a ClientType with client type name already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createClientTypeNameAlreadyExists() {
-        ClientType clientTypeApi = ClientType.builder()
+    public void createClientTypeNameAlreadyExistsTest() {
+        ClientTypeDb clientTypeDb = ClientTypeDb.builder()
                 .clientTypeCode(CLIENT_TYPE_CODE)
                 .clientTypeName(CLIENT_TYPE_NAME)
                 .build();
-        PostApiReqHelper.saveClientTypeAndValidate(clientTypeApi, SC_OK);
+        int rowsCount = ClientTypeDbHelper.insertClientType(clientTypeDb);
+        CommonDbAssertions.checkRowsInserted(rowsCount);
 
         int clientTypesCountOld = ClientTypeDbHelper.getClientTypesCount();
 

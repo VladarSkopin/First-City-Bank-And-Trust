@@ -3,6 +3,8 @@ package client_type;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -22,11 +24,12 @@ import java.util.List;
 import static org.skopintsev.constants.Constants.SC_OK;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BasicClientTypeTest extends BaseClientTypeTest {
 
-    private final String CLIENT_TYPE_CODE = GeneratorBuilder.generateTestCode();
-    private final String CLIENT_TYPE_NAME = ClientTypeName.SS.getText();
-    private final String DESCRIPTION = GeneratorBuilder.generateString(1000);
+    final String CLIENT_TYPE_CODE = GeneratorBuilder.generateTestCode();
+    final String CLIENT_TYPE_NAME = ClientTypeName.SS.getText();
+    final String DESCRIPTION = GeneratorBuilder.generateString(1000);
 
     @Test
     @Tag("smoke")

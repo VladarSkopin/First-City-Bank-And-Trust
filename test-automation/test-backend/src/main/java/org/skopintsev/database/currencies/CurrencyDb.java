@@ -1,4 +1,4 @@
-package org.skopintsev.database.currency;
+package org.skopintsev.database.currencies;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;

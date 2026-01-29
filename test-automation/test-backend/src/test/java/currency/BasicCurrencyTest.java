@@ -3,12 +3,14 @@ package currency;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.*;
 import org.skopintsev.assertions.api.CurrencyApiAssertions;
 import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.assertions.db.CurrencyDbAssertions;
-import org.skopintsev.database.currency.CurrencyDb;
-import org.skopintsev.database.currency.CurrencyDbHelper;
+import org.skopintsev.database.currencies.CurrencyDb;
+import org.skopintsev.database.currencies.CurrencyDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.MetalType;
 import org.skopintsev.model.Currency;
@@ -20,10 +22,11 @@ import java.util.List;
 import static org.skopintsev.constants.Constants.SC_OK;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BasicCurrencyTest extends BaseCurrencyTest {
 
-    private final String CURRENCY_CODE = GeneratorBuilder.generateTestCode();
-    private final String CURRENCY_NAME = GeneratorBuilder.generateString(5);
+    final String CURRENCY_CODE = GeneratorBuilder.generateTestCode();
+    final String CURRENCY_NAME = GeneratorBuilder.generateString(5);
 
     @Test
     @Tag("smoke")

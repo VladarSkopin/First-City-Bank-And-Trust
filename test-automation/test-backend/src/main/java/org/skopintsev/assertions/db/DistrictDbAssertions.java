@@ -2,7 +2,7 @@ package org.skopintsev.assertions.db;
 
 import io.qameta.allure.Step;
 import org.assertj.core.api.Assertions;
-import org.skopintsev.database.district.DistrictDb;
+import org.skopintsev.database.districts.DistrictDb;
 
 public class DistrictDbAssertions {
 

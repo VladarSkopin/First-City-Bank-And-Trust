@@ -5,10 +5,7 @@ import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 import lombok.SneakyThrows;
 import org.skopintsev.constants.Api;
-import org.skopintsev.model.ClientType;
-import org.skopintsev.model.Currency;
-import org.skopintsev.model.District;
-import org.skopintsev.model.SocialRank;
+import org.skopintsev.model.*;
 
 import java.util.List;
 
@@ -50,5 +47,21 @@ public class GetApiReqHelper {
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<ClientType>>() {});
+    }
+
+    @Step("GET " + Api.SECTORS + " with expected status code {0}")
+    public static List<Sector> getSectorsAndValidate(int expectedStatusCode) {
+        Response response = getApiRequest(Api.SECTORS);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Sector>>() {});
+    }
+
+    @Step("GET " + Api.SUB_SECTORS + " with expected status code {0}")
+    public static List<SubSector> getSubSectorsAndValidate(int expectedStatusCode) {
+        Response response = getApiRequest(Api.SUB_SECTORS);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<SubSector>>() {});
     }
 }

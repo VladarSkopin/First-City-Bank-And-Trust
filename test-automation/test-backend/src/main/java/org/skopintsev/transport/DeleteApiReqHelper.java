@@ -6,8 +6,8 @@ import org.skopintsev.constants.Api;
 
 public class DeleteApiReqHelper {
 
-    public static Response deleteApiRequest(String endpoint, String currencyCode) {
-        return CommonApiReqHelper.deleteRequest(endpoint, currencyCode);
+    public static Response deleteApiRequest(String endpoint, String entityCode) {
+        return CommonApiReqHelper.deleteRequest(endpoint, entityCode);
     }
 
     @Step("DELETE " + Api.CURRENCIES + " with expected status code {1}")
@@ -29,8 +29,20 @@ public class DeleteApiReqHelper {
     }
 
     @Step("DELETE " + Api.CLIENT_TYPES + " with expected status code {1}")
-    public static void deleteClientTypeAndValidate(String rankCode, int expectedStatusCode) {
-        Response response = deleteApiRequest(Api.CLIENT_TYPES, rankCode);
+    public static void deleteClientTypeAndValidate(String clientTypeCode, int expectedStatusCode) {
+        Response response = deleteApiRequest(Api.CLIENT_TYPES, clientTypeCode);
+        response.then().statusCode(expectedStatusCode);
+    }
+
+    @Step("DELETE " + Api.SECTORS + " with expected status code {1}")
+    public static void deleteSectorAndValidate(String sectorCode, int expectedStatusCode) {
+        Response response = deleteApiRequest(Api.SECTORS, sectorCode);
+        response.then().statusCode(expectedStatusCode);
+    }
+
+    @Step("DELETE " + Api.SUB_SECTORS + " with expected status code {1}")
+    public static void deleteSubSectorAndValidate(String subSectorCode, int expectedStatusCode) {
+        Response response = deleteApiRequest(Api.SUB_SECTORS, subSectorCode);
         response.then().statusCode(expectedStatusCode);
     }
 }

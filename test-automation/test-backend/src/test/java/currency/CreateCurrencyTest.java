@@ -3,6 +3,8 @@ package currency;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -13,8 +15,8 @@ import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.assertions.db.CurrencyDbAssertions;
-import org.skopintsev.database.currency.CurrencyDb;
-import org.skopintsev.database.currency.CurrencyDbHelper;
+import org.skopintsev.database.currencies.CurrencyDb;
+import org.skopintsev.database.currencies.CurrencyDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.Currency;
 import org.skopintsev.transport.PostApiReqHelper;
@@ -25,16 +27,17 @@ import static org.skopintsev.constants.Constants.SC_OK;
 import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateCurrencyTest extends BaseCurrencyTest {
 
-    private final String CURRENCY_CODE = GeneratorBuilder.generateTestCode();
-    private final String CURRENCY_NAME = GeneratorBuilder.generateString(5);
+    final String CURRENCY_CODE = GeneratorBuilder.generateTestCode();
+    final String CURRENCY_NAME = GeneratorBuilder.generateString(5);
 
     @Test
     @Tag("regression")
     @Description("Test uses API to post a Currency that is already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createCurrencyAlreadyExists() {
+    public void createCurrencyAlreadyExistsTest() {
         Currency newCurrencyApi = Currency.builder()
                 .currencyCode(CURRENCY_CODE)
                 .currencyName(CURRENCY_NAME)
@@ -58,7 +61,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         2) with currency code = empty string.
         """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createCurrencyWithInvalidCode(String currencyCode) {
+    public void createCurrencyWithInvalidCodeTest(String currencyCode) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
         Currency newCurrencyApi = Currency.builder()
@@ -84,7 +87,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         2) with currency code that should be modified to upper case.
         """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createCurrencyCodeTrimUppercase(String currencyCode) {
+    public void createCurrencyCodeTrimUppercaseTest(String currencyCode) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
         String currencyCodeTrimmedUppercase = currencyCode.trim().toUpperCase();
@@ -95,9 +98,9 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
                 .build();
         PostApiReqHelper.saveCurrencyAndValidate(currencyApi, SC_OK);
 
-        CurrencyDb districtDb = CurrencyDbHelper.selectCurrencyByCode(currencyCodeTrimmedUppercase);
-        CurrencyDbAssertions.checkCurrencyPresence(districtDb, true);
-        CurrencyDbAssertions.checkCurrencyCode(districtDb.getCurrencyCode(), currencyCodeTrimmedUppercase);
+        CurrencyDb currencyDb = CurrencyDbHelper.selectCurrencyByCode(currencyCodeTrimmedUppercase);
+        CurrencyDbAssertions.checkCurrencyPresence(currencyDb, true);
+        CurrencyDbAssertions.checkCurrencyCode(currencyDb.getCurrencyCode(), currencyCodeTrimmedUppercase);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
         CommonDbAssertions.checkCounts(currenciesCountNew - 1, currenciesCountOld);
@@ -107,12 +110,13 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
     @Tag("regression")
     @Description("Test uses API to post a Currency with currency name already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createCurrencyNameAlreadyExists() {
-        Currency newCurrencyApi = Currency.builder()
+    public void createCurrencyNameAlreadyExistsTest() {
+        CurrencyDb currencyDb = CurrencyDb.builder()
                 .currencyCode(CURRENCY_CODE)
                 .currencyName(CURRENCY_NAME)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_OK);
+        int rowsCount = CurrencyDbHelper.insertCurrency(currencyDb);
+        CommonDbAssertions.checkRowsInserted(rowsCount);
 
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
@@ -130,15 +134,15 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
     @Tag("regression")
     @Description("Test uses API to post a Currency with currency name that needs to be trimmed.")
     @Severity(SeverityLevel.CRITICAL)
-    public void createCurrencyNameTrim() {
+    public void createCurrencyNameTrimTest() {
         String currencyNameToTrim = " " + GeneratorBuilder.generateString(10) + " ";
         String currencyNameTrimmed = currencyNameToTrim.trim();
 
-        Currency districtApi = Currency.builder()
+        Currency currencyApi = Currency.builder()
                 .currencyCode(CURRENCY_CODE)
                 .currencyName(currencyNameToTrim)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(districtApi, SC_OK);
+        PostApiReqHelper.saveCurrencyAndValidate(currencyApi, SC_OK);
 
         CurrencyDb currencyDb = CurrencyDbHelper.selectCurrencyByCode(CURRENCY_CODE);
         CurrencyDbAssertions.checkCurrencyPresence(currencyDb, true);
@@ -156,7 +160,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         2) with currency name = empty string.
         """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createCurrencyWithInvalidName(String currencyName) {
+    public void createCurrencyWithInvalidNameTest(String currencyName) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
         Currency newCurrencyApi = Currency.builder()
@@ -183,7 +187,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         2) with currency symbol = empty string.
         """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createCurrencyWithInvalidSymbol(String currencySymbol) {
+    public void createCurrencyWithInvalidSymbolTest(String currencySymbol) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
         Currency newCurrencyApi = Currency.builder()
@@ -212,7 +216,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         In both cases expected metal type should be = 'UNKNOWN'.
         """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createCurrencyWithDefaultMetalType(String metalType) {
+    public void createCurrencyWithDefaultMetalTypeTest(String metalType) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
         Currency newCurrencyApi = Currency.builder()

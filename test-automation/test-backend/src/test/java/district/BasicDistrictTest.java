@@ -3,14 +3,16 @@ package district;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.skopintsev.assertions.api.DistrictApiAssertions;
 import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.assertions.db.DistrictDbAssertions;
-import org.skopintsev.database.district.DistrictDb;
-import org.skopintsev.database.district.DistrictDbHelper;
+import org.skopintsev.database.districts.DistrictDb;
+import org.skopintsev.database.districts.DistrictDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.District;
 import org.skopintsev.transport.GetApiReqHelper;
@@ -21,10 +23,11 @@ import java.util.List;
 import static org.skopintsev.constants.Constants.SC_OK;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BasicDistrictTest extends BaseDistrictTest {
 
-    private final String DISTRICT_CODE = GeneratorBuilder.generateTestCode();
-    private final String DISTRICT_NAME = GeneratorBuilder.generateString(10);
+    final String DISTRICT_CODE = GeneratorBuilder.generateTestCode();
+    final String DISTRICT_NAME = GeneratorBuilder.generateString(10);
 
     @Test
     @Tag("smoke")
