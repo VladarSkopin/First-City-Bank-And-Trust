@@ -3,6 +3,8 @@ package sectors.subsectors;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -21,11 +23,12 @@ import java.util.List;
 import static org.skopintsev.constants.Constants.SC_OK;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BasicSubSectorTest extends BaseSubSectorTest {
 
-    private final String SUB_SECTOR_CODE = GeneratorBuilder.generateTestCode();
-    private final String SUB_SECTOR_NAME = GeneratorBuilder.generateString(10);
-    private final String SUB_SECTOR_DESCRIPTION = GeneratorBuilder.generateString(100);
+    final String SUB_SECTOR_CODE = GeneratorBuilder.generateTestCode();
+    final String SUB_SECTOR_NAME = GeneratorBuilder.generateString(10);
+    final String SUB_SECTOR_DESCRIPTION = GeneratorBuilder.generateString(100);
 
     @Test
     @Tag("smoke")

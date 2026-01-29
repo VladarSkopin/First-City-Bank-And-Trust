@@ -165,9 +165,9 @@ public class CreateSectorTest extends BaseSectorTest {
                 .build();
         PostApiReqHelper.saveSectorAndValidate(sectorApi, SC_OK);
 
-        SectorDb dsectorDb = SectorDbHelper.selectSectorByCode(SECTOR_CODE);
-        SectorDbAssertions.checkSectorPresence(dsectorDb, true);
-        SectorDbAssertions.checkSectorField("sectorName", dsectorDb.getSectorName(), sectorNameTrimmed);
+        SectorDb sectorDb = SectorDbHelper.selectSectorByCode(SECTOR_CODE);
+        SectorDbAssertions.checkSectorPresence(sectorDb, true);
+        SectorDbAssertions.checkSectorField("sectorName", sectorDb.getSectorName(), sectorNameTrimmed);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
         CommonDbAssertions.checkCounts(sectorsCountNew - 1, sectorsCountOld);
