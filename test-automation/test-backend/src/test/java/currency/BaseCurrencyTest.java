@@ -2,7 +2,7 @@ package currency;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.skopintsev.database.currency.CurrencyDbHelper;
+import org.skopintsev.database.currencies.CurrencyDbHelper;
 
 public class BaseCurrencyTest {
     @BeforeEach

@@ -2,7 +2,7 @@ package org.skopintsev.assertions.db;
 
 import io.qameta.allure.Step;
 import org.assertj.core.api.Assertions;
-import org.skopintsev.database.currency.CurrencyDb;
+import org.skopintsev.database.currencies.CurrencyDb;
 import org.skopintsev.helper.enums.MetalType;
 
 

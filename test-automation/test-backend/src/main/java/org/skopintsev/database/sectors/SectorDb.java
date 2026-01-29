@@ -1,8 +1,9 @@
-package org.skopintsev.database.district;
+package org.skopintsev.database.sectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.skopintsev.helper.GeneratorBuilder;
 
 @Data
 @Builder
@@ -10,7 +11,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DistrictDb {
-    String districtCode;
-    String districtName;
+public class SectorDb {
+    String sectorCode;
+    String sectorName;
+    @Builder.Default String description = GeneratorBuilder.generateString(50);
 }

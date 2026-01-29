@@ -1,4 +1,4 @@
-package org.skopintsev.database.currency;
+package org.skopintsev.database.currencies;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
