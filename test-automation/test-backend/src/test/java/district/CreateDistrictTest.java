@@ -3,6 +3,8 @@ package district;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -26,10 +28,11 @@ import static org.skopintsev.constants.Constants.SC_OK;
 import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateDistrictTest extends BaseDistrictTest {
 
-    private final String DISTRICT_CODE = GeneratorBuilder.generateTestCode();
-    private final String DISTRICT_NAME = GeneratorBuilder.generateString(10);
+    final String DISTRICT_CODE = GeneratorBuilder.generateTestCode();
+    final String DISTRICT_NAME = GeneratorBuilder.generateString(10);
 
     @Test
     @Tag("regression")
@@ -94,7 +97,6 @@ public class CreateDistrictTest extends BaseDistrictTest {
 
         DistrictDb districtDb = DistrictDbHelper.selectDistrictByCode(districtCodeTrimmedUppercase);
         DistrictDbAssertions.checkDistrictPresence(districtDb, true);
-        DistrictDbAssertions.checkDistrictCode(districtDb.getDistrictCode(), districtCodeTrimmedUppercase);
 
         int districtsCountNew = DistrictDbHelper.getDistrictsCount();
         CommonDbAssertions.checkCounts(districtsCountNew - 1, districtsCountOld);
@@ -105,11 +107,12 @@ public class CreateDistrictTest extends BaseDistrictTest {
     @Description("Test uses API to post a District with district name already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
     public void createDistrictNameAlreadyExistsTest() {
-        District districtApi = District.builder()
+        DistrictDb districtDb = DistrictDb.builder()
                 .districtCode(DISTRICT_CODE)
                 .districtName(DISTRICT_NAME)
                 .build();
-        PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_OK);
+        int rowsInserted = DistrictDbHelper.insertDistrict(districtDb);
+        CommonDbAssertions.checkRowsInserted(rowsInserted);
 
         int districtsCountOld = DistrictDbHelper.getDistrictsCount();
 

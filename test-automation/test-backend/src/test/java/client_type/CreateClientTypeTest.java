@@ -3,6 +3,8 @@ package client_type;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -26,10 +28,11 @@ import static org.skopintsev.constants.Constants.SC_OK;
 import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateClientTypeTest extends BaseClientTypeTest {
 
-    private final String CLIENT_TYPE_CODE = GeneratorBuilder.generateTestCode();
-    private final String CLIENT_TYPE_NAME = ClientTypeName.SS.getText();
+    final String CLIENT_TYPE_CODE = GeneratorBuilder.generateTestCode();
+    final String CLIENT_TYPE_NAME = ClientTypeName.SS.getText();
 
     @Test
     @Tag("regression")

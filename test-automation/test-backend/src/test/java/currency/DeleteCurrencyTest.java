@@ -3,6 +3,8 @@ package currency;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -21,9 +23,10 @@ import java.util.stream.Stream;
 import static org.skopintsev.constants.Constants.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class DeleteCurrencyTest extends BaseCurrencyTest {
 
-    private final String CURRENCY_CODE = GeneratorBuilder.generateTestCode();
+    final String CURRENCY_CODE = GeneratorBuilder.generateTestCode();
 
     @Test
     @Tag("regression")
