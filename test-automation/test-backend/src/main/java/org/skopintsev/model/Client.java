@@ -14,6 +14,6 @@ public class Client {
     String clientTypeCode;
     String socialRankCode;
     String districtCode;
-    @Builder.Default Boolean isBlocked = false;
+    @Builder.Default Boolean isBlocked = true;
     String subSectorCode;
 }

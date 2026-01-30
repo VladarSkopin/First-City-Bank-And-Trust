@@ -56,4 +56,10 @@ public class PostApiReqHelper {
         response.then().statusCode(expectedStatusCode);
     }
 
+    @Step("POST " + Api.CLIENTS + " with expected status code {1}")
+    public static void saveClientAndValidate(Client client, int expectedStatusCode) {
+        Response response = postApiReq(client, Api.CLIENTS);
+        response.then().statusCode(expectedStatusCode);
+    }
+
 }
