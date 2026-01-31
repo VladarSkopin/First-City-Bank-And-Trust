@@ -18,6 +18,7 @@ public class ClientDbHelper {
                     .socialRankCode(rs.getString("social_rank_code"))
                     .districtCode(rs.getString("district_code"))
                     .isBlocked(rs.getBoolean("is_blocked"))
+                    .subSectorCode(rs.getString("sub_sector_code"))
                     .build();
         } catch (SQLException e) {
             throw new RuntimeException("Error mapping Client from ResultSet", e);
@@ -27,15 +28,15 @@ public class ClientDbHelper {
     @SneakyThrows
     @Step("Select client by code: {clientCode}")
     public static ClientDb selectClientByCode(String clientCode) {
-        String query = "SELECT client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked FROM clients WHERE client_code = ?";
+        String query = "SELECT client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked, sub_sector_code FROM clients WHERE client_code = ?";
         return DatabaseHelper.queryForObject(query, ClientDbHelper::mapRow, clientCode);
     }
 
     @Step("Insert new client: {clientDb}")
     public static int insertClient(ClientDb clientDb) {
         String query = """
-            INSERT INTO clients (client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO clients (client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked, sub_sector_code)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             """;
         return DatabaseHelper.executeUpdate(
                 query,
@@ -44,7 +45,8 @@ public class ClientDbHelper {
                 clientDb.getClientTypeCode(),
                 clientDb.getSocialRankCode(),
                 clientDb.getDistrictCode(),
-                clientDb.getIsBlocked()
+                clientDb.getIsBlocked(),
+                clientDb.getSubSectorCode()
         );
     }
 
