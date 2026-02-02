@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.assertions.db.clients.ClientDbAssertions;
-import org.skopintsev.assertions.db.factory.ClientDbFactory;
+import org.skopintsev.database.factory.ClientDbFactory;
 import org.skopintsev.database.clients.ClientDb;
 import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;

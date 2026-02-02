@@ -51,14 +51,15 @@ public class CreateSectorTest extends BaseSectorTest {
     }
 
     @ParameterizedTest(name = "[{index}] sectorCode = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
             """
             Test uses API to post a Sector:
             1) with code = null,
-            2) with code = empty string.
+            2) with code = empty string,
+            3) with code = whitespace.
             """)
     @Severity(SeverityLevel.CRITICAL)
     public void createSectorWithInvalidCodeTest(String sectorCode) {
@@ -126,14 +127,15 @@ public class CreateSectorTest extends BaseSectorTest {
     }
 
     @ParameterizedTest(name = "[{index}] sectorName = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
             """
             Test uses API to post a Sector:
             1) with sector name = null,
-            2) with sector name = empty string.
+            2) with sector name = empty string,
+            3) with sector name = whitespace.
             """)
     @Severity(SeverityLevel.CRITICAL)
     public void createSectorWithInvalidNameTest(String sectorName) {

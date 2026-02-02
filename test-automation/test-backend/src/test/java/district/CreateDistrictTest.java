@@ -52,14 +52,15 @@ public class CreateDistrictTest extends BaseDistrictTest {
     }
 
     @ParameterizedTest(name = "[{index}] districtCode = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
         """
         Test uses API to post a District:
         1) with district code = null,
-        2) with district code = empty string.
+        2) with district code = empty string,
+        3) with district code = whitespace.
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void createDistrictWithInvalidCodeTest(String districtCode) {
@@ -127,14 +128,15 @@ public class CreateDistrictTest extends BaseDistrictTest {
     }
 
     @ParameterizedTest(name = "[{index}] districtName = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
         """
         Test uses API to post a District:
         1) with district name = null,
-        2) with district name = empty string.
+        2) with district name = empty string,
+        3) with district name = whitespace.
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void createDistrictWithInvalidNameTest(String districtName) {

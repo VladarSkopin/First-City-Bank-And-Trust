@@ -26,37 +26,34 @@ public class BaseClientTest {
     final String BASE_SECTOR_CODE = GeneratorBuilder.generateTestCode();
     final String BASE_SUB_SECTOR_CODE = GeneratorBuilder.generateTestCode();
 
+    final ClientTypeDb newClientTypeDb = ClientTypeDb.builder()
+            .clientTypeCode(BASE_CLIENT_TYPE_CODE)
+            .clientTypeName(GeneratorBuilder.generateString(20))
+            .build();
+    final SocialRankDb newSocialRankDb = SocialRankDb.builder()
+            .rankCode(BASE_SOCIAL_RANK_CODE)
+            .rankName(GeneratorBuilder.generateString(10))
+            .build();
+    final DistrictDb newDistrictDb = DistrictDb.builder()
+            .districtCode(BASE_DISTRICT_CODE)
+            .districtName(GeneratorBuilder.generateString(20))
+            .build();
+    final SectorDb newSectorDb = SectorDb.builder()
+            .sectorCode(BASE_SECTOR_CODE)
+            .sectorName(GeneratorBuilder.generateString(30))
+            .build();
+    final SubSectorDb subSectorDb = SubSectorDb.builder()
+            .sectorCode(BASE_SECTOR_CODE)
+            .subSectorCode(BASE_SUB_SECTOR_CODE)
+            .subSectorName(GeneratorBuilder.generateString(40))
+            .build();
+
     @BeforeAll
     public void beforeAll() {
-        ClientTypeDb newClientTypeDb = ClientTypeDb.builder()
-                .clientTypeCode(BASE_CLIENT_TYPE_CODE)
-                .clientTypeName(GeneratorBuilder.generateString(20))
-                .build();
         ClientTypeDbHelper.insertClientType(newClientTypeDb);
-
-        SocialRankDb newSocialRankDb = SocialRankDb.builder()
-                .rankCode(BASE_SOCIAL_RANK_CODE)
-                .rankName(GeneratorBuilder.generateString(10))
-                .build();
         SocialRankDbHelper.insertSocialRank(newSocialRankDb);
-
-        DistrictDb newDistrictDb = DistrictDb.builder()
-                .districtCode(BASE_DISTRICT_CODE)
-                .districtName(GeneratorBuilder.generateString(20))
-                .build();
         DistrictDbHelper.insertDistrict(newDistrictDb);
-
-        SectorDb newSectorDb = SectorDb.builder()
-                .sectorCode(BASE_SECTOR_CODE)
-                .sectorName(GeneratorBuilder.generateString(30))
-                .build();
         SectorDbHelper.insertSector(newSectorDb);
-
-        SubSectorDb subSectorDb = SubSectorDb.builder()
-                .sectorCode(BASE_SECTOR_CODE)
-                .subSectorCode(BASE_SUB_SECTOR_CODE)
-                .subSectorName(GeneratorBuilder.generateString(40))
-                .build();
         SubSectorDbHelper.insertSubSector(subSectorDb);
     }
 

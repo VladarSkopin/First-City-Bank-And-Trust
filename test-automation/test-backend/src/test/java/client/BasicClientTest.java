@@ -9,7 +9,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.skopintsev.assertions.api.clients.ClientApiAssertions;
 import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.assertions.db.clients.ClientDbAssertions;
-import org.skopintsev.assertions.db.factory.ClientDbFactory;
+import org.skopintsev.database.factory.ClientDbFactory;
 import org.skopintsev.database.clients.ClientDb;
 import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.model.Client;
