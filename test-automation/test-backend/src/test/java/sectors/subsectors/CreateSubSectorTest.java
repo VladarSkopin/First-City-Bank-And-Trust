@@ -14,14 +14,10 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.skopintsev.assertions.db.CommonDbAssertions;
-import org.skopintsev.assertions.db.sectors.SectorDbAssertions;
 import org.skopintsev.assertions.db.sectors.SubSectorDbAssertions;
-import org.skopintsev.database.sectors.SectorDb;
-import org.skopintsev.database.sectors.SectorDbHelper;
 import org.skopintsev.database.sectors.subsectors.SubSectorDb;
 import org.skopintsev.database.sectors.subsectors.SubSectorDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.model.Sector;
 import org.skopintsev.model.SubSector;
 import org.skopintsev.transport.PostApiReqHelper;
 
@@ -56,14 +52,15 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
     }
 
     @ParameterizedTest(name = "[{index}] subSectorCode = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
             """
             Test uses API to post a sub-sector:
             1) with sub-sector code = null,
-            2) with sub-sector code = empty string.
+            2) with sub-sector code = empty string,
+            3) with name or title = whitespace.
             """)
     @Severity(SeverityLevel.CRITICAL)
     public void createSubSectorWithInvalidCodeTest(String subSectorCode) {
@@ -135,14 +132,15 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
     }
 
     @ParameterizedTest(name = "[{index}] subSectorName = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
             """
             Test uses API to post a sub-sector:
             1) with sub-sector name = null,
-            2) with sub-sector name = empty string.
+            2) with sub-sector name = empty string,
+            3) with sub-sector name = whitespace.
             """)
     @Severity(SeverityLevel.CRITICAL)
     public void createSubSectorWithInvalidNameTest(String subSectorName) {

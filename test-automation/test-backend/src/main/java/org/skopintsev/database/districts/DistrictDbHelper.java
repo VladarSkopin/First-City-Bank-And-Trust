@@ -40,6 +40,12 @@ public class DistrictDbHelper {
         );
     }
 
+    @Step("Delete district by code: {districtCode}")
+    public static void deleteDistrict(String districtCode) {
+        String query = "DELETE FROM districts WHERE district_code = ?";
+        DatabaseHelper.executeUpdate(query, districtCode);
+    }
+
     @Step("Delete all test districts.")
     public static void deleteAllTestDistricts() {
         String query = "DELETE FROM districts WHERE district_code LIKE 'TEST-%'";
