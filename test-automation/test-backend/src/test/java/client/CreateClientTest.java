@@ -32,6 +32,7 @@ import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateClientTest extends BaseClientTest {
 
+    static final String CLIENT_CODE = GeneratorBuilder.generateTestCode();
     final String NAME_OR_TITLE = GeneratorBuilder.generateString(10);
 
     @Test
@@ -58,12 +59,12 @@ public class CreateClientTest extends BaseClientTest {
     @NullSource
     @Tag("regression")
     @Description(
-            """
-            Test uses API to post a client:
-            1) with client code = null,
-            2) with client code = empty string,
-            3) with client code = whitespace.
-            """)
+        """
+        Test uses API to post a client:
+        1) with client code = null,
+        2) with client code = empty string,
+        3) with client code = whitespace.
+        """)
     @Severity(SeverityLevel.CRITICAL)
     public void createClientWithInvalidCodeTest(String invalidClientCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
@@ -85,11 +86,12 @@ public class CreateClientTest extends BaseClientTest {
     @MethodSource("clientCodeRequest")
     @Tag("regression")
     @Description(
-            """
-            Test uses API to post a client:
-            1) with client code that needs to be trimmed,
-            2) with client code that should be modified to upper case.
-            """)
+        """
+        Test uses API to post a client:
+        1) with client code that needs to be trimmed,
+        2) with client code that should be modified to upper case,
+        3) with client code in mixed case.
+        """)
     @Severity(SeverityLevel.CRITICAL)
     public void createClientCodeTrimUppercaseTest(String clientCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
@@ -146,12 +148,12 @@ public class CreateClientTest extends BaseClientTest {
     @NullSource
     @Tag("regression")
     @Description(
-            """
-            Test uses API to post a client:
-            1) with name or title = null,
-            2) with name or title = empty string,
-            3) with name or title = whitespace.
-            """)
+        """
+        Test uses API to post a client:
+        1) with name or title = null,
+        2) with name or title = empty string,
+        3) with name or title = whitespace.
+        """)
     @Severity(SeverityLevel.CRITICAL)
     public void createClientWithInvalidNameTest(String invalidNameOrTitle) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
@@ -197,29 +199,11 @@ public class CreateClientTest extends BaseClientTest {
     }
 
 
-    // todo: invalid (null + "" + absent) district code
-
-    // todo: invalid (null + "" + absent) client type code
-
-    // todo: invalid (null + "" + absent) sub-sector code
-
-    // todo: invalid (null + "" + absent) rank code
-
-    // todo: (trim + uppercase + mixed case) district code
-
-    // todo: (trim + uppercase + mixed case) client type code
-
-    // todo: (trim + uppercase + mixed case) sub-sector code
-
-    // todo: (trim + uppercase + mixed case) rank code
-
-
-
     private static Stream<Arguments> clientCodeRequest() {
         return Stream.of(
-                Arguments.of(" " + GeneratorBuilder.generateTestCode() + " "),
-                Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase())
+                Arguments.of(" " + CLIENT_CODE + " "),
+                Arguments.of(CLIENT_CODE.toLowerCase()),
+                Arguments.of(CLIENT_CODE.charAt(0) + CLIENT_CODE.substring(1).toLowerCase())
         );
     }
-
 }

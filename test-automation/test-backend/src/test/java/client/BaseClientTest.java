@@ -20,11 +20,11 @@ import org.skopintsev.helper.GeneratorBuilder;
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public class BaseClientTest {
 
-    final String BASE_CLIENT_TYPE_CODE = GeneratorBuilder.generateTestCode();
-    final String BASE_SOCIAL_RANK_CODE = GeneratorBuilder.generateTestCode();
-    final String BASE_DISTRICT_CODE = GeneratorBuilder.generateTestCode();
+    static final String BASE_CLIENT_TYPE_CODE = GeneratorBuilder.generateTestCode();
+    static final String BASE_SOCIAL_RANK_CODE = GeneratorBuilder.generateTestCode();
+    static final String BASE_DISTRICT_CODE = GeneratorBuilder.generateTestCode();
     final String BASE_SECTOR_CODE = GeneratorBuilder.generateTestCode();
-    final String BASE_SUB_SECTOR_CODE = GeneratorBuilder.generateTestCode();
+    static final String BASE_SUB_SECTOR_CODE = GeneratorBuilder.generateTestCode();
 
     final ClientTypeDb newClientTypeDb = ClientTypeDb.builder()
             .clientTypeCode(BASE_CLIENT_TYPE_CODE)
