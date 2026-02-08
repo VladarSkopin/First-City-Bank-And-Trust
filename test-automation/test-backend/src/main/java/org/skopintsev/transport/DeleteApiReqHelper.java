@@ -51,4 +51,10 @@ public class DeleteApiReqHelper {
         Response response = deleteApiRequest(Api.CLIENTS, clientCode);
         response.then().statusCode(expectedStatusCode);
     }
+
+    @Step("DELETE " + Api.VAULTS + " with expected status code {1}")
+    public static void deleteVaultAndValidate(String vaultCode, int expectedStatusCode) {
+        Response response = deleteApiRequest(Api.VAULTS, vaultCode);
+        response.then().statusCode(expectedStatusCode);
+    }
 }
