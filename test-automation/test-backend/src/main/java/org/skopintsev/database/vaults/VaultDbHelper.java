@@ -16,9 +16,9 @@ public class VaultDbHelper {
             return VaultDb.builder()
                     .vaultCode(rs.getString("vault_code"))
                     .clientCode(rs.getString("client_code"))
-                    .createdAt((LocalDateTime) rs.getObject("created_at"))
-                    .modifiedAt((LocalDateTime) rs.getObject("modified_at"))
-                    .amount((BigInteger) rs.getObject("amount"))
+                    .createdAt(rs.getObject("created_at", LocalDateTime.class))
+                    .modifiedAt(rs.getObject("modified_at", LocalDateTime.class))
+                    .amount(BigInteger.valueOf(rs.getLong("amount")))
                     .currencyCode(rs.getString("currency_code"))
                     .isArchived(rs.getBoolean("is_archived"))
                     .build();

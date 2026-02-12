@@ -13,7 +13,9 @@ import org.skopintsev.database.factory.VaultDbFactory;
 import org.skopintsev.database.vaults.VaultDb;
 import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.model.Vault;
+import org.skopintsev.model.factory.VaultApiFactory;
 import org.skopintsev.transport.GetApiReqHelper;
+import org.skopintsev.transport.PostApiReqHelper;
 
 import java.util.List;
 
@@ -28,8 +30,8 @@ public class BasicVaultTest extends BaseVaultTest {
     @Severity(SeverityLevel.BLOCKER)
     public void createVaultDbTest() {
         VaultDb vaultDb = VaultDbFactory.defaultVaultDbRequest(
-                BASE_CLIENT_CODE,
-                BASE_CURRENCY_CODE
+            BASE_CLIENT_CODE,
+            BASE_CURRENCY_CODE
         );
         int rowsInserted = VaultDbHelper.insertVault(vaultDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
@@ -42,11 +44,25 @@ public class BasicVaultTest extends BaseVaultTest {
                 .filter(v -> v.getVaultCode().equals(vaultDb.getVaultCode()))
                 .findFirst()
                 .orElse(null);
-        // todo: replace with soft assertions ???
-        VaultDbAssertions.checkVaultField("clientCode", vault.getClientCode(), vaultDb.getClientCode());
-        VaultDbAssertions.checkVaultField("amount", vault.getAmount(), vaultDb.getAmount());
-        VaultDbAssertions.checkVaultField("currencyCode", vault.getCurrencyCode(), vaultDb.getCurrencyCode());
-        VaultDbAssertions.checkVaultField("isArchived", vault.getIsArchived(), vaultDb.getIsArchived());
+        VaultDbAssertions.checkVaultMatchesDb(vault, vaultDb);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to post a new Vault object and checks Database for the new added vault.")
+    @Severity(SeverityLevel.BLOCKER)
+    public void createVaultApiTest() {
+        Vault vault = VaultApiFactory.defaultVaultApiRequest(
+            BASE_CLIENT_CODE,
+            BASE_CURRENCY_CODE
+        );
+        PostApiReqHelper.saveVaultAndValidate(vault, SC_OK);
+
+        List<Vault> vaults = GetApiReqHelper.getVaultsAndValidate(SC_OK);
+        VaultApiAssertions.checkNotNullVaults(vaults);
+
+        VaultDb vaultDb = VaultDbHelper.selectVaultByCode(vault.getVaultCode());
+        VaultDbAssertions.checkVaultPresence(vaultDb, true);
+        VaultDbAssertions.checkVaultMatchesDb(vault, vaultDb);
+    }
 }
