@@ -40,7 +40,7 @@ public class CreateClientTest extends BaseClientTest {
     @Description("Test uses API to post a client that is already present in the Database.")
     @Severity(SeverityLevel.CRITICAL)
     public void createClientAlreadyExistsTest() {
-        Client client = ClientApiFactory.defaultClientRequest(
+        Client client = ClientApiFactory.defaultClientApiRequest(
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,
                 BASE_DISTRICT_CODE,
@@ -54,7 +54,7 @@ public class CreateClientTest extends BaseClientTest {
         CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld);
     }
 
-    @ParameterizedTest(name = "[{index}] clientCode = {0}")
+    @ParameterizedTest(name = "[{index}] invalidClientCode = {0}")
     @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
@@ -69,7 +69,7 @@ public class CreateClientTest extends BaseClientTest {
     public void createClientWithInvalidCodeTest(String invalidClientCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        Client client = ClientApiFactory.codeClientRequest(
+        Client client = ClientApiFactory.codeClientApiRequest(
                 invalidClientCode,
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,
@@ -97,7 +97,7 @@ public class CreateClientTest extends BaseClientTest {
         int clientsCountOld = ClientDbHelper.getClientsCount();
         String clientCodeTrimmedUppercase = clientCode.trim().toUpperCase();
 
-        Client client = ClientApiFactory.codeClientRequest(
+        Client client = ClientApiFactory.codeClientApiRequest(
                 clientCode,
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,
@@ -130,7 +130,7 @@ public class CreateClientTest extends BaseClientTest {
 
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        Client client = ClientApiFactory.nameOrTitleClientRequest(
+        Client client = ClientApiFactory.nameOrTitleClientApiRequest(
                 NAME_OR_TITLE,
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,
@@ -158,7 +158,7 @@ public class CreateClientTest extends BaseClientTest {
     public void createClientWithInvalidNameTest(String invalidNameOrTitle) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        Client client = ClientApiFactory.nameOrTitleClientRequest(
+        Client client = ClientApiFactory.nameOrTitleClientApiRequest(
                 invalidNameOrTitle,
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,
@@ -181,7 +181,7 @@ public class CreateClientTest extends BaseClientTest {
         String clientNameOrTitleToTrim = " " + NAME_OR_TITLE + " ";
         String clientNameOrTitleTrimmed = clientNameOrTitleToTrim.trim();
 
-        Client client = ClientApiFactory.nameOrTitleClientRequest(
+        Client client = ClientApiFactory.nameOrTitleClientApiRequest(
                 clientNameOrTitleToTrim,
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,

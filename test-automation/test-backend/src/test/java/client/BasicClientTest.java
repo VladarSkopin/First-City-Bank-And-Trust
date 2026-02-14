@@ -59,7 +59,7 @@ public class BasicClientTest extends BaseClientTest {
     @Description("Test uses API to post a new Client object and checks Database for the new added client.")
     @Severity(SeverityLevel.BLOCKER)
     public void createClientApiTest() {
-        Client client = ClientApiFactory.defaultClientRequest(
+        Client client = ClientApiFactory.defaultClientApiRequest(
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,
                 BASE_DISTRICT_CODE,

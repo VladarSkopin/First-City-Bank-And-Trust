@@ -72,4 +72,12 @@ public class GetApiReqHelper {
 
         return response.as(new TypeRef<List<Client>>() {});
     }
+
+    @Step("GET " + Api.VAULTS + " with expected status code {0}")
+    public static List<Vault> getVaultsAndValidate(int expectedStatusCode) {
+        Response response = getApiRequest(Api.VAULTS);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Vault>>() {});
+    }
 }

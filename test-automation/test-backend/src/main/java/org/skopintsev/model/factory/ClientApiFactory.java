@@ -6,7 +6,7 @@ import org.skopintsev.model.Client;
 
 public class ClientApiFactory {
 
-    public static Client defaultClientRequest(
+    public static Client defaultClientApiRequest(
             String clientTypeCode, String socialRankCode, String districtCode, String subSectorCode) {
 
         return Client.builder()
@@ -20,7 +20,7 @@ public class ClientApiFactory {
                 .build();
     }
 
-    public static Client codeClientRequest(
+    public static Client codeClientApiRequest(
             String clientCode, String clientTypeCode, String socialRankCode, String districtCode, String subSectorCode) {
 
         return Client.builder()
@@ -34,7 +34,7 @@ public class ClientApiFactory {
                 .build();
     }
 
-    public static Client nameOrTitleClientRequest(
+    public static Client nameOrTitleClientApiRequest(
             String nameOrTitle, String clientTypeCode, String socialRankCode, String districtCode, String subSectorCode) {
 
         return Client.builder()

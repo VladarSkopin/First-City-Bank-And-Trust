@@ -40,7 +40,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     public void createClientInvalidDistrictCodeTest(String districtCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        Client client = ClientApiFactory.defaultClientRequest(
+        Client client = ClientApiFactory.defaultClientApiRequest(
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,
                 districtCode,
@@ -70,7 +70,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     public void createClientInvalidClientTypeCodeTest(String clientTypeCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        Client client = ClientApiFactory.defaultClientRequest(
+        Client client = ClientApiFactory.defaultClientApiRequest(
                 clientTypeCode,
                 BASE_SOCIAL_RANK_CODE,
                 BASE_DISTRICT_CODE,
@@ -100,7 +100,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     public void createClientInvalidSubSectorCodeTest(String subSectorCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        Client client = ClientApiFactory.defaultClientRequest(
+        Client client = ClientApiFactory.defaultClientApiRequest(
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,
                 BASE_DISTRICT_CODE,
@@ -130,7 +130,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     public void createClientInvalidSocialRankCodeTest(String socialRankCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        Client client = ClientApiFactory.defaultClientRequest(
+        Client client = ClientApiFactory.defaultClientApiRequest(
                 BASE_CLIENT_TYPE_CODE,
                 socialRankCode,
                 BASE_DISTRICT_CODE,
@@ -159,7 +159,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     public void createClientValidDistrictCodeTest(String districtCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        Client client = ClientApiFactory.defaultClientRequest(
+        Client client = ClientApiFactory.defaultClientApiRequest(
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,
                 districtCode,
@@ -188,7 +188,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     public void createClientValidClientTypeCodeTest(String clientTypeCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        Client client = ClientApiFactory.defaultClientRequest(
+        Client client = ClientApiFactory.defaultClientApiRequest(
                 clientTypeCode,
                 BASE_SOCIAL_RANK_CODE,
                 BASE_DISTRICT_CODE,
@@ -217,7 +217,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     public void createClientValidSubSectorCodeTest(String subSectorCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        Client client = ClientApiFactory.defaultClientRequest(
+        Client client = ClientApiFactory.defaultClientApiRequest(
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,
                 BASE_DISTRICT_CODE,
@@ -246,7 +246,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     public void createClientValidSocialRankCodeTest(String socialRankCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        Client client = ClientApiFactory.defaultClientRequest(
+        Client client = ClientApiFactory.defaultClientApiRequest(
                 BASE_CLIENT_TYPE_CODE,
                 socialRankCode,
                 BASE_DISTRICT_CODE,
@@ -263,7 +263,6 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
 
 
     // generates invalid test codes (null, "", " ", absent in the database)
-
     private static Stream<Arguments> testCodeInvalidRequest() {
         return Stream.of(
                 Arguments.of((Object) null),
@@ -273,9 +272,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
         );
     }
 
-
     // generates valid test codes (untrimmed, lowercase, mixed case)
-
     private static Stream<Arguments> generateCodeVariations(String testCode) {
         return Stream.of(
                 Arguments.of(" " + testCode + " "),

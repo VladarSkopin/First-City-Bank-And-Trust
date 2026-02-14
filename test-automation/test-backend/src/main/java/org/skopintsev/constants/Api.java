@@ -16,4 +16,6 @@ public interface Api {
 
     String CLIENTS = "/api/v1/clients";
 
+    String VAULTS = "/api/v1/vaults";
+
 }

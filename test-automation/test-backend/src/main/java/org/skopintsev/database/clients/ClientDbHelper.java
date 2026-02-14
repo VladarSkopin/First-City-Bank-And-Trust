@@ -50,6 +50,12 @@ public class ClientDbHelper {
         );
     }
 
+    @Step("Delete client by code: {clientCode}")
+    public static void deleteClient(String clientCode) {
+        String query = "DELETE FROM clients WHERE client_code = ?";
+        DatabaseHelper.executeUpdate(query, clientCode);
+    }
+
     @Step("Delete all test clients.")
     public static void deleteAllTestClients() {
         String query = "DELETE FROM clients WHERE client_code LIKE 'TEST-%'";
