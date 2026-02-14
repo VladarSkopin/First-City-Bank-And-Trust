@@ -29,13 +29,13 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
     @MethodSource("testCodeInvalidRequest")
     @Tag("regression")
     @Description(
-            """
-            Test uses API to post a vault:
-            1) with client code = null,
-            2) with client code = empty string,
-            3) with client code = whitespace,
-            4) with client code absent on the database.
-            """)
+        """
+        Test uses API to post a vault:
+        1) with client code = null,
+        2) with client code = empty string,
+        3) with client code = whitespace,
+        4) with client code absent on the database.
+        """)
     @Severity(SeverityLevel.NORMAL)
     public void createVaultInvalidClientCodeTest(String clientCode) {
         int vaultCountOld = VaultDbHelper.getVaultsCount();
@@ -57,13 +57,13 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
     @MethodSource("testCodeInvalidRequest")
     @Tag("regression")
     @Description(
-            """
-            Test uses API to post a vault:
-            1) with currency code = null,
-            2) with currency code = empty string,
-            3) with currency code = whitespace,
-            4) with currency code absent on the database.
-            """)
+        """
+        Test uses API to post a vault:
+        1) with currency code = null,
+        2) with currency code = empty string,
+        3) with currency code = whitespace,
+        4) with currency code absent on the database.
+        """)
     @Severity(SeverityLevel.NORMAL)
     public void createVaultInvalidCurrencyCodeTest(String currencyCode) {
         int vaultCountOld = VaultDbHelper.getVaultsCount();
@@ -85,12 +85,12 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
     @MethodSource("clientCodeValidRequest")
     @Tag("regression")
     @Description(
-            """
-            Test uses API to post a vault:
-            1) with client code that needs to be trimmed,
-            2) with client code in lowercase,
-            3) with client code in mixed case.
-            """)
+        """
+        Test uses API to post a vault:
+        1) with client code that needs to be trimmed,
+        2) with client code in lowercase,
+        3) with client code in mixed case.
+        """)
     @Severity(SeverityLevel.NORMAL)
     public void createVaultValidClientCodeTest(String clientCode) {
         int vaultCountOld = VaultDbHelper.getVaultsCount();
@@ -112,12 +112,12 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
     @MethodSource("currencyCodeValidRequest")
     @Tag("regression")
     @Description(
-            """
-            Test uses API to post a vault:
-            1) with currency code that needs to be trimmed,
-            2) with currency code in lowercase,
-            3) with currency code in mixed case.
-            """)
+        """
+        Test uses API to post a vault:
+        1) with currency code that needs to be trimmed,
+        2) with currency code in lowercase,
+        3) with currency code in mixed case.
+        """)
     @Severity(SeverityLevel.NORMAL)
     public void createVaultValidCurrencyCodeTest(String currencyCode) {
         int vaultCountOld = VaultDbHelper.getVaultsCount();

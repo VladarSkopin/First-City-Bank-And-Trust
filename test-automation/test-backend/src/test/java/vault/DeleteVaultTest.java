@@ -61,13 +61,13 @@ public class DeleteVaultTest extends BaseVaultTest {
     @MethodSource("vaultCodeRequest")
     @Tag("regression")
     @Description(
-            """
-            Test uses API to delete a vault:
-            1) with code = null,
-            2) with code = empty string,
-            3) with code = whitespace,
-            4) a vault that is absent in the Database.
-            """)
+        """
+        Test uses API to delete a vault:
+        1) with code = null,
+        2) with code = empty string,
+        3) with code = whitespace,
+        4) a vault that is absent in the Database.
+        """)
     @Severity(SeverityLevel.CRITICAL)
     public void deleteVaultNegativeTest(String vaultCode) {
         int vaultCountOld = VaultDbHelper.getVaultsCount();

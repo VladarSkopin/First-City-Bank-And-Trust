@@ -22,6 +22,7 @@ import org.skopintsev.model.Vault;
 import org.skopintsev.model.factory.VaultApiFactory;
 import org.skopintsev.transport.PostApiReqHelper;
 
+import java.math.BigInteger;
 import java.util.stream.Stream;
 
 import static org.skopintsev.constants.Constants.SC_OK;
@@ -55,12 +56,12 @@ public class CreateVaultTest extends BaseVaultTest {
     @NullSource
     @Tag("regression")
     @Description(
-            """
-            Test uses API to post a vault:
-            1) with vault code = null,
-            2) with vault code = empty string,
-            3) with vault code = whitespace.
-            """)
+        """
+        Test uses API to post a vault:
+        1) with vault code = null,
+        2) with vault code = empty string,
+        3) with vault code = whitespace.
+        """)
     @Severity(SeverityLevel.CRITICAL)
     public void createVaultWithInvalidCodeTest(String invalidVaultCode) {
         int vaultCountOld = VaultDbHelper.getVaultsCount();
@@ -83,12 +84,12 @@ public class CreateVaultTest extends BaseVaultTest {
     @MethodSource("vaultCodeRequest")
     @Tag("regression")
     @Description(
-            """
-            Test uses API to post a vault:
-            1) with vault code that needs to be trimmed,
-            2) with vault code that should be modified to upper case,
-            3) with vault code in mixed case.
-            """)
+        """
+        Test uses API to post a vault:
+        1) with vault code that needs to be trimmed,
+        2) with vault code that should be modified to upper case,
+        3) with vault code in mixed case.
+        """)
     @Severity(SeverityLevel.CRITICAL)
     public void createVaultCodeTrimUppercaseTest(String vaultCode) {
         int vaultCountOld = VaultDbHelper.getVaultsCount();
@@ -108,9 +109,52 @@ public class CreateVaultTest extends BaseVaultTest {
         CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
     }
 
-    // todo: isArchived = true, amount = 0
+    @Test
+    @Tag("regression")
+    @Description(
+        """
+        Test uses API to post:
+        "1) a vault with amount = 0,
+        "2) an archived vault (isArchived = true).
+        """)
+    @Severity(SeverityLevel.CRITICAL)
+    public void createVaultWithPredefinedConditionsTest() {
+        int vaultCountOld = VaultDbHelper.getVaultsCount();
 
-    // todo: isArchived = false, amount > 0
+        Vault vaultZeroAmount = VaultApiFactory.amountVaultApiRequest(
+                BASE_CLIENT_CODE,
+                BigInteger.valueOf(0),
+                BASE_CURRENCY_CODE
+        );
+        PostApiReqHelper.saveVaultAndValidate(vaultZeroAmount, SC_OK);
+
+        VaultDb vaultDb = VaultDbHelper.selectVaultByCode(vaultZeroAmount.getVaultCode());
+        VaultDbAssertions.checkVaultPresence(vaultDb, true);
+
+        int vaultCountNew = VaultDbHelper.getVaultsCount();
+        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+    }
+
+    @Test
+    @Tag("regression")
+    @Description("Test uses API to post an archived vault (isArchived = true).")
+    @Severity(SeverityLevel.CRITICAL)
+    public void createVaultArchivedTest() {
+        int vaultCountOld = VaultDbHelper.getVaultsCount();
+
+        Vault vaultArchived = VaultApiFactory.defaultVaultApiRequest(
+                BASE_CLIENT_CODE,
+                BASE_CURRENCY_CODE
+        );
+        vaultArchived.setIsArchived(true);
+        PostApiReqHelper.saveVaultAndValidate(vaultArchived, SC_OK);
+
+        VaultDb vaultDb = VaultDbHelper.selectVaultByCode(vaultArchived.getVaultCode());
+        VaultDbAssertions.checkVaultPresence(vaultDb, true);
+
+        int vaultCountNew = VaultDbHelper.getVaultsCount();
+        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+    }
 
 
     private static Stream<Arguments> vaultCodeRequest() {

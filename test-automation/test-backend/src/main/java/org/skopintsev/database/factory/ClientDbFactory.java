@@ -19,20 +19,6 @@ public class ClientDbFactory {
                 .build();
     }
 
-    public static ClientDb codeClientDbRequest(
-            String clientCode, String clientTypeCode, String socialRankCode, String districtCode, String subSectorCode) {
-
-        return ClientDb.builder()
-                .clientCode(clientCode)
-                .nameOrTitle(GeneratorBuilder.generateString(12))
-                .clientTypeCode(clientTypeCode)
-                .socialRankCode(socialRankCode)
-                .districtCode(districtCode)
-                .isBlocked(false)
-                .subSectorCode(subSectorCode)
-                .build();
-    }
-
     public static ClientDb nameOrTitleClientDbRequest(
             String nameOrTitle, String clientTypeCode, String socialRankCode, String districtCode, String subSectorCode) {
 

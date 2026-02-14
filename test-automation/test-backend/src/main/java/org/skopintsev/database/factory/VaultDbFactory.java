@@ -22,20 +22,6 @@ public class VaultDbFactory {
                 .build();
     }
 
-    public static VaultDb codeVaultDbRequest(
-            String vaultCode, String clientCode, String currencyCode) {
-
-        return VaultDb.builder()
-                .vaultCode(vaultCode)
-                .clientCode(clientCode)
-                .createdAt(LocalDateTime.now())
-                .modifiedAt(LocalDateTime.now())
-                .amount(BigInteger.valueOf(GeneratorBuilder.generateAmount()))
-                .currencyCode(currencyCode)
-                .isArchived(false)
-                .build();
-    }
-
     public static VaultDb amountVaultDbRequest(
             String clientCode, BigInteger amount, String currencyCode) {
 
