@@ -52,14 +52,15 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
     }
 
     @ParameterizedTest(name = "[{index}] clientTypeCode = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
             """
             Test uses API to post a ClientType:
             1) with code = null,
-            2) with code = empty string.
+            2) with code = empty string,
+            3) with code = whitespace.
             """)
     @Severity(SeverityLevel.CRITICAL)
     public void createClientTypeWithInvalidCodeTest(String clientTypeCode) {

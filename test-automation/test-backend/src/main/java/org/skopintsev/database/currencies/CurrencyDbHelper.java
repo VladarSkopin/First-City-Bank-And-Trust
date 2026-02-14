@@ -46,7 +46,7 @@ public class CurrencyDbHelper {
         return DatabaseHelper.executeQuery(query, CurrencyDbHelper::mapRow, metalType);
     }
 
-    @Step("Insert new currency: {currency}")
+    @Step("Insert new currency: {currencyDb}")
     public static int insertCurrency(CurrencyDb currencyDb) {
         String query = """
             INSERT INTO currencies (currency_code, currency_name, currency_symbol, metal_type)

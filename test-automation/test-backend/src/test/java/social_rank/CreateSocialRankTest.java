@@ -48,14 +48,15 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
     }
 
     @ParameterizedTest(name = "[{index}] rankCode = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
             """
             Test uses API to post a social rank:
             1) with rank code = null,
-            2) with rank code = empty string.
+            2) with rank code = empty string,
+            3) with rank code = whitespace.
             """)
     @Severity(SeverityLevel.CRITICAL)
     public void createSocialRankWithInvalidCodeTest(String rankCode) {
@@ -147,14 +148,15 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
     }
 
     @ParameterizedTest(name = "[{index}] rankName = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
             """
             Test uses API to post a social rank:
             1) with rank name = null,
-            2) with rank name = empty string.
+            2) with rank name = empty string,
+            3) with rank name = whitespace.
             """)
     @Severity(SeverityLevel.CRITICAL)
     public void createSocialRankWithInvalidNameTest(String rankName) {

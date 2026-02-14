@@ -42,6 +42,12 @@ public class ClientTypeDbHelper {
         );
     }
 
+    @Step("Delete client type by code: {clientTypeCode}")
+    public static void deleteClientType(String clientTypeCode) {
+        String query = "DELETE FROM client_types WHERE client_type_code = ?";
+        DatabaseHelper.executeUpdate(query, clientTypeCode);
+    }
+
     @Step("Delete all test client types.")
     public static void deleteAllTestClientTypes() {
         String query = "DELETE FROM client_types WHERE client_type_code LIKE 'TEST-%'";

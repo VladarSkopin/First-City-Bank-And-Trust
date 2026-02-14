@@ -51,14 +51,15 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
     }
 
     @ParameterizedTest(name = "[{index}] currencyCode = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
         """
         Test uses API to post a Currency:
         1) with currency code = null,
-        2) with currency code = empty string.
+        2) with currency code = empty string,
+        3) with currency code = whitespace.
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void createCurrencyWithInvalidCodeTest(String currencyCode) {
@@ -150,14 +151,15 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
     }
 
     @ParameterizedTest(name = "[{index}] currencyName = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
         """
         Test uses API to post a Currency:
         1) with currency name = null,
-        2) with currency name = empty string.
+        2) with currency name = empty string,
+        3) with name or title = whitespace.
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void createCurrencyWithInvalidNameTest(String currencyName) {
@@ -177,14 +179,15 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
     }
 
     @ParameterizedTest(name = "[{index}] currencySymbol = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
         """
         Test uses API to post a Currency:
         1) with currency symbol = null,
-        2) with currency symbol = empty string.
+        2) with currency symbol = empty string,
+        3) with name or title = whitespace.
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void createCurrencyWithInvalidSymbolTest(String currencySymbol) {

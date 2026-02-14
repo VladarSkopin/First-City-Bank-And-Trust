@@ -31,7 +31,7 @@ import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateDistrictTest extends BaseDistrictTest {
 
-    final String DISTRICT_CODE = GeneratorBuilder.generateTestCode();
+    static final String DISTRICT_CODE = GeneratorBuilder.generateTestCode();
     final String DISTRICT_NAME = GeneratorBuilder.generateString(10);
 
     @Test
@@ -52,14 +52,15 @@ public class CreateDistrictTest extends BaseDistrictTest {
     }
 
     @ParameterizedTest(name = "[{index}] districtCode = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
         """
         Test uses API to post a District:
         1) with district code = null,
-        2) with district code = empty string.
+        2) with district code = empty string,
+        3) with district code = whitespace.
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void createDistrictWithInvalidCodeTest(String districtCode) {
@@ -82,7 +83,8 @@ public class CreateDistrictTest extends BaseDistrictTest {
         """
         Test uses API to post a District:
         1) with district code that needs to be trimmed,
-        2) with district code that should be modified to upper case.
+        2) with district code that should be modified to upper case,
+        3) with district code in mixed case.
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void createDistrictCodeTrimUppercaseTest(String districtCode) {
@@ -127,14 +129,15 @@ public class CreateDistrictTest extends BaseDistrictTest {
     }
 
     @ParameterizedTest(name = "[{index}] districtName = {0}")
-    @ValueSource(strings = {""})
+    @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")
     @Description(
         """
         Test uses API to post a District:
         1) with district name = null,
-        2) with district name = empty string.
+        2) with district name = empty string,
+        3) with district name = whitespace.
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void createDistrictWithInvalidNameTest(String districtName) {
@@ -176,8 +179,9 @@ public class CreateDistrictTest extends BaseDistrictTest {
 
     private static Stream<Arguments> districtCodeRequest() {
         return Stream.of(
-                Arguments.of(" " + GeneratorBuilder.generateTestCode() + " "),
-                Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase())
+                Arguments.of(" " + DISTRICT_CODE + " "),
+                Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase()),
+                Arguments.of(DISTRICT_CODE.charAt(0) + DISTRICT_CODE.substring(1).toLowerCase())
         );
     }
 }

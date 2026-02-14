@@ -60,7 +60,8 @@ public class DeleteClientTypeTest extends BaseClientTypeTest {
             Test uses API to delete a client type:
             1) with code = null,
             2) with code = empty string,
-            3) a client type that is absent in the Database.
+            3) with code = whitespace,
+            4) a client type that is absent in the Database.
             """)
     @Severity(SeverityLevel.CRITICAL)
     public void deleteClientTypeNegativeTest(String clientTypeCode) {
@@ -72,10 +73,12 @@ public class DeleteClientTypeTest extends BaseClientTypeTest {
         CommonDbAssertions.checkCounts(clientTypesCountNew, clientTypesCountOld);
     }
 
+
     private static Stream<Arguments> clientTypeCodeRequest() {
         return Stream.of(
                 Arguments.of((String) null),
                 Arguments.of(""),
+                Arguments.of(" "),
                 Arguments.of(GeneratorBuilder.generateTestCode())
         );
     }

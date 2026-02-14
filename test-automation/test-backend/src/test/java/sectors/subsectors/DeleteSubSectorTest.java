@@ -62,7 +62,8 @@ public class DeleteSubSectorTest extends BaseSubSectorTest {
         Test uses API to delete a sub-sector:
         1) with code = null,
         2) with code = empty string,
-        3) a sub-sector that is absent in the Database.
+        3) with code = whitespace,
+        4) a sub-sector that is absent in the Database.
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void deleteSubSectorNegativeTest(String subSectorCode) {
@@ -74,10 +75,12 @@ public class DeleteSubSectorTest extends BaseSubSectorTest {
         CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld);
     }
 
+
     private static Stream<Arguments> subSectorCodeRequest() {
         return Stream.of(
                 Arguments.of((String) null),
                 Arguments.of(""),
+                Arguments.of(" "),
                 Arguments.of(GeneratorBuilder.generateTestCode())
         );
     }

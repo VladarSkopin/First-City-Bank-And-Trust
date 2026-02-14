@@ -46,6 +46,12 @@ public class SocialRankDbHelper {
         );
     }
 
+    @Step("Delete social rank by code: {rankCode}")
+    public static void deleteSocialRank(String rankCode) {
+        String query = "DELETE FROM social_ranks WHERE rank_code = ?";
+        DatabaseHelper.executeUpdate(query, rankCode);
+    }
+
     @Step("Delete all test social ranks.")
     public static void deleteAllTestSocialRanks() {
         String query = "DELETE FROM social_ranks WHERE rank_code LIKE 'TEST-%'";
