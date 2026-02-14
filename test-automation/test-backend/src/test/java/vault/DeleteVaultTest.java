@@ -129,5 +129,4 @@ public class DeleteVaultTest extends BaseVaultTest {
                 Arguments.of(GeneratorBuilder.generateTestCode())
         );
     }
-
 }

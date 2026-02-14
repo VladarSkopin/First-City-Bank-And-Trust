@@ -118,7 +118,7 @@ public class CreateVaultTest extends BaseVaultTest {
         "2) an archived vault (isArchived = true).
         """)
     @Severity(SeverityLevel.CRITICAL)
-    public void createVaultWithPredefinedConditionsTest() {
+    public void createVaultZeroAmountTest() {
         int vaultCountOld = VaultDbHelper.getVaultsCount();
 
         Vault vaultZeroAmount = VaultApiFactory.amountVaultApiRequest(
