@@ -75,6 +75,7 @@ public class DeleteSubSectorTest extends BaseSubSectorTest {
         CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld);
     }
 
+
     private static Stream<Arguments> subSectorCodeRequest() {
         return Stream.of(
                 Arguments.of((String) null),

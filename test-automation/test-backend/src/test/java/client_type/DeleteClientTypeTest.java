@@ -73,6 +73,7 @@ public class DeleteClientTypeTest extends BaseClientTypeTest {
         CommonDbAssertions.checkCounts(clientTypesCountNew, clientTypesCountOld);
     }
 
+
     private static Stream<Arguments> clientTypeCodeRequest() {
         return Stream.of(
                 Arguments.of((String) null),

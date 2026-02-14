@@ -67,6 +67,7 @@ public class DeleteSocialRankTest extends BaseSocialRankTest {
         CommonDbAssertions.checkCounts(socialRanksCountNew, socialRanksCountOld);
     }
 
+
     private static Stream<Arguments> rankCodeRequest() {
         return Stream.of(
                 Arguments.of((String) null),

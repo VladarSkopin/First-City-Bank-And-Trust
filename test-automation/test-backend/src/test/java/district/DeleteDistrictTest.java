@@ -73,6 +73,7 @@ public class DeleteDistrictTest extends BaseDistrictTest {
         CommonDbAssertions.checkCounts(districtsCountNew, districtsCountOld);
     }
 
+
     private static Stream<Arguments> districtCodeRequest() {
         return Stream.of(
                 Arguments.of((String) null),

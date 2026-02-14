@@ -120,6 +120,7 @@ public class DeleteVaultTest extends BaseVaultTest {
         CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
     }
 
+
     private static Stream<Arguments> vaultCodeRequest() {
         return Stream.of(
                 Arguments.of((String) null),

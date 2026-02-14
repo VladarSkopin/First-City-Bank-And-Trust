@@ -54,7 +54,7 @@ public class CreateClientTest extends BaseClientTest {
         CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld);
     }
 
-    @ParameterizedTest(name = "[{index}] clientCode = {0}")
+    @ParameterizedTest(name = "[{index}] invalidClientCode = {0}")
     @ValueSource(strings = {"", " "})
     @NullSource
     @Tag("regression")

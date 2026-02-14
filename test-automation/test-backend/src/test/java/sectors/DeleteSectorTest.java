@@ -105,6 +105,7 @@ public class DeleteSectorTest extends BaseSectorTest {
         SubSectorDbHelper.deleteSubSector(subSectorDb.getSubSectorCode());
     }
 
+
     private static Stream<Arguments> sectorCodeRequest() {
         return Stream.of(
                 Arguments.of((String) null),

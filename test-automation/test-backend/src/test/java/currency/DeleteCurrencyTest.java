@@ -72,6 +72,7 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
         CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
     }
 
+
     private static Stream<Arguments> currencyCodeRequest() {
             return Stream.of(
                     Arguments.of((String) null),
