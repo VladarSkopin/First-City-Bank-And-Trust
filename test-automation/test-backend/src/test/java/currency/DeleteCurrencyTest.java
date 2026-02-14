@@ -59,7 +59,8 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
         Test uses API to delete a currency:
         1) with code = null,
         2) with code = empty string,
-        3) a currency that is absent in the Database.
+        3) with code = whitespace,
+        4) a currency that is absent in the Database.
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void deleteCurrencyNegativeTest(String currencyCode) {
@@ -75,6 +76,7 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
             return Stream.of(
                     Arguments.of((String) null),
                     Arguments.of(""),
+                    Arguments.of(" "),
                     Arguments.of(GeneratorBuilder.generateTestCode())
             );
     }

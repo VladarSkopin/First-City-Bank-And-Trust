@@ -62,7 +62,8 @@ public class DeleteSectorTest extends BaseSectorTest {
             Test uses API to delete a sector:
             1) with code = null,
             2) with code = empty string,
-            3) a sector that is absent in the Database.
+            3) with code = whitespace,
+            4) a sector that is absent in the Database.
             """)
     @Severity(SeverityLevel.CRITICAL)
     public void deleteSectorNegativeTest(String sectorCode) {
@@ -108,6 +109,7 @@ public class DeleteSectorTest extends BaseSectorTest {
         return Stream.of(
                 Arguments.of((String) null),
                 Arguments.of(""),
+                Arguments.of(" "),
                 Arguments.of(GeneratorBuilder.generateTestCode())
         );
     }

@@ -54,7 +54,8 @@ public class DeleteSocialRankTest extends BaseSocialRankTest {
         Test uses API to delete a social rank:
         1) with code = null,
         2) with code = empty string,
-        3) a social rank that is absent in the Database.
+        3) with code = whitespace,
+        4) a social rank that is absent in the Database.
         """)
     @Severity(SeverityLevel.CRITICAL)
     public void deleteSocialRankNegativeTest(String rankCode) {
@@ -70,6 +71,7 @@ public class DeleteSocialRankTest extends BaseSocialRankTest {
         return Stream.of(
                 Arguments.of((String) null),
                 Arguments.of(""),
+                Arguments.of(" "),
                 Arguments.of(GeneratorBuilder.generateTestCode())
         );
     }
