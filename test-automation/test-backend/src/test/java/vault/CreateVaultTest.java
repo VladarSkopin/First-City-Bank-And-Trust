@@ -72,19 +72,22 @@ public class CreateVaultTest extends BaseVaultTest {
         );
         PostApiReqHelper.saveVaultAndValidate(vault, SC_SERVER_ERROR);
 
+        VaultDb vaultDb = VaultDbHelper.selectVaultByCode(invalidVaultCode);
+        VaultDbAssertions.checkVaultPresence(vaultDb, false);
+
         int vaultCountNew = VaultDbHelper.getVaultsCount();
         CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld);
     }
 
-    @ParameterizedTest(name = "[{index}] clientCode = {0}")
+    @ParameterizedTest(name = "[{index}] vaultCode = {0}")
     @MethodSource("vaultCodeRequest")
     @Tag("regression")
     @Description(
             """
-            Test uses API to post a client:
-            1) with client code that needs to be trimmed,
-            2) with client code that should be modified to upper case,
-            3) with client code in mixed case.
+            Test uses API to post a vault:
+            1) with vault code that needs to be trimmed,
+            2) with vault code that should be modified to upper case,
+            3) with vault code in mixed case.
             """)
     @Severity(SeverityLevel.CRITICAL)
     public void createVaultCodeTrimUppercaseTest(String vaultCode) {
@@ -104,6 +107,10 @@ public class CreateVaultTest extends BaseVaultTest {
         int vaultCountNew = VaultDbHelper.getVaultsCount();
         CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
     }
+
+    // todo: isArchived = true, amount = 0
+
+    // todo: isArchived = false, amount > 0
 
 
     private static Stream<Arguments> vaultCodeRequest() {

@@ -263,7 +263,6 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
 
 
     // generates invalid test codes (null, "", " ", absent in the database)
-
     private static Stream<Arguments> testCodeInvalidRequest() {
         return Stream.of(
                 Arguments.of((Object) null),
@@ -273,9 +272,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
         );
     }
 
-
     // generates valid test codes (untrimmed, lowercase, mixed case)
-
     private static Stream<Arguments> generateCodeVariations(String testCode) {
         return Stream.of(
                 Arguments.of(" " + testCode + " "),

@@ -29,8 +29,8 @@ public class BaseVaultTest {
     static final String BASE_DISTRICT_CODE = GeneratorBuilder.generateTestCode();
     final String BASE_SECTOR_CODE = GeneratorBuilder.generateTestCode();
     static final String BASE_SUB_SECTOR_CODE = GeneratorBuilder.generateTestCode();
-    final String BASE_CLIENT_CODE = GeneratorBuilder.generateTestCode();
-    final String BASE_CURRENCY_CODE = GeneratorBuilder.generateTestCode();
+    static final String BASE_CLIENT_CODE = GeneratorBuilder.generateTestCode();
+    static final String BASE_CURRENCY_CODE = GeneratorBuilder.generateTestCode();
 
     final ClientTypeDb newClientTypeDb = ClientTypeDb.builder()
             .clientTypeCode(BASE_CLIENT_TYPE_CODE)
