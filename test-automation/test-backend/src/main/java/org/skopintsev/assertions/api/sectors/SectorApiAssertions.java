@@ -2,7 +2,7 @@ package org.skopintsev.assertions.api.sectors;
 
 import io.qameta.allure.Step;
 import org.assertj.core.api.Assertions;
-import org.skopintsev.model.Sector;
+import org.skopintsev.model.sectors.Sector;
 
 import java.util.List;
 

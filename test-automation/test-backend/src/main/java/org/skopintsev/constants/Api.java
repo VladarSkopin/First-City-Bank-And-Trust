@@ -18,4 +18,6 @@ public interface Api {
 
     String VAULTS = "/api/v1/vaults";
 
+    String VAULT_OPERATIONS = VAULTS + "/operations";
+
 }

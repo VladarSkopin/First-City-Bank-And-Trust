@@ -12,7 +12,7 @@ import org.skopintsev.assertions.db.vaults.VaultDbAssertions;
 import org.skopintsev.database.factory.VaultDbFactory;
 import org.skopintsev.database.vaults.VaultDb;
 import org.skopintsev.database.vaults.VaultDbHelper;
-import org.skopintsev.model.Vault;
+import org.skopintsev.model.vaults.Vault;
 import org.skopintsev.model.factory.VaultApiFactory;
 import org.skopintsev.transport.GetApiReqHelper;
 import org.skopintsev.transport.PostApiReqHelper;

@@ -18,7 +18,7 @@ import org.skopintsev.assertions.db.sectors.SectorDbAssertions;
 import org.skopintsev.database.sectors.SectorDb;
 import org.skopintsev.database.sectors.SectorDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.model.Sector;
+import org.skopintsev.model.sectors.Sector;
 import org.skopintsev.transport.PostApiReqHelper;
 
 import java.util.stream.Stream;

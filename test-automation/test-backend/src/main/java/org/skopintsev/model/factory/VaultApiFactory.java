@@ -1,7 +1,7 @@
 package org.skopintsev.model.factory;
 
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.model.Vault;
+import org.skopintsev.model.vaults.Vault;
 
 import java.math.BigInteger;
 

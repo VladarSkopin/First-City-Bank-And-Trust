@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.skopintsev.database.vaults.VaultDb;
-import org.skopintsev.model.Vault;
+import org.skopintsev.model.vaults.Vault;
 
 public class VaultDbAssertions {
 
