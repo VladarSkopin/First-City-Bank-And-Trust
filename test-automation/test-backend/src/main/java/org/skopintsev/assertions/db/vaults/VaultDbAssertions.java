@@ -50,7 +50,5 @@ public class VaultDbAssertions {
                             .isEqualTo(vaultDb.getIsArchived());
                 }
         );
-
-
     }
 }
