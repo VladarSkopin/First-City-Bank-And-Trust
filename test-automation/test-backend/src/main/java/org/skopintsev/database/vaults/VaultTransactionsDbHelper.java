@@ -51,7 +51,7 @@ public class VaultTransactionsDbHelper {
     }
 
     @Step("Delete all test vault transactions.")
-    public static void deleteAllVaultTransactions() {
+    public static void deleteAllTestVaultTransactions() {
         String query = "DELETE FROM vault_transactions WHERE vault_code LIKE 'TEST-%'";
         DatabaseHelper.executeUpdate(query);
     }

@@ -1,5 +1,6 @@
 package vault;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -31,22 +32,33 @@ public class VaultOperationInsertTest extends BaseVaultTest {
     final String INSERT_OPERATION = TransactionType.INSERT.getText();
     final int AMOUNT_TO_INSERT = GeneratorBuilder.generateAmount();
 
-    VaultDb vaultDbZeroAmount = VaultDbFactory.amountVaultDbRequest(
-            BASE_CLIENT_CODE,
-            BigInteger.valueOf(0),
-            BASE_CURRENCY_CODE
-    );
+    String vaultCode;
+    VaultDb vaultDbZeroAmount;
+    VaultOperation vaultOperation;
 
     @BeforeEach
     public void beforeEach() {
-        VaultTransactionsDbHelper.deleteAllVaultTransactions();
+        vaultDbZeroAmount = VaultDbFactory.amountVaultDbRequest(
+                BASE_CLIENT_CODE,
+                BigInteger.valueOf(0),
+                BASE_CURRENCY_CODE
+        );
+        vaultCode = vaultDbZeroAmount.getVaultCode();
+        vaultOperation = VaultOperation.builder()
+                .vaultCode(vaultCode)
+                .operationName(INSERT_OPERATION)
+                .amount(AMOUNT_TO_INSERT)
+                .build();
+
+        VaultTransactionsDbHelper.deleteAllTestVaultTransactions();
         int rowsInserted = VaultDbHelper.insertVault(vaultDbZeroAmount);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
     }
 
     @AfterEach
     public void afterEach() {
-        VaultTransactionsDbHelper.deleteAllVaultTransactions();
+        VaultTransactionsDbHelper.deleteAllTestVaultTransactions();
+        VaultDbHelper.resetVaultAmountToZero(vaultCode);
     }
 
     @Test
@@ -54,13 +66,6 @@ public class VaultOperationInsertTest extends BaseVaultTest {
     @Description("Test uses API to insert amount > 0.")
     @Severity(SeverityLevel.BLOCKER)
     public void insertPositiveAmountTest() {
-        String vaultCode = vaultDbZeroAmount.getVaultCode();
-        VaultOperation vaultOperation = VaultOperation.builder()
-                .vaultCode(vaultCode)
-                .operationName(INSERT_OPERATION)
-                .amount(AMOUNT_TO_INSERT)
-                .build();
-
         PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, SC_OK);
 
         vaultDbZeroAmount = VaultDbHelper.selectVaultByCode(vaultCode);
@@ -81,7 +86,26 @@ public class VaultOperationInsertTest extends BaseVaultTest {
                 expectedVaultTransactionsDb.getTransactionTime());
     }
 
-    // todo: multiple inserts
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to insert amount > 0 multiple times.")
+    @Severity(SeverityLevel.BLOCKER)
+    public void multipleInsertsTest() {
+        int transactionsCountOld = VaultTransactionsDbHelper.getVaultTransactionsCount();
+
+        int timesToInsert = GeneratorBuilder.generateRandomNumberInclusive(2, 10);
+        Allure.step("Performing operation INSERT AMOUNT " + timesToInsert + " times.");
+        Allure.step("Initial vault amount = " + vaultDbZeroAmount.getAmount() + ".");
+        saveVaultOperationMultipleTimes(vaultOperation, SC_OK, timesToInsert);
+
+        int transactionsCountNew = VaultTransactionsDbHelper.getVaultTransactionsCount();
+        CommonDbAssertions.checkCounts(transactionsCountNew, transactionsCountOld + timesToInsert);
+
+        vaultDbZeroAmount = VaultDbHelper.selectVaultByCode(vaultCode);
+        Allure.step("Final vault amount = " + vaultDbZeroAmount.getAmount() + ".");
+        VaultDbAssertions.checkVaultField("amount", vaultDbZeroAmount.getAmount(),
+                BigInteger.valueOf((long) AMOUNT_TO_INSERT * timesToInsert));
+    }
 
     // todo: invalid insert - amount = 0
 
@@ -95,4 +119,9 @@ public class VaultOperationInsertTest extends BaseVaultTest {
 
     // todo: invalid operation - vault.isArchived = true
 
+    public static void saveVaultOperationMultipleTimes(VaultOperation vaultOperation, int expectedStatus, int times) {
+        for (int i = 0; i < times; i++) {
+            PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, expectedStatus);
+        }
+    }
 }
