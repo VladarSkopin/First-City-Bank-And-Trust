@@ -105,7 +105,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
         VaultDbAssertions.checkVaultPresence(vaultDb, true);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
-        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+        CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
     }
 
     @ParameterizedTest(name = "[{index}] String currencyCode = {0}")
@@ -132,7 +132,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
         VaultDbAssertions.checkVaultPresence(vaultDb, true);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
-        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+        CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
     }
 
 

@@ -99,7 +99,7 @@ public class CreateSectorTest extends BaseSectorTest {
         SectorDbAssertions.checkSectorPresence(sectorDb, true);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
-        CommonDbAssertions.checkCounts(sectorsCountNew - 1, sectorsCountOld);
+        CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld + 1);
     }
 
     @Test
@@ -172,7 +172,7 @@ public class CreateSectorTest extends BaseSectorTest {
         SectorDbAssertions.checkSectorField("sectorName", sectorDb.getSectorName(), sectorNameTrimmed);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
-        CommonDbAssertions.checkCounts(sectorsCountNew - 1, sectorsCountOld);
+        CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld + 1);
     }
 
     private static Stream<Arguments> sectorCodeRequest() {

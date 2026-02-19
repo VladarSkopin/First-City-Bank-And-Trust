@@ -102,7 +102,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
                 clientTypeCodeTrimmedUppercase);
 
         int clientTypesCountNew = ClientTypeDbHelper.getClientTypesCount();
-        CommonDbAssertions.checkCounts(clientTypesCountNew - 1, clientTypesCountOld);
+        CommonDbAssertions.checkCounts(clientTypesCountNew, clientTypesCountOld + 1);
     }
 
     @Test

@@ -102,7 +102,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
         SubSectorDbAssertions.checkSubSectorPresence(subSectorDb, true);
 
         int subSectorsCountNew = SubSectorDbHelper.getSubSectorsCount();
-        CommonDbAssertions.checkCounts(subSectorsCountNew - 1, subSectorsCountOld);
+        CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld + 1);
     }
 
     @Test
@@ -180,7 +180,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
                 subSectorNameTrimmed);
 
         int subSectorsCountNew = SubSectorDbHelper.getSubSectorsCount();
-        CommonDbAssertions.checkCounts(subSectorsCountNew - 1, subSectorsCountOld);
+        CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld + 1);
     }
 
     @Test
@@ -205,9 +205,12 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
     }
 
     private static Stream<Arguments> subSectorCodeRequest() {
+        String testCode = GeneratorBuilder.generateTestCode();
+
         return Stream.of(
-                Arguments.of(" " + GeneratorBuilder.generateTestCode() + " "),
-                Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase())
+                Arguments.of(" " + testCode + " "),
+                Arguments.of(testCode.toLowerCase()),
+                Arguments.of(testCode.charAt(0) + testCode.substring(1).toLowerCase())
         );
     }
 }
