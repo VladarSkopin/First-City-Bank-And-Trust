@@ -52,17 +52,6 @@ public class VaultDbHelper {
         );
     }
 
-    @Step("Reset vault amount to zero for vault code: {vaultCode}")
-    public static void resetVaultAmountToZero(String vaultCode) {
-        String query = "UPDATE vault SET amount = ?, modified_at = ? WHERE vault_code = ?";
-        DatabaseHelper.executeUpdate(
-                query,
-                BigInteger.ZERO,        // amount set to 0
-                LocalDateTime.now(),    // update modified timestamp
-                vaultCode
-        );
-    }
-
     @Step("Delete all test vaults.")
     public static void deleteAllTestVaults() {
         String query = "DELETE FROM vault WHERE vault_code LIKE 'TEST-%'";

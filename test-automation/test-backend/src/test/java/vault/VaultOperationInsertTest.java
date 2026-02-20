@@ -60,7 +60,6 @@ public class VaultOperationInsertTest extends BaseVaultTest {
     @AfterEach
     public void afterEach() {
         VaultTransactionsDbHelper.deleteAllTestVaultTransactions();
-        VaultDbHelper.resetVaultAmountToZero(vaultCode);
     }
 
     @Test
