@@ -93,8 +93,8 @@ public class VaultOperationInsertTest extends BaseVaultTest {
     @Severity(SeverityLevel.BLOCKER)
     public void multipleInsertOperationsTest() {
         int transactionsCountOld = VaultTransactionsDbHelper.getVaultTransactionsCount();
-
         int timesToInsert = GeneratorBuilder.generateRandomNumberInclusive(2, 10);
+
         Allure.step("Performing operation INSERT AMOUNT " + timesToInsert + " times.");
         Allure.step("Initial vault amount = " + vaultDbZeroAmount.getAmount() + ".");
         saveVaultOperationMultipleTimes(vaultOperation, SC_OK, timesToInsert);

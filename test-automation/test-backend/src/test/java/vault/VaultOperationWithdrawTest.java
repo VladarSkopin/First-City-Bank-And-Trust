@@ -1,5 +1,6 @@
 package vault;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -17,6 +18,7 @@ import org.skopintsev.database.vaults.VaultDb;
 import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.database.vaults.VaultTransactionsDb;
 import org.skopintsev.database.vaults.VaultTransactionsDbHelper;
+import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.TransactionType;
 import org.skopintsev.model.vaults.VaultOperation;
 import org.skopintsev.transport.PostApiReqHelper;
@@ -33,6 +35,7 @@ public class VaultOperationWithdrawTest extends BaseVaultTest {
 
     final String WITHDRAW_OPERATION = TransactionType.WITHDRAW.getText();
     final int INITIAL_AMOUNT = 100;
+    final int AMOUNT_TO_WITHDRAW = 10;
 
     String vaultCode;
     VaultDb vaultDbWithPositiveAmount;
@@ -49,7 +52,7 @@ public class VaultOperationWithdrawTest extends BaseVaultTest {
         vaultOperation = VaultOperation.builder()
                 .vaultCode(vaultCode)
                 .operationName(WITHDRAW_OPERATION)
-                .amount(10)
+                .amount(AMOUNT_TO_WITHDRAW)
                 .build();
 
         VaultTransactionsDbHelper.deleteAllTestVaultTransactions();
@@ -97,7 +100,26 @@ public class VaultOperationWithdrawTest extends BaseVaultTest {
                 expectedVaultTransactionsDb.getTransactionTime());
     }
 
-    // todo: multiple withdrawals
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to insert amount > 0 multiple times.")
+    @Severity(SeverityLevel.BLOCKER)
+    public void multipleWithdrawOperationsTest() {
+        int transactionsCountOld = VaultTransactionsDbHelper.getVaultTransactionsCount();
+        int timesToWithdraw = GeneratorBuilder.generateRandomNumberInclusive(2, 10);
+
+        Allure.step("Performing operation WITHDRAW AMOUNT " + timesToWithdraw + " times.");
+        Allure.step("Initial vault amount = " + vaultDbWithPositiveAmount.getAmount() + ".");
+        saveVaultOperationMultipleTimes(vaultOperation, SC_OK, timesToWithdraw);
+
+        vaultDbWithPositiveAmount = VaultDbHelper.selectVaultByCode(vaultCode);
+        Allure.step("Final vault amount = " + vaultDbWithPositiveAmount.getAmount() + ".");
+        VaultDbAssertions.checkVaultField("amount", vaultDbWithPositiveAmount.getAmount(),
+                BigInteger.valueOf(INITIAL_AMOUNT - AMOUNT_TO_WITHDRAW * timesToWithdraw));
+
+        int transactionsCountNew = VaultTransactionsDbHelper.getVaultTransactionsCount();
+        CommonDbAssertions.checkCounts(transactionsCountNew, transactionsCountOld + timesToWithdraw);
+    }
 
     // todo: invalid withdraw - amount > vault.amount
 
