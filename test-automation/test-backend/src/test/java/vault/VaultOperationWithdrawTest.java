@@ -28,6 +28,7 @@ import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 import static org.skopintsev.constants.Constants.SC_OK;
+import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -121,10 +122,48 @@ public class VaultOperationWithdrawTest extends BaseVaultTest {
         CommonDbAssertions.checkCounts(transactionsCountNew, transactionsCountOld + timesToWithdraw);
     }
 
-    // todo: invalid withdraw - amount > vault.amount
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to withdraw amount > vault.amount.")
+    @Severity(SeverityLevel.BLOCKER)
+    public void withdrawAmountMoreThanActualTest() {
+        int transactionsCountOld = VaultTransactionsDbHelper.getVaultTransactionsCount();
 
-    // todo: invalid withdraw - vault.isArchived = true
+        vaultOperation.setAmount(INITIAL_AMOUNT + 1);
+        PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, SC_SERVER_ERROR);
 
+        vaultDbWithPositiveAmount = VaultDbHelper.selectVaultByCode(vaultCode);
+        VaultDbAssertions.checkVaultField("amount", vaultDbWithPositiveAmount.getAmount(),
+                BigInteger.valueOf(INITIAL_AMOUNT));
+
+        int transactionsCountNew = VaultTransactionsDbHelper.getVaultTransactionsCount();
+        CommonDbAssertions.checkCounts(transactionsCountNew, transactionsCountOld);
+    }
+
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to withdraw amount for an archived vault (isArchived = true).")
+    @Severity(SeverityLevel.CRITICAL)
+    public void withdrawOperationForArchivedVault() {
+        int transactionsCountOld = VaultTransactionsDbHelper.getVaultTransactionsCount();
+
+        VaultDb vaultDbArchived = VaultDbFactory.defaultVaultDbRequest(
+                BASE_CLIENT_CODE,
+                BASE_CURRENCY_CODE
+        );
+        vaultDbArchived.setIsArchived(true);
+        VaultDbHelper.insertVault(vaultDbArchived);
+
+        vaultOperation.setVaultCode(vaultDbArchived.getVaultCode());
+        PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, SC_SERVER_ERROR);
+
+        vaultDbArchived = VaultDbHelper.selectVaultByCode(vaultCode);
+        VaultDbAssertions.checkVaultField("amount", vaultDbArchived.getAmount(),
+                BigInteger.valueOf(INITIAL_AMOUNT));
+
+        int transactionsCountNew = VaultTransactionsDbHelper.getVaultTransactionsCount();
+        CommonDbAssertions.checkCounts(transactionsCountNew, transactionsCountOld);
+    }
 
 
     private Stream<Arguments> withdrawAmountProvider() {
