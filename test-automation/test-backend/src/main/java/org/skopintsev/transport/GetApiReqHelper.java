@@ -6,6 +6,9 @@ import io.restassured.response.Response;
 import lombok.SneakyThrows;
 import org.skopintsev.constants.Api;
 import org.skopintsev.model.*;
+import org.skopintsev.model.sectors.Sector;
+import org.skopintsev.model.sectors.SubSector;
+import org.skopintsev.model.vaults.Vault;
 
 import java.util.List;
 

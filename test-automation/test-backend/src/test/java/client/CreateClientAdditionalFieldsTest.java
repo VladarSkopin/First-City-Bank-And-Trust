@@ -171,7 +171,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
         ClientDbAssertions.checkClientPresence(clientDb, true);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
-        CommonDbAssertions.checkCounts(clientsCountNew - 1, clientsCountOld);
+        CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld + 1);
     }
 
     @ParameterizedTest(name = "[{index}] clientTypeCode = {0}")
@@ -200,7 +200,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
         ClientDbAssertions.checkClientPresence(clientDb, true);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
-        CommonDbAssertions.checkCounts(clientsCountNew - 1, clientsCountOld);
+        CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld + 1);
     }
 
     @ParameterizedTest(name = "[{index}] subSectorCode = {0}")
@@ -229,7 +229,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
         ClientDbAssertions.checkClientPresence(clientDb, true);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
-        CommonDbAssertions.checkCounts(clientsCountNew - 1, clientsCountOld);
+        CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld + 1);
     }
 
     @ParameterizedTest(name = "[{index}] socialRankCode = {0}")
@@ -258,7 +258,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
         ClientDbAssertions.checkClientPresence(clientDb, true);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
-        CommonDbAssertions.checkCounts(clientsCountNew - 1, clientsCountOld);
+        CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld + 1);
     }
 
 

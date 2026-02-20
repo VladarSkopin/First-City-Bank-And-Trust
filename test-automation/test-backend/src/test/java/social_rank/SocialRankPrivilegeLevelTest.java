@@ -80,7 +80,7 @@ public class SocialRankPrivilegeLevelTest extends BaseSocialRankTest {
         SocialRankDbAssertions.checkSocialRankField("privilegeLevel", socialRankDb.getPrivilegeLevel(), PRIVILEGE_LEVEL);
 
         int socialRanksCountNew = SocialRankDbHelper.getSocialRanksCount();
-        CommonDbAssertions.checkCounts(socialRanksCountNew - 1, socialRanksCountOld);
+        CommonDbAssertions.checkCounts(socialRanksCountNew, socialRanksCountOld + 1);
     }
 
     private static Stream<Arguments> invalidPrivilegeLevelRequest() {

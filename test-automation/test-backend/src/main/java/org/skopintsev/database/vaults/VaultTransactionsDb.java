@@ -1,10 +1,11 @@
-package org.skopintsev.model;
+package org.skopintsev.database.vaults;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -12,10 +13,11 @@ import java.math.BigInteger;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Vault {
+public class VaultTransactionsDb {
+    Integer transactionId;
     String vaultCode;
-    String clientCode;
+    String operationType;  // 'INSERT', 'WITHDRAW'
     BigInteger amount;
-    String currencyCode;
-    Boolean isArchived;
+    BigInteger newBalance;
+    LocalDateTime transactionTime;
 }

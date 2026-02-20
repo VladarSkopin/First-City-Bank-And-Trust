@@ -112,7 +112,7 @@ public class VaultService {
         VaultValidator.validateVaultForOperation(vault, operationRequest);
 
         // 4. Execute the operation
-        Vault updatedVault = switch (operationRequest.operationName().toUpperCase()) {
+        Vault updatedVault = switch (operationRequest.operationName().trim().toUpperCase()) {
             case "INSERT" -> executeInsertOperation(vault, operationRequest.amount());
             case "WITHDRAW" -> executeWithdrawOperation(vault, operationRequest.amount());
             default -> throw new IllegalArgumentException(
@@ -129,7 +129,7 @@ public class VaultService {
         BigInteger newAmount = vault.amount().add(amountToInsert);
 
         // Update vault in database
-        int rowsUpdated = vaultDao.insertAmount(vault.vaultCode(), amountToInsert);
+        int rowsUpdated = vaultDao.insertAmount(vault.vaultCode().trim().toUpperCase(), amountToInsert);
 
         if (rowsUpdated != 1) {
             throw new IllegalStateException(
@@ -154,7 +154,7 @@ public class VaultService {
         BigInteger newAmount = vault.amount().subtract(amountToWithdraw);
 
         // Update vault in database
-        int rowsUpdated = vaultDao.withdrawAmount(vault.vaultCode(), amountToWithdraw);
+        int rowsUpdated = vaultDao.withdrawAmount(vault.vaultCode().trim().toUpperCase(), amountToWithdraw);
 
         if (rowsUpdated != 1) {
             throw new IllegalStateException(

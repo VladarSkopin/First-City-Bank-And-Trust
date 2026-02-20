@@ -96,7 +96,7 @@ public class DeleteVaultTest extends BaseVaultTest {
         DeleteApiReqHelper.deleteVaultAndValidate(vaultDb.getVaultCode(), SC_SERVER_ERROR);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
-        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+        CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
     }
 
     @Test
@@ -117,7 +117,7 @@ public class DeleteVaultTest extends BaseVaultTest {
         DeleteApiReqHelper.deleteVaultAndValidate(vaultDb.getVaultCode(), SC_SERVER_ERROR);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
-        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+        CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
     }
 
 

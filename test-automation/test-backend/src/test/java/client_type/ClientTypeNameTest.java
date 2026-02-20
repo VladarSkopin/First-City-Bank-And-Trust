@@ -86,7 +86,7 @@ public class ClientTypeNameTest extends BaseClientTypeTest {
                 expectedClientTypeName);
 
         int clientTypesCountNew = ClientTypeDbHelper.getClientTypesCount();
-        CommonDbAssertions.checkCounts(clientTypesCountNew - 1, clientTypesCountOld);
+        CommonDbAssertions.checkCounts(clientTypesCountNew, clientTypesCountOld + 1);
     }
 
     private static Stream<Arguments> invalidClientTypeNameRequest() {

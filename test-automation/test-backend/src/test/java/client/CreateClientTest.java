@@ -110,7 +110,7 @@ public class CreateClientTest extends BaseClientTest {
         ClientDbAssertions.checkClientPresence(clientDb, true);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
-        CommonDbAssertions.checkCounts(clientsCountNew - 1, clientsCountOld);
+        CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld + 1);
     }
 
     @Test
@@ -195,7 +195,7 @@ public class CreateClientTest extends BaseClientTest {
         ClientDbAssertions.checkClientField("nameOrTitle", clientDb.getNameOrTitle(), clientNameOrTitleTrimmed);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
-        CommonDbAssertions.checkCounts(clientsCountNew - 1, clientsCountOld);
+        CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld + 1);
     }
 
 

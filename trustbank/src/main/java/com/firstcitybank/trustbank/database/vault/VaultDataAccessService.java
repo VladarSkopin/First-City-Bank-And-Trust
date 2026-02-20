@@ -147,7 +147,7 @@ public class VaultDataAccessService implements VaultDao {
                     sql,
                     BigInteger.class,
                     amountToInsert,
-                    vaultCode
+                    vaultCode.trim().toUpperCase()
             );
 
             logTransaction(vaultCode, amountToInsert, "INSERT", newAmount);
@@ -177,7 +177,7 @@ public class VaultDataAccessService implements VaultDao {
         BigInteger currentAmount = jdbcTemplate.queryForObject(
                 checkSql,
                 BigInteger.class,
-                vaultCode
+                vaultCode.trim().toUpperCase()
         );
 
         if (currentAmount == null || currentAmount.compareTo(amountToWithdraw) < 0) {

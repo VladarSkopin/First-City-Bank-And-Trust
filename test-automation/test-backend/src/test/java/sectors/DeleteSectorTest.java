@@ -100,7 +100,7 @@ public class DeleteSectorTest extends BaseSectorTest {
         DeleteApiReqHelper.deleteSectorAndValidate(SECTOR_CODE, SC_SERVER_ERROR);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
-        CommonDbAssertions.checkCounts(sectorsCountNew - 1, sectorsCountOld);
+        CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld + 1);
 
         SubSectorDbHelper.deleteSubSector(subSectorDb.getSubSectorCode());
     }

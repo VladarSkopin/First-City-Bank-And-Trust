@@ -2,7 +2,7 @@ package org.skopintsev.assertions.api.vaults;
 
 import io.qameta.allure.Step;
 import org.assertj.core.api.Assertions;
-import org.skopintsev.model.Vault;
+import org.skopintsev.model.vaults.Vault;
 
 import java.util.List;
 

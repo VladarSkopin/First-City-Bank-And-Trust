@@ -13,7 +13,7 @@ import org.skopintsev.assertions.db.vaults.VaultDbAssertions;
 import org.skopintsev.database.vaults.VaultDb;
 import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.model.Vault;
+import org.skopintsev.model.vaults.Vault;
 import org.skopintsev.model.factory.VaultApiFactory;
 import org.skopintsev.transport.PostApiReqHelper;
 
@@ -105,7 +105,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
         VaultDbAssertions.checkVaultPresence(vaultDb, true);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
-        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+        CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
     }
 
     @ParameterizedTest(name = "[{index}] String currencyCode = {0}")
@@ -132,7 +132,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
         VaultDbAssertions.checkVaultPresence(vaultDb, true);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
-        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+        CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
     }
 
 

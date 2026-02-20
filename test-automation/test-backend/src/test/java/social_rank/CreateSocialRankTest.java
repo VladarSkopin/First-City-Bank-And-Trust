@@ -101,7 +101,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
         SocialRankDbAssertions.checkSocialRankField("rankCode", socialRankDb.getRankCode(), socialRankCodeTrimmedUppercase);
 
         int socialRanksCountNew = SocialRankDbHelper.getSocialRanksCount();
-        CommonDbAssertions.checkCounts(socialRanksCountNew - 1, socialRanksCountOld);
+        CommonDbAssertions.checkCounts(socialRanksCountNew, socialRanksCountOld + 1);
     }
 
     @Test
@@ -189,7 +189,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
         PostApiReqHelper.saveSocialRankAndValidate(newSocialRankApi, SC_OK);
 
         int socialRanksCountNew = SocialRankDbHelper.getSocialRanksCount();
-        CommonDbAssertions.checkCounts(socialRanksCountNew - 1, socialRanksCountOld);
+        CommonDbAssertions.checkCounts(socialRanksCountNew, socialRanksCountOld + 1);
 
         SocialRankDb socialRankDb = SocialRankDbHelper.selectSocialRankByCode(RANK_CODE);
         SocialRankDbAssertions.checkSocialRankPresence(socialRankDb, true);
