@@ -15,13 +15,13 @@ import static org.skopintsev.constants.Constants.OBJECT_MAPPER;
 public class PostApiReqHelper {
 
     @SneakyThrows
-    public static Response postApiReq(Object request, String uri) {
+    public static Response postApiReq(Object request, String endpoint) {
         String requestJson = OBJECT_MAPPER.writeValueAsString(request);
-        return postApiReq(requestJson, uri);
+        return postApiReq(requestJson, endpoint);
     }
 
-    public static Response postApiReq(String bodyReq, String contextReq) {
-        return CommonApiReqHelper.postRequest(bodyReq, contextReq);
+    public static Response postApiReq(String bodyReq, String endpoint) {
+        return CommonApiReqHelper.postRequest(bodyReq, endpoint);
     }
 
     @Step("POST " + Api.CURRENCIES + " with expected status code {1}")

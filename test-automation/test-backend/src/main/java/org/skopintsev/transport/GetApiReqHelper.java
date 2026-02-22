@@ -16,8 +16,13 @@ import java.util.List;
 public class GetApiReqHelper {
 
     @SneakyThrows
-    public static Response getApiRequest(String contextReq) {
-        return CommonApiReqHelper.getRequest(contextReq);
+    public static Response getApiRequest(String endpoint) {
+        return CommonApiReqHelper.getRequest(endpoint);
+    }
+
+    @SneakyThrows
+    public static Response getApiRequest(String endpoint, String entityCode) {
+        return CommonApiReqHelper.getRequest(endpoint, entityCode);
     }
 
     @Step("GET " + Api.CURRENCIES + " with expected status code {0}")
@@ -82,5 +87,13 @@ public class GetApiReqHelper {
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Vault>>() {});
+    }
+
+    @Step("GET " + Api.SEARCH_CLIENTS_BY_SOCIAL_RANK + " with expected status code {0}")
+    public static List<Client> searchClientsByRankAndValidate(String socialRank, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_SOCIAL_RANK, socialRank);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Client>>() {});
     }
 }
