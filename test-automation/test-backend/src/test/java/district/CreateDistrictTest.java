@@ -77,7 +77,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
     }
 
     @ParameterizedTest(name = "[{index}] districtCode = {0}")
-    @MethodSource("districtCodeRequest")
+    @MethodSource("districtCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -177,7 +177,8 @@ public class CreateDistrictTest extends BaseDistrictTest {
         CommonDbAssertions.checkCounts(districtsCountNew, districtsCountOld + 1);
     }
 
-    private static Stream<Arguments> districtCodeRequest() {
+
+    private static Stream<Arguments> districtCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + DISTRICT_CODE + " "),
                 Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase()),

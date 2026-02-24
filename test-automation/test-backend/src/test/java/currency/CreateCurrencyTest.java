@@ -79,7 +79,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
     }
 
     @ParameterizedTest(name = "[{index}] currencyCode = {0}")
-    @MethodSource("currencyCodeRequest")
+    @MethodSource("currencyCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -237,7 +237,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         CurrencyDbAssertions.checkDefaultMetalType(newAddedCurrencyDb.getMetalType());
     }
 
-    private static Stream<Arguments> currencyCodeRequest() {
+    private static Stream<Arguments> currencyCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + GeneratorBuilder.generateTestCode() + " "),
                 Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase())

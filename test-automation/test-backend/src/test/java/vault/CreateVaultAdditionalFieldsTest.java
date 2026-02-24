@@ -26,7 +26,7 @@ import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
 
     @ParameterizedTest(name = "[{index}] clientCode = {0}")
-    @MethodSource("testCodeInvalidRequest")
+    @MethodSource("testCodeInvalidProvider")
     @Tag("regression")
     @Description(
         """
@@ -54,7 +54,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
     }
 
     @ParameterizedTest(name = "[{index}] currencyCode = {0}")
-    @MethodSource("testCodeInvalidRequest")
+    @MethodSource("testCodeInvalidProvider")
     @Tag("regression")
     @Description(
         """
@@ -82,7 +82,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
     }
 
     @ParameterizedTest(name = "[{index}] String clientCode = {0}")
-    @MethodSource("clientCodeValidRequest")
+    @MethodSource("clientCodeValidProvider")
     @Tag("regression")
     @Description(
         """
@@ -109,7 +109,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
     }
 
     @ParameterizedTest(name = "[{index}] String currencyCode = {0}")
-    @MethodSource("currencyCodeValidRequest")
+    @MethodSource("currencyCodeValidProvider")
     @Tag("regression")
     @Description(
         """
@@ -137,7 +137,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
 
 
     // generates invalid test codes (null, "", " ", absent in the database)
-    private static Stream<Arguments> testCodeInvalidRequest() {
+    private static Stream<Arguments> testCodeInvalidProvider() {
         return Stream.of(
                 Arguments.of((Object) null),
                 Arguments.of(""),
@@ -155,11 +155,11 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
         );
     }
 
-    private static Stream<Arguments> clientCodeValidRequest() {
+    private static Stream<Arguments> clientCodeValidProvider() {
         return generateCodeVariations(BASE_CLIENT_CODE);
     }
 
-    private static Stream<Arguments> currencyCodeValidRequest() {
+    private static Stream<Arguments> currencyCodeValidProvider() {
         return generateCodeVariations(BASE_CURRENCY_CODE);
     }
 }

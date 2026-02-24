@@ -58,7 +58,7 @@ public class DeleteVaultTest extends BaseVaultTest {
     }
 
     @ParameterizedTest(name = "[{index}] vaultCode = {0}")
-    @MethodSource("vaultCodeRequest")
+    @MethodSource("vaultCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -121,7 +121,7 @@ public class DeleteVaultTest extends BaseVaultTest {
     }
 
 
-    private static Stream<Arguments> vaultCodeRequest() {
+    private static Stream<Arguments> vaultCodeProvider() {
         return Stream.of(
                 Arguments.of((String) null),
                 Arguments.of(""),

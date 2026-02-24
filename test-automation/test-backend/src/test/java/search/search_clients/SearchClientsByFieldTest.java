@@ -6,15 +6,18 @@ import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.params.provider.Arguments;
 import org.skopintsev.assertions.api.clients.SearchClientsApiAssertions;
 import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.database.clients.ClientDb;
 import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.database.factory.ClientDbFactory;
+import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.Client;
 import org.skopintsev.transport.GetApiReqHelper;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.skopintsev.constants.Constants.SC_OK;
 
@@ -95,5 +98,15 @@ public class SearchClientsByFieldTest extends BaseSearchClientsTest {
 
     public void searchClientsByInvalidMultipleQueryParamsTest() {
 
+    }
+
+
+    private static Stream<Arguments> invalidTestCodeProvider() {
+        return Stream.of(
+                Arguments.of((String) null),
+                Arguments.of(""),
+                Arguments.of(" "),
+                Arguments.of(GeneratorBuilder.generateTestCode())
+        );
     }
 }

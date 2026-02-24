@@ -76,7 +76,7 @@ public class CreateSectorTest extends BaseSectorTest {
     }
 
     @ParameterizedTest(name = "[{index}] sectorCode = {0}")
-    @MethodSource("sectorCodeRequest")
+    @MethodSource("sectorCodeProvider")
     @Tag("regression")
     @Description(
             """
@@ -175,7 +175,8 @@ public class CreateSectorTest extends BaseSectorTest {
         CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld + 1);
     }
 
-    private static Stream<Arguments> sectorCodeRequest() {
+
+    private static Stream<Arguments> sectorCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + GeneratorBuilder.generateTestCode() + " "),
                 Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase())

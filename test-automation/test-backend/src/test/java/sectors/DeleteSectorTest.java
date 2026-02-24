@@ -55,7 +55,7 @@ public class DeleteSectorTest extends BaseSectorTest {
     }
 
     @ParameterizedTest(name = "[{index}] sectorCode = {0}")
-    @MethodSource("sectorCodeRequest")
+    @MethodSource("sectorCodeProvider")
     @Tag("regression")
     @Description(
             """
@@ -106,7 +106,7 @@ public class DeleteSectorTest extends BaseSectorTest {
     }
 
 
-    private static Stream<Arguments> sectorCodeRequest() {
+    private static Stream<Arguments> sectorCodeProvider() {
         return Stream.of(
                 Arguments.of((String) null),
                 Arguments.of(""),

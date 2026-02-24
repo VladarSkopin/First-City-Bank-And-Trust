@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SearchClientsApiAssertions {
+
     @Step("Check search client API response matches expected.")
     public static void checkSearchClientsResponseMatchesExpected(List<Client> actualClients, List<Client> expectedClients) {
 
