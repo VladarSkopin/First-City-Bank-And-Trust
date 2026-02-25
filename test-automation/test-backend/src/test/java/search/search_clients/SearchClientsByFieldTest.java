@@ -3,32 +3,29 @@ package search.search_clients;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.params.provider.Arguments;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import org.junit.jupiter.api.*;
 import org.skopintsev.assertions.api.clients.SearchClientsApiAssertions;
 import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.database.clients.ClientDb;
 import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.database.factory.ClientDbFactory;
-import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.Client;
 import org.skopintsev.transport.GetApiReqHelper;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import static org.skopintsev.constants.Constants.SC_OK;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SearchClientsByFieldTest extends BaseSearchClientsTest {
 
-    @Test
-    @Tag("smoke")
-    @Description("Test inserts a new Client object into the Database and uses API to search for clients.")
-    @Severity(SeverityLevel.CRITICAL)
-    public void searchClientsBySocialRankTest() {
+    List<Client> clientsExpected;
+
+    @BeforeEach
+    public void beforeEach() {
         ClientDb clientDb = ClientDbFactory.defaultClientDbRequest(
                 BASE_CLIENT_TYPE_CODE,
                 BASE_SOCIAL_RANK_CODE,
@@ -38,75 +35,71 @@ public class SearchClientsByFieldTest extends BaseSearchClientsTest {
         int rowsInserted = ClientDbHelper.insertClient(clientDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        List<Client> clientsFound = GetApiReqHelper.searchClientsByRankAndValidate(BASE_SOCIAL_RANK_CODE, SC_OK);
-        List<Client> clientsExpected = List.of(
-            Client.builder()
-                    .clientCode(clientDb.getClientCode())
-                    .nameOrTitle(clientDb.getNameOrTitle())
-                    .clientTypeCode(BASE_CLIENT_TYPE_CODE)
-                    .socialRankCode(BASE_SOCIAL_RANK_CODE)
-                    .districtCode(BASE_DISTRICT_CODE)
-                    .isBlocked(false)
-                    .subSectorCode(BASE_SUB_SECTOR_CODE)
-                    .build()
+        clientsExpected = List.of(
+                Client.builder()
+                        .clientCode(clientDb.getClientCode())
+                        .nameOrTitle(clientDb.getNameOrTitle())
+                        .clientTypeCode(BASE_CLIENT_TYPE_CODE)
+                        .socialRankCode(BASE_SOCIAL_RANK_CODE)
+                        .districtCode(BASE_DISTRICT_CODE)
+                        .isBlocked(false)
+                        .subSectorCode(BASE_SUB_SECTOR_CODE)
+                        .build()
         );
+    }
+
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for clients by social rank.")
+    @Severity(SeverityLevel.CRITICAL)
+    public void searchClientsBySocialRankTest() {
+        List<Client> clientsFound = GetApiReqHelper.searchClientsByRankAndValidate(BASE_SOCIAL_RANK_CODE, SC_OK);
         SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for clients by client type.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchClientsByClientTypeTest() {
-
+        List<Client> clientsFound = GetApiReqHelper.searchClientsByClientTypeAndValidate(BASE_CLIENT_TYPE_CODE, SC_OK);
+        SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for clients by sub-sector.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchClientsBySubSectorTest() {
-
+        List<Client> clientsFound = GetApiReqHelper.searchClientsBySubSectorAndValidate(BASE_SUB_SECTOR_CODE, SC_OK);
+        SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for clients by sector.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchClientsBySectorTest() {
-
+        List<Client> clientsFound = GetApiReqHelper.searchClientsBySectorAndValidate(BASE_SECTOR_CODE, SC_OK);
+        SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for clients by district.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchClientsByDistrictTest() {
-
+        List<Client> clientsFound = GetApiReqHelper.searchClientsByDistrictAndValidate(BASE_DISTRICT_CODE, SC_OK);
+        SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for clients by multiple parameters.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchClientsByMultipleQueryParamsTest() {
-
-    }
-
-
-    // negative tests
-
-    public void searchClientsByInvalidSocialRankTest() {
-
-    }
-
-    public void searchClientsByInvalidClientTypeTest() {
-
-    }
-
-    public void searchClientsByInvalidSubSectorTest() {
-
-    }
-
-    public void searchClientsByInvalidSectorTest() {
-
-    }
-
-    public void searchClientsByInvalidDistrictTest() {
-
-    }
-
-    public void searchClientsByInvalidMultipleQueryParamsTest() {
-
-    }
+        // todo: generate more different clients
 
 
-    private static Stream<Arguments> invalidTestCodeProvider() {
-        return Stream.of(
-                Arguments.of((String) null),
-                Arguments.of(""),
-                Arguments.of(" "),
-                Arguments.of(GeneratorBuilder.generateTestCode())
-        );
     }
 }

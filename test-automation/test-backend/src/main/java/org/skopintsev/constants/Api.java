@@ -30,6 +30,8 @@ public interface Api {
 
     String SEARCH_CLIENTS_BY_SUB_SECTOR = SEARCH_CLIENTS + "/by-sub-sector";
 
+    String SEARCH_CLIENTS_BY_SECTOR = SEARCH_CLIENTS + "/by-sector";
+
     String SEARCH_CLIENTS_BY_DISTRICT = SEARCH_CLIENTS + "/by-district";
 
     String COUNT_CLIENTS_BY_RANK = SEARCH_CLIENTS + "/count-by-rank";

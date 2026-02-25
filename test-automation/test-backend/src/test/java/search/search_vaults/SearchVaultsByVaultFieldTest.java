@@ -14,15 +14,4 @@ public class SearchVaultsByVaultFieldTest extends BaseSearchVaultsTest {
     public void searchVaultsByClientCodeTest() {
 
     }
-
-
-    // negative tests
-
-    public void searchVaultsByInvalidCurrencyCodeTest() {
-
-    }
-
-    public void searchVaultsByInvalidClientCodeTest() {
-
-    }
 }

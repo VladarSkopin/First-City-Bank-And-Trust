@@ -22,23 +22,4 @@ public class SearchVaultByClientFieldTest extends BaseSearchVaultsTest {
     public void searchVaultsByClientSectorTest() {
 
     }
-
-
-    // negative tests
-
-    public void searchVaultsByInvalidClientNameTest() {
-
-    }
-
-    public void searchVaultsByInvalidClientRankTest() {
-
-    }
-
-    public void searchVaultsByInvalidClientTypeTest() {
-
-    }
-
-    public void searchVaultsByInvalidClientSectorTest() {
-
-    }
 }

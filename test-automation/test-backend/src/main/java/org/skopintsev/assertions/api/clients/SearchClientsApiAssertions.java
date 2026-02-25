@@ -28,6 +28,18 @@ public class SearchClientsApiAssertions {
                     .usingRecursiveFieldByFieldElementComparator()
                     .containsExactlyElementsOf(sortedExpected);
         });
+    }
 
+    @Step("Check search client API response is empty.")
+    public static void checkSearchClientsResponseListContent(List<Client> clients, boolean shouldBeEmpty) {
+        if (!shouldBeEmpty) {
+            Assertions.assertThat(clients)
+                    .withFailMessage("Expected clients list to be NOT NULL in the response.")
+                    .isNotNull();
+        } else {
+            Assertions.assertThat(clients)
+                    .withFailMessage("Expected clients list to be NULL in the response.")
+                    .isNull();
+        }
     }
 }

@@ -90,8 +90,40 @@ public class GetApiReqHelper {
     }
 
     @Step("GET " + Api.SEARCH_CLIENTS_BY_SOCIAL_RANK + " with expected status code {0}")
-    public static List<Client> searchClientsByRankAndValidate(String socialRank, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_SOCIAL_RANK, socialRank);
+    public static List<Client> searchClientsByRankAndValidate(String socialRankCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_SOCIAL_RANK, socialRankCode);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Client>>() {});
+    }
+
+    @Step("GET " + Api.SEARCH_CLIENTS_BY_CLIENT_TYPE + " with expected status code {0}")
+    public static List<Client> searchClientsByClientTypeAndValidate(String clientTypeCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_CLIENT_TYPE, clientTypeCode);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Client>>() {});
+    }
+
+    @Step("GET " + Api.SEARCH_CLIENTS_BY_SUB_SECTOR + " with expected status code {0}")
+    public static List<Client> searchClientsBySubSectorAndValidate(String subSectorCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_SUB_SECTOR, subSectorCode);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Client>>() {});
+    }
+
+    @Step("GET " + Api.SEARCH_CLIENTS_BY_SECTOR + " with expected status code {0}")
+    public static List<Client> searchClientsBySectorAndValidate(String sectorCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_SECTOR, sectorCode);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Client>>() {});
+    }
+
+    @Step("GET " + Api.SEARCH_CLIENTS_BY_DISTRICT + " with expected status code {0}")
+    public static List<Client> searchClientsByDistrictAndValidate(String districtCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_DISTRICT, districtCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Client>>() {});
