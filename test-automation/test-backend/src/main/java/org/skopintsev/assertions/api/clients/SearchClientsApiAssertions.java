@@ -30,16 +30,13 @@ public class SearchClientsApiAssertions {
         });
     }
 
-    @Step("Check search client API response is empty.")
-    public static void checkSearchClientsResponseListContent(List<Client> clients, boolean shouldBeEmpty) {
-        if (!shouldBeEmpty) {
-            Assertions.assertThat(clients)
-                    .withFailMessage("Expected clients list to be NOT NULL in the response.")
-                    .isNotNull();
-        } else {
-            Assertions.assertThat(clients)
-                    .withFailMessage("Expected clients list to be NULL in the response.")
-                    .isNull();
-        }
+    @Step("Check API clients count.")
+    public static void checkClientsCount(int actualClientsCount, int expectedClientsCount) {
+        Assertions.assertThat(actualClientsCount)
+                .withFailMessage(
+                        "Expected count = '%d', but actual = '%d'",
+                        expectedClientsCount,
+                        actualClientsCount)
+                .isEqualTo(expectedClientsCount);
     }
 }

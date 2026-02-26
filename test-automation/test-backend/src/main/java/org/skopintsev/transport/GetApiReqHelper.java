@@ -146,4 +146,54 @@ public class GetApiReqHelper {
         response.then().statusCode(expectedStatusCode);
         return response.as(new TypeRef<List<Client>>() {});
     }
+
+    @Step("GET " + Api.COUNT_CLIENTS_ALL + " with expected status code {0}")
+    public static Integer countAllClientsAndValidate(int expectedStatusCode) {
+        Response response = getApiRequest(Api.COUNT_CLIENTS_ALL);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<Integer>() {});
+    }
+
+    @Step("GET " + Api.COUNT_CLIENTS_ACTIVE + " with expected status code {0}")
+    public static Integer countActiveClientsAndValidate(int expectedStatusCode) {
+        Response response = getApiRequest(Api.COUNT_CLIENTS_ACTIVE);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<Integer>() {});
+    }
+
+    @Step("GET " + Api.COUNT_CLIENTS_BLOCKED + " with expected status code {0}")
+    public static Integer countBlockedClientsAndValidate(int expectedStatusCode) {
+        Response response = getApiRequest(Api.COUNT_CLIENTS_BLOCKED);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<Integer>() {});
+    }
+
+    @Step("GET " + Api.COUNT_CLIENTS_BY_RANK + " with expected status code {0}")
+    public static Integer countClientsByRankAndValidate(String rankCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.COUNT_CLIENTS_BY_RANK, rankCode);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<Integer>() {});
+    }
+
+    @Step("GET " + Api.COUNT_CLIENTS_BY_TYPE + " with expected status code {0}")
+    public static Integer countClientsByClientTypeAndValidate(String clientTypeCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.COUNT_CLIENTS_BY_TYPE, clientTypeCode);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<Integer>() {});
+    }
+
+    @Step("GET " + Api.COUNT_CLIENTS_BY_SECTOR + " with expected status code {0}")
+    public static Integer countClientsBySectorAndValidate(String sectorCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.COUNT_CLIENTS_BY_SECTOR, sectorCode);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<Integer>() {});
+    }
+
+
 }

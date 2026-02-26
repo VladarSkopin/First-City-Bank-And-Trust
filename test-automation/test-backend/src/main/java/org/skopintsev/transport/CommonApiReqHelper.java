@@ -109,11 +109,6 @@ public class CommonApiReqHelper {
         return RestAssured.config().sslConfig(new SSLConfig().relaxedHTTPSValidation());
     }
 
-
-
-
-
-
     private static Map<String, String> buildQueryParams(String... params) {
         if (params.length % 2 != 0) {
             throw new IllegalArgumentException("Query params must be provided as key-value pairs");

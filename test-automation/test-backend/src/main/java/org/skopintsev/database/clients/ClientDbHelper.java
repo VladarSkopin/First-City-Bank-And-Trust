@@ -62,9 +62,24 @@ public class ClientDbHelper {
         DatabaseHelper.executeUpdate(query);
     }
 
-    @Step("Get client count.")
+    @Step("Get clients count.")
     public static int getClientsCount() {
         String query = "SELECT COUNT(*) FROM clients";
+        Integer count = DatabaseHelper.queryForObject(query,
+                rs -> {
+                    try {
+                        return rs.getInt(1);
+                    } catch (SQLException e) {
+                        throw new RuntimeException("Error getting count", e);
+                    }
+                }
+        );
+        return count != null ? count : 0;
+    }
+
+    @Step("Get clients count with field is_blocked = {0}.")
+    public static int getClientsCountByIsBlockedField(boolean isBlocked) {
+        String query = "SELECT COUNT(*) FROM clients WHERE is_blocked = " + isBlocked;
         Integer count = DatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
