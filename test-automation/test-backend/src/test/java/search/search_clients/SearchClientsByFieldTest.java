@@ -1,11 +1,15 @@
 package search.search_clients;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.skopintsev.assertions.api.clients.SearchClientsApiAssertions;
 import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.database.clients.ClientDb;
@@ -15,6 +19,7 @@ import org.skopintsev.model.Client;
 import org.skopintsev.transport.GetApiReqHelper;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.skopintsev.constants.Constants.SC_OK;
 
@@ -98,8 +103,56 @@ public class SearchClientsByFieldTest extends BaseSearchClientsTest {
     @Description("Test uses API to search for clients by multiple parameters.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchClientsByMultipleQueryParamsTest() {
-        // todo: generate more different clients
+        List<Client> clientsFound = GetApiReqHelper.searchClientsWithParamsAndValidate(
+                BASE_CLIENT_TYPE_CODE,
+                BASE_DISTRICT_CODE,
+                BASE_SUB_SECTOR_CODE,
+                SC_OK
+        );
+        SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
+    }
 
+    @ParameterizedTest(name = "[{index}] Testing with null parameter.")
+    @MethodSource("nullParameterScenariosProvider")
+    @Tag("regression")
+    @Description("Test searches for clients when one query parameter is null")
+    @Severity(SeverityLevel.NORMAL)
+    public void searchClientsByMultipleQueryParamsWithNullTest(
+            String testScenario,
+            String clientTypeCode,
+            String districtCode,
+            String subSectorCode) {
 
+        Allure.step(testScenario);
+        List<Client> clientsFound = GetApiReqHelper.searchClientsWithParamsAndValidate(
+                clientTypeCode,
+                districtCode,
+                subSectorCode,
+                SC_OK
+        );
+        SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
+    }
+
+    private static Stream<Arguments> nullParameterScenariosProvider() {
+        return Stream.of(
+                Arguments.of(
+                        "Null clientTypeCode",
+                        null,
+                        BASE_DISTRICT_CODE,
+                        BASE_SUB_SECTOR_CODE
+                ),
+                Arguments.of(
+                        "Null districtCode",
+                        BASE_CLIENT_TYPE_CODE,
+                        null,
+                        BASE_SUB_SECTOR_CODE
+                ),
+                Arguments.of(
+                        "Null subSectorCode",
+                        BASE_CLIENT_TYPE_CODE,
+                        BASE_DISTRICT_CODE,
+                        null
+                )
+        );
     }
 }

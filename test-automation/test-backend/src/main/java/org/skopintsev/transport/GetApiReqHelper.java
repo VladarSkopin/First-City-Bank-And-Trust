@@ -128,4 +128,22 @@ public class GetApiReqHelper {
 
         return response.as(new TypeRef<List<Client>>() {});
     }
+
+    @Step("GET " + Api.SEARCH_CLIENTS + " with multiple query parameters")
+    public static List<Client> searchClientsWithParamsAndValidate(
+            String clientTypeCode,
+            String districtCode,
+            String subSectorCode,
+            int expectedStatusCode) {
+
+        Response response = CommonApiReqHelper.getRequestWithQueryParams(
+                Api.SEARCH_CLIENTS,
+                "clientTypeCode", clientTypeCode,
+                "districtCode", districtCode,
+                "subSectorCode", subSectorCode
+        );
+
+        response.then().statusCode(expectedStatusCode);
+        return response.as(new TypeRef<List<Client>>() {});
+    }
 }
