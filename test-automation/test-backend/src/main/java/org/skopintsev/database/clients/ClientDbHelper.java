@@ -92,4 +92,56 @@ public class ClientDbHelper {
         return count != null ? count : 0;
     }
 
+    @Step("Get clients count with field social_rank_code = {0}.")
+    public static int getClientsCountByRank(String rankCode) {
+        String query = "SELECT COUNT(*) FROM clients WHERE social_rank_code = '" + rankCode + "'";
+        Integer count = DatabaseHelper.queryForObject(query,
+                rs -> {
+                    try {
+                        return rs.getInt(1);
+                    } catch (SQLException e) {
+                        throw new RuntimeException("Error getting count", e);
+                    }
+                }
+        );
+        return count != null ? count : 0;
+    }
+
+    @Step("Get clients count with field client_type_code = {0}.")
+    public static int getClientsCountByClientType(String clientTypeCode) {
+        String query = "SELECT COUNT(*) FROM clients WHERE client_type_code = '" + clientTypeCode+ "'";
+        Integer count = DatabaseHelper.queryForObject(query,
+                rs -> {
+                    try {
+                        return rs.getInt(1);
+                    } catch (SQLException e) {
+                        throw new RuntimeException("Error getting count", e);
+                    }
+                }
+        );
+        return count != null ? count : 0;
+    }
+
+    @Step("Get clients count with sector code = {0}.")
+    public static int getClientsCountBySector(String sectorCode) {
+        String query = """
+        SELECT COUNT(*)
+        FROM clients c
+        JOIN sub_sectors ss ON c.sub_sector_code = ss.sub_sector_code
+        WHERE ss.sector_code = ?
+        """;
+
+        Integer count = DatabaseHelper.queryForObject(query,
+                rs -> {
+                    try {
+                        return rs.getInt(1);
+                    } catch (SQLException e) {
+                        throw new RuntimeException("Error getting count", e);
+                    }
+                },
+                sectorCode  // Pass the parameter safely
+        );
+        return count != null ? count : 0;
+    }
+
 }

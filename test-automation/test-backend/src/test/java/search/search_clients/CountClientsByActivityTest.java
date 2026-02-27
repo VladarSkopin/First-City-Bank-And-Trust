@@ -58,7 +58,7 @@ public class CountClientsByActivityTest extends BaseSearchClientsTest {
         int clientsDbCount = ClientDbHelper.getClientsCount();
 
         int clientsCount = GetApiReqHelper.countAllClientsAndValidate(SC_OK);
-        SearchClientsApiAssertions.checkClientsCount(clientsDbCount, clientsCount);
+        SearchClientsApiAssertions.checkClientsCount(clientsCount, clientsDbCount);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class CountClientsByActivityTest extends BaseSearchClientsTest {
         int clientsDbCount = ClientDbHelper.getClientsCountByIsBlockedField(false);
 
         int clientsCount = GetApiReqHelper.countActiveClientsAndValidate(SC_OK);
-        SearchClientsApiAssertions.checkClientsCount(clientsDbCount, clientsCount);
+        SearchClientsApiAssertions.checkClientsCount(clientsCount, clientsDbCount);
     }
 
     @Test
@@ -80,6 +80,6 @@ public class CountClientsByActivityTest extends BaseSearchClientsTest {
         int clientsDbCount = ClientDbHelper.getClientsCountByIsBlockedField(true);
 
         int clientsCount = GetApiReqHelper.countBlockedClientsAndValidate(SC_OK);
-        SearchClientsApiAssertions.checkClientsCount(clientsDbCount, clientsCount);
+        SearchClientsApiAssertions.checkClientsCount(clientsCount, clientsDbCount);
     }
 }
