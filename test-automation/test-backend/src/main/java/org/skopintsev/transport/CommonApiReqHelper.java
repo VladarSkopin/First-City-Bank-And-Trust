@@ -10,9 +10,12 @@ import io.restassured.config.SSLConfig;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import lombok.SneakyThrows;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
+
 
 public class CommonApiReqHelper {
 
@@ -22,6 +25,11 @@ public class CommonApiReqHelper {
 
     public static Response getRequest(String contextReq) {
         return getRequestWithQueryParams(contextReq, Collections.emptyMap());
+    }
+
+    public static Response getRequest(String contextReq, String pathParam) {
+        String completePath = contextReq + "/" + pathParam;
+        return getRequestWithPathParams(completePath);
     }
 
     public static Response deleteRequest(String contextReq, String pathParam) {
@@ -56,6 +64,26 @@ public class CommonApiReqHelper {
         return requestSpecification.get(contextReq);
     }
 
+    @SneakyThrows
+    public static Response getRequestWithQueryParams(
+            String endpoint,
+            // String authToken,
+            String... queryParams) {
+        RequestSpecification requestSpecification = prepareRequest();  // todo: add auth token here
+        requestSpecification.queryParams(buildQueryParams(queryParams));
+
+        return requestSpecification.get(endpoint);
+    }
+
+    public static Response getRequestWithPathParams(
+            // String authToken,
+            String completePath
+    ) {
+        RequestSpecification requestSpecification = prepareRequest();  // todo: add auth token here
+
+        return requestSpecification.get(completePath);
+    }
+
     public static Response deleteRequestWithPathParams(
             // String authToken,
             String completePath
@@ -81,6 +109,19 @@ public class CommonApiReqHelper {
         return RestAssured.config().sslConfig(new SSLConfig().relaxedHTTPSValidation());
     }
 
+    private static Map<String, String> buildQueryParams(String... params) {
+        if (params.length % 2 != 0) {
+            throw new IllegalArgumentException("Query params must be provided as key-value pairs");
+        }
 
-
+        Map<String, String> queryParams = new HashMap<>();
+        for (int i = 0; i < params.length; i += 2) {
+            String key = params[i];
+            String value = params[i + 1];
+            if (value != null) {
+                queryParams.put(key, value);
+            }
+        }
+        return queryParams;
+    }
 }

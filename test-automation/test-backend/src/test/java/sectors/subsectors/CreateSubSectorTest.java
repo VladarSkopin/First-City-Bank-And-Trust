@@ -78,7 +78,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
     }
 
     @ParameterizedTest(name = "[{index}] subSectorCode = {0}")
-    @MethodSource("subSectorCodeRequest")
+    @MethodSource("subSectorCodeProvider")
     @Tag("regression")
     @Description(
             """
@@ -204,7 +204,8 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
         CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld);
     }
 
-    private static Stream<Arguments> subSectorCodeRequest() {
+
+    private static Stream<Arguments> subSectorCodeProvider() {
         String testCode = GeneratorBuilder.generateTestCode();
 
         return Stream.of(

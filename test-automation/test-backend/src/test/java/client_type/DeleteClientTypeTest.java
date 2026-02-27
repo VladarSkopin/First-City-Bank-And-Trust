@@ -53,7 +53,7 @@ public class DeleteClientTypeTest extends BaseClientTypeTest {
     }
 
     @ParameterizedTest(name = "[{index}] clientTypeCode = {0}")
-    @MethodSource("clientTypeCodeRequest")
+    @MethodSource("clientTypeCodeProvider")
     @Tag("regression")
     @Description(
             """
@@ -74,7 +74,7 @@ public class DeleteClientTypeTest extends BaseClientTypeTest {
     }
 
 
-    private static Stream<Arguments> clientTypeCodeRequest() {
+    private static Stream<Arguments> clientTypeCodeProvider() {
         return Stream.of(
                 Arguments.of((String) null),
                 Arguments.of(""),

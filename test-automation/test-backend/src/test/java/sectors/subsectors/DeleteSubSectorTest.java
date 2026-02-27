@@ -55,7 +55,7 @@ public class DeleteSubSectorTest extends BaseSubSectorTest {
     }
 
     @ParameterizedTest(name = "[{index}] subSectorCode = {0}")
-    @MethodSource("subSectorCodeRequest")
+    @MethodSource("subSectorCodeInvalidProvider")
     @Tag("regression")
     @Description(
         """
@@ -76,7 +76,7 @@ public class DeleteSubSectorTest extends BaseSubSectorTest {
     }
 
 
-    private static Stream<Arguments> subSectorCodeRequest() {
+    private static Stream<Arguments> subSectorCodeInvalidProvider() {
         return Stream.of(
                 Arguments.of((String) null),
                 Arguments.of(""),

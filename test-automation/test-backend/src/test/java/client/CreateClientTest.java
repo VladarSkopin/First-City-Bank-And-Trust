@@ -83,7 +83,7 @@ public class CreateClientTest extends BaseClientTest {
     }
 
     @ParameterizedTest(name = "[{index}] clientCode = {0}")
-    @MethodSource("clientCodeRequest")
+    @MethodSource("clientCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -199,7 +199,7 @@ public class CreateClientTest extends BaseClientTest {
     }
 
 
-    private static Stream<Arguments> clientCodeRequest() {
+    private static Stream<Arguments> clientCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + CLIENT_CODE + " "),
                 Arguments.of(CLIENT_CODE.toLowerCase()),

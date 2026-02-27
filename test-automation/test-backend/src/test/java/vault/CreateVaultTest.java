@@ -81,7 +81,7 @@ public class CreateVaultTest extends BaseVaultTest {
     }
 
     @ParameterizedTest(name = "[{index}] vaultCode = {0}")
-    @MethodSource("vaultCodeRequest")
+    @MethodSource("vaultCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -157,7 +157,7 @@ public class CreateVaultTest extends BaseVaultTest {
     }
 
 
-    private static Stream<Arguments> vaultCodeRequest() {
+    private static Stream<Arguments> vaultCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + VAULT_CODE + " "),
                 Arguments.of(VAULT_CODE.toLowerCase()),

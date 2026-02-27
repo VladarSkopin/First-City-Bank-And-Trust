@@ -52,7 +52,7 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
     }
 
     @ParameterizedTest(name = "[{index}] currencyCode = {0}")
-    @MethodSource("currencyCodeRequest")
+    @MethodSource("currencyCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -73,7 +73,7 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
     }
 
 
-    private static Stream<Arguments> currencyCodeRequest() {
+    private static Stream<Arguments> currencyCodeProvider() {
             return Stream.of(
                     Arguments.of((String) null),
                     Arguments.of(""),

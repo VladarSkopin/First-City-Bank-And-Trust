@@ -76,7 +76,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
     }
 
     @ParameterizedTest(name = "[{index}] rankCode = {0}")
-    @MethodSource("rankCodeRequest")
+    @MethodSource("rankCodeProvider")
     @Tag("regression")
     @Description(
             """
@@ -198,7 +198,8 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
         SocialRankDbAssertions.checkSocialRankField("regulations", socialRankDb.getRegulations(), "");
     }
 
-    private static Stream<Arguments> rankCodeRequest() {
+
+    private static Stream<Arguments> rankCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + GeneratorBuilder.generateTestCode() + " "),
                 Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase())

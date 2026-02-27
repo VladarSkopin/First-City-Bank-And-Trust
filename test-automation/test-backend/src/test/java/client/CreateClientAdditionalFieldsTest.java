@@ -26,7 +26,7 @@ import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 public class CreateClientAdditionalFieldsTest extends BaseClientTest {
 
     @ParameterizedTest(name = "[{index}] districtCode = {0}")
-    @MethodSource("testCodeInvalidRequest")
+    @MethodSource("testCodeInvalidProvider")
     @Tag("regression")
     @Description(
             """
@@ -56,7 +56,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     }
 
     @ParameterizedTest(name = "[{index}] clientTypeCode = {0}")
-    @MethodSource("testCodeInvalidRequest")
+    @MethodSource("testCodeInvalidProvider")
     @Tag("regression")
     @Description(
             """
@@ -86,7 +86,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     }
 
     @ParameterizedTest(name = "[{index}] subSectorCode = {0}")
-    @MethodSource("testCodeInvalidRequest")
+    @MethodSource("testCodeInvalidProvider")
     @Tag("regression")
     @Description(
             """
@@ -116,7 +116,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     }
 
     @ParameterizedTest(name = "[{index}] socialRankCode = {0}")
-    @MethodSource("testCodeInvalidRequest")
+    @MethodSource("testCodeInvalidProvider")
     @Tag("regression")
     @Description(
             """
@@ -146,7 +146,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     }
 
     @ParameterizedTest(name = "[{index}] districtCode = {0}")
-    @MethodSource("districtCodeValidRequest")
+    @MethodSource("districtCodeValidProvider")
     @Tag("regression")
     @Description(
             """
@@ -175,7 +175,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     }
 
     @ParameterizedTest(name = "[{index}] clientTypeCode = {0}")
-    @MethodSource("clientTypeCodeValidRequest")
+    @MethodSource("clientTypeCodeValidProvider")
     @Tag("regression")
     @Description(
             """
@@ -204,7 +204,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     }
 
     @ParameterizedTest(name = "[{index}] subSectorCode = {0}")
-    @MethodSource("subSectorCodeValidRequest")
+    @MethodSource("subSectorCodeValidProvider")
     @Tag("regression")
     @Description(
             """
@@ -233,7 +233,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
     }
 
     @ParameterizedTest(name = "[{index}] socialRankCode = {0}")
-    @MethodSource("socialRankCodeValidRequest")
+    @MethodSource("socialRankCodeValidProvider")
     @Tag("regression")
     @Description(
             """
@@ -263,7 +263,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
 
 
     // generates invalid test codes (null, "", " ", absent in the database)
-    private static Stream<Arguments> testCodeInvalidRequest() {
+    private static Stream<Arguments> testCodeInvalidProvider() {
         return Stream.of(
                 Arguments.of((Object) null),
                 Arguments.of(""),
@@ -281,19 +281,19 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
         );
     }
 
-    private static Stream<Arguments> districtCodeValidRequest() {
+    private static Stream<Arguments> districtCodeValidProvider() {
         return generateCodeVariations(BASE_DISTRICT_CODE);
     }
 
-    private static Stream<Arguments> clientTypeCodeValidRequest() {
+    private static Stream<Arguments> clientTypeCodeValidProvider() {
         return generateCodeVariations(BASE_CLIENT_TYPE_CODE);
     }
 
-    private static Stream<Arguments> subSectorCodeValidRequest() {
+    private static Stream<Arguments> subSectorCodeValidProvider() {
         return generateCodeVariations(BASE_SUB_SECTOR_CODE);
     }
 
-    private static Stream<Arguments> socialRankCodeValidRequest() {
+    private static Stream<Arguments> socialRankCodeValidProvider() {
         return generateCodeVariations(BASE_SOCIAL_RANK_CODE);
     }
 }
