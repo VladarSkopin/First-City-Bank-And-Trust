@@ -77,7 +77,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
     }
 
     @ParameterizedTest(name = "[{index}] clientTypeCode = {0}")
-    @MethodSource("clientTypeCodeRequest")
+    @MethodSource("clientTypeCodeProvider")
     @Tag("regression")
     @Description(
             """
@@ -102,7 +102,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
                 clientTypeCodeTrimmedUppercase);
 
         int clientTypesCountNew = ClientTypeDbHelper.getClientTypesCount();
-        CommonDbAssertions.checkCounts(clientTypesCountNew - 1, clientTypesCountOld);
+        CommonDbAssertions.checkCounts(clientTypesCountNew, clientTypesCountOld + 1);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
         CommonDbAssertions.checkCounts(clientTypesCountNew, clientTypesCountOld);
     }
 
-    private static Stream<Arguments> clientTypeCodeRequest() {
+    private static Stream<Arguments> clientTypeCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + GeneratorBuilder.generateTestCode() + " "),
                 Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase())

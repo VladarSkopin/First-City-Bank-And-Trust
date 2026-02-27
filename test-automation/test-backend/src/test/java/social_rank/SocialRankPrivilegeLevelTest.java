@@ -28,7 +28,7 @@ public class SocialRankPrivilegeLevelTest extends BaseSocialRankTest {
     private static final String PRIVILEGE_LEVEL = PrivilegeLevel.HIGHEST.getText();
 
     @ParameterizedTest(name = "[{index}] privilegeLevel = {0}")
-    @MethodSource("invalidPrivilegeLevelRequest")
+    @MethodSource("invalidPrivilegeLevelProvider")
     @Tag("regression")
     @Description(
         """
@@ -56,7 +56,7 @@ public class SocialRankPrivilegeLevelTest extends BaseSocialRankTest {
     }
 
     @ParameterizedTest(name = "[{index}] privilegeLevel = {0}")
-    @MethodSource("validPrivilegeLevelRequest")
+    @MethodSource("validPrivilegeLevelProvider")
     @Tag("regression")
     @Description("""
             Test uses API to post a social rank:
@@ -80,10 +80,11 @@ public class SocialRankPrivilegeLevelTest extends BaseSocialRankTest {
         SocialRankDbAssertions.checkSocialRankField("privilegeLevel", socialRankDb.getPrivilegeLevel(), PRIVILEGE_LEVEL);
 
         int socialRanksCountNew = SocialRankDbHelper.getSocialRanksCount();
-        CommonDbAssertions.checkCounts(socialRanksCountNew - 1, socialRanksCountOld);
+        CommonDbAssertions.checkCounts(socialRanksCountNew, socialRanksCountOld + 1);
     }
 
-    private static Stream<Arguments> invalidPrivilegeLevelRequest() {
+
+    private static Stream<Arguments> invalidPrivilegeLevelProvider() {
         return Stream.of(
                 Arguments.of(GeneratorBuilder.generateString(5)),
                 Arguments.of(""),
@@ -91,7 +92,7 @@ public class SocialRankPrivilegeLevelTest extends BaseSocialRankTest {
         );
     }
 
-    private static Stream<Arguments> validPrivilegeLevelRequest() {
+    private static Stream<Arguments> validPrivilegeLevelProvider() {
         return Stream.of(
                 Arguments.of(PRIVILEGE_LEVEL.toLowerCase()),
                 Arguments.of(PRIVILEGE_LEVEL),

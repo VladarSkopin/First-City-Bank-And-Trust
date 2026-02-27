@@ -13,7 +13,7 @@ public class GeneratorBuilder {
     }
 
     public static String generateTestCode() {
-        return "TEST-" + generateRandomNumberInclusive(100, 999);
+        return "TEST-" + generateRandomNumberInclusive(100, 99999);
     }
 
     public static String generateString(int size) {

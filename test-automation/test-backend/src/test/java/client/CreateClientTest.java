@@ -83,7 +83,7 @@ public class CreateClientTest extends BaseClientTest {
     }
 
     @ParameterizedTest(name = "[{index}] clientCode = {0}")
-    @MethodSource("clientCodeRequest")
+    @MethodSource("clientCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -110,7 +110,7 @@ public class CreateClientTest extends BaseClientTest {
         ClientDbAssertions.checkClientPresence(clientDb, true);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
-        CommonDbAssertions.checkCounts(clientsCountNew - 1, clientsCountOld);
+        CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld + 1);
     }
 
     @Test
@@ -195,11 +195,11 @@ public class CreateClientTest extends BaseClientTest {
         ClientDbAssertions.checkClientField("nameOrTitle", clientDb.getNameOrTitle(), clientNameOrTitleTrimmed);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
-        CommonDbAssertions.checkCounts(clientsCountNew - 1, clientsCountOld);
+        CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld + 1);
     }
 
 
-    private static Stream<Arguments> clientCodeRequest() {
+    private static Stream<Arguments> clientCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + CLIENT_CODE + " "),
                 Arguments.of(CLIENT_CODE.toLowerCase()),

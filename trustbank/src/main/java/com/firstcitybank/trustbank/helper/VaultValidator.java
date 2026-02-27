@@ -47,7 +47,7 @@ public class VaultValidator {
             throw new IllegalArgumentException("Operation name is required");
         }
 
-        String operation = request.operationName().toUpperCase();
+        String operation = request.operationName().trim().toUpperCase();
         if (!operation.equals("INSERT") && !operation.equals("WITHDRAW")) {
             throw new IllegalArgumentException("Operation must be 'INSERT' or 'WITHDRAW'");
         }
@@ -62,7 +62,7 @@ public class VaultValidator {
         }
 
         // Additional validation for withdrawal
-        if (request.operationName().equalsIgnoreCase("WITHDRAW")) {
+        if (request.operationName().trim().equalsIgnoreCase("WITHDRAW")) {
             if (vault.amount().compareTo(request.amount()) < 0) {
                 throw new BusinessRuleException(
                         String.format("Insufficient funds in vault '%s'. " +

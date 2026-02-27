@@ -55,7 +55,7 @@ public class DeleteSectorTest extends BaseSectorTest {
     }
 
     @ParameterizedTest(name = "[{index}] sectorCode = {0}")
-    @MethodSource("sectorCodeRequest")
+    @MethodSource("sectorCodeProvider")
     @Tag("regression")
     @Description(
             """
@@ -100,13 +100,13 @@ public class DeleteSectorTest extends BaseSectorTest {
         DeleteApiReqHelper.deleteSectorAndValidate(SECTOR_CODE, SC_SERVER_ERROR);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
-        CommonDbAssertions.checkCounts(sectorsCountNew - 1, sectorsCountOld);
+        CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld + 1);
 
         SubSectorDbHelper.deleteSubSector(subSectorDb.getSubSectorCode());
     }
 
 
-    private static Stream<Arguments> sectorCodeRequest() {
+    private static Stream<Arguments> sectorCodeProvider() {
         return Stream.of(
                 Arguments.of((String) null),
                 Arguments.of(""),

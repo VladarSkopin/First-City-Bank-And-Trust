@@ -14,7 +14,7 @@ import org.skopintsev.assertions.db.sectors.SubSectorDbAssertions;
 import org.skopintsev.database.sectors.subsectors.SubSectorDb;
 import org.skopintsev.database.sectors.subsectors.SubSectorDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.model.SubSector;
+import org.skopintsev.model.sectors.SubSector;
 import org.skopintsev.transport.GetApiReqHelper;
 import org.skopintsev.transport.PostApiReqHelper;
 

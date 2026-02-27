@@ -39,13 +39,6 @@ public class CurrencyDbHelper {
         return DatabaseHelper.queryForObject(query, CurrencyDbHelper::mapRow, currencyCode);
     }
 
-    @SneakyThrows
-    @Step("Select currencies by metal type: {metalType}")
-    public static List<CurrencyDb> selectCurrenciesByMetalType(String metalType) {
-        String query = "SELECT currency_code, currency_name, currency_symbol, metal_type FROM currencies WHERE metal_type = ?";
-        return DatabaseHelper.executeQuery(query, CurrencyDbHelper::mapRow, metalType);
-    }
-
     @Step("Insert new currency: {currencyDb}")
     public static int insertCurrency(CurrencyDb currencyDb) {
         String query = """

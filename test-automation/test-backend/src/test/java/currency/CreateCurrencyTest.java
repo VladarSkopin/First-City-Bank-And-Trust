@@ -79,7 +79,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
     }
 
     @ParameterizedTest(name = "[{index}] currencyCode = {0}")
-    @MethodSource("currencyCodeRequest")
+    @MethodSource("currencyCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -104,7 +104,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         CurrencyDbAssertions.checkCurrencyCode(currencyDb.getCurrencyCode(), currencyCodeTrimmedUppercase);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
-        CommonDbAssertions.checkCounts(currenciesCountNew - 1, currenciesCountOld);
+        CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld + 1);
     }
 
     @Test
@@ -230,14 +230,14 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
         PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_OK);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
-        CommonDbAssertions.checkCounts(currenciesCountNew - 1, currenciesCountOld);
+        CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld + 1);
 
         CurrencyDb newAddedCurrencyDb = CurrencyDbHelper.selectCurrencyByCode(CURRENCY_CODE);
         CurrencyDbAssertions.checkCurrencyPresence(newAddedCurrencyDb, true);
         CurrencyDbAssertions.checkDefaultMetalType(newAddedCurrencyDb.getMetalType());
     }
 
-    private static Stream<Arguments> currencyCodeRequest() {
+    private static Stream<Arguments> currencyCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + GeneratorBuilder.generateTestCode() + " "),
                 Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase())

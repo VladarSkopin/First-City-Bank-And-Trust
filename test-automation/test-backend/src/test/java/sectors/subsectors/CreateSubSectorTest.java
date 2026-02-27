@@ -18,7 +18,7 @@ import org.skopintsev.assertions.db.sectors.SubSectorDbAssertions;
 import org.skopintsev.database.sectors.subsectors.SubSectorDb;
 import org.skopintsev.database.sectors.subsectors.SubSectorDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.model.SubSector;
+import org.skopintsev.model.sectors.SubSector;
 import org.skopintsev.transport.PostApiReqHelper;
 
 import java.util.stream.Stream;
@@ -78,7 +78,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
     }
 
     @ParameterizedTest(name = "[{index}] subSectorCode = {0}")
-    @MethodSource("subSectorCodeRequest")
+    @MethodSource("subSectorCodeProvider")
     @Tag("regression")
     @Description(
             """
@@ -102,7 +102,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
         SubSectorDbAssertions.checkSubSectorPresence(subSectorDb, true);
 
         int subSectorsCountNew = SubSectorDbHelper.getSubSectorsCount();
-        CommonDbAssertions.checkCounts(subSectorsCountNew - 1, subSectorsCountOld);
+        CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld + 1);
     }
 
     @Test
@@ -180,7 +180,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
                 subSectorNameTrimmed);
 
         int subSectorsCountNew = SubSectorDbHelper.getSubSectorsCount();
-        CommonDbAssertions.checkCounts(subSectorsCountNew - 1, subSectorsCountOld);
+        CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld + 1);
     }
 
     @Test
@@ -204,10 +204,14 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
         CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld);
     }
 
-    private static Stream<Arguments> subSectorCodeRequest() {
+
+    private static Stream<Arguments> subSectorCodeProvider() {
+        String testCode = GeneratorBuilder.generateTestCode();
+
         return Stream.of(
-                Arguments.of(" " + GeneratorBuilder.generateTestCode() + " "),
-                Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase())
+                Arguments.of(" " + testCode + " "),
+                Arguments.of(testCode.toLowerCase()),
+                Arguments.of(testCode.charAt(0) + testCode.substring(1).toLowerCase())
         );
     }
 }

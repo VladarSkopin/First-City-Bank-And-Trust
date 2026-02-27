@@ -59,7 +59,7 @@ public class ClientTypeNameTest extends BaseClientTypeTest {
     }
 
     @ParameterizedTest(name = "[{index}] clientTypeName = {0}")
-    @MethodSource("validClientTypeNameRequest")
+    @MethodSource("validClientTypeNameProvider")
     @Tag("regression")
     @Description("""
             Test uses API to post a client type:
@@ -86,8 +86,9 @@ public class ClientTypeNameTest extends BaseClientTypeTest {
                 expectedClientTypeName);
 
         int clientTypesCountNew = ClientTypeDbHelper.getClientTypesCount();
-        CommonDbAssertions.checkCounts(clientTypesCountNew - 1, clientTypesCountOld);
+        CommonDbAssertions.checkCounts(clientTypesCountNew, clientTypesCountOld + 1);
     }
+
 
     private static Stream<Arguments> invalidClientTypeNameRequest() {
         return Stream.of(
@@ -97,7 +98,7 @@ public class ClientTypeNameTest extends BaseClientTypeTest {
         );
     }
 
-    private static Stream<Arguments> validClientTypeNameRequest() {
+    private static Stream<Arguments> validClientTypeNameProvider() {
         return Stream.of(
                 Arguments.of(ClientTypeName.SS.name()),
                 Arguments.of(CLIENT_TYPE_NAME.toLowerCase()),

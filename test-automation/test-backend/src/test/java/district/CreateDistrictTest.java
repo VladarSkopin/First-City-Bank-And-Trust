@@ -77,7 +77,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
     }
 
     @ParameterizedTest(name = "[{index}] districtCode = {0}")
-    @MethodSource("districtCodeRequest")
+    @MethodSource("districtCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -101,7 +101,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
         DistrictDbAssertions.checkDistrictPresence(districtDb, true);
 
         int districtsCountNew = DistrictDbHelper.getDistrictsCount();
-        CommonDbAssertions.checkCounts(districtsCountNew - 1, districtsCountOld);
+        CommonDbAssertions.checkCounts(districtsCountNew, districtsCountOld + 1);
     }
 
     @Test
@@ -174,10 +174,11 @@ public class CreateDistrictTest extends BaseDistrictTest {
         DistrictDbAssertions.checkDistrictName(districtDb.getDistrictName(), districtNameTrimmed);
 
         int districtsCountNew = DistrictDbHelper.getDistrictsCount();
-        CommonDbAssertions.checkCounts(districtsCountNew - 1, districtsCountOld);
+        CommonDbAssertions.checkCounts(districtsCountNew, districtsCountOld + 1);
     }
 
-    private static Stream<Arguments> districtCodeRequest() {
+
+    private static Stream<Arguments> districtCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + DISTRICT_CODE + " "),
                 Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase()),

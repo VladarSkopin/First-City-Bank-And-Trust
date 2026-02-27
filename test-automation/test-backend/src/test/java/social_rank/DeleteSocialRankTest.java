@@ -47,7 +47,7 @@ public class DeleteSocialRankTest extends BaseSocialRankTest {
     }
 
     @ParameterizedTest(name = "[{index}] rankCode = {0}")
-    @MethodSource("rankCodeRequest")
+    @MethodSource("rankCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -68,7 +68,7 @@ public class DeleteSocialRankTest extends BaseSocialRankTest {
     }
 
 
-    private static Stream<Arguments> rankCodeRequest() {
+    private static Stream<Arguments> rankCodeProvider() {
         return Stream.of(
                 Arguments.of((String) null),
                 Arguments.of(""),

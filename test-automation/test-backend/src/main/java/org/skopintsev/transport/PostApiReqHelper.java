@@ -5,19 +5,23 @@ import io.restassured.response.Response;
 import lombok.SneakyThrows;
 import org.skopintsev.constants.Api;
 import org.skopintsev.model.*;
+import org.skopintsev.model.sectors.Sector;
+import org.skopintsev.model.sectors.SubSector;
+import org.skopintsev.model.vaults.Vault;
+import org.skopintsev.model.vaults.VaultOperation;
 
 import static org.skopintsev.constants.Constants.OBJECT_MAPPER;
 
 public class PostApiReqHelper {
 
     @SneakyThrows
-    public static Response postApiReq(Object request, String uri) {
+    public static Response postApiReq(Object request, String endpoint) {
         String requestJson = OBJECT_MAPPER.writeValueAsString(request);
-        return postApiReq(requestJson, uri);
+        return postApiReq(requestJson, endpoint);
     }
 
-    public static Response postApiReq(String bodyReq, String contextReq) {
-        return CommonApiReqHelper.postRequest(bodyReq, contextReq);
+    public static Response postApiReq(String bodyReq, String endpoint) {
+        return CommonApiReqHelper.postRequest(bodyReq, endpoint);
     }
 
     @Step("POST " + Api.CURRENCIES + " with expected status code {1}")
@@ -68,4 +72,9 @@ public class PostApiReqHelper {
         response.then().statusCode(expectedStatusCode);
     }
 
+    @Step("POST " + Api.VAULT_OPERATIONS + " with expected status code {1}")
+    public static void saveVaultOperationAndValidate(VaultOperation vaultOperation, int expectedStatusCode) {
+        Response response = postApiReq(vaultOperation, Api.VAULT_OPERATIONS);
+        response.then().statusCode(expectedStatusCode);
+    }
 }

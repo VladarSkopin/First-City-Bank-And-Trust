@@ -58,7 +58,7 @@ public class DeleteVaultTest extends BaseVaultTest {
     }
 
     @ParameterizedTest(name = "[{index}] vaultCode = {0}")
-    @MethodSource("vaultCodeRequest")
+    @MethodSource("vaultCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -96,7 +96,7 @@ public class DeleteVaultTest extends BaseVaultTest {
         DeleteApiReqHelper.deleteVaultAndValidate(vaultDb.getVaultCode(), SC_SERVER_ERROR);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
-        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+        CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
     }
 
     @Test
@@ -117,11 +117,11 @@ public class DeleteVaultTest extends BaseVaultTest {
         DeleteApiReqHelper.deleteVaultAndValidate(vaultDb.getVaultCode(), SC_SERVER_ERROR);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
-        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+        CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
     }
 
 
-    private static Stream<Arguments> vaultCodeRequest() {
+    private static Stream<Arguments> vaultCodeProvider() {
         return Stream.of(
                 Arguments.of((String) null),
                 Arguments.of(""),

@@ -18,7 +18,7 @@ import org.skopintsev.assertions.db.sectors.SectorDbAssertions;
 import org.skopintsev.database.sectors.SectorDb;
 import org.skopintsev.database.sectors.SectorDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.model.Sector;
+import org.skopintsev.model.sectors.Sector;
 import org.skopintsev.transport.PostApiReqHelper;
 
 import java.util.stream.Stream;
@@ -76,7 +76,7 @@ public class CreateSectorTest extends BaseSectorTest {
     }
 
     @ParameterizedTest(name = "[{index}] sectorCode = {0}")
-    @MethodSource("sectorCodeRequest")
+    @MethodSource("sectorCodeProvider")
     @Tag("regression")
     @Description(
             """
@@ -99,7 +99,7 @@ public class CreateSectorTest extends BaseSectorTest {
         SectorDbAssertions.checkSectorPresence(sectorDb, true);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
-        CommonDbAssertions.checkCounts(sectorsCountNew - 1, sectorsCountOld);
+        CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld + 1);
     }
 
     @Test
@@ -172,10 +172,11 @@ public class CreateSectorTest extends BaseSectorTest {
         SectorDbAssertions.checkSectorField("sectorName", sectorDb.getSectorName(), sectorNameTrimmed);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
-        CommonDbAssertions.checkCounts(sectorsCountNew - 1, sectorsCountOld);
+        CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld + 1);
     }
 
-    private static Stream<Arguments> sectorCodeRequest() {
+
+    private static Stream<Arguments> sectorCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + GeneratorBuilder.generateTestCode() + " "),
                 Arguments.of(GeneratorBuilder.generateTestCode().toLowerCase())

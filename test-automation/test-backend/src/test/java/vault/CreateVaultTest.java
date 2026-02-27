@@ -18,7 +18,7 @@ import org.skopintsev.assertions.db.vaults.VaultDbAssertions;
 import org.skopintsev.database.vaults.VaultDb;
 import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.model.Vault;
+import org.skopintsev.model.vaults.Vault;
 import org.skopintsev.model.factory.VaultApiFactory;
 import org.skopintsev.transport.PostApiReqHelper;
 
@@ -81,7 +81,7 @@ public class CreateVaultTest extends BaseVaultTest {
     }
 
     @ParameterizedTest(name = "[{index}] vaultCode = {0}")
-    @MethodSource("vaultCodeRequest")
+    @MethodSource("vaultCodeProvider")
     @Tag("regression")
     @Description(
         """
@@ -106,7 +106,7 @@ public class CreateVaultTest extends BaseVaultTest {
         VaultDbAssertions.checkVaultPresence(vaultDb, true);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
-        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+        CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
     }
 
     @Test
@@ -132,7 +132,7 @@ public class CreateVaultTest extends BaseVaultTest {
         VaultDbAssertions.checkVaultPresence(vaultDb, true);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
-        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+        CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
     }
 
     @Test
@@ -153,11 +153,11 @@ public class CreateVaultTest extends BaseVaultTest {
         VaultDbAssertions.checkVaultPresence(vaultDb, true);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
-        CommonDbAssertions.checkCounts(vaultCountNew - 1, vaultCountOld);
+        CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
     }
 
 
-    private static Stream<Arguments> vaultCodeRequest() {
+    private static Stream<Arguments> vaultCodeProvider() {
         return Stream.of(
                 Arguments.of(" " + VAULT_CODE + " "),
                 Arguments.of(VAULT_CODE.toLowerCase()),
