@@ -19,10 +19,40 @@ import org.skopintsev.database.social_ranks.SocialRankDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.transport.GetApiReqHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.skopintsev.constants.Constants.SC_OK;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CountClientsByFieldTest extends BaseSearchClientsTest {
+
+    // Store created entities for cleanup
+    private List<String> createdClientCodes;
+    private List<String> createdSocialRankCodes;
+    private List<String> createdClientTypeCodes;
+    private List<String> createdSectorCodes;
+    private List<String> createdSubSectorCodes;
+
+    @BeforeEach
+    public void setUp() {
+        createdClientCodes = new ArrayList<>();
+        createdSocialRankCodes = new ArrayList<>();
+        createdClientTypeCodes = new ArrayList<>();
+        createdSectorCodes = new ArrayList<>();
+        createdSubSectorCodes = new ArrayList<>();
+    }
+
+    @AfterEach
+    public void cleanup() {
+        // Delete in reverse order of dependencies
+        createdClientCodes.forEach(ClientDbHelper::deleteClient);
+        createdSubSectorCodes.forEach(SubSectorDbHelper::deleteSubSector);
+        createdSectorCodes.forEach(SectorDbHelper::deleteSector);
+        createdSocialRankCodes.forEach(SocialRankDbHelper::deleteSocialRank);
+        createdClientTypeCodes.forEach(ClientTypeDbHelper::deleteClientType);
+    }
+
 
     @Test
     @Tag("smoke")
@@ -35,6 +65,7 @@ public class CountClientsByFieldTest extends BaseSearchClientsTest {
                 .build();
         SocialRankDbHelper.insertSocialRank(socialRankDb);
         String generatedRankCode = socialRankDb.getRankCode();
+        createdSocialRankCodes.add(generatedRankCode);
 
         ClientDb clientDb = ClientDbFactory.defaultClientDbRequest(
                 BASE_CLIENT_TYPE_CODE,
@@ -43,15 +74,12 @@ public class CountClientsByFieldTest extends BaseSearchClientsTest {
                 BASE_SUB_SECTOR_CODE
         );
         ClientDbHelper.insertClient(clientDb);
+        createdClientCodes.add(clientDb.getClientCode());
 
         int clientsDbCount = ClientDbHelper.getClientsCountByRank(generatedRankCode);
 
         int clientsCount = GetApiReqHelper.countClientsByRankAndValidate(generatedRankCode, SC_OK);
         SearchClientsApiAssertions.checkClientsCount(clientsCount, clientsDbCount);
-
-        // cleanup
-        ClientDbHelper.deleteClient(clientDb.getClientCode());
-        SocialRankDbHelper.deleteSocialRank(generatedRankCode);
     }
 
     @Test
@@ -65,6 +93,7 @@ public class CountClientsByFieldTest extends BaseSearchClientsTest {
                 .build();
         ClientTypeDbHelper.insertClientType(clientTypeDb);
         String generatedClientTypeCode = clientTypeDb.getClientTypeCode();
+        createdClientTypeCodes.add(generatedClientTypeCode);
 
         ClientDb clientDb = ClientDbFactory.defaultClientDbRequest(
                 generatedClientTypeCode,
@@ -73,15 +102,12 @@ public class CountClientsByFieldTest extends BaseSearchClientsTest {
                 BASE_SUB_SECTOR_CODE
         );
         ClientDbHelper.insertClient(clientDb);
+        createdClientCodes.add(clientDb.getClientCode());
 
         int clientsDbCount = ClientDbHelper.getClientsCountByClientType(generatedClientTypeCode);
 
         int clientsCount = GetApiReqHelper.countClientsByClientTypeAndValidate(generatedClientTypeCode, SC_OK);
         SearchClientsApiAssertions.checkClientsCount(clientsCount, clientsDbCount);
-
-        // cleanup
-        ClientDbHelper.deleteClient(clientDb.getClientCode());
-        ClientTypeDbHelper.deleteClientType(generatedClientTypeCode);
     }
 
     @Test
@@ -95,6 +121,7 @@ public class CountClientsByFieldTest extends BaseSearchClientsTest {
                 .build();
         SectorDbHelper.insertSector(sectorDb);
         String generatedSectorCode = sectorDb.getSectorCode();
+        createdSectorCodes.add(generatedSectorCode);
 
         SubSectorDb subSectorDb = SubSectorDb.builder()
                 .subSectorCode("SUB_SECTOR-" + GeneratorBuilder.generateTestCode())
@@ -103,6 +130,7 @@ public class CountClientsByFieldTest extends BaseSearchClientsTest {
                 .build();
         SubSectorDbHelper.insertSubSector(subSectorDb);
         String generatedSubSectorCode = subSectorDb.getSubSectorCode();
+        createdSubSectorCodes.add(generatedSubSectorCode);
 
         ClientDb clientDb = ClientDbFactory.defaultClientDbRequest(
                 BASE_CLIENT_TYPE_CODE,
@@ -111,16 +139,11 @@ public class CountClientsByFieldTest extends BaseSearchClientsTest {
                 generatedSubSectorCode
         );
         ClientDbHelper.insertClient(clientDb);
-
+        createdClientCodes.add(clientDb.getClientCode());
 
         int clientsDbCount = ClientDbHelper.getClientsCountBySector(generatedSectorCode);
 
         int clientsCount = GetApiReqHelper.countClientsBySectorAndValidate(generatedSectorCode, SC_OK);
         SearchClientsApiAssertions.checkClientsCount(clientsCount, clientsDbCount);
-
-        // cleanup
-        ClientDbHelper.deleteClient(clientDb.getClientCode());
-        SubSectorDbHelper.deleteSubSector(generatedSubSectorCode);
-        SectorDbHelper.deleteSector(generatedSectorCode);
     }
 }
