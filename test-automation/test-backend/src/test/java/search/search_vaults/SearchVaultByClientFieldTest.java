@@ -1,8 +1,13 @@
 package search.search_vaults;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.skopintsev.assertions.api.vaults.SearchVaultsApiAssertions;
 import org.skopintsev.assertions.db.CommonDbAssertions;
@@ -42,23 +47,39 @@ public class SearchVaultByClientFieldTest extends BaseSearchVaultsTest {
         );
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for vaults by client name.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientNameTest() {
-        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientNameAndValidate("", SC_OK);
+        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientNameAndValidate(BASE_CLIENT_NAME, SC_OK);
         SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for vaults by client social rank.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientRankTest() {
-        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientRankAndValidate("", SC_OK);
+        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientRankAndValidate(BASE_SOCIAL_RANK_CODE, SC_OK);
         SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for vaults by client type.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientTypeTest() {
-        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientTypeAndValidate("", SC_OK);
+        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientTypeAndValidate(BASE_CLIENT_TYPE_CODE, SC_OK);
         SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for vaults by client sector.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientSectorTest() {
-        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientSectorAndValidate("", SC_OK);
+        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientSectorAndValidate(BASE_SECTOR_CODE, SC_OK);
         SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 }
