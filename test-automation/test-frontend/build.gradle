@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'  // Add Allure plugin here
 }
 
 group = 'com.skopintsev'
@@ -9,9 +10,85 @@ repositories {
     mavenCentral()
 }
 
+// Allure configuration specific to this module
+allure {
+    version = '2.24.0'
+
+    // Use autoconfigure for JUnit 5
+    autoconfigure = true
+
+    // Specify adapter
+    adapter {
+        allureJavaVersion = '2.24.0'
+        frameworks {
+            junit5 {
+                adapterVersion = '2.24.0'
+            }
+        }
+    }
+}
+
 dependencies {
+    // ========== PRODUCTION DEPENDENCIES ==========
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.3'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+
+    // ========== TEST DEPENDENCIES ==========
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Allure dependencies - CRITICAL for reporting
+    implementation 'io.qameta.allure:allure-junit5:2.24.0'
+    testImplementation 'io.qameta.allure:allure-junit5:2.24.0'
+
+    // Lombok
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    // Hamcrest
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+
+    // SLF4J for logging
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+
+    // AssertJ for fluent assertions
+    implementation 'org.assertj:assertj-core:3.24.2'
+
+    // Awaitility for async assertions
+    implementation 'org.awaitility:awaitility:4.2.0'
+
+    // ========== WIREMOCK DEPENDENCIES ==========
+    // WireMock for stubbing external HTTP services
+    implementation 'org.wiremock:wiremock:3.3.1'
+    testImplementation 'org.wiremock:wiremock:3.3.1'
+
+    // ========== SELENIDE DEPENDENCIES ==========
+    // Selenide core for UI testing
+    implementation 'com.codeborne:selenide:6.19.1'
+    testImplementation 'com.codeborne:selenide:6.19.1'
+
+    // Allure integration for Selenide (adds steps to reports)
+    implementation 'io.qameta.allure:allure-selenide:2.24.0'
+    testImplementation 'io.qameta.allure:allure-selenide:2.24.0'
+
+    // WebDriverManager (optional, but recommended for automatic driver management)
+    implementation 'io.github.bonigarcia:webdrivermanager:5.6.2'
+    testImplementation 'io.github.bonigarcia:webdrivermanager:5.6.2'
 }
 
 test {
     useJUnitPlatform()
+    systemProperty 'allure.results.directory', "${buildDir}/allure-results"
+
+    // Ensure tests are always run to generate results
+    outputs.upToDateWhen { false }
+
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        showStandardStreams = true
+        exceptionFormat = 'full'
+    }
 }
