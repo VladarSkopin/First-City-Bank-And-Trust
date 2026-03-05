@@ -13,7 +13,7 @@ import io.qameta.allure.Step;
 import lombok.AccessLevel;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
-import org.skopintsev.models.Currency;
+import org.skopintsev.models.api.Currency;
 import org.skopintsev.util.LocalDateAdapter;
 
 
@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static org.skopintsev.constants.Api.CURRENCIES;
-import static org.skopintsev.constants.Constants.SC_OK;
+import static org.skopintsev.constants.Constants.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PostApiResponseHelper {
@@ -64,30 +64,38 @@ public class PostApiResponseHelper {
     }
 
     @SneakyThrows
-    public static void stubPostDefaultApi(String path, Object responseObject) {
-        stubPostDefaultApi(path, responseObject, SC_OK);
-    }
-
-    @SneakyThrows
-    public static void stubPostDefaultApi(String path, Object responseObject, int statusCode) {
-        stubPost(path, responseObject, statusCode);
-    }
-
-    @SneakyThrows
-    public static void stubPost(String fullPath, Object responseObject, int statusCode) {
+    public static void stubGet(String fullPath, Object responseObject, int statusCode) {
         WireMock.stubFor(
-                WireMock.post(fullPath).willReturn(
-                        WireMock.okJson(objectMapper.writeValueAsString(responseObject)).withStatus(statusCode)
+                WireMock.get(fullPath).willReturn(
+                        WireMock.okJson(objectMapper.writeValueAsString(responseObject))
+                                .withStatus(statusCode)
+                                .withHeader("Content-Type", "application/json")
+                                .withHeader("Access-Control-Allow-Origin", "*")
                 )
         );
+    }
+
+    @SneakyThrows
+    public static void stubGetDefaultApi(String path, Object responseObject) {
+        stubGet(path, responseObject, SC_OK);
+    }
+
+    @SneakyThrows
+    public static void stubGetNotFoundApi(String path, Object responseObject) {
+        stubGet(path, responseObject, SC_NOT_FOUND);
+    }
+
+    @SneakyThrows
+    public static void stubGetServerErrorApi(String path, Object responseObject) {
+        stubGet(path, responseObject, SC_SERVER_ERROR);
     }
 
 
     // Mocks
 
     @Step(" .")
-    public static void postGetCurrencies(List<Currency> currenciesList) {
-        stubPostDefaultApi(CURRENCIES, currenciesList);
+    public static void stubGetCurrencies(List<Currency> currenciesList) {
+        stubGetDefaultApi(CURRENCIES, currenciesList);
     }
 
 
