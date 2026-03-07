@@ -63,7 +63,7 @@ function Districts() {
     return (
       <div className="districts-container">
         <div className="loading-state">
-          <div className="loading-spinner"></div>
+          <div className="loading-spinner" data-testid="loading-spinner"></div>
           <p>Loading districts...</p>
         </div>
       </div>
@@ -80,7 +80,7 @@ function Districts() {
           <h2>Failed to Load Districts</h2>
           <p>{error}</p>
           <button 
-            className="retry-btn" 
+            className="retry-btn" data-testid="retryBtn"
             onClick={() => window.location.reload()}
           >
             RETRY
@@ -138,12 +138,12 @@ function Districts() {
       {isModalOpen && selectedDistrict && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content map-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
+            <div className="modal-header" data-testid="modalHeader">
               <h2>{selectedDistrict.districtName} - Detailed Map</h2>
-              <button className="modal-close-btn" onClick={closeModal}>✕</button>
+              <button className="modal-close-btn" data-testid="closeButton" onClick={closeModal}>✕</button>
             </div>
             
-            <div className="modal-body">
+            <div className="modal-body" data-testid="modalBody">
               <div className="map-container">
                 <div className="map-image-wrapper">
                   <img
@@ -170,7 +170,7 @@ function Districts() {
             </div>
             
             <div className="modal-footer">
-              <button className="modal-confirm-btn" onClick={closeModal}>
+              <button className="modal-confirm-btn" data-testid="confirmButton" onClick={closeModal}>
                 OK
               </button>
             </div>

@@ -93,9 +93,19 @@ public class PostApiResponseHelper {
 
     // Mocks
 
-    @Step(" .")
+    @Step("POST /__admin/mappings: response for " + CURRENCIES)
     public static void stubGetCurrencies(List<Currency> currenciesList) {
         stubGetDefaultApi(CURRENCIES, currenciesList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + CURRENCIES)
+    public static void stubGetCurrenciesNotFound(List<Currency> currenciesList) {
+        stubGetNotFoundApi(CURRENCIES, currenciesList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + CURRENCIES)
+    public static void stubGetCurrenciesServerError(List<Currency> currenciesList) {
+        stubGetServerErrorApi(CURRENCIES, currenciesList);
     }
 
 

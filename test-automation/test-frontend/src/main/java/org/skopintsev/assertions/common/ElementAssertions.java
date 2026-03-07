@@ -8,7 +8,7 @@ import java.time.Duration;
 
 public class ElementAssertions {
 
-    @Step("Waiting for the disappearance of loading spinner withing 4 seconds.")
+    @Step("Waiting for the disappearance of a web element.")
     public static void checkDisappear(SelenideElement element, Duration timeout) {
         if (element.exists()) {
             element.should(Condition.disappear, timeout);

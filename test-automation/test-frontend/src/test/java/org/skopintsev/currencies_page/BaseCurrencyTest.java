@@ -7,6 +7,7 @@ import org.skopintsev.BaseTest;
 import org.skopintsev.models.api.Currency;
 import org.skopintsev.models.api.CurrencyFactory;
 import org.skopintsev.transport.PostApiResponseHelper;
+import org.skopintsev.util.OpenUrl;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class BaseCurrencyTest extends BaseTest {
     @BeforeEach
     public void openCurrenciesPage() {
         PostApiResponseHelper.stubGetCurrencies(BASE_CURRENCIES_LIST);
+        OpenUrl.openCurrenciesPage();
     }
 
 }

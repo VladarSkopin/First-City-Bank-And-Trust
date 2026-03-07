@@ -67,7 +67,7 @@ function Currencies() {
     return (
       <div className="currencies-container">
         <div className="loading-state">
-          <div className="loading-spinner"></div>
+          <div className="loading-spinner" data-testid="loading-spinner"></div>
           <p>Loading currencies...</p>
         </div>
       </div>
@@ -84,7 +84,7 @@ function Currencies() {
           <h2>Failed to Load Currencies</h2>
           <p>{error}</p>
           <button 
-            className="retry-btn" 
+            className="retry-btn" data-testid="retryBtn"
             onClick={() => window.location.reload()}
           >
             RETRY

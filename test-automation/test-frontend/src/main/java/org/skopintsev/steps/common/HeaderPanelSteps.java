@@ -1,17 +1,38 @@
 package org.skopintsev.steps.common;
 
+import io.qameta.allure.Step;
+import org.skopintsev.models.gui.common.HeaderPanel;
+
 public class HeaderPanelSteps {
 
-    // todo: clickVaultsPageBtn() {}
+    @Step("Close notification panel.")
+    public static void clickVaultsPageBtn() {
+        HeaderPanel.getVaultsPageBtn().click();
+    }
 
-    // todo: clickClientsPageBtn() {}
+    @Step("Close notification panel.")
+    public static void clickClientsPageBtn() {
+        HeaderPanel.getClientsPageBtn().click();
+    }
 
-    // todo: clickSocialRanksPageBtn() {}
+    @Step("Close notification panel.")
+    public static void clickSocialRanksPageBtn() {
+        HeaderPanel.getSocialRanksPageBtn().click();
+    }
 
-    // todo: clickDistrictsPageBtn() {}
+    @Step("Close notification panel.")
+    public static void clickDistrictsPageBtn() {
+        HeaderPanel.getDistrictsPageBtn().click();
+    }
 
-    // todo: clickCurrenciesPageBtn() {}
+    @Step("Close notification panel.")
+    public static void clickCurrenciesPageBtn() {
+        HeaderPanel.getCurrenciesPageBtn().click();
+    }
 
-    // todo: clickSectorsPageBtn() {}
+    @Step("Close notification panel.")
+    public static void clickSectorsPageBtn() {
+        HeaderPanel.getSectorsPageBtn().click();
+    }
 
 }
