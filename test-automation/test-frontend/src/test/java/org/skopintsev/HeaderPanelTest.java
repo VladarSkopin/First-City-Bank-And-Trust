@@ -5,7 +5,12 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.skopintsev.assertions.common.HeaderPanelAssertions;
+import org.skopintsev.models.gui.common.HeaderPanel;
 import org.skopintsev.steps.common.HeaderPanelSteps;
+import org.skopintsev.transport.PostApiResponseHelper;
+
+import java.util.Collections;
 
 public class HeaderPanelTest extends BaseTest {
 
@@ -18,7 +23,7 @@ public class HeaderPanelTest extends BaseTest {
         // todo: !!! mock empty stubs for all the requests !!!
         //  PostApiResponseHelper.stubGetVaults(Collections.emptyList());
         //  PostApiResponseHelper.stubGetClients(Collections.emptyList());
-        //  PostApiResponseHelper.stubGetCurrencies(Collections.emptyList());
+        PostApiResponseHelper.stubGetCurrencies(Collections.emptyList());
         //  PostApiResponseHelper.stubGetSocialRanks(Collections.emptyList());
         //  PostApiResponseHelper.stubGetDistricts(Collections.emptyList());
         //  PostApiResponseHelper.stubGetSectors(Collections.emptyList());
@@ -27,34 +32,37 @@ public class HeaderPanelTest extends BaseTest {
         // Clients page tab
         HeaderPanelSteps.clickClientsPageBtn();
         // todo: UrlAssertions.???
-        // todo: HeaderPanelAssertions.???
+        HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getClientsPageBtn());
+        HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getClientsPageBtn());
 
         // Social Ranks page tab
         HeaderPanelSteps.clickSocialRanksPageBtn();
         // todo: UrlAssertions.???
-        // todo: HeaderPanelAssertions.???
+        HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getSocialRanksPageBtn());
+        HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getSocialRanksPageBtn());
 
         // Districts page tab
         HeaderPanelSteps.clickDistrictsPageBtn();
         // todo: UrlAssertions.???
-        // todo: HeaderPanelAssertions.???
+        HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getDistrictsPageBtn());
+        HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getDistrictsPageBtn());
 
         // Currencies page tab
         HeaderPanelSteps.clickCurrenciesPageBtn();
         // todo: UrlAssertions.???
-        // todo: HeaderPanelAssertions.???
+        HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getCurrenciesPageBtn());
+        HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getCurrenciesPageBtn());
 
         // Sectors page tab
         HeaderPanelSteps.clickSectorsPageBtn();
         // todo: UrlAssertions.???
-        // todo: HeaderPanelAssertions.???
+        HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getSectorsPageBtn());
+        HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getSectorsPageBtn());
 
         // Vaults page tab
         HeaderPanelSteps.clickVaultsPageBtn();
         // todo: UrlAssertions.???
-        // todo: HeaderPanelAssertions.???
+        HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getVaultsPageBtn());
+        HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getVaultsPageBtn());
     }
-
-    // todo: method to check that all other tabs are inactive except = SelenideElement ===> reuse it !!!
-
 }
