@@ -107,12 +107,12 @@ function Districts() {
 
   return (
     <div className="districts-container">
-      <h1 className="page-title">City Districts</h1>
+      <h1 className="page-title" data-testid="pageTitle">City Districts</h1>
 
       <div className="districts-info">
         <div className="districts-count">
-          <span className="count-label">TOTAL DISTRICTS: </span>
-          <span className="count-value">{districts.length}</span>
+          <span className="count-label" data-testid="countLabel">TOTAL DISTRICTS: </span>
+          <span className="count-value" data-testid="countValue">{districts.length}</span>
         </div>
       </div>
 
@@ -121,13 +121,13 @@ function Districts() {
           <div key={district.districtCode} className="district-card">
             <div className="district-header">
               <div className="district-info">
-                <h2>{district.districtName}</h2>
-                <span className="district-code">{district.districtCode}</span>
+                <h2 data-testid="districtName">{district.districtName}</h2>
+                <span className="district-code" data-testid="districtCode">{district.districtCode}</span>
               </div>
             </div>
             
             <div className="district-footer">
-              <button className="district-map-btn" 
+              <button className="district-map-btn" data-testid="detailedMapButton"
               onClick={() => handleViewMap(district)}>DETAILED MAP</button>
             </div>
           </div>

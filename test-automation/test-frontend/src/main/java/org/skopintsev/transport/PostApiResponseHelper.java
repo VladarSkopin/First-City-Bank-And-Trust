@@ -14,6 +14,7 @@ import lombok.AccessLevel;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.skopintsev.models.api.Currency;
+import org.skopintsev.models.api.District;
 import org.skopintsev.util.LocalDateAdapter;
 
 
@@ -22,6 +23,7 @@ import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static org.skopintsev.constants.Api.CURRENCIES;
+import static org.skopintsev.constants.Api.DISTRICTS;
 import static org.skopintsev.constants.Constants.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -108,5 +110,19 @@ public class PostApiResponseHelper {
         stubGetServerErrorApi(CURRENCIES, currenciesList);
     }
 
+    @Step("POST /__admin/mappings: response for " + DISTRICTS)
+    public static void stubGetDistricts(List<District> districtsList) {
+        stubGetDefaultApi(DISTRICTS, districtsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + DISTRICTS)
+    public static void stubGetDistrictsNotFound(List<District> districtsList) {
+        stubGetNotFoundApi(DISTRICTS, districtsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + DISTRICTS)
+    public static void stubGetDistrictsServerError(List<District> districtsList) {
+        stubGetServerErrorApi(DISTRICTS, districtsList);
+    }
 
 }

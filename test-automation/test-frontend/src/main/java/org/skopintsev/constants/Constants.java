@@ -6,6 +6,8 @@ public class Constants {
 
     public static final String CURRENCIES_PAGE_URL = FIRST_CITY_BANK_REACT_URL + "/currencies";
 
+    public static final String DISTRICTS_PAGE_URL = FIRST_CITY_BANK_REACT_URL + "/districts";
+
 
     // HTTP status codes
 

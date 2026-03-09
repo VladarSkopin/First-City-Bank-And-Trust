@@ -6,8 +6,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import org.skopintsev.steps.common.elements.LoadingSpinnerSteps;
 
-import static org.skopintsev.constants.Constants.CURRENCIES_PAGE_URL;
-import static org.skopintsev.constants.Constants.FIRST_CITY_BANK_REACT_URL;
+import static org.skopintsev.constants.Constants.*;
 
 public class OpenUrl {
 
@@ -21,6 +20,12 @@ public class OpenUrl {
     @Step("Open currencies page.")
     public static void openCurrenciesPage() {
         Selenide.open(CURRENCIES_PAGE_URL);
+        LoadingSpinnerSteps.waitingForPageLoading();
+    }
+
+    @Step("Open districts page.")
+    public static void openDistrictsPage() {
+        Selenide.open(DISTRICTS_PAGE_URL);
         LoadingSpinnerSteps.waitingForPageLoading();
     }
 }
