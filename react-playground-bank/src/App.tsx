@@ -26,32 +26,32 @@ function App() {
         {/* Navigation */}
         <nav className="main-nav">
           <div className="nav-container">
-            <NavLink to="/" style={navLinkStyles} className="nav-link">
+            <NavLink to="/" style={navLinkStyles} className="nav-link" data-testid="vaultsPageBtn">
               <span className="nav-icon">⚙️</span>
               VAULT
             </NavLink>
             <span className="nav-separator">|</span>
-            <NavLink to="/clients" style={navLinkStyles} className="nav-link">
+            <NavLink to="/clients" style={navLinkStyles} className="nav-link" data-testid="clientsPageBtn">
               <span className="nav-icon">👥</span>
               CLIENTS
             </NavLink>
             <span className="nav-separator">|</span>
-            <NavLink to="/socialranks" style={navLinkStyles} className="nav-link">
+            <NavLink to="/socialranks" style={navLinkStyles} className="nav-link" data-testid="socialRanksPageBtn">
               <span className="nav-icon">⚜️</span>
               SOCIAL RANKS
             </NavLink>
             <span className="nav-separator">|</span>
-            <NavLink to="/districts" style={navLinkStyles} className="nav-link">
+            <NavLink to="/districts" style={navLinkStyles} className="nav-link" data-testid="districtsPageBtn">
               <span className="nav-icon">🗺️</span>
               DISTRICTS
             </NavLink>
             <span className="nav-separator">|</span>
-            <NavLink to="/currencies" style={navLinkStyles} className="nav-link">
+            <NavLink to="/currencies" style={navLinkStyles} className="nav-link" data-testid="currenciesPageBtn">
               <span className="nav-icon">💰</span>
               CURRENCIES
             </NavLink>
             <span className="nav-separator">|</span>
-            <NavLink to="/sectors" style={navLinkStyles} className="nav-link">
+            <NavLink to="/sectors" style={navLinkStyles} className="nav-link" data-testid="sectorsPageBtn">
               <span className="nav-icon">📋</span>
               SECTORS
             </NavLink>

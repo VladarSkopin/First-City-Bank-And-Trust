@@ -88,7 +88,7 @@ const closeModal = () => {
     return (
       <div className="social-ranks-container">
         <div className="loading-state">
-          <div className="loading-spinner"></div>
+          <div className="loading-spinner" data-testid="loading-spinner"></div>
           <p>Loading social ranks...</p>
         </div>
       </div>
@@ -105,7 +105,7 @@ const closeModal = () => {
           <h2>Failed to Load Social Ranks</h2>
           <p>{error}</p>
           <button 
-            className="retry-btn"
+            className="retry-btn" data-testid="retryBtn"
             onClick={() => window.location.reload()}
           >
             RETRY
@@ -189,12 +189,12 @@ return (
       {isModalOpen && selectedRank && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
+            <div className="modal-header" data-testid="modalHeader">
               <h2>{selectedRank.rankName} Regulations</h2>
-              <button className="modal-close-btn" onClick={closeModal}>✕</button>
+              <button className="modal-close-btn" data-testid="closeButton" onClick={closeModal}>✕</button>
             </div>
             
-            <div className="modal-body">
+            <div className="modal-body" data-testid="modalBody">
               <div className="regulation-info">
                 <div className="regulation-meta">
                   <span className="regulation-code">CODE: {selectedRank.rankCode}</span>
@@ -215,7 +215,7 @@ return (
             </div>
             
             <div className="modal-footer">
-              <button className="modal-confirm-btn" onClick={closeModal}>
+              <button className="modal-confirm-btn" data-testid="confirmButton" onClick={closeModal}>
                 OK
               </button>
             </div>

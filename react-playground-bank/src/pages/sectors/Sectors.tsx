@@ -111,7 +111,7 @@ function Sectors() {
     return (
       <div className="sectors-container">
         <div className="loading-state">
-          <div className="loading-spinner"></div>
+          <div className="loading-spinner" data-testid="loading-spinner"></div>
           <h2>Loading Sectors</h2>
           <p>Initializing banking records... ({loadedItems}/{totalItems})</p>
           <div className="loading-progress">
@@ -136,7 +136,7 @@ function Sectors() {
           <h2>Failed to Load Sectors</h2>
           <p>{error}</p>
           <button 
-            className="retry-btn" 
+            className="retry-btn" data-testid="retryBtn"
             onClick={() => window.location.reload()}
           >
             RETRY
@@ -215,12 +215,12 @@ function Sectors() {
       {isModalOpen && selectedSubSector && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
+            <div className="modal-header" data-testid="modalHeader">
               <h2>{selectedSubSector.subSectorName} Description</h2>
-              <button className="modal-close-btn" onClick={closeModal}>✕</button>
+              <button className="modal-close-btn" data-testid="closeButton" onClick={closeModal}>✕</button>
             </div>
             
-            <div className="modal-body">
+            <div className="modal-body" data-testid="modalBody">
               <div className="regulation-info">
                 <div className="regulation-meta">
                   <span className="regulation-code">CODE: {selectedSubSector.subSectorCode}</span>
@@ -235,7 +235,7 @@ function Sectors() {
             </div>
             
             <div className="modal-footer">
-              <button className="modal-confirm-btn" onClick={closeModal}>
+              <button className="modal-confirm-btn" data-testid="confirmButton" onClick={closeModal}>
                 OK
               </button>
             </div>

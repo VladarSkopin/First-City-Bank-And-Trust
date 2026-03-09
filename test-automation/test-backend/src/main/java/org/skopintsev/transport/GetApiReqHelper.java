@@ -195,5 +195,51 @@ public class GetApiReqHelper {
         return response.as(new TypeRef<Integer>() {});
     }
 
+    @Step("GET " + Api.SEARCH_VAULTS_BY_CURRENCY + " with expected status code {0}")
+    public static List<Vault> searchVaultsByCurrencyAndValidate(String currencyCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CURRENCY, currencyCode);
+        response.then().statusCode(expectedStatusCode);
 
+        return response.as(new TypeRef<List<Vault>>() {});
+    }
+
+    @Step("GET " + Api.SEARCH_VAULTS_BY_CLIENT_CODE + " with expected status code {0}")
+    public static List<Vault> searchVaultsByClientCodeAndValidate(String clientCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CLIENT_CODE, clientCode);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Vault>>() {});
+    }
+
+    @Step("GET " + Api.SEARCH_VAULTS_BY_CLIENT_NAME + " with expected status code {0}")
+    public static List<Vault> searchVaultsByClientNameAndValidate(String clientNameOrTitle, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CLIENT_NAME, clientNameOrTitle);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Vault>>() {});
+    }
+
+    @Step("GET " + Api.SEARCH_VAULTS_BY_CLIENT_RANK + " with expected status code {0}")
+    public static List<Vault> searchVaultsByClientRankAndValidate(String clientRankCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CLIENT_RANK, clientRankCode);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Vault>>() {});
+    }
+
+    @Step("GET " + Api.SEARCH_VAULTS_BY_CLIENT_TYPE + " with expected status code {0}")
+    public static List<Vault> searchVaultsByClientTypeAndValidate(String clientTypeCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CLIENT_TYPE, clientTypeCode);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Vault>>() {});
+    }
+
+    @Step("GET " + Api.SEARCH_VAULTS_BY_CLIENT_SECTOR + " with expected status code {0}")
+    public static List<Vault> searchVaultsByClientSectorAndValidate(String clientSectorCode, int expectedStatusCode) {
+        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CLIENT_SECTOR, clientSectorCode);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Vault>>() {});
+    }
 }

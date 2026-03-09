@@ -3,6 +3,8 @@ package search.search_clients;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.*;
 import org.skopintsev.assertions.api.clients.SearchClientsApiAssertions;
 import org.skopintsev.database.client_types.ClientTypeDb;
@@ -25,14 +27,15 @@ import java.util.List;
 import static org.skopintsev.constants.Constants.SC_OK;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CountClientsByFieldTest extends BaseSearchClientsTest {
 
     // Store created entities for cleanup
-    private List<String> createdClientCodes;
-    private List<String> createdSocialRankCodes;
-    private List<String> createdClientTypeCodes;
-    private List<String> createdSectorCodes;
-    private List<String> createdSubSectorCodes;
+    List<String> createdClientCodes;
+    List<String> createdSocialRankCodes;
+    List<String> createdClientTypeCodes;
+    List<String> createdSectorCodes;
+    List<String> createdSubSectorCodes;
 
     @BeforeEach
     public void setUp() {
