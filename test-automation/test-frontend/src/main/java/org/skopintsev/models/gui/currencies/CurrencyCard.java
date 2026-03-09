@@ -1,21 +1,24 @@
 package org.skopintsev.models.gui.currencies;
 
+import com.codeborne.selenide.SelenideElement;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
+
+import static com.codeborne.selenide.Selenide.$;
+import static org.skopintsev.util.helpers.SelenideHelper.byTestId;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CurrencyCard {
 
-    // todo: @Getter
-    //    static final SelenideElement currency code
+    @Getter static final SelenideElement currencyCode = $(byTestId("currencyCode"));
 
-    // todo: @Getter
-    //    static final SelenideElement currency name
+    @Getter static final SelenideElement currencyName = $(byTestId("currencyName"));
 
-    // todo: @Getter
-    //    static final SelenideElement currency metal type
+    @Getter static final SelenideElement currencyMetalTypeLabel = $(byTestId("currencyMetalTypeLabel"));
 
-    // todo: @Getter
-    //    static final SelenideElement currency symbol
+    @Getter static final SelenideElement currencyMetalTypeValue = $(byTestId("currencyMetalTypeValue"));
+
+    @Getter static final SelenideElement currencySymbol = $(byTestId("currencySymbol"));
 
 }

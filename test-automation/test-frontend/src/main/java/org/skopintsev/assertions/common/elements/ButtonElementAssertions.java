@@ -4,6 +4,8 @@ import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import org.skopintsev.models.gui.common.elements.ButtonElement;
 
+import static com.codeborne.selenide.Condition.not;
+
 public class ButtonElementAssertions {
 
     @Step("Check that 'Retry' button is visible.")
@@ -19,6 +21,11 @@ public class ButtonElementAssertions {
     @Step("Check that cross '[X]' button is visible.")
     public static void checkCrossCloseBtnIsVisible() {
         ButtonElement.getCrossCloseBtn().shouldBe(Condition.visible);
+    }
+
+    @Step("Check that 'Retry' button should exist = '{0}'.")
+    public static void checkRetryBtnExistence(boolean shouldExist) {
+        ButtonElement.getRetryBtn().shouldBe(shouldExist ? Condition.exist : not(Condition.exist));
     }
 
     @Step("Check that 'Retry' button is enabled = '{0}'.")

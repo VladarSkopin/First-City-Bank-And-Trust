@@ -81,7 +81,7 @@ function Currencies() {
       <div className="currencies-container">
         <div className="error-state">
           <div className="error-icon">⚠️</div>
-          <h2>Failed to Load Currencies</h2>
+          <h2 data-testid="pageTitle">Failed to Load Currencies</h2>
           <p>{error}</p>
           <button 
             className="retry-btn" data-testid="retryBtn"
@@ -101,7 +101,7 @@ function Currencies() {
       <div className="currencies-container">
         <div className="empty-state">
           <div className="empty-icon">💰</div>
-          <h3>No Currencies Found</h3>
+          <h3 data-testid="pageTitle">No Currencies Found</h3>
           <p>No currency data is currently available</p>
         </div>
       </div>
@@ -112,14 +112,14 @@ function Currencies() {
 
   return (
     <div className="currencies-container">
-      <h1 className="page-title">City Currencies</h1>
+      <h1 className="page-title" data-testid="pageTitle">City Currencies</h1>
       
       <div className="currency-overview">
         <div className="overview-header">
-          <h2>MONETARY SYSTEM</h2>
+          <h2 data-testid="exchangeRateTitle">MONETARY SYSTEM</h2>
           <div className="exchange-rates">
-            <span className="rate-label">OFFICIAL EXCHANGE:</span>
-            <span className="rate-value">1 GOLD = 20 SILVER = 240 COPPER</span>
+            <span className="rate-label" data-testid="exchangeRateLabel">OFFICIAL EXCHANGE:</span>
+            <span className="rate-value" data-testid="exchangeRateValue">1 GOLD = 20 SILVER = 240 COPPER</span>
           </div>
         </div>
       
@@ -133,22 +133,22 @@ function Currencies() {
                 <div className="coin-icon" style={{backgroundColor: getCoinColor(currency.currencyName)}}>
                   {getCoinIcon(currency.currencyName)}
                 </div>
-                <div className="currency-symbol">
+                <div className="currency-symbol" data-testid="currencySymbol">
                   {currency.currencySymbol}
                 </div>
               </div>
               
               <div className="currency-info">
-                <h2>{currency.currencyName}</h2>
-                <span className="currency-code">{currency.currencyCode}</span>
+                <h2 data-testid="currencyName">{currency.currencyName}</h2>
+                <span className="currency-code" data-testid="currencyCode">{currency.currencyCode}</span>
               </div>
             </div>
             
             <div className="currency-body">
               <div className="currency-stats">
                 <div className="stat-row">
-                  <span className="stat-label">METAL TYPE:</span>
-                  <span className="stat-value">{currency.metalType}</span>
+                  <span className="stat-label" data-testid="currencyMetalTypeLabel">METAL TYPE:</span>
+                  <span className="stat-value" data-testid="currencyMetalTypeValue">{currency.metalType}</span>
                 </div>
               </div>
             </div>
@@ -158,7 +158,7 @@ function Currencies() {
       </div>
       
       <div className="currency-footer-note">
-        <div className="warning-note">
+        <div className="warning-note" data-testid="warningNote">
           <span className="warning-icon">⚠️</span>
           COUNTERFEITING PUNISHABLE BY CRAGSLEFT IMPRISONMENT
         </div>

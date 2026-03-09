@@ -1,23 +1,34 @@
 package org.skopintsev.assertions.currency;
 
+import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
+import org.skopintsev.models.gui.currencies.CurrencyCard;
 
 public class CurrencyCardAssertions {
 
-    // todo: check currency code
-//    @Step("Check the notification display with text '{0}'.")
-//    public static void checkNotificationWithTextDisplayed(String content) {}
+    @Step("Check currency code is displayed with text '{0}'.")
+    public static void checkCurrencyCode(String currencyCode) {
+        CurrencyCard.getCurrencyCode().shouldBe(Condition.visible).shouldHave(Condition.text(currencyCode));
+    }
 
-    // todo: check currency name
-//    @Step("Check the notification display with text '{0}'.")
-//    public static void checkNotificationWithTextDisplayed(String content) {}
+    @Step("Check currency name is displayed with text '{0}'.")
+    public static void checkCurrencyName(String currencyName) {
+        CurrencyCard.getCurrencyName().shouldBe(Condition.visible).shouldHave(Condition.text(currencyName));
+    }
 
-    // todo: check currency metal type
-//    @Step("Check the notification display with text '{0}'.")
-//    public static void checkNotificationWithTextDisplayed(String content) {}
+    @Step("Check metal type label is displayed with text '{0}'.")
+    public static void checkMetalTypeLabel(String metalTypeLabel) {
+        CurrencyCard.getCurrencyMetalTypeLabel().shouldBe(Condition.visible).shouldHave(Condition.text(metalTypeLabel));
+    }
 
-    // todo: check currency symbol
-//    @Step("Check the notification display with text '{0}'.")
-//    public static void checkNotificationWithTextDisplayed(String content) {}
+    @Step("Check metal type value is displayed with text '{0}'.")
+    public static void checkMetalTypeValue(String metalTypeValue) {
+        CurrencyCard.getCurrencyMetalTypeValue().shouldBe(Condition.visible).shouldHave(Condition.text(metalTypeValue));
+    }
+
+    @Step("Check currency symbol is displayed with text '{0}'.")
+    public static void checkCurrencySymbol(String currencySymbol) {
+        CurrencyCard.getCurrencySymbol().shouldBe(Condition.visible).shouldHave(Condition.text(currencySymbol));
+    }
 
 }

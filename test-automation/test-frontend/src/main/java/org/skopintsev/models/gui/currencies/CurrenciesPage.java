@@ -8,17 +8,17 @@ import lombok.experimental.FieldDefaults;
 import static com.codeborne.selenide.Selenide.$;
 import static org.skopintsev.util.helpers.SelenideHelper.byTestId;
 
-
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CurrenciesPage {
 
-    // todo: @Getter
-    //    static final SelenideElement page title
+    @Getter static final SelenideElement pageTitle = $(byTestId("pageTitle"));
 
-    // todo: @Getter
-    //    static final SelenideElement monetary system exchange rate
+    @Getter static final SelenideElement exchangeRateTitle = $(byTestId("exchangeRateTitle"));
 
-    // todo: @Getter
-    //    static final SelenideElement footer note
+    @Getter static final SelenideElement exchangeRateLabel = $(byTestId("exchangeRateLabel"));
+
+    @Getter static final SelenideElement exchangeRateValue = $(byTestId("exchangeRateValue"));
+
+    @Getter static final SelenideElement footerNote = $(byTestId("warningNote"));
 
 }

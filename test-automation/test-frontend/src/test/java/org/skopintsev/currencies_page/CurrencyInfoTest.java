@@ -6,6 +6,10 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
+import org.skopintsev.assertions.currency.CurrenciesPageAssertions;
+import org.skopintsev.assertions.currency.CurrencyCardAssertions;
+import org.skopintsev.models.api.Currency;
 import org.skopintsev.transport.PostApiResponseHelper;
 
 import java.util.Collections;
@@ -17,11 +21,12 @@ public class CurrencyInfoTest extends BaseCurrencyTest {
     @Description("Test checks the display of Currencies page information.")
     @Severity(SeverityLevel.NORMAL)
     public void currenciesPageInfoTest() {
-
-        // todo: page title
-        // todo: monetary system exchange rate
-        // todo: footer note
-        // todo: retry button not exist
+        CurrenciesPageAssertions.checkPageTitleText("City Currencies");
+        CurrenciesPageAssertions.checkExchangeRateTitleText("MONETARY SYSTEM");
+        CurrenciesPageAssertions.checkExchangeRateLabelText("OFFICIAL EXCHANGE:");
+        CurrenciesPageAssertions.checkExchangeRateValueText("1 GOLD = 20 SILVER = 240 COPPER");
+        CurrenciesPageAssertions.checkFooterNoteText("COUNTERFEITING PUNISHABLE BY CRAGSLEFT IMPRISONMENT");
+        ButtonElementAssertions.checkRetryBtnExistence(false);
     }
 
     @Test
@@ -29,12 +34,14 @@ public class CurrencyInfoTest extends BaseCurrencyTest {
     @Description("Test checks the display of single currency card information.")
     @Severity(SeverityLevel.NORMAL)
     public void currencyCardInfoTest() {
+        Currency currency = BASE_CURRENCIES_LIST.get(0);
 
-        // todo: currency code
-        // todo: currency name
-        // todo: currency metal type
-        // todo: currency symbol
-        // todo: retry button not exist
+        CurrencyCardAssertions.checkCurrencyCode(currency.getCurrencyCode());
+        CurrencyCardAssertions.checkCurrencyName(currency.getCurrencyName());
+        CurrencyCardAssertions.checkMetalTypeLabel("METAL TYPE:");
+        CurrencyCardAssertions.checkMetalTypeValue(currency.getMetalType());
+        CurrencyCardAssertions.checkCurrencySymbol(currency.getCurrencySymbol());
+        ButtonElementAssertions.checkRetryBtnExistence(false);
     }
 
     @Test
@@ -43,12 +50,10 @@ public class CurrencyInfoTest extends BaseCurrencyTest {
     @Severity(SeverityLevel.NORMAL)
     public void currenciesEmptyResponseTest() {
         PostApiResponseHelper.stubGetCurrencies(Collections.emptyList());
-        //OpenUrl.openCurrenciesPage();
         Selenide.refresh();
 
-        // todo: No Currencies Found
-        // todo: No currency data is currently available
-        // todo: retry button not exist
+        CurrenciesPageAssertions.checkPageTitleText("No Currencies Found");
+        ButtonElementAssertions.checkRetryBtnExistence(false);
     }
 
     @Test
@@ -57,12 +62,12 @@ public class CurrencyInfoTest extends BaseCurrencyTest {
     @Severity(SeverityLevel.NORMAL)
     public void currenciesNotFoundTest() {
         PostApiResponseHelper.stubGetCurrenciesNotFound(Collections.emptyList());
-        //OpenUrl.openCurrenciesPage();
         Selenide.refresh();
 
-        // todo: Failed to Load Currencies
-        // todo: HTTP error! status: 404
-        // todo: retry button visible enabled
+        CurrenciesPageAssertions.checkPageTitleText("Failed to Load Currencies");
+        ButtonElementAssertions.checkRetryBtnExistence(true);
+        ButtonElementAssertions.checkRetryBtnIsVisible();
+        ButtonElementAssertions.checkRetryBtnState(true);
     }
 
     @Test
@@ -71,12 +76,12 @@ public class CurrencyInfoTest extends BaseCurrencyTest {
     @Severity(SeverityLevel.NORMAL)
     public void currenciesServerErrorTest() {
         PostApiResponseHelper.stubGetCurrenciesServerError(Collections.emptyList());
-        //OpenUrl.openCurrenciesPage();
         Selenide.refresh();
 
-        // todo: Failed to Load Currencies
-        // todo: Failed to fetch
-        // todo: retry button visible enabled
+        CurrenciesPageAssertions.checkPageTitleText("Failed to Load Currencies");
+        ButtonElementAssertions.checkRetryBtnExistence(true);
+        ButtonElementAssertions.checkRetryBtnIsVisible();
+        ButtonElementAssertions.checkRetryBtnState(true);
     }
 
 }
