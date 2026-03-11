@@ -5,12 +5,15 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.skopintsev.assertions.UrlAssertions;
 import org.skopintsev.assertions.common.HeaderPanelAssertions;
 import org.skopintsev.models.gui.common.HeaderPanel;
 import org.skopintsev.steps.common.HeaderPanelSteps;
 import org.skopintsev.transport.PostApiResponseHelper;
 
 import java.util.Collections;
+
+import static com.codeborne.selenide.WebDriverRunner.url;
 
 public class HeaderPanelTest extends BaseTest {
 
@@ -19,49 +22,47 @@ public class HeaderPanelTest extends BaseTest {
     @Description("Test checks the display of all the header panel tabs.")
     @Severity(SeverityLevel.BLOCKER)
     public void headerPanelTabsTest() {
-
-        // todo: !!! mock empty stubs for all the requests !!!
-        //  PostApiResponseHelper.stubGetVaults(Collections.emptyList());
-        //  PostApiResponseHelper.stubGetClients(Collections.emptyList());
+        //  todo: PostApiResponseHelper.stubGetVaults(Collections.emptyList());
+        //  todo: PostApiResponseHelper.stubGetClients(Collections.emptyList());
         PostApiResponseHelper.stubGetCurrencies(Collections.emptyList());
-        //  PostApiResponseHelper.stubGetSocialRanks(Collections.emptyList());
-        //  PostApiResponseHelper.stubGetDistricts(Collections.emptyList());
-        //  PostApiResponseHelper.stubGetSectors(Collections.emptyList());
-        //  PostApiResponseHelper.stubGetSubSectors(Collections.emptyList());
+        //  todo: PostApiResponseHelper.stubGetSocialRanks(Collections.emptyList());
+        //  todo: PostApiResponseHelper.stubGetDistricts(Collections.emptyList());
+        //  todo: PostApiResponseHelper.stubGetSectors(Collections.emptyList());
+        //  todo: PostApiResponseHelper.stubGetSubSectors(Collections.emptyList());
 
         // Clients page tab
         HeaderPanelSteps.clickClientsPageBtn();
-        // todo: UrlAssertions.???
+        UrlAssertions.checkClientsUrl(url());
         HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getClientsPageBtn());
         HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getClientsPageBtn());
 
         // Social Ranks page tab
         HeaderPanelSteps.clickSocialRanksPageBtn();
-        // todo: UrlAssertions.???
+        UrlAssertions.checkSocialRanksUrl(url());
         HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getSocialRanksPageBtn());
         HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getSocialRanksPageBtn());
 
         // Districts page tab
         HeaderPanelSteps.clickDistrictsPageBtn();
-        // todo: UrlAssertions.???
+        UrlAssertions.checkDistrictsUrl(url());
         HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getDistrictsPageBtn());
         HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getDistrictsPageBtn());
 
         // Currencies page tab
         HeaderPanelSteps.clickCurrenciesPageBtn();
-        // todo: UrlAssertions.???
+        UrlAssertions.checkCurrenciesUrl(url());
         HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getCurrenciesPageBtn());
         HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getCurrenciesPageBtn());
 
         // Sectors page tab
         HeaderPanelSteps.clickSectorsPageBtn();
-        // todo: UrlAssertions.???
+        UrlAssertions.checkSectorsUrl(url());
         HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getSectorsPageBtn());
         HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getSectorsPageBtn());
 
         // Vaults page tab
         HeaderPanelSteps.clickVaultsPageBtn();
-        // todo: UrlAssertions.???
+        UrlAssertions.checkVaultsUrl(url());
         HeaderPanelAssertions.checkHeaderPanelTabActive(HeaderPanel.getVaultsPageBtn());
         HeaderPanelAssertions.verifyAllOtherTabsInactive(HeaderPanel.getVaultsPageBtn());
     }

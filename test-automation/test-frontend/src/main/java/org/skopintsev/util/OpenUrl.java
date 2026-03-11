@@ -17,6 +17,12 @@ public class OpenUrl {
         WebDriverRunner.getWebDriver().manage().window().maximize();
     }
 
+    @Step("Open vaults page.")
+    public static void openVaultsPage() {
+        Selenide.open(FIRST_CITY_BANK_REACT_URL);
+        LoadingSpinnerSteps.waitingForPageLoading();
+    }
+
     @Step("Open currencies page.")
     public static void openCurrenciesPage() {
         Selenide.open(CURRENCIES_PAGE_URL);
