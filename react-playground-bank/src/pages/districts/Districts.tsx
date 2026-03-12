@@ -138,8 +138,8 @@ function Districts() {
       {isModalOpen && selectedDistrict && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content map-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header" data-testid="modalHeader">
-              <h2>{selectedDistrict.districtName} - Detailed Map</h2>
+            <div className="modal-header">
+              <h2 data-testid="modalHeader">{selectedDistrict.districtName} - Detailed Map</h2>
               <button className="modal-close-btn" data-testid="closeButton" onClick={closeModal}>✕</button>
             </div>
             
@@ -150,6 +150,7 @@ function Districts() {
                     src={getMapImagePath(selectedDistrict.districtCode)}
                     alt={`Detailed map of ${selectedDistrict.districtName}`}
                     className="detailed-map"
+                    data-testid="districtMapImg"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
@@ -160,8 +161,8 @@ function Districts() {
                   <div className="map-fallback" style={{display: 'none'}}>
                     <div className="fallback-content">
                       <span className="fallback-icon">🗺️</span>
-                      <h3>MAP UNAVAILABLE</h3>
-                      <p>Cartographic data for {selectedDistrict.districtName} is currently classified</p>
+                      <h3 data-testid="mapBanner">MAP UNAVAILABLE</h3>
+                      <p  data-testid="mapDescription">Cartographic data for {selectedDistrict.districtName} is currently classified</p>
                     </div>
                   </div>
                 </div>

@@ -509,8 +509,8 @@ function Vault() {
       {isModalOpen && currentVault && currentOperation && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content vault-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header" data-testid="modalHeader">
-              <h2>
+            <div className="modal-header">
+              <h2 data-testid="modalHeader">
                 {currentOperation === 'INSERT' ? 'Deposit to ' : 'Withdraw from '}
                 Vault {currentVault.vaultCode}
               </h2>

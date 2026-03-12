@@ -21,5 +21,4 @@ public class DistrictsPageAssertions {
         DistrictsPage.getDistrictsCountValue().shouldBe(Condition.visible)
                 .shouldHave(Condition.text(String.valueOf(count)));
     }
-
 }

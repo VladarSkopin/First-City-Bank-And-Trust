@@ -14,7 +14,7 @@ public class ModalWindowAssertions {
     }
 
     @Step("Check the modal window body has width at least '{0}' pixels.")
-    public static void checkModalBodyWidth(int expectedMinWidth) {
+    public static void checkModalBodyMinWidth(int expectedMinWidth) {
         SelenideElement modalBody = ModalWindow.getModalBody();
         modalBody.shouldBe(Condition.visible);
         int actualWidth = modalBody.getSize().getWidth();
@@ -22,7 +22,7 @@ public class ModalWindowAssertions {
     }
 
     @Step("Check the modal window body has height at least '{0}' pixels.")
-    public static void checkModalBodyHeight(int expectedMinHeight) {
+    public static void checkModalBodyMinHeight(int expectedMinHeight) {
         SelenideElement modalBody = ModalWindow.getModalBody();
         modalBody.shouldBe(Condition.visible);
         int actualHeight = modalBody.getSize().getHeight();

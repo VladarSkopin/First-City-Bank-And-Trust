@@ -215,8 +215,8 @@ function Sectors() {
       {isModalOpen && selectedSubSector && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header" data-testid="modalHeader">
-              <h2>{selectedSubSector.subSectorName} Description</h2>
+            <div className="modal-header">
+              <h2 data-testid="modalHeader">{selectedSubSector.subSectorName} Description</h2>
               <button className="modal-close-btn" data-testid="closeButton" onClick={closeModal}>✕</button>
             </div>
             

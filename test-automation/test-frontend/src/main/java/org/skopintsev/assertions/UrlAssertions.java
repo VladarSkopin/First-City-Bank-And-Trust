@@ -35,5 +35,4 @@ public class UrlAssertions {
     public static void checkSectorsUrl(String url) {
         Assertions.assertThat(url).isEqualTo(Constants.SECTORS_PAGE_URL);
     }
-
 }
