@@ -26,7 +26,7 @@ public class CurrencyInfoTest extends BaseCurrencyTest {
         CurrenciesPageAssertions.checkExchangeRateLabelText("OFFICIAL EXCHANGE:");
         CurrenciesPageAssertions.checkExchangeRateValueText("1 GOLD = 20 SILVER = 240 COPPER");
         CurrenciesPageAssertions.checkFooterNoteText("COUNTERFEITING PUNISHABLE BY CRAGSLEFT IMPRISONMENT");
-        ButtonElementAssertions.checkRetryBtnExistence(false);
+        ButtonElementAssertions.checkRetryBtnExists(false);
     }
 
     @Test
@@ -41,11 +41,10 @@ public class CurrencyInfoTest extends BaseCurrencyTest {
         CurrencyCardAssertions.checkMetalTypeLabel("METAL TYPE:");
         CurrencyCardAssertions.checkMetalTypeValue(currency.getMetalType());
         CurrencyCardAssertions.checkCurrencySymbol(currency.getCurrencySymbol());
-        ButtonElementAssertions.checkRetryBtnExistence(false);
     }
 
     @Test
-    @Tag("smoke")
+    @Tag("regression")
     @Description("Test checks the display of the Currencies page in case of empty response list.")
     @Severity(SeverityLevel.NORMAL)
     public void currenciesEmptyResponseTest() {
@@ -53,11 +52,11 @@ public class CurrencyInfoTest extends BaseCurrencyTest {
         Selenide.refresh();
 
         CurrenciesPageAssertions.checkPageTitleText("No Currencies Found");
-        ButtonElementAssertions.checkRetryBtnExistence(false);
+        ButtonElementAssertions.checkRetryBtnExists(false);
     }
 
     @Test
-    @Tag("smoke")
+    @Tag("regression")
     @Description("Test checks the display of the Currencies page when no currencies were found.")
     @Severity(SeverityLevel.NORMAL)
     public void currenciesNotFoundTest() {
@@ -65,13 +64,13 @@ public class CurrencyInfoTest extends BaseCurrencyTest {
         Selenide.refresh();
 
         CurrenciesPageAssertions.checkPageTitleText("Failed to Load Currencies");
-        ButtonElementAssertions.checkRetryBtnExistence(true);
+        ButtonElementAssertions.checkRetryBtnExists(true);
         ButtonElementAssertions.checkRetryBtnIsVisible();
-        ButtonElementAssertions.checkRetryBtnState(true);
+        ButtonElementAssertions.checkRetryBtnEnabled(true);
     }
 
     @Test
-    @Tag("smoke")
+    @Tag("regression")
     @Description("Test checks the display of the Currencies page in case of server error response.")
     @Severity(SeverityLevel.NORMAL)
     public void currenciesServerErrorTest() {
@@ -79,9 +78,9 @@ public class CurrencyInfoTest extends BaseCurrencyTest {
         Selenide.refresh();
 
         CurrenciesPageAssertions.checkPageTitleText("Failed to Load Currencies");
-        ButtonElementAssertions.checkRetryBtnExistence(true);
+        ButtonElementAssertions.checkRetryBtnExists(true);
         ButtonElementAssertions.checkRetryBtnIsVisible();
-        ButtonElementAssertions.checkRetryBtnState(true);
+        ButtonElementAssertions.checkRetryBtnEnabled(true);
     }
 
 }

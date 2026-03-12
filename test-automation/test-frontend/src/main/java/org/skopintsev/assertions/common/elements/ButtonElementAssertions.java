@@ -24,22 +24,22 @@ public class ButtonElementAssertions {
     }
 
     @Step("Check that 'Retry' button should exist = '{0}'.")
-    public static void checkRetryBtnExistence(boolean shouldExist) {
+    public static void checkRetryBtnExists(boolean shouldExist) {
         ButtonElement.getRetryBtn().shouldBe(shouldExist ? Condition.exist : not(Condition.exist));
     }
 
     @Step("Check that 'Retry' button is enabled = '{0}'.")
-    public static void checkRetryBtnState(boolean shouldBeEnabled) {
+    public static void checkRetryBtnEnabled(boolean shouldBeEnabled) {
         ButtonElement.getRetryBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }
 
     @Step("Check that 'Ok' button is enabled = '{0}'.")
-    public static void checkOkBtnState(boolean shouldBeEnabled) {
+    public static void checkOkBtnEnabled(boolean shouldBeEnabled) {
         ButtonElement.getOkBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }
 
     @Step("Check that cross '[X]' button is enabled = '{0}'.")
-    public static void checkCrossCloseBtnState(boolean shouldBeEnabled) {
+    public static void checkCrossCloseBtnEnabled(boolean shouldBeEnabled) {
         ButtonElement.getCrossCloseBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }
 

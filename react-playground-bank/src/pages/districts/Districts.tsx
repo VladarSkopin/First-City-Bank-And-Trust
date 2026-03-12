@@ -77,7 +77,7 @@ function Districts() {
       <div className="districts-container">
         <div className="error-state">
           <div className="error-icon">⚠️</div>
-          <h2>Failed to Load Districts</h2>
+          <h2 data-testid="pageTitle">Failed to Load Districts</h2>
           <p>{error}</p>
           <button 
             className="retry-btn" data-testid="retryBtn"
@@ -97,7 +97,7 @@ function Districts() {
       <div className="districts-container">
         <div className="empty-state">
           <div className="empty-icon">🏙️</div>
-          <h3>No Districts Found</h3>
+          <h3 data-testid="pageTitle">No Districts Found</h3>
           <p>No district data is currently available</p>
         </div>
       </div>
