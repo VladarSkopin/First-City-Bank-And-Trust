@@ -6,6 +6,14 @@ public class Constants {
 
     public static final String CURRENCIES_PAGE_URL = FIRST_CITY_BANK_REACT_URL + "/currencies";
 
+    public static final String DISTRICTS_PAGE_URL = FIRST_CITY_BANK_REACT_URL + "/districts";
+
+    public static final String CLIENTS_PAGE_URL = FIRST_CITY_BANK_REACT_URL + "/clients";
+
+    public static final String SOCIAL_RANKS_PAGE_URL = FIRST_CITY_BANK_REACT_URL + "/socialranks";
+
+    public static final String SECTORS_PAGE_URL = FIRST_CITY_BANK_REACT_URL + "/sectors";
+
 
     // HTTP status codes
 

@@ -77,7 +77,7 @@ function Districts() {
       <div className="districts-container">
         <div className="error-state">
           <div className="error-icon">⚠️</div>
-          <h2>Failed to Load Districts</h2>
+          <h2 data-testid="pageTitle">Failed to Load Districts</h2>
           <p>{error}</p>
           <button 
             className="retry-btn" data-testid="retryBtn"
@@ -97,7 +97,7 @@ function Districts() {
       <div className="districts-container">
         <div className="empty-state">
           <div className="empty-icon">🏙️</div>
-          <h3>No Districts Found</h3>
+          <h3 data-testid="pageTitle">No Districts Found</h3>
           <p>No district data is currently available</p>
         </div>
       </div>
@@ -107,12 +107,12 @@ function Districts() {
 
   return (
     <div className="districts-container">
-      <h1 className="page-title">City Districts</h1>
+      <h1 className="page-title" data-testid="pageTitle">City Districts</h1>
 
       <div className="districts-info">
         <div className="districts-count">
-          <span className="count-label">TOTAL DISTRICTS: </span>
-          <span className="count-value">{districts.length}</span>
+          <span className="count-label" data-testid="countLabel">TOTAL DISTRICTS: </span>
+          <span className="count-value" data-testid="countValue">{districts.length}</span>
         </div>
       </div>
 
@@ -121,13 +121,13 @@ function Districts() {
           <div key={district.districtCode} className="district-card">
             <div className="district-header">
               <div className="district-info">
-                <h2>{district.districtName}</h2>
-                <span className="district-code">{district.districtCode}</span>
+                <h2 data-testid="districtName">{district.districtName}</h2>
+                <span className="district-code" data-testid="districtCode">{district.districtCode}</span>
               </div>
             </div>
             
             <div className="district-footer">
-              <button className="district-map-btn" 
+              <button className="district-map-btn" data-testid="detailedMapButton"
               onClick={() => handleViewMap(district)}>DETAILED MAP</button>
             </div>
           </div>
@@ -138,8 +138,8 @@ function Districts() {
       {isModalOpen && selectedDistrict && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content map-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header" data-testid="modalHeader">
-              <h2>{selectedDistrict.districtName} - Detailed Map</h2>
+            <div className="modal-header">
+              <h2 data-testid="modalHeader">{selectedDistrict.districtName} - Detailed Map</h2>
               <button className="modal-close-btn" data-testid="closeButton" onClick={closeModal}>✕</button>
             </div>
             
@@ -150,6 +150,7 @@ function Districts() {
                     src={getMapImagePath(selectedDistrict.districtCode)}
                     alt={`Detailed map of ${selectedDistrict.districtName}`}
                     className="detailed-map"
+                    data-testid="districtMapImg"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
@@ -160,8 +161,8 @@ function Districts() {
                   <div className="map-fallback" style={{display: 'none'}}>
                     <div className="fallback-content">
                       <span className="fallback-icon">🗺️</span>
-                      <h3>MAP UNAVAILABLE</h3>
-                      <p>Cartographic data for {selectedDistrict.districtName} is currently classified</p>
+                      <h3 data-testid="mapBanner">MAP UNAVAILABLE</h3>
+                      <p  data-testid="mapDescription">Cartographic data for {selectedDistrict.districtName} is currently classified</p>
                     </div>
                   </div>
                 </div>

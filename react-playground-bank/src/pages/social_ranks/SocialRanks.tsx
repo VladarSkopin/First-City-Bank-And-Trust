@@ -189,8 +189,8 @@ return (
       {isModalOpen && selectedRank && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header" data-testid="modalHeader">
-              <h2>{selectedRank.rankName} Regulations</h2>
+            <div className="modal-header">
+              <h2 data-testid="modalHeader">{selectedRank.rankName} Regulations</h2>
               <button className="modal-close-btn" data-testid="closeButton" onClick={closeModal}>✕</button>
             </div>
             

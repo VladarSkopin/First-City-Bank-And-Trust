@@ -8,9 +8,19 @@ import static com.codeborne.selenide.Condition.not;
 
 public class ButtonElementAssertions {
 
+    @Step("Check that 'Retry' button should exist = '{0}'.")
+    public static void checkRetryBtnExists(boolean shouldExist) {
+        ButtonElement.getRetryBtn().shouldBe(shouldExist ? Condition.exist : not(Condition.exist));
+    }
+
     @Step("Check that 'Retry' button is visible.")
     public static void checkRetryBtnIsVisible() {
         ButtonElement.getRetryBtn().shouldBe(Condition.visible);
+    }
+
+    @Step("Check that 'Retry' button is enabled = '{0}'.")
+    public static void checkRetryBtnEnabled(boolean shouldBeEnabled) {
+        ButtonElement.getRetryBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }
 
     @Step("Check that 'Ok' button is visible.")
@@ -18,29 +28,18 @@ public class ButtonElementAssertions {
         ButtonElement.getOkBtn().shouldBe(Condition.visible);
     }
 
+    @Step("Check that 'Ok' button is enabled = '{0}'.")
+    public static void checkOkBtnEnabled(boolean shouldBeEnabled) {
+        ButtonElement.getOkBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
+    }
+
     @Step("Check that cross '[X]' button is visible.")
     public static void checkCrossCloseBtnIsVisible() {
         ButtonElement.getCrossCloseBtn().shouldBe(Condition.visible);
     }
 
-    @Step("Check that 'Retry' button should exist = '{0}'.")
-    public static void checkRetryBtnExistence(boolean shouldExist) {
-        ButtonElement.getRetryBtn().shouldBe(shouldExist ? Condition.exist : not(Condition.exist));
-    }
-
-    @Step("Check that 'Retry' button is enabled = '{0}'.")
-    public static void checkRetryBtnState(boolean shouldBeEnabled) {
-        ButtonElement.getRetryBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
-    }
-
-    @Step("Check that 'Ok' button is enabled = '{0}'.")
-    public static void checkOkBtnState(boolean shouldBeEnabled) {
-        ButtonElement.getOkBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
-    }
-
     @Step("Check that cross '[X]' button is enabled = '{0}'.")
-    public static void checkCrossCloseBtnState(boolean shouldBeEnabled) {
+    public static void checkCrossCloseBtnEnabled(boolean shouldBeEnabled) {
         ButtonElement.getCrossCloseBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }
-
 }
