@@ -25,7 +25,7 @@ public class HeaderPanelTest extends BaseTest {
         //  todo: PostApiResponseHelper.stubGetVaults(Collections.emptyList());
         //  todo: PostApiResponseHelper.stubGetClients(Collections.emptyList());
         PostApiResponseHelper.stubGetCurrencies(Collections.emptyList());
-        //  todo: PostApiResponseHelper.stubGetSocialRanks(Collections.emptyList());
+        PostApiResponseHelper.stubGetSocialRanks(Collections.emptyList());
         PostApiResponseHelper.stubGetDistricts(Collections.emptyList());
         //  todo: PostApiResponseHelper.stubGetSectors(Collections.emptyList());
         //  todo: PostApiResponseHelper.stubGetSubSectors(Collections.emptyList());
