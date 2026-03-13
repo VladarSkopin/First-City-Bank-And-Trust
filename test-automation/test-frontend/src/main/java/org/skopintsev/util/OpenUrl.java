@@ -34,4 +34,10 @@ public class OpenUrl {
         Selenide.open(DISTRICTS_PAGE_URL);
         LoadingSpinnerSteps.waitingForPageLoading();
     }
+
+    @Step("Open social ranks page.")
+    public static void openSocialRanksPage() {
+        Selenide.open(SOCIAL_RANKS_PAGE_URL);
+        LoadingSpinnerSteps.waitingForPageLoading();
+    }
 }
