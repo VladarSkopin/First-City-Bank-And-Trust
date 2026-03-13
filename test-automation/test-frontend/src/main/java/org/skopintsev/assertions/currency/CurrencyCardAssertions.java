@@ -7,7 +7,7 @@ import org.skopintsev.models.gui.currencies.CurrencyCard;
 public class CurrencyCardAssertions {
 
     @Step("Check currency code is displayed with text '{0}'.")
-    public static void checkCurrencyCode(String currencyCode) {
+    public static void checkCurrencyCodeText(String currencyCode) {
         CurrencyCard.getCurrencyCode().shouldBe(Condition.visible).shouldHave(Condition.text(currencyCode));
     }
 
@@ -17,12 +17,12 @@ public class CurrencyCardAssertions {
     }
 
     @Step("Check metal type label is displayed with text '{0}'.")
-    public static void checkMetalTypeLabel(String metalTypeLabel) {
+    public static void checkMetalTypeLabelText(String metalTypeLabel) {
         CurrencyCard.getCurrencyMetalTypeLabel().shouldBe(Condition.visible).shouldHave(Condition.text(metalTypeLabel));
     }
 
     @Step("Check metal type value is displayed with text '{0}'.")
-    public static void checkMetalTypeValue(String metalTypeValue) {
+    public static void checkMetalTypeValueText(String metalTypeValue) {
         CurrencyCard.getCurrencyMetalTypeValue().shouldBe(Condition.visible).shouldHave(Condition.text(metalTypeValue));
     }
 
