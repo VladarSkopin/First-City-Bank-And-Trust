@@ -30,6 +30,7 @@ public class BaseSearchVaultsTest {
     final String BASE_SECTOR_CODE = GeneratorBuilder.generateTestCode();
     static final String BASE_SUB_SECTOR_CODE = GeneratorBuilder.generateTestCode();
     static final String BASE_CLIENT_CODE = GeneratorBuilder.generateTestCode();
+    final String BASE_CLIENT_NAME = GeneratorBuilder.generateString(10);
     static final String BASE_CURRENCY_CODE = GeneratorBuilder.generateTestCode();
 
     final ClientTypeDb newClientTypeDb = ClientTypeDb.builder()
@@ -56,7 +57,7 @@ public class BaseSearchVaultsTest {
     final ClientDb clientDb = ClientDb.builder()
             .clientCode(BASE_CLIENT_CODE)
             .clientTypeCode(BASE_CLIENT_TYPE_CODE)
-            .nameOrTitle(GeneratorBuilder.generateString(10))
+            .nameOrTitle(BASE_CLIENT_NAME)
             .socialRankCode(BASE_SOCIAL_RANK_CODE)
             .subSectorCode(BASE_SUB_SECTOR_CODE)
             .build();

@@ -207,7 +207,7 @@ function Clients() {
     return (
       <div className="clients-container">
         <div className="loading-state">
-          <div className="loading-spinner"></div>
+          <div className="loading-spinner" data-testid="loading-spinner"></div>
           <h2>Loading Clients</h2>
           <p>Initializing banking records... ({loadedItems}/{totalItems})</p>
           <div className="loading-progress">
@@ -232,7 +232,7 @@ function Clients() {
           <h2>Failed to Load Clients</h2>
           <p>{error}</p>
           <button 
-            className="retry-btn" 
+            className="retry-btn" data-testid="retryBtn"
             onClick={() => window.location.reload()}
           >
             RETRY

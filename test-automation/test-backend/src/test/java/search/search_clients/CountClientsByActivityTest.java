@@ -19,7 +19,6 @@ import static org.skopintsev.constants.Constants.SC_OK;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CountClientsByActivityTest extends BaseSearchClientsTest {
 
     @BeforeEach

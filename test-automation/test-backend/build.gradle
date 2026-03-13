@@ -44,8 +44,11 @@ dependencies {
     // Allure dependencies - CRITICAL for reporting
     testImplementation 'io.qameta.allure:allure-junit5:2.24.0'
 
+    // Lombok
     testCompileOnly 'org.projectlombok:lombok:1.18.30'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    // Hamcrest
     testImplementation 'org.hamcrest:hamcrest:2.2'
 
     // PostgreSQL JDBC Driver
@@ -57,8 +60,9 @@ dependencies {
 
     // AssertJ for fluent assertions
     implementation 'org.assertj:assertj-core:3.24.2'
-    // Optional but useful
-    implementation 'org.awaitility:awaitility:4.2.0'  // For async assertions
+
+    // Awaitility for async assertions
+    implementation 'org.awaitility:awaitility:4.2.0'
 }
 
 test {

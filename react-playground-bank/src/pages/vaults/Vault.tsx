@@ -331,7 +331,7 @@ function Vault() {
     return (
       <div className="vaults-container">
         <div className="loading-state">
-          <div className="loading-spinner"></div>
+          <div className="loading-spinner" data-testid="loading-spinner"></div>
           <h2>Loading Vault</h2>
           <p>Initializing vault access protocols... ({loadedItems}/{totalItems})</p>
           <div className="loading-progress">
@@ -364,7 +364,7 @@ function Vault() {
           )}
           
           <button 
-            className="retry-btn"
+            className="retry-btn" data-testid="retryBtn"
             onClick={() => window.location.reload()}
           >
             RETRY
@@ -510,14 +510,14 @@ function Vault() {
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content vault-modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>
+              <h2 data-testid="modalHeader">
                 {currentOperation === 'INSERT' ? 'Deposit to ' : 'Withdraw from '}
                 Vault {currentVault.vaultCode}
               </h2>
-              <button className="modal-close-btn" onClick={closeModal}>✕</button>
+              <button className="modal-close-btn" data-testid="closeButton" onClick={closeModal}>✕</button>
             </div>
             
-            <div className="modal-body">
+            <div className="modal-body" data-testid="modalBody">
               <div className="vault-info-summary">
                 <div className="info-row">
                   <span>Client:</span>
