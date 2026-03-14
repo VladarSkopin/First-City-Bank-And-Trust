@@ -36,7 +36,7 @@ public class DistrictInfoTest extends BaseDistrictTest {
 
         DistrictCardAssertions.checkDistrictName(district.getDistrictName());
         DistrictCardAssertions.checkDistrictCode(district.getDistrictCode());
-        DistrictCardAssertions.checkDDetailedMapBtnEnabled();
+        DistrictCardAssertions.checkDetailedMapBtnEnabled();
         DistrictCardAssertions.checkDetailedMapBtnText("DETAILED MAP");
     }
 

@@ -102,7 +102,7 @@ const closeModal = () => {
       <div className="social-ranks-container">
         <div className="error-state">
           <div className="error-icon">⚠️</div>
-          <h2>Failed to Load Social Ranks</h2>
+          <h2 data-testid="pageTitle">Failed to Load Social Ranks</h2>
           <p>{error}</p>
           <button 
             className="retry-btn" data-testid="retryBtn"
@@ -122,7 +122,7 @@ const closeModal = () => {
       <div className="social-ranks-container">
         <div className="empty-state">
           <div className="empty-icon">📜</div>
-          <h3>No Social Ranks Found</h3>
+          <h3 data-testid="pageTitle">No Social Ranks Found</h3>
           <p>No data about social ranks is currently available</p>
         </div>
       </div>
@@ -132,13 +132,13 @@ const closeModal = () => {
 
 return (
     <div className="social-ranks-container">
-      <h1 className="page-title">Social Ranks</h1>
+      <h1 className="page-title" data-testid="pageTitle">Social Ranks</h1>
 
             
       <div className="ranks-stats">
         <div className="stats-item">
-          <span className="stats-label">TOTAL RANKS: </span>
-          <span className="stats-value">{socialRanks.length}</span>
+          <span className="stats-label" data-testid="countLabel">TOTAL RANKS: </span>
+          <span className="stats-value" data-testid="countValue">{socialRanks.length}</span>
         </div>
       </div>
       
@@ -150,24 +150,24 @@ return (
                 {getRankIcon(rank.rankName)}
               </div>
               <div className="rank-title">
-                <h2>{rank.rankName}</h2>
-                <span className="rank-code">{rank.rankCode}</span>
+                <h2 data-testid="rankName">{rank.rankName}</h2>
+                <span className="rank-code" data-testid="rankCode">{rank.rankCode}</span>
               </div>
             </div>
             
             <div className="rank-body">
-              <p className="rank-description">{rank.description}</p>
+              <p className="rank-description" data-testid="rankDescription">{rank.description}</p>
               
               <div className="privilege-info">
                 <div className="info-item">
-                  <span className="info-label">PRIVILEGE LEVEL:</span>
-                  <span className="info-value">
+                  <span className="info-label" data-testid="privilegeLabel">PRIVILEGE LEVEL:</span>
+                  <span className="info-value" data-testid="privilegeValue">
                     {rank.privilegeLevel}
                   </span>
                 </div>
                 <div className="info-item">
-                  <span className="info-label">ACCESS RIGHTS:</span>
-                  <span className="info-value">
+                  <span className="info-label" data-testid="accessRightsLabel">ACCESS RIGHTS:</span>
+                  <span className="info-value" data-testid="accessRightsValue">
                     {getAccessLevel(rank.privilegeLevel)}
                   </span>
                 </div>
@@ -176,7 +176,7 @@ return (
             </div>
             
             <div className="rank-footer">
-              <button className="view-regulations-btn" 
+              <button className="view-regulations-btn" data-testid="viewRegulationsBtn" 
               onClick={() => handleViewRegulations(rank)}>VIEW REGULATIONS</button>
             </div>
           </div>
@@ -197,18 +197,18 @@ return (
             <div className="modal-body" data-testid="modalBody">
               <div className="regulation-info">
                 <div className="regulation-meta">
-                  <span className="regulation-code">CODE: {selectedRank.rankCode}</span>
-                  <span className="regulation-level">PRIVILEGE LEVEL: {selectedRank.privilegeLevel}</span>
+                  <span className="regulation-code" data-testid="regulationCode">CODE: {selectedRank.rankCode}</span>
+                  <span className="regulation-level" data-testid="regulationLevel">PRIVILEGE LEVEL: {selectedRank.privilegeLevel}</span>
                 </div>
                 
                 <div className="regulation-text">
-                  <p>{selectedRank.regulations}</p>
+                  <p data-testid="regulationDescription">{selectedRank.regulations}</p>
                 </div>
                 
                 <div className="regulation-footer">
                   <div className="seal-of-approval">
                     <span className="seal-icon">⚖️</span>
-                    <span>APPROVED BY CITY COUNCIL</span>
+                    <span data-testid="sealBanner">APPROVED BY CITY COUNCIL</span>
                   </div>
                 </div>
               </div>

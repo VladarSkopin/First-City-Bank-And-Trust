@@ -15,6 +15,7 @@ import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.skopintsev.models.api.Currency;
 import org.skopintsev.models.api.District;
+import org.skopintsev.models.api.SocialRank;
 import org.skopintsev.util.LocalDateAdapter;
 
 
@@ -22,8 +23,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
-import static org.skopintsev.constants.Api.CURRENCIES;
-import static org.skopintsev.constants.Api.DISTRICTS;
+import static org.skopintsev.constants.Api.*;
 import static org.skopintsev.constants.Constants.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -123,6 +123,21 @@ public class PostApiResponseHelper {
     @Step("POST /__admin/mappings: response for " + DISTRICTS)
     public static void stubGetDistrictsServerError(List<District> districtsList) {
         stubGetServerErrorApi(DISTRICTS, districtsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + SOCIAL_RANKS)
+    public static void stubGetSocialRanks(List<SocialRank> socialRanksList) {
+        stubGetDefaultApi(SOCIAL_RANKS, socialRanksList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + SOCIAL_RANKS)
+    public static void stubGetSocialRanksNotFound(List<SocialRank> socialRanksList) {
+        stubGetNotFoundApi(SOCIAL_RANKS, socialRanksList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + SOCIAL_RANKS)
+    public static void stubGetSocialRanksServerError(List<SocialRank> socialRanksList) {
+        stubGetServerErrorApi(SOCIAL_RANKS, socialRanksList);
     }
 
 }

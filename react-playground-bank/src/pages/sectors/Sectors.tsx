@@ -133,7 +133,7 @@ function Sectors() {
       <div className="sectors-container">
         <div className="error-state">
           <div className="error-icon">⚠️</div>
-          <h2>Failed to Load Sectors</h2>
+          <h2 data-testid="pageTitle">Failed to Load Sectors</h2>
           <p>{error}</p>
           <button 
             className="retry-btn" data-testid="retryBtn"
@@ -154,7 +154,7 @@ function Sectors() {
       <div className="sectors-container">
         <div className="empty-state">
           <div className="empty-icon">📊</div>
-          <h3>No Sectors Found</h3>
+          <h3 data-testid="pageTitle">No Sectors Found</h3>
           <p>No Sectors data is currently available</p>
         </div>
       </div>
@@ -164,17 +164,17 @@ function Sectors() {
 
     return (
         <div className="sectors-container">
-            <h1 className="page-title">Economic Sub-Sectors</h1>
+            <h1 className="page-title" data-testid="pageTitle">Economic Sub-Sectors</h1>
             
             {/* Stats bar */}
             <div className="sectors-stats">
                 <div className="stat-item">
-                <span className="count-label">TOTAL SUB-SECTORS: </span>
-                <span className="count-value">{subSectors.length}</span>
+                <span className="count-label" data-testid="countLabelSubSectors">TOTAL SUB-SECTORS: </span>
+                <span className="count-value" data-testid="countValueSubSectors">{subSectors.length}</span>
                 </div>
                 <div className="stat-item">
-                <span className="count-label">TOTAL SECTORS: </span>
-                <span className="count-value">{sectors.length}</span>
+                <span className="count-label" data-testid="countLabelSectors">TOTAL SECTORS: </span>
+                <span className="count-value" data-testid="countValueSectors">{sectors.length}</span>
                 </div>
             </div>
             
