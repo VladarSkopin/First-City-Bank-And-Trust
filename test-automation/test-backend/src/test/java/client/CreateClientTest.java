@@ -21,7 +21,7 @@ import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.Client;
 import org.skopintsev.model.factory.ClientApiFactory;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.ClientsApiClient;
 
 import java.util.stream.Stream;
 
@@ -46,10 +46,10 @@ public class CreateClientTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_OK);
+        ClientsApiClient.saveClientAndValidate(client, SC_OK);
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        PostApiReqHelper.saveClientAndValidate(client, SC_SERVER_ERROR);
+        ClientsApiClient.saveClientAndValidate(client, SC_SERVER_ERROR);
         int clientsCountNew = ClientDbHelper.getClientsCount();
         CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld);
     }
@@ -76,7 +76,7 @@ public class CreateClientTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_SERVER_ERROR);
+        ClientsApiClient.saveClientAndValidate(client, SC_SERVER_ERROR);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
         CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld);
@@ -104,7 +104,7 @@ public class CreateClientTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_OK);
+        ClientsApiClient.saveClientAndValidate(client, SC_OK);
 
         ClientDb clientDb = ClientDbHelper.selectClientByCode(clientCodeTrimmedUppercase);
         ClientDbAssertions.checkClientPresence(clientDb, true);
@@ -137,7 +137,7 @@ public class CreateClientTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_SERVER_ERROR);
+        ClientsApiClient.saveClientAndValidate(client, SC_SERVER_ERROR);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
         CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld);
@@ -165,7 +165,7 @@ public class CreateClientTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_SERVER_ERROR);
+        ClientsApiClient.saveClientAndValidate(client, SC_SERVER_ERROR);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
         CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld);
@@ -188,7 +188,7 @@ public class CreateClientTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_OK);
+        ClientsApiClient.saveClientAndValidate(client, SC_OK);
 
         ClientDb clientDb = ClientDbHelper.selectClientByCode(client.getClientCode());
         ClientDbAssertions.checkClientPresence(clientDb, true);

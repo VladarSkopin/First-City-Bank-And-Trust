@@ -15,8 +15,7 @@ import org.skopintsev.database.sectors.subsectors.SubSectorDb;
 import org.skopintsev.database.sectors.subsectors.SubSectorDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.sectors.SubSector;
-import org.skopintsev.transport.GetApiReqHelper;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.SectorsApiClient;
 
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class BasicSubSectorTest extends BaseSubSectorTest {
         int rowsInserted = SubSectorDbHelper.insertSubSector(subSectorDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        List<SubSector> subSectors = GetApiReqHelper.getSubSectorsAndValidate(SC_OK);
+        List<SubSector> subSectors = SectorsApiClient.getSubSectorsAndValidate(SC_OK);
         SubSectorApiAssertions.checkNotNullSubSectors(subSectors);
 
         SubSector newAddedSubSector = subSectors
@@ -71,9 +70,9 @@ public class BasicSubSectorTest extends BaseSubSectorTest {
                 .subSectorName(SUB_SECTOR_NAME)
                 .description(SUB_SECTOR_DESCRIPTION)
                 .build();
-        PostApiReqHelper.saveSubSectorAndValidate(subSector, SC_OK);
+        SectorsApiClient.saveSubSectorAndValidate(subSector, SC_OK);
 
-        List<SubSector> subSectors = GetApiReqHelper.getSubSectorsAndValidate(SC_OK);
+        List<SubSector> subSectors = SectorsApiClient.getSubSectorsAndValidate(SC_OK);
         SubSectorApiAssertions.checkNotNullSubSectors(subSectors);
 
         SubSectorDb subSectorDb = SubSectorDbHelper.selectSubSectorByCode(SUB_SECTOR_CODE);

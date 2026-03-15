@@ -15,7 +15,7 @@ import org.skopintsev.database.factory.VaultDbFactory;
 import org.skopintsev.database.vaults.VaultDb;
 import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.transport.DeleteApiReqHelper;
+import org.skopintsev.transport.api.VaultsApiClient;
 
 import java.math.BigInteger;
 import java.util.stream.Stream;
@@ -48,7 +48,7 @@ public class DeleteVaultTest extends BaseVaultTest {
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
         String vaultCode = vaultDb.getVaultCode();
-        DeleteApiReqHelper.deleteVaultAndValidate(vaultCode, SC_OK);
+        VaultsApiClient.deleteVaultAndValidate(vaultCode, SC_OK);
 
         vaultDb = VaultDbHelper.selectVaultByCode(vaultCode);
         VaultDbAssertions.checkVaultPresence(vaultDb, false);
@@ -72,7 +72,7 @@ public class DeleteVaultTest extends BaseVaultTest {
     public void deleteVaultNegativeTest(String vaultCode) {
         int vaultCountOld = VaultDbHelper.getVaultsCount();
 
-        DeleteApiReqHelper.deleteVaultAndValidate(vaultCode, SC_NOT_FOUND);
+        VaultsApiClient.deleteVaultAndValidate(vaultCode, SC_NOT_FOUND);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
         CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld);
@@ -93,7 +93,7 @@ public class DeleteVaultTest extends BaseVaultTest {
         int rowsInserted = VaultDbHelper.insertVault(vaultDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        DeleteApiReqHelper.deleteVaultAndValidate(vaultDb.getVaultCode(), SC_SERVER_ERROR);
+        VaultsApiClient.deleteVaultAndValidate(vaultDb.getVaultCode(), SC_SERVER_ERROR);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
         CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);
@@ -114,7 +114,7 @@ public class DeleteVaultTest extends BaseVaultTest {
         int rowsInserted = VaultDbHelper.insertVault(vaultDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        DeleteApiReqHelper.deleteVaultAndValidate(vaultDb.getVaultCode(), SC_SERVER_ERROR);
+        VaultsApiClient.deleteVaultAndValidate(vaultDb.getVaultCode(), SC_SERVER_ERROR);
 
         int vaultCountNew = VaultDbHelper.getVaultsCount();
         CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld + 1);

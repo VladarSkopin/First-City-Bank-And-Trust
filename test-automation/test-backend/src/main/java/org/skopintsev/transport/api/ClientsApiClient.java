@@ -34,4 +34,24 @@ public class ClientsApiClient {
         response.then().statusCode(expectedStatusCode);
     }
 
+    @Step("GET " + Api.CLIENTS + " with expected status code {0}")
+    public static List<Client> getClientsAndValidate(int expectedStatusCode) {
+        Response response = CommonApiReqHelper.getRequest(Api.CLIENTS);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(new TypeRef<List<Client>>() {});
+    }
+
+    @Step("POST " + Api.CLIENTS + " with expected status code {1}")
+    public static void saveClientAndValidate(Client client, int expectedStatusCode) {
+        Response response = postApiReq(client, Api.CLIENTS);
+        response.then().statusCode(expectedStatusCode);
+    }
+
+    @Step("DELETE " + Api.CLIENTS + " with expected status code {1}")
+    public static void deleteClientAndValidate(String clientCode, int expectedStatusCode) {
+        Response response = CommonApiReqHelper.deleteRequest(Api.CLIENTS, clientCode);
+        response.then().statusCode(expectedStatusCode);
+    }
+
 }

@@ -38,29 +38,29 @@ public class PostApiReqHelper {
 //        response.then().statusCode(expectedStatusCode);
 //    }
 
-    @Step("POST " + Api.SECTORS + " with expected status code {1}")
-    public static void saveSectorAndValidate(Sector sector, int expectedStatusCode) {
-        Response response = postApiReq(sector, Api.SECTORS);
-        response.then().statusCode(expectedStatusCode);
-    }
+//    @Step("POST " + Api.SECTORS + " with expected status code {1}")
+//    public static void saveSectorAndValidate(Sector sector, int expectedStatusCode) {
+//        Response response = postApiReq(sector, Api.SECTORS);
+//        response.then().statusCode(expectedStatusCode);
+//    }
 
-    @Step("POST " + Api.SUB_SECTORS + " with expected status code {1}")
-    public static void saveSubSectorAndValidate(SubSector subSector, int expectedStatusCode) {
-        Response response = postApiReq(subSector, Api.SUB_SECTORS);
-        response.then().statusCode(expectedStatusCode);
-    }
+//    @Step("POST " + Api.SUB_SECTORS + " with expected status code {1}")
+//    public static void saveSubSectorAndValidate(SubSector subSector, int expectedStatusCode) {
+//        Response response = postApiReq(subSector, Api.SUB_SECTORS);
+//        response.then().statusCode(expectedStatusCode);
+//    }
 
-    @Step("POST " + Api.CLIENTS + " with expected status code {1}")
-    public static void saveClientAndValidate(Client client, int expectedStatusCode) {
-        Response response = postApiReq(client, Api.CLIENTS);
-        response.then().statusCode(expectedStatusCode);
-    }
+//    @Step("POST " + Api.CLIENTS + " with expected status code {1}")
+//    public static void saveClientAndValidate(Client client, int expectedStatusCode) {
+//        Response response = postApiReq(client, Api.CLIENTS);
+//        response.then().statusCode(expectedStatusCode);
+//    }
 
-    @Step("POST " + Api.VAULTS + " with expected status code {1}")
-    public static void saveVaultAndValidate(Vault vault, int expectedStatusCode) {
-        Response response = postApiReq(vault, Api.VAULTS);
-        response.then().statusCode(expectedStatusCode);
-    }
+//    @Step("POST " + Api.VAULTS + " with expected status code {1}")
+//    public static void saveVaultAndValidate(Vault vault, int expectedStatusCode) {
+//        Response response = postApiReq(vault, Api.VAULTS);
+//        response.then().statusCode(expectedStatusCode);
+//    }
 
     @Step("POST " + Api.VAULT_OPERATIONS + " with expected status code {1}")
     public static void saveVaultOperationAndValidate(VaultOperation vaultOperation, int expectedStatusCode) {

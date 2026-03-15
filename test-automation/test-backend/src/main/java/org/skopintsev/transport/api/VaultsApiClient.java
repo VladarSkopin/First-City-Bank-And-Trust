@@ -10,10 +10,27 @@ import org.skopintsev.transport.CommonApiReqHelper;
 
 import java.util.List;
 
-import static org.skopintsev.constants.Constants.OBJECT_MAPPER;
 
 public class VaultsApiClient {
 
+    @Step("GET " + Api.VAULTS + " with expected status code {0}")
+    public static List<Vault> getVaultsAndValidate(int expectedStatusCode) {
+        Response response = CommonApiReqHelper.getRequest(Api.VAULTS);
+        response.then().statusCode(expectedStatusCode);
 
+        return response.as(new TypeRef<List<Vault>>() {});
+    }
+
+    @Step("POST " + Api.VAULTS + " with expected status code {1}")
+    public static void saveVaultAndValidate(Vault vault, int expectedStatusCode) {
+        Response response = CommonApiReqHelper.postApiReq(vault, Api.VAULTS);
+        response.then().statusCode(expectedStatusCode);
+    }
+
+    @Step("DELETE " + Api.VAULTS + " with expected status code {1}")
+    public static void deleteVaultAndValidate(String vaultCode, int expectedStatusCode) {
+        Response response = CommonApiReqHelper.deleteRequest(Api.VAULTS, vaultCode);
+        response.then().statusCode(expectedStatusCode);
+    }
 
 }
