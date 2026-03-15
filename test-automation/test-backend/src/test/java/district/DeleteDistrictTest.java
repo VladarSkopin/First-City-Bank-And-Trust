@@ -16,7 +16,7 @@ import org.skopintsev.assertions.db.DistrictDbAssertions;
 import org.skopintsev.database.districts.DistrictDb;
 import org.skopintsev.database.districts.DistrictDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.transport.DeleteApiReqHelper;
+import org.skopintsev.transport.api.DistrictsApiClient;
 
 import java.util.stream.Stream;
 
@@ -43,7 +43,7 @@ public class DeleteDistrictTest extends BaseDistrictTest {
         int rowsInserted = DistrictDbHelper.insertDistrict(districtDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        DeleteApiReqHelper.deleteDistrictAndValidate(DISTRICT_CODE, SC_OK);
+        DistrictsApiClient.deleteDistrictAndValidate(DISTRICT_CODE, SC_OK);
 
         districtDb = DistrictDbHelper.selectDistrictByCode(DISTRICT_CODE);
         DistrictDbAssertions.checkDistrictPresence(districtDb, false);
@@ -67,7 +67,7 @@ public class DeleteDistrictTest extends BaseDistrictTest {
     public void deleteDistrictNegativeTest(String districtCode) {
         int districtsCountOld = DistrictDbHelper.getDistrictsCount();
 
-        DeleteApiReqHelper.deleteDistrictAndValidate(districtCode, SC_NOT_FOUND);
+        DistrictsApiClient.deleteDistrictAndValidate(districtCode, SC_NOT_FOUND);
 
         int districtsCountNew = DistrictDbHelper.getDistrictsCount();
         CommonDbAssertions.checkCounts(districtsCountNew, districtsCountOld);

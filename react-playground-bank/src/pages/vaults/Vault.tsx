@@ -322,6 +322,7 @@ function Vault() {
   };
 
 
+
   // Loading state
 
   if (loading) {
@@ -331,7 +332,7 @@ function Vault() {
     return (
       <div className="vaults-container">
         <div className="loading-state">
-          <div className="loading-spinner"></div>
+          <div className="loading-spinner" data-testid="loading-spinner"></div>
           <h2>Loading Vault</h2>
           <p>Initializing vault access protocols... ({loadedItems}/{totalItems})</p>
           <div className="loading-progress">
@@ -344,7 +345,7 @@ function Vault() {
       </div>
     );
   }
-  	
+  
 
   // Error state
 
@@ -353,7 +354,7 @@ function Vault() {
       <div className="vaults-container">
         <div className="error-state">
           <div className="error-icon">⚠️</div>
-          <h2>Failed to Load Vaults</h2>
+          <h2 data-testid="pageTitle">Failed to Load Vaults</h2>
           <p className="error-message">{error}</p>
           
           {displayVaults.length > 0 && (
@@ -364,7 +365,7 @@ function Vault() {
           )}
           
           <button 
-            className="retry-btn"
+            className="retry-btn" data-testid="retryBtn"
             onClick={() => window.location.reload()}
           >
             RETRY
@@ -384,7 +385,7 @@ function Vault() {
       <div className="vaults-container">
         <div className="empty-state">
           <div className="empty-icon">🔮</div>
-          <h2>No Active Vaults</h2>
+          <h2 data-testid="pageTitle">No Active Vaults</h2>
           <p>
             {hasData 
               ? 'All vaults are currently archived or inactive' 
@@ -406,17 +407,17 @@ function Vault() {
 
   return (
     <div className="vaults-container">
-      <h1 className="page-title">First City Bank & Trust Vault</h1>
+      <h1 className="page-title" data-testid="pageTitle">First City Bank & Trust Vault</h1>
       
       {/* Vault stats */}
       <div className="vault-stats">
         <div className="stat-item">
-          <span className="stat-label">ACTIVE VAULTS: </span>
-          <span className="stat-value">{displayVaults.length}</span>
+          <span className="stat-label" data-testid="countLabelVaults">ACTIVE VAULTS: </span>
+          <span className="stat-value" data-testid="countValueVaults">{displayVaults.length}</span>
         </div>
         <div className="stat-item">
-          <span className="stat-label">UNIQUE CURRENCIES: </span>
-          <span className="stat-value">
+          <span className="stat-label" data-testid="countLabelCurrencies">UNIQUE CURRENCIES: </span>
+          <span className="stat-value" data-testid="countValueCurrencies">
             {Array.from(new Set(displayVaults.map(v => v.currencyCode))).length}
           </span>
         </div>
@@ -510,14 +511,14 @@ function Vault() {
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content vault-modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>
+              <h2 data-testid="modalHeader">
                 {currentOperation === 'INSERT' ? 'Deposit to ' : 'Withdraw from '}
                 Vault {currentVault.vaultCode}
               </h2>
-              <button className="modal-close-btn" onClick={closeModal}>✕</button>
+              <button className="modal-close-btn" data-testid="closeButton" onClick={closeModal}>✕</button>
             </div>
             
-            <div className="modal-body">
+            <div className="modal-body" data-testid="modalBody">
               <div className="vault-info-summary">
                 <div className="info-row">
                   <span>Client:</span>

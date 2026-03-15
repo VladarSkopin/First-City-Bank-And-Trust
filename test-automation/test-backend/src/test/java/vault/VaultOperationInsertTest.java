@@ -18,7 +18,7 @@ import org.skopintsev.database.vaults.VaultTransactionsDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.TransactionType;
 import org.skopintsev.model.vaults.VaultOperation;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.VaultsApiClient;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -67,7 +67,7 @@ public class VaultOperationInsertTest extends BaseVaultTest {
     @Description("Test uses API to insert amount > 0.")
     @Severity(SeverityLevel.BLOCKER)
     public void insertOperationWithPositiveAmountTest() {
-        PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, SC_OK);
+        VaultsApiClient.saveVaultOperationAndValidate(vaultOperation, SC_OK);
 
         vaultDbZeroAmount = VaultDbHelper.selectVaultByCode(vaultCode);
         VaultDbAssertions.checkVaultField("amount", vaultDbZeroAmount.getAmount(),
@@ -128,7 +128,7 @@ public class VaultOperationInsertTest extends BaseVaultTest {
                 .operationName(INSERT_OPERATION)
                 .amount(amount)
                 .build();
-        PostApiReqHelper.saveVaultOperationAndValidate(vaultOperationZeroAmount, SC_SERVER_ERROR);
+        VaultsApiClient.saveVaultOperationAndValidate(vaultOperationZeroAmount, SC_SERVER_ERROR);
 
         vaultDbZeroAmount = VaultDbHelper.selectVaultByCode(vaultCode);
         Allure.step("Final vault amount = " + vaultDbZeroAmount.getAmount() + ".");
@@ -155,7 +155,7 @@ public class VaultOperationInsertTest extends BaseVaultTest {
         int transactionsCountOld = VaultTransactionsDbHelper.getVaultTransactionsCount();
 
         vaultOperation.setVaultCode(invalidVaultCode);
-        PostApiReqHelper.saveVaultOperationAndValidate(
+        VaultsApiClient.saveVaultOperationAndValidate(
                 vaultOperation,
                 invalidVaultCode != null && !invalidVaultCode.trim().isEmpty() ? SC_NOT_FOUND : SC_SERVER_ERROR);
 
@@ -179,7 +179,7 @@ public class VaultOperationInsertTest extends BaseVaultTest {
         int transactionsCountOld = VaultTransactionsDbHelper.getVaultTransactionsCount();
 
         vaultOperation.setOperationName(invalidTransactionName);
-        PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, SC_SERVER_ERROR);
+        VaultsApiClient.saveVaultOperationAndValidate(vaultOperation, SC_SERVER_ERROR);
 
         int transactionsCountNew = VaultTransactionsDbHelper.getVaultTransactionsCount();
         CommonDbAssertions.checkCounts(transactionsCountNew, transactionsCountOld);
@@ -211,7 +211,7 @@ public class VaultOperationInsertTest extends BaseVaultTest {
                     .operationName(INSERT_OPERATION)
                     .amount(AMOUNT_TO_INSERT)
                     .build();
-            PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, SC_OK);
+            VaultsApiClient.saveVaultOperationAndValidate(vaultOperation, SC_OK);
 
             int transactionsCountNew = VaultTransactionsDbHelper.getVaultTransactionsCount();
             CommonDbAssertions.checkCounts(transactionsCountNew, transactionsCountOld + 1);
@@ -233,7 +233,7 @@ public class VaultOperationInsertTest extends BaseVaultTest {
         int transactionsCountOld = VaultTransactionsDbHelper.getVaultTransactionsCount();
 
         vaultOperation.setOperationName(operationName);
-        PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, SC_OK);
+        VaultsApiClient.saveVaultOperationAndValidate(vaultOperation, SC_OK);
 
         int transactionsCountNew = VaultTransactionsDbHelper.getVaultTransactionsCount();
         CommonDbAssertions.checkCounts(transactionsCountNew, transactionsCountOld + 1);
@@ -254,7 +254,7 @@ public class VaultOperationInsertTest extends BaseVaultTest {
         VaultDbHelper.insertVault(vaultDbArchived);
 
         vaultOperation.setVaultCode(vaultDbArchived.getVaultCode());
-        PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, SC_SERVER_ERROR);
+        VaultsApiClient.saveVaultOperationAndValidate(vaultOperation, SC_SERVER_ERROR);
 
         int transactionsCountNew = VaultTransactionsDbHelper.getVaultTransactionsCount();
         CommonDbAssertions.checkCounts(transactionsCountNew, transactionsCountOld);
@@ -263,7 +263,7 @@ public class VaultOperationInsertTest extends BaseVaultTest {
 
     public void saveVaultOperationMultipleTimes(VaultOperation vaultOperation, int expectedStatus, int times) {
         for (int i = 0; i < times; i++) {
-            PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, expectedStatus);
+            VaultsApiClient.saveVaultOperationAndValidate(vaultOperation, expectedStatus);
         }
     }
 

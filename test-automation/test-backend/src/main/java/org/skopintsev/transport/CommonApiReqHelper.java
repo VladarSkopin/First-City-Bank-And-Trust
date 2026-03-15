@@ -19,6 +19,12 @@ import java.util.Map;
 
 public class CommonApiReqHelper {
 
+    @SneakyThrows
+    public static Response postApiReq(Object request, String endpoint) {
+        String requestJson = OBJECT_MAPPER.writeValueAsString(request);
+        return postRequest(requestJson, endpoint);
+    }
+
     public static Response postRequest(String bodyReq, String contextReq) {
         return postRequestWithQueryParams(bodyReq, contextReq, Collections.emptyMap());
     }

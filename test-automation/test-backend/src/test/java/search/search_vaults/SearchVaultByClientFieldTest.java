@@ -1,25 +1,85 @@
 package search.search_vaults;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.skopintsev.assertions.api.vaults.SearchVaultsApiAssertions;
+import org.skopintsev.assertions.db.CommonDbAssertions;
+import org.skopintsev.database.factory.VaultDbFactory;
+import org.skopintsev.database.vaults.VaultDb;
+import org.skopintsev.database.vaults.VaultDbHelper;
+import org.skopintsev.model.vaults.Vault;
+import org.skopintsev.transport.api.SearchApiClient;
+
+import java.util.List;
+
+import static org.skopintsev.constants.Constants.SC_OK;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SearchVaultByClientFieldTest extends BaseSearchVaultsTest {
 
-    // todo: SearchVaultsApiAssertions
+    List<Vault> vaultsApiExpected;
 
+    @BeforeEach
+    public void beforeEach() {
+        VaultDb vaultDb = VaultDbFactory.defaultVaultDbRequest(
+                BASE_CLIENT_CODE,
+                BASE_CURRENCY_CODE
+        );
+        int rowsInserted = VaultDbHelper.insertVault(vaultDb);
+        CommonDbAssertions.checkRowsInserted(rowsInserted);
+
+        vaultsApiExpected = List.of(
+                Vault.builder()
+                        .vaultCode(vaultDb.getVaultCode())
+                        .clientCode(BASE_CLIENT_CODE)
+                        .amount(vaultDb.getAmount())
+                        .currencyCode(BASE_CURRENCY_CODE)
+                        .isArchived(false)
+                        .build()
+        );
+    }
+
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for vaults by client name.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientNameTest() {
-
+        List<Vault> vaultsApiFound = SearchApiClient.searchVaultsByClientNameAndValidate(BASE_CLIENT_NAME, SC_OK);
+        SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for vaults by client social rank.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientRankTest() {
-
+        List<Vault> vaultsApiFound = SearchApiClient.searchVaultsByClientRankAndValidate(BASE_SOCIAL_RANK_CODE, SC_OK);
+        SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for vaults by client type.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientTypeTest() {
-
+        List<Vault> vaultsApiFound = SearchApiClient.searchVaultsByClientTypeAndValidate(BASE_CLIENT_TYPE_CODE, SC_OK);
+        SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 
+    @Test
+    @Tag("smoke")
+    @Description("Test uses API to search for vaults by client sector.")
+    @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientSectorTest() {
-
+        List<Vault> vaultsApiFound = SearchApiClient.searchVaultsByClientSectorAndValidate(BASE_SECTOR_CODE, SC_OK);
+        SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 }

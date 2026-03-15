@@ -16,7 +16,7 @@ import org.skopintsev.database.clients.ClientDb;
 import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.database.factory.ClientDbFactory;
 import org.skopintsev.model.Client;
-import org.skopintsev.transport.GetApiReqHelper;
+import org.skopintsev.transport.api.SearchApiClient;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -58,7 +58,7 @@ public class SearchClientsByFieldTest extends BaseSearchClientsTest {
     @Description("Test uses API to search for clients by social rank.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchClientsBySocialRankTest() {
-        List<Client> clientsFound = GetApiReqHelper.searchClientsByRankAndValidate(BASE_SOCIAL_RANK_CODE, SC_OK);
+        List<Client> clientsFound = SearchApiClient.searchClientsByRankAndValidate(BASE_SOCIAL_RANK_CODE, SC_OK);
         SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
     }
 
@@ -67,7 +67,7 @@ public class SearchClientsByFieldTest extends BaseSearchClientsTest {
     @Description("Test uses API to search for clients by client type.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchClientsByClientTypeTest() {
-        List<Client> clientsFound = GetApiReqHelper.searchClientsByClientTypeAndValidate(BASE_CLIENT_TYPE_CODE, SC_OK);
+        List<Client> clientsFound = SearchApiClient.searchClientsByClientTypeAndValidate(BASE_CLIENT_TYPE_CODE, SC_OK);
         SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
     }
 
@@ -76,7 +76,7 @@ public class SearchClientsByFieldTest extends BaseSearchClientsTest {
     @Description("Test uses API to search for clients by sub-sector.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchClientsBySubSectorTest() {
-        List<Client> clientsFound = GetApiReqHelper.searchClientsBySubSectorAndValidate(BASE_SUB_SECTOR_CODE, SC_OK);
+        List<Client> clientsFound = SearchApiClient.searchClientsBySubSectorAndValidate(BASE_SUB_SECTOR_CODE, SC_OK);
         SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
     }
 
@@ -85,7 +85,7 @@ public class SearchClientsByFieldTest extends BaseSearchClientsTest {
     @Description("Test uses API to search for clients by sector.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchClientsBySectorTest() {
-        List<Client> clientsFound = GetApiReqHelper.searchClientsBySectorAndValidate(BASE_SECTOR_CODE, SC_OK);
+        List<Client> clientsFound = SearchApiClient.searchClientsBySectorAndValidate(BASE_SECTOR_CODE, SC_OK);
         SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
     }
 
@@ -94,7 +94,7 @@ public class SearchClientsByFieldTest extends BaseSearchClientsTest {
     @Description("Test uses API to search for clients by district.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchClientsByDistrictTest() {
-        List<Client> clientsFound = GetApiReqHelper.searchClientsByDistrictAndValidate(BASE_DISTRICT_CODE, SC_OK);
+        List<Client> clientsFound = SearchApiClient.searchClientsByDistrictAndValidate(BASE_DISTRICT_CODE, SC_OK);
         SearchClientsApiAssertions.checkSearchClientsResponseMatchesExpected(clientsFound, clientsExpected);
     }
 
@@ -103,7 +103,7 @@ public class SearchClientsByFieldTest extends BaseSearchClientsTest {
     @Description("Test uses API to search for clients by multiple parameters.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchClientsByMultipleQueryParamsTest() {
-        List<Client> clientsFound = GetApiReqHelper.searchClientsWithParamsAndValidate(
+        List<Client> clientsFound = SearchApiClient.searchClientsWithParamsAndValidate(
                 BASE_CLIENT_TYPE_CODE,
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE,
@@ -124,7 +124,7 @@ public class SearchClientsByFieldTest extends BaseSearchClientsTest {
             String subSectorCode) {
 
         Allure.step(testScenario);
-        List<Client> clientsFound = GetApiReqHelper.searchClientsWithParamsAndValidate(
+        List<Client> clientsFound = SearchApiClient.searchClientsWithParamsAndValidate(
                 clientTypeCode,
                 districtCode,
                 subSectorCode,

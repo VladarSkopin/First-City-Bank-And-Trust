@@ -20,7 +20,7 @@ import org.skopintsev.database.client_types.ClientTypeDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.ClientTypeName;
 import org.skopintsev.model.ClientType;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.ClientsApiClient;
 
 import java.util.stream.Stream;
 
@@ -43,10 +43,10 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
                 .clientTypeCode(CLIENT_TYPE_CODE)
                 .clientTypeName(CLIENT_TYPE_NAME)
                 .build();
-        PostApiReqHelper.saveClientTypeAndValidate(clientTypeApi, SC_OK);
+        ClientsApiClient.saveClientTypeAndValidate(clientTypeApi, SC_OK);
         int clientTypesCountOld = ClientTypeDbHelper.getClientTypesCount();
 
-        PostApiReqHelper.saveClientTypeAndValidate(clientTypeApi, SC_SERVER_ERROR);
+        ClientsApiClient.saveClientTypeAndValidate(clientTypeApi, SC_SERVER_ERROR);
         int clientTypesCountNew = ClientTypeDbHelper.getClientTypesCount();
         CommonDbAssertions.checkCounts(clientTypesCountNew, clientTypesCountOld);
     }
@@ -70,7 +70,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
                 .clientTypeCode(clientTypeCode)
                 .clientTypeName(CLIENT_TYPE_NAME)
                 .build();
-        PostApiReqHelper.saveClientTypeAndValidate(clientTypeApi, SC_SERVER_ERROR);
+        ClientsApiClient.saveClientTypeAndValidate(clientTypeApi, SC_SERVER_ERROR);
 
         int clientTypesCountNew = ClientTypeDbHelper.getClientTypesCount();
         CommonDbAssertions.checkCounts(clientTypesCountNew, clientTypesCountOld);
@@ -94,7 +94,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
                 .clientTypeCode(clientTypeCode)
                 .clientTypeName(CLIENT_TYPE_NAME)
                 .build();
-        PostApiReqHelper.saveClientTypeAndValidate(clientTypeApi, SC_OK);
+        ClientsApiClient.saveClientTypeAndValidate(clientTypeApi, SC_OK);
 
         ClientTypeDb clientTypeDb = ClientTypeDbHelper.selectClientTypeByCode(clientTypeCodeTrimmedUppercase);
         ClientTypeDbAssertions.checkClientTypePresence(clientTypeDb, true);
@@ -123,7 +123,7 @@ public class CreateClientTypeTest extends BaseClientTypeTest {
                 .clientTypeCode(GeneratorBuilder.generateTestCode())
                 .clientTypeName(CLIENT_TYPE_NAME)
                 .build();
-        PostApiReqHelper.saveClientTypeAndValidate(clientTypeApiSameName, SC_SERVER_ERROR);
+        ClientsApiClient.saveClientTypeAndValidate(clientTypeApiSameName, SC_SERVER_ERROR);
 
         int clientTypesCountNew = ClientTypeDbHelper.getClientTypesCount();
         CommonDbAssertions.checkCounts(clientTypesCountNew, clientTypesCountOld);

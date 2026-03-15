@@ -15,7 +15,7 @@ import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.Client;
 import org.skopintsev.model.factory.ClientApiFactory;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.ClientsApiClient;
 
 import java.util.stream.Stream;
 
@@ -46,7 +46,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
                 districtCode,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, districtCode == null ? SC_OK : SC_SERVER_ERROR);
+        ClientsApiClient.saveClientAndValidate(client, districtCode == null ? SC_OK : SC_SERVER_ERROR);
 
         ClientDb clientDb = ClientDbHelper.selectClientByCode(client.getClientCode());
         ClientDbAssertions.checkClientPresence(clientDb, districtCode == null ? true : false);
@@ -76,7 +76,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_SERVER_ERROR);
+        ClientsApiClient.saveClientAndValidate(client, SC_SERVER_ERROR);
 
         ClientDb clientDb = ClientDbHelper.selectClientByCode(client.getClientCode());
         ClientDbAssertions.checkClientPresence(clientDb, false);
@@ -106,7 +106,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 subSectorCode
         );
-        PostApiReqHelper.saveClientAndValidate(client, subSectorCode == null ? SC_OK : SC_SERVER_ERROR);
+        ClientsApiClient.saveClientAndValidate(client, subSectorCode == null ? SC_OK : SC_SERVER_ERROR);
 
         ClientDb clientDb = ClientDbHelper.selectClientByCode(client.getClientCode());
         ClientDbAssertions.checkClientPresence(clientDb, subSectorCode == null ? true : false);
@@ -136,7 +136,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, socialRankCode == null ? SC_OK : SC_SERVER_ERROR);
+        ClientsApiClient.saveClientAndValidate(client, socialRankCode == null ? SC_OK : SC_SERVER_ERROR);
 
         ClientDb clientDb = ClientDbHelper.selectClientByCode(client.getClientCode());
         ClientDbAssertions.checkClientPresence(clientDb, socialRankCode == null ? true : false);
@@ -165,7 +165,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
                 districtCode,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_OK);
+        ClientsApiClient.saveClientAndValidate(client, SC_OK);
 
         ClientDb clientDb = ClientDbHelper.selectClientByCode(client.getClientCode());
         ClientDbAssertions.checkClientPresence(clientDb, true);
@@ -194,7 +194,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_OK);
+        ClientsApiClient.saveClientAndValidate(client, SC_OK);
 
         ClientDb clientDb = ClientDbHelper.selectClientByCode(client.getClientCode());
         ClientDbAssertions.checkClientPresence(clientDb, true);
@@ -223,7 +223,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 subSectorCode
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_OK);
+        ClientsApiClient.saveClientAndValidate(client, SC_OK);
 
         ClientDb clientDb = ClientDbHelper.selectClientByCode(client.getClientCode());
         ClientDbAssertions.checkClientPresence(clientDb, true);
@@ -252,7 +252,7 @@ public class CreateClientAdditionalFieldsTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_OK);
+        ClientsApiClient.saveClientAndValidate(client, SC_OK);
 
         ClientDb clientDb = ClientDbHelper.selectClientByCode(client.getClientCode());
         ClientDbAssertions.checkClientPresence(clientDb, true);

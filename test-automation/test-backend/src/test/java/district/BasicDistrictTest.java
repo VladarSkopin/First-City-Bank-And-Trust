@@ -15,8 +15,7 @@ import org.skopintsev.database.districts.DistrictDb;
 import org.skopintsev.database.districts.DistrictDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.District;
-import org.skopintsev.transport.GetApiReqHelper;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.DistrictsApiClient;
 
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class BasicDistrictTest extends BaseDistrictTest {
         int rowsInserted = DistrictDbHelper.insertDistrict(newDistrictDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        List<District> districts = GetApiReqHelper.getDistrictsAndValidate(SC_OK);
+        List<District> districts = DistrictsApiClient.getDistrictsAndValidate(SC_OK);
         DistrictApiAssertions.checkNotNullDistricts(districts);
 
         District newAddedDistrictApi = districts
@@ -61,9 +60,9 @@ public class BasicDistrictTest extends BaseDistrictTest {
                 .districtCode(DISTRICT_CODE)
                 .districtName(DISTRICT_NAME)
                 .build();
-        PostApiReqHelper.saveDistrictAndValidate(newAddedDistrictApi, SC_OK);
+        DistrictsApiClient.saveDistrictAndValidate(newAddedDistrictApi, SC_OK);
 
-        List<District> districts = GetApiReqHelper.getDistrictsAndValidate(SC_OK);
+        List<District> districts = DistrictsApiClient.getDistrictsAndValidate(SC_OK);
         DistrictApiAssertions.checkNotNullDistricts(districts);
 
         DistrictDb newAddedDistrictDb = DistrictDbHelper.selectDistrictByCode(DISTRICT_CODE);

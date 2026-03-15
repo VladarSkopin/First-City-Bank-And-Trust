@@ -17,7 +17,7 @@ import org.skopintsev.database.social_ranks.SocialRankDb;
 import org.skopintsev.database.social_ranks.SocialRankDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.SocialRank;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.SocialRanksApiClient;
 
 import java.util.stream.Stream;
 
@@ -39,10 +39,10 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
                 .rankCode(RANK_CODE)
                 .rankName(RANK_NAME)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(socialRankApi, SC_OK);
+        SocialRanksApiClient.saveSocialRankAndValidate(socialRankApi, SC_OK);
         int socialRanksCountOld = SocialRankDbHelper.getSocialRanksCount();
 
-        PostApiReqHelper.saveSocialRankAndValidate(socialRankApi, SC_SERVER_ERROR);
+        SocialRanksApiClient.saveSocialRankAndValidate(socialRankApi, SC_SERVER_ERROR);
         int socialRanksCountNew = SocialRankDbHelper.getSocialRanksCount();
         CommonDbAssertions.checkCounts(socialRanksCountNew, socialRanksCountOld);
     }
@@ -66,7 +66,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
                 .rankCode(rankCode)
                 .rankName(RANK_NAME)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(newSocialRankApi, SC_SERVER_ERROR);
+        SocialRanksApiClient.saveSocialRankAndValidate(newSocialRankApi, SC_SERVER_ERROR);
 
         int socialRanksCountNew = SocialRankDbHelper.getSocialRanksCount();
         CommonDbAssertions.checkCounts(socialRanksCountNew, socialRanksCountOld);
@@ -94,7 +94,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
                 .rankCode(rankCode)
                 .rankName(RANK_NAME)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(socialRankApi, SC_OK);
+        SocialRanksApiClient.saveSocialRankAndValidate(socialRankApi, SC_OK);
 
         SocialRankDb socialRankDb = SocialRankDbHelper.selectSocialRankByCode(socialRankCodeTrimmedUppercase);
         SocialRankDbAssertions.checkSocialRankPresence(socialRankDb, true);
@@ -122,7 +122,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
                 .rankCode(GeneratorBuilder.generateTestCode())
                 .rankName(RANK_NAME)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(newSocialRankApiSameName, SC_SERVER_ERROR);
+        SocialRanksApiClient.saveSocialRankAndValidate(newSocialRankApiSameName, SC_SERVER_ERROR);
 
         int socialRanksCountNew = SocialRankDbHelper.getSocialRanksCount();
         CommonDbAssertions.checkCounts(socialRanksCountNew, socialRanksCountOld);
@@ -140,7 +140,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
                 .rankCode(RANK_CODE)
                 .rankName(rankNameToTrim)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(socialRankApi, SC_OK);
+        SocialRanksApiClient.saveSocialRankAndValidate(socialRankApi, SC_OK);
 
         SocialRankDb socialRankDb = SocialRankDbHelper.selectSocialRankByCode(RANK_CODE);
         SocialRankDbAssertions.checkSocialRankPresence(socialRankDb, true);
@@ -166,7 +166,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
                 .rankCode(RANK_CODE)
                 .rankName(rankName)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(newSocialRankApi, SC_SERVER_ERROR);
+        SocialRanksApiClient.saveSocialRankAndValidate(newSocialRankApi, SC_SERVER_ERROR);
 
         int socialRanksCountNew = SocialRankDbHelper.getSocialRanksCount();
         CommonDbAssertions.checkCounts(socialRanksCountNew, socialRanksCountOld);
@@ -186,7 +186,7 @@ public class CreateSocialRankTest extends BaseSocialRankTest {
                 .rankCode(RANK_CODE)
                 .rankName(RANK_NAME)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(newSocialRankApi, SC_OK);
+        SocialRanksApiClient.saveSocialRankAndValidate(newSocialRankApi, SC_OK);
 
         int socialRanksCountNew = SocialRankDbHelper.getSocialRanksCount();
         CommonDbAssertions.checkCounts(socialRanksCountNew, socialRanksCountOld + 1);

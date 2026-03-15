@@ -14,8 +14,7 @@ import org.skopintsev.database.clients.ClientDb;
 import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.model.Client;
 import org.skopintsev.model.factory.ClientApiFactory;
-import org.skopintsev.transport.GetApiReqHelper;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.ClientsApiClient;
 
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class BasicClientTest extends BaseClientTest {
         int rowsInserted = ClientDbHelper.insertClient(clientDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        List<Client> clients = GetApiReqHelper.getClientsAndValidate(SC_OK);
+        List<Client> clients = ClientsApiClient.getClientsAndValidate(SC_OK);
         ClientApiAssertions.checkNotNullClients(clients);
 
         Client client = clients
@@ -65,9 +64,9 @@ public class BasicClientTest extends BaseClientTest {
                 BASE_DISTRICT_CODE,
                 BASE_SUB_SECTOR_CODE
         );
-        PostApiReqHelper.saveClientAndValidate(client, SC_OK);
+        ClientsApiClient.saveClientAndValidate(client, SC_OK);
 
-        List<Client> clients = GetApiReqHelper.getClientsAndValidate(SC_OK);
+        List<Client> clients = ClientsApiClient.getClientsAndValidate(SC_OK);
         ClientApiAssertions.checkNotNullClients(clients);
 
         ClientDb clientDb = ClientDbHelper.selectClientByCode(client.getClientCode());

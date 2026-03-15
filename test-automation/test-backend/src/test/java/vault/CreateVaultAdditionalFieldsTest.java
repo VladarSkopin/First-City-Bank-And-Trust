@@ -15,7 +15,7 @@ import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.vaults.Vault;
 import org.skopintsev.model.factory.VaultApiFactory;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.VaultsApiClient;
 
 import java.util.stream.Stream;
 
@@ -44,7 +44,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
                 clientCode,
                 BASE_CURRENCY_CODE
         );
-        PostApiReqHelper.saveVaultAndValidate(vault, SC_SERVER_ERROR);
+        VaultsApiClient.saveVaultAndValidate(vault, SC_SERVER_ERROR);
 
         VaultDb vaultDb = VaultDbHelper.selectVaultByCode(vault.getVaultCode());
         VaultDbAssertions.checkVaultPresence(vaultDb, false);
@@ -72,7 +72,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
                 BASE_CLIENT_CODE,
                 currencyCode
         );
-        PostApiReqHelper.saveVaultAndValidate(vault, SC_SERVER_ERROR);
+        VaultsApiClient.saveVaultAndValidate(vault, SC_SERVER_ERROR);
 
         VaultDb vaultDb = VaultDbHelper.selectVaultByCode(vault.getVaultCode());
         VaultDbAssertions.checkVaultPresence(vaultDb, false);
@@ -99,7 +99,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
                 clientCode,
                 BASE_CURRENCY_CODE
         );
-        PostApiReqHelper.saveVaultAndValidate(vault, SC_OK);
+        VaultsApiClient.saveVaultAndValidate(vault, SC_OK);
 
         VaultDb vaultDb = VaultDbHelper.selectVaultByCode(vault.getVaultCode());
         VaultDbAssertions.checkVaultPresence(vaultDb, true);
@@ -126,7 +126,7 @@ public class CreateVaultAdditionalFieldsTest extends BaseVaultTest {
                 BASE_CLIENT_CODE,
                 currencyCode
         );
-        PostApiReqHelper.saveVaultAndValidate(vault, SC_OK);
+        VaultsApiClient.saveVaultAndValidate(vault, SC_OK);
 
         VaultDb vaultDb = VaultDbHelper.selectVaultByCode(vault.getVaultCode());
         VaultDbAssertions.checkVaultPresence(vaultDb, true);

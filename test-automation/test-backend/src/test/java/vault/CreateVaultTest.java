@@ -20,7 +20,7 @@ import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.vaults.Vault;
 import org.skopintsev.model.factory.VaultApiFactory;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.VaultsApiClient;
 
 import java.math.BigInteger;
 import java.util.stream.Stream;
@@ -43,10 +43,10 @@ public class CreateVaultTest extends BaseVaultTest {
                 BASE_CLIENT_CODE,
                 BASE_CURRENCY_CODE
         );
-        PostApiReqHelper.saveVaultAndValidate(vault, SC_OK);
+        VaultsApiClient.saveVaultAndValidate(vault, SC_OK);
         int vaultCountOld = VaultDbHelper.getVaultsCount();
 
-        PostApiReqHelper.saveVaultAndValidate(vault, SC_SERVER_ERROR);
+        VaultsApiClient.saveVaultAndValidate(vault, SC_SERVER_ERROR);
         int vaultCountNew = VaultDbHelper.getVaultsCount();
         CommonDbAssertions.checkCounts(vaultCountNew, vaultCountOld);
     }
@@ -71,7 +71,7 @@ public class CreateVaultTest extends BaseVaultTest {
                 BASE_CLIENT_CODE,
                 BASE_CURRENCY_CODE
         );
-        PostApiReqHelper.saveVaultAndValidate(vault, SC_SERVER_ERROR);
+        VaultsApiClient.saveVaultAndValidate(vault, SC_SERVER_ERROR);
 
         VaultDb vaultDb = VaultDbHelper.selectVaultByCode(invalidVaultCode);
         VaultDbAssertions.checkVaultPresence(vaultDb, false);
@@ -100,7 +100,7 @@ public class CreateVaultTest extends BaseVaultTest {
                 BASE_CLIENT_CODE,
                 BASE_CURRENCY_CODE
         );
-        PostApiReqHelper.saveVaultAndValidate(vault, SC_OK);
+        VaultsApiClient.saveVaultAndValidate(vault, SC_OK);
 
         VaultDb vaultDb = VaultDbHelper.selectVaultByCode(vaultCodeTrimmedUppercase);
         VaultDbAssertions.checkVaultPresence(vaultDb, true);
@@ -126,7 +126,7 @@ public class CreateVaultTest extends BaseVaultTest {
                 BigInteger.valueOf(0),
                 BASE_CURRENCY_CODE
         );
-        PostApiReqHelper.saveVaultAndValidate(vaultZeroAmount, SC_OK);
+        VaultsApiClient.saveVaultAndValidate(vaultZeroAmount, SC_OK);
 
         VaultDb vaultDb = VaultDbHelper.selectVaultByCode(vaultZeroAmount.getVaultCode());
         VaultDbAssertions.checkVaultPresence(vaultDb, true);
@@ -147,7 +147,7 @@ public class CreateVaultTest extends BaseVaultTest {
                 BASE_CURRENCY_CODE
         );
         vaultArchived.setIsArchived(true);
-        PostApiReqHelper.saveVaultAndValidate(vaultArchived, SC_OK);
+        VaultsApiClient.saveVaultAndValidate(vaultArchived, SC_OK);
 
         VaultDb vaultDb = VaultDbHelper.selectVaultByCode(vaultArchived.getVaultCode());
         VaultDbAssertions.checkVaultPresence(vaultDb, true);
