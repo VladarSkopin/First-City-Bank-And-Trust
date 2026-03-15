@@ -62,9 +62,9 @@ public class PostApiReqHelper {
 //        response.then().statusCode(expectedStatusCode);
 //    }
 
-    @Step("POST " + Api.VAULT_OPERATIONS + " with expected status code {1}")
-    public static void saveVaultOperationAndValidate(VaultOperation vaultOperation, int expectedStatusCode) {
-        Response response = postApiReq(vaultOperation, Api.VAULT_OPERATIONS);
-        response.then().statusCode(expectedStatusCode);
-    }
+//    @Step("POST " + Api.VAULT_OPERATIONS + " with expected status code {1}")
+//    public static void saveVaultOperationAndValidate(VaultOperation vaultOperation, int expectedStatusCode) {
+//        Response response = postApiReq(vaultOperation, Api.VAULT_OPERATIONS);
+//        response.then().statusCode(expectedStatusCode);
+//    }
 }

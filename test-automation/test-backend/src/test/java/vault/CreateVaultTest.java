@@ -20,7 +20,6 @@ import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.vaults.Vault;
 import org.skopintsev.model.factory.VaultApiFactory;
-import org.skopintsev.transport.PostApiReqHelper;
 import org.skopintsev.transport.api.VaultsApiClient;
 
 import java.math.BigInteger;

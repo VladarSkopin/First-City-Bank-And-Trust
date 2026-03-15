@@ -10,6 +10,8 @@ import org.skopintsev.transport.CommonApiReqHelper;
 
 import java.util.List;
 
+import static org.skopintsev.transport.CommonApiReqHelper.postApiReq;
+
 
 public class VaultsApiClient {
 
@@ -30,6 +32,12 @@ public class VaultsApiClient {
     @Step("DELETE " + Api.VAULTS + " with expected status code {1}")
     public static void deleteVaultAndValidate(String vaultCode, int expectedStatusCode) {
         Response response = CommonApiReqHelper.deleteRequest(Api.VAULTS, vaultCode);
+        response.then().statusCode(expectedStatusCode);
+    }
+
+    @Step("POST " + Api.VAULT_OPERATIONS + " with expected status code {1}")
+    public static void saveVaultOperationAndValidate(VaultOperation vaultOperation, int expectedStatusCode) {
+        Response response = postApiReq(vaultOperation, Api.VAULT_OPERATIONS);
         response.then().statusCode(expectedStatusCode);
     }
 

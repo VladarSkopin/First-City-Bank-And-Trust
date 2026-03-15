@@ -22,6 +22,7 @@ import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.TransactionType;
 import org.skopintsev.model.vaults.VaultOperation;
 import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.VaultsApiClient;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -81,7 +82,7 @@ public class VaultOperationWithdrawTest extends BaseVaultTest {
                 BigInteger.valueOf(0) : BigInteger.valueOf(1);
 
         vaultOperation.setAmount(amountToWithdraw);
-        PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, SC_OK);
+        VaultsApiClient.saveVaultOperationAndValidate(vaultOperation, SC_OK);
 
         vaultDbWithPositiveAmount = VaultDbHelper.selectVaultByCode(vaultCode);
         VaultDbAssertions.checkVaultField("amount", vaultDbWithPositiveAmount.getAmount(),
@@ -116,7 +117,7 @@ public class VaultOperationWithdrawTest extends BaseVaultTest {
         vaultDbWithPositiveAmount = VaultDbHelper.selectVaultByCode(vaultCode);
         Allure.step("Final vault amount = " + vaultDbWithPositiveAmount.getAmount() + ".");
         VaultDbAssertions.checkVaultField("amount", vaultDbWithPositiveAmount.getAmount(),
-                BigInteger.valueOf(INITIAL_AMOUNT - AMOUNT_TO_WITHDRAW * timesToWithdraw));
+                BigInteger.valueOf(INITIAL_AMOUNT - (long) AMOUNT_TO_WITHDRAW * timesToWithdraw));
 
         int transactionsCountNew = VaultTransactionsDbHelper.getVaultTransactionsCount();
         CommonDbAssertions.checkCounts(transactionsCountNew, transactionsCountOld + timesToWithdraw);
@@ -130,7 +131,7 @@ public class VaultOperationWithdrawTest extends BaseVaultTest {
         int transactionsCountOld = VaultTransactionsDbHelper.getVaultTransactionsCount();
 
         vaultOperation.setAmount(INITIAL_AMOUNT + 1);
-        PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, SC_SERVER_ERROR);
+        VaultsApiClient.saveVaultOperationAndValidate(vaultOperation, SC_SERVER_ERROR);
 
         vaultDbWithPositiveAmount = VaultDbHelper.selectVaultByCode(vaultCode);
         VaultDbAssertions.checkVaultField("amount", vaultDbWithPositiveAmount.getAmount(),
@@ -155,7 +156,7 @@ public class VaultOperationWithdrawTest extends BaseVaultTest {
         VaultDbHelper.insertVault(vaultDbArchived);
 
         vaultOperation.setVaultCode(vaultDbArchived.getVaultCode());
-        PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, SC_SERVER_ERROR);
+        VaultsApiClient.saveVaultOperationAndValidate(vaultOperation, SC_SERVER_ERROR);
 
         vaultDbArchived = VaultDbHelper.selectVaultByCode(vaultCode);
         VaultDbAssertions.checkVaultField("amount", vaultDbArchived.getAmount(),
@@ -175,7 +176,7 @@ public class VaultOperationWithdrawTest extends BaseVaultTest {
 
     public void saveVaultOperationMultipleTimes(VaultOperation vaultOperation, int expectedStatus, int times) {
         for (int i = 0; i < times; i++) {
-            PostApiReqHelper.saveVaultOperationAndValidate(vaultOperation, expectedStatus);
+            VaultsApiClient.saveVaultOperationAndValidate(vaultOperation, expectedStatus);
         }
     }
 
