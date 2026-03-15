@@ -322,6 +322,7 @@ function Vault() {
   };
 
 
+
   // Loading state
 
   if (loading) {
@@ -344,7 +345,7 @@ function Vault() {
       </div>
     );
   }
-  	
+  
 
   // Error state
 
@@ -353,7 +354,7 @@ function Vault() {
       <div className="vaults-container">
         <div className="error-state">
           <div className="error-icon">⚠️</div>
-          <h2>Failed to Load Vaults</h2>
+          <h2 data-testid="pageTitle">Failed to Load Vaults</h2>
           <p className="error-message">{error}</p>
           
           {displayVaults.length > 0 && (
@@ -384,7 +385,7 @@ function Vault() {
       <div className="vaults-container">
         <div className="empty-state">
           <div className="empty-icon">🔮</div>
-          <h2>No Active Vaults</h2>
+          <h2 data-testid="pageTitle">No Active Vaults</h2>
           <p>
             {hasData 
               ? 'All vaults are currently archived or inactive' 
@@ -406,17 +407,17 @@ function Vault() {
 
   return (
     <div className="vaults-container">
-      <h1 className="page-title">First City Bank & Trust Vault</h1>
+      <h1 className="page-title" data-testid="pageTitle">First City Bank & Trust Vault</h1>
       
       {/* Vault stats */}
       <div className="vault-stats">
         <div className="stat-item">
-          <span className="stat-label">ACTIVE VAULTS: </span>
-          <span className="stat-value">{displayVaults.length}</span>
+          <span className="stat-label" data-testid="countLabelVaults">ACTIVE VAULTS: </span>
+          <span className="stat-value" data-testid="countValueVaults">{displayVaults.length}</span>
         </div>
         <div className="stat-item">
-          <span className="stat-label">UNIQUE CURRENCIES: </span>
-          <span className="stat-value">
+          <span className="stat-label" data-testid="countLabelCurrencies">UNIQUE CURRENCIES: </span>
+          <span className="stat-value" data-testid="countValueCurrencies">
             {Array.from(new Set(displayVaults.map(v => v.currencyCode))).length}
           </span>
         </div>

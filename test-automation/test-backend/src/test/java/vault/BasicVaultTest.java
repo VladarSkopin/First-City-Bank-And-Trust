@@ -14,8 +14,7 @@ import org.skopintsev.database.vaults.VaultDb;
 import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.model.vaults.Vault;
 import org.skopintsev.model.factory.VaultApiFactory;
-import org.skopintsev.transport.GetApiReqHelper;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.VaultsApiClient;
 
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class BasicVaultTest extends BaseVaultTest {
         int rowsInserted = VaultDbHelper.insertVault(vaultDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        List<Vault> vaults = GetApiReqHelper.getVaultsAndValidate(SC_OK);
+        List<Vault> vaults = VaultsApiClient.getVaultsAndValidate(SC_OK);
         VaultApiAssertions.checkNotNullVaults(vaults);
 
         Vault vault = vaults
@@ -56,9 +55,9 @@ public class BasicVaultTest extends BaseVaultTest {
             BASE_CLIENT_CODE,
             BASE_CURRENCY_CODE
         );
-        PostApiReqHelper.saveVaultAndValidate(vault, SC_OK);
+        VaultsApiClient.saveVaultAndValidate(vault, SC_OK);
 
-        List<Vault> vaults = GetApiReqHelper.getVaultsAndValidate(SC_OK);
+        List<Vault> vaults = VaultsApiClient.getVaultsAndValidate(SC_OK);
         VaultApiAssertions.checkNotNullVaults(vaults);
 
         VaultDb vaultDb = VaultDbHelper.selectVaultByCode(vault.getVaultCode());

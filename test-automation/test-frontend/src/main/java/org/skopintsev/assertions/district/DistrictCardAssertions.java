@@ -12,12 +12,12 @@ public class DistrictCardAssertions {
     }
 
     @Step("Check district name is displayed with text '{0}'.")
-    public static void checkDistrictName(String districtCode) {
-        DistrictCard.getDistrictName().shouldBe(Condition.visible).shouldHave(Condition.text(districtCode));
+    public static void checkDistrictName(String districtName) {
+        DistrictCard.getDistrictName().shouldBe(Condition.visible).shouldHave(Condition.text(districtName));
     }
 
     @Step("Check 'DETAILED MAP' button is enabled.")
-    public static void checkDDetailedMapBtnEnabled() {
+    public static void checkDetailedMapBtnEnabled() {
         DistrictCard.getDetailedMapBtn().shouldBe(Condition.visible).shouldBe(Condition.enabled);
     }
 

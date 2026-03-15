@@ -17,7 +17,7 @@ import org.skopintsev.database.client_types.ClientTypeDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.ClientTypeName;
 import org.skopintsev.model.ClientType;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.ClientsApiClient;
 
 import java.util.stream.Stream;
 
@@ -49,7 +49,7 @@ public class ClientTypeNameTest extends BaseClientTypeTest {
                 .clientTypeCode(CLIENT_TYPE_CODE)
                 .clientTypeName(clientTypeName)
                 .build();
-        PostApiReqHelper.saveClientTypeAndValidate(clientTypeApi, SC_SERVER_ERROR);
+        ClientsApiClient.saveClientTypeAndValidate(clientTypeApi, SC_SERVER_ERROR);
 
         ClientTypeDb socialRankDb = ClientTypeDbHelper.selectClientTypeByCode(CLIENT_TYPE_CODE);
         ClientTypeDbAssertions.checkClientTypePresence(socialRankDb, false);
@@ -78,7 +78,7 @@ public class ClientTypeNameTest extends BaseClientTypeTest {
                 .clientTypeCode(CLIENT_TYPE_CODE)
                 .clientTypeName(clientTypeName)
                 .build();
-        PostApiReqHelper.saveClientTypeAndValidate(clientTypeApi, SC_OK);
+        ClientsApiClient.saveClientTypeAndValidate(clientTypeApi, SC_OK);
 
         ClientTypeDb clientTypeDb = ClientTypeDbHelper.selectClientTypeByCode(CLIENT_TYPE_CODE);
         ClientTypeDbAssertions.checkClientTypePresence(clientTypeDb, true);

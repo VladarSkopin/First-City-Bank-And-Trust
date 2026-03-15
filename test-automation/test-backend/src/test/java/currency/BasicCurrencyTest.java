@@ -14,8 +14,7 @@ import org.skopintsev.database.currencies.CurrencyDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.MetalType;
 import org.skopintsev.model.Currency;
-import org.skopintsev.transport.GetApiReqHelper;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.CurrenciesApiClient;
 
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class BasicCurrencyTest extends BaseCurrencyTest {
         int rowsInserted = CurrencyDbHelper.insertCurrency(newCurrencyDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        List<Currency> currencies = GetApiReqHelper.getCurrenciesAndValidate(SC_OK);
+        List<Currency> currencies = CurrenciesApiClient.getCurrenciesAndValidate(SC_OK);
         CurrencyApiAssertions.checkNotNullCurrencies(currencies);
 
         Currency newAddedCurrencyApi = currencies
@@ -66,9 +65,9 @@ public class BasicCurrencyTest extends BaseCurrencyTest {
                 .currencyName(CURRENCY_NAME)
                 .metalType(metalType)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(newAddedCurrencyApi, SC_OK);
+        CurrenciesApiClient.saveCurrencyAndValidate(newAddedCurrencyApi, SC_OK);
 
-        List<Currency> currencies = GetApiReqHelper.getCurrenciesAndValidate(SC_OK);
+        List<Currency> currencies = CurrenciesApiClient.getCurrenciesAndValidate(SC_OK);
         CurrencyApiAssertions.checkNotNullCurrencies(currencies);
 
         CurrencyDb newAddedCurrencyDb = CurrencyDbHelper.selectCurrencyByCode(CURRENCY_CODE);

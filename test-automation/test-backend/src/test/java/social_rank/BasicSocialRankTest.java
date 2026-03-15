@@ -14,8 +14,7 @@ import org.skopintsev.database.social_ranks.SocialRankDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.PrivilegeLevel;
 import org.skopintsev.model.SocialRank;
-import org.skopintsev.transport.GetApiReqHelper;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.SocialRanksApiClient;
 
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class BasicSocialRankTest extends BaseSocialRankTest {
         int rowsInserted = SocialRankDbHelper.insertSocialRank(socialRankDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        List<SocialRank> ranks = GetApiReqHelper.getSocialRanksAndValidate(SC_OK);
+        List<SocialRank> ranks = SocialRanksApiClient.getSocialRanksAndValidate(SC_OK);
         SocialRankApiAssertions.checkNotNullSocialRanks(ranks);
 
         SocialRank newAddedSocialRankApi = ranks
@@ -74,9 +73,9 @@ public class BasicSocialRankTest extends BaseSocialRankTest {
                 .privilegeLevel(PRIVILEGE_LEVEL)
                 .regulations(REGULATIONS)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(socialRank, SC_OK);
+        SocialRanksApiClient.saveSocialRankAndValidate(socialRank, SC_OK);
 
-        List<SocialRank> ranks = GetApiReqHelper.getSocialRanksAndValidate(SC_OK);
+        List<SocialRank> ranks = SocialRanksApiClient.getSocialRanksAndValidate(SC_OK);
         SocialRankApiAssertions.checkNotNullSocialRanks(ranks);
 
         SocialRankDb newAddedSocialRankDb = SocialRankDbHelper.selectSocialRankByCode(RANK_CODE);

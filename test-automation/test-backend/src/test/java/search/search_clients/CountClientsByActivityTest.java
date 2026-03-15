@@ -3,8 +3,6 @@ package search.search_clients;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -13,7 +11,7 @@ import org.skopintsev.assertions.api.clients.SearchClientsApiAssertions;
 import org.skopintsev.database.clients.ClientDb;
 import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.database.factory.ClientDbFactory;
-import org.skopintsev.transport.GetApiReqHelper;
+import org.skopintsev.transport.api.SearchApiClient;
 
 import static org.skopintsev.constants.Constants.SC_OK;
 
@@ -56,7 +54,7 @@ public class CountClientsByActivityTest extends BaseSearchClientsTest {
     public void countAllClientsTest() {
         int clientsDbCount = ClientDbHelper.getClientsCount();
 
-        int clientsCount = GetApiReqHelper.countAllClientsAndValidate(SC_OK);
+        int clientsCount = SearchApiClient.countAllClientsAndValidate(SC_OK);
         SearchClientsApiAssertions.checkClientsCount(clientsCount, clientsDbCount);
     }
 
@@ -67,7 +65,7 @@ public class CountClientsByActivityTest extends BaseSearchClientsTest {
     public void countActiveClientsTest() {
         int clientsDbCount = ClientDbHelper.getClientsCountByIsBlockedField(false);
 
-        int clientsCount = GetApiReqHelper.countActiveClientsAndValidate(SC_OK);
+        int clientsCount = SearchApiClient.countActiveClientsAndValidate(SC_OK);
         SearchClientsApiAssertions.checkClientsCount(clientsCount, clientsDbCount);
     }
 
@@ -78,7 +76,7 @@ public class CountClientsByActivityTest extends BaseSearchClientsTest {
     public void countBlockedClientsTest() {
         int clientsDbCount = ClientDbHelper.getClientsCountByIsBlockedField(true);
 
-        int clientsCount = GetApiReqHelper.countBlockedClientsAndValidate(SC_OK);
+        int clientsCount = SearchApiClient.countBlockedClientsAndValidate(SC_OK);
         SearchClientsApiAssertions.checkClientsCount(clientsCount, clientsDbCount);
     }
 }

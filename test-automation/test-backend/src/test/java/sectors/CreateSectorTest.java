@@ -19,7 +19,7 @@ import org.skopintsev.database.sectors.SectorDb;
 import org.skopintsev.database.sectors.SectorDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.sectors.Sector;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.SectorsApiClient;
 
 import java.util.stream.Stream;
 
@@ -42,10 +42,10 @@ public class CreateSectorTest extends BaseSectorTest {
                 .sectorCode(SECTOR_CODE)
                 .sectorName(SECTOR_NAME)
                 .build();
-        PostApiReqHelper.saveSectorAndValidate(sectorApi, SC_OK);
+        SectorsApiClient.saveSectorAndValidate(sectorApi, SC_OK);
         int sectorsCountOld = SectorDbHelper.getSectorsCount();
 
-        PostApiReqHelper.saveSectorAndValidate(sectorApi, SC_SERVER_ERROR);
+        SectorsApiClient.saveSectorAndValidate(sectorApi, SC_SERVER_ERROR);
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
         CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld);
     }
@@ -69,7 +69,7 @@ public class CreateSectorTest extends BaseSectorTest {
                 .sectorCode(sectorCode)
                 .sectorName(SECTOR_NAME)
                 .build();
-        PostApiReqHelper.saveSectorAndValidate(sectorApi, SC_SERVER_ERROR);
+        SectorsApiClient.saveSectorAndValidate(sectorApi, SC_SERVER_ERROR);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
         CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld);
@@ -93,7 +93,7 @@ public class CreateSectorTest extends BaseSectorTest {
                 .sectorCode(sectorCode)
                 .sectorName(SECTOR_NAME)
                 .build();
-        PostApiReqHelper.saveSectorAndValidate(sectorApi, SC_OK);
+        SectorsApiClient.saveSectorAndValidate(sectorApi, SC_OK);
 
         SectorDb sectorDb = SectorDbHelper.selectSectorByCode(sectorCodeTrimmedUppercase);
         SectorDbAssertions.checkSectorPresence(sectorDb, true);
@@ -120,7 +120,7 @@ public class CreateSectorTest extends BaseSectorTest {
                 .sectorCode(GeneratorBuilder.generateTestCode())
                 .sectorName(SECTOR_NAME)
                 .build();
-        PostApiReqHelper.saveSectorAndValidate(sectorApiSameName, SC_SERVER_ERROR);
+        SectorsApiClient.saveSectorAndValidate(sectorApiSameName, SC_SERVER_ERROR);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
         CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld);
@@ -145,7 +145,7 @@ public class CreateSectorTest extends BaseSectorTest {
                 .sectorCode(SECTOR_CODE)
                 .sectorName(sectorName)
                 .build();
-        PostApiReqHelper.saveSectorAndValidate(sectorApi, SC_SERVER_ERROR);
+        SectorsApiClient.saveSectorAndValidate(sectorApi, SC_SERVER_ERROR);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
         CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld);
@@ -165,7 +165,7 @@ public class CreateSectorTest extends BaseSectorTest {
                 .sectorCode(SECTOR_CODE)
                 .sectorName(sectorNameToTrim)
                 .build();
-        PostApiReqHelper.saveSectorAndValidate(sectorApi, SC_OK);
+        SectorsApiClient.saveSectorAndValidate(sectorApi, SC_OK);
 
         SectorDb sectorDb = SectorDbHelper.selectSectorByCode(SECTOR_CODE);
         SectorDbAssertions.checkSectorPresence(sectorDb, true);

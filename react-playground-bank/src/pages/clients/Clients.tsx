@@ -229,7 +229,7 @@ function Clients() {
       <div className="clients-container">
         <div className="error-state">
           <div className="error-icon">⚠️</div>
-          <h2>Failed to Load Clients</h2>
+          <h2 data-testid="pageTitle">Failed to Load Clients</h2>
           <p>{error}</p>
           <button 
             className="retry-btn" data-testid="retryBtn"
@@ -250,7 +250,7 @@ function Clients() {
       <div className="clients-container">
         <div className="empty-state">
           <div className="empty-icon">🤵</div>
-          <h3>No Clients Found</h3>
+          <h3 data-testid="pageTitle">No Clients Found</h3>
           <p>No Clients data is currently available</p>
         </div>
       </div>
@@ -260,23 +260,23 @@ function Clients() {
   
   return (
     <div className="clients-container">
-      <h1 className="page-title">Banking Clients</h1>
+      <h1 className="page-title" data-testid="pageTitle">Banking Clients</h1>
       
       {/* Stats bar */}
       <div className="clients-stats">
         <div className="stat-item">
-          <span className="count-label">TOTAL CLIENTS: </span>
-          <span className="count-value">{clients.length}</span>
+          <span className="count-label" data-testid="countLabel">TOTAL CLIENTS: </span>
+          <span className="count-value" data-testid="countValue">{clients.length}</span>
         </div>
         <div className="stat-item">
-          <span className="count-label">ACTIVE: </span>
-          <span className="count-value">
+          <span className="count-label" data-testid="countLabelActive">ACTIVE: </span>
+          <span className="count-value" data-testid="countValueActive">
             {clients.filter(c => !c.isBlocked).length}
           </span>
         </div>
         <div className="stat-item">
-          <span className="count-label">BLOCKED: </span>
-          <span className="count-value">
+          <span className="count-label" data-testid="countLabelBlocked">BLOCKED: </span>
+          <span className="count-value" data-testid="countValueBlocked">
             {clients.filter(c => c.isBlocked).length}
           </span>
         </div>

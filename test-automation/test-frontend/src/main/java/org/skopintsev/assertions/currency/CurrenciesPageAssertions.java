@@ -6,7 +6,7 @@ import org.skopintsev.models.gui.currencies.CurrenciesPage;
 
 public class CurrenciesPageAssertions {
 
-    @Step("Check page title is displayed with text '{0}'.")
+    @Step("Check 'Currencies' page title is displayed with text '{0}'.")
     public static void checkPageTitleText(String titleText) {
         CurrenciesPage.getPageTitle().shouldBe(Condition.visible).shouldHave(Condition.text(titleText));
     }

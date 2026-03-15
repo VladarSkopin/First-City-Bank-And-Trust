@@ -15,7 +15,7 @@ import org.skopintsev.database.factory.VaultDbFactory;
 import org.skopintsev.database.vaults.VaultDb;
 import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.model.vaults.Vault;
-import org.skopintsev.transport.GetApiReqHelper;
+import org.skopintsev.transport.api.SearchApiClient;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class SearchVaultsByVaultFieldTest extends BaseSearchVaultsTest {
     @Description("Test uses API to search for vaults by currency code.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByCurrencyCodeTest() {
-        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByCurrencyAndValidate(BASE_CURRENCY_CODE, SC_OK);
+        List<Vault> vaultsApiFound = SearchApiClient.searchVaultsByCurrencyAndValidate(BASE_CURRENCY_CODE, SC_OK);
         SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 
@@ -61,7 +61,7 @@ public class SearchVaultsByVaultFieldTest extends BaseSearchVaultsTest {
     @Description("Test uses API to search for vaults by client code.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientCodeTest() {
-        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientCodeAndValidate(BASE_CLIENT_CODE, SC_OK);
+        List<Vault> vaultsApiFound = SearchApiClient.searchVaultsByClientCodeAndValidate(BASE_CLIENT_CODE, SC_OK);
         SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 }

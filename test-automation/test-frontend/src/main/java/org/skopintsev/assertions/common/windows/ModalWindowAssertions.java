@@ -28,5 +28,4 @@ public class ModalWindowAssertions {
         int actualHeight = modalBody.getSize().getHeight();
         Assertions.assertThat(actualHeight).isGreaterThanOrEqualTo(expectedMinHeight);
     }
-
 }

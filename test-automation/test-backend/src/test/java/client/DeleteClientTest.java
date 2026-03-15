@@ -15,7 +15,7 @@ import org.skopintsev.database.factory.ClientDbFactory;
 import org.skopintsev.database.clients.ClientDb;
 import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.transport.DeleteApiReqHelper;
+import org.skopintsev.transport.api.ClientsApiClient;
 
 import java.util.stream.Stream;
 
@@ -42,7 +42,7 @@ public class DeleteClientTest extends BaseClientTest {
 
         String extractedClientCode = clientDb.getClientCode();
 
-        DeleteApiReqHelper.deleteClientAndValidate(extractedClientCode, SC_OK);
+        ClientsApiClient.deleteClientAndValidate(extractedClientCode, SC_OK);
 
         clientDb = ClientDbHelper.selectClientByCode(extractedClientCode);
         ClientDbAssertions.checkClientPresence(clientDb, false);
@@ -66,7 +66,7 @@ public class DeleteClientTest extends BaseClientTest {
     public void deleteClientNegativeTest(String clientCode) {
         int clientsCountOld = ClientDbHelper.getClientsCount();
 
-        DeleteApiReqHelper.deleteClientAndValidate(clientCode, SC_NOT_FOUND);
+        ClientsApiClient.deleteClientAndValidate(clientCode, SC_NOT_FOUND);
 
         int clientsCountNew = ClientDbHelper.getClientsCount();
         CommonDbAssertions.checkCounts(clientsCountNew, clientsCountOld);

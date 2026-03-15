@@ -36,10 +36,10 @@ public class CurrencyInfoTest extends BaseCurrencyTest {
     public void currencyCardInfoTest() {
         Currency currency = BASE_CURRENCIES_LIST.get(0);
 
-        CurrencyCardAssertions.checkCurrencyCode(currency.getCurrencyCode());
+        CurrencyCardAssertions.checkCurrencyCodeText(currency.getCurrencyCode());
         CurrencyCardAssertions.checkCurrencyName(currency.getCurrencyName());
-        CurrencyCardAssertions.checkMetalTypeLabel("METAL TYPE:");
-        CurrencyCardAssertions.checkMetalTypeValue(currency.getMetalType());
+        CurrencyCardAssertions.checkMetalTypeLabelText("METAL TYPE:");
+        CurrencyCardAssertions.checkMetalTypeValueText(currency.getMetalType());
         CurrencyCardAssertions.checkCurrencySymbol(currency.getCurrencySymbol());
     }
 
