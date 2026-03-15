@@ -21,7 +21,6 @@ import org.skopintsev.database.vaults.VaultTransactionsDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.TransactionType;
 import org.skopintsev.model.vaults.VaultOperation;
-import org.skopintsev.transport.PostApiReqHelper;
 import org.skopintsev.transport.api.VaultsApiClient;
 
 import java.math.BigInteger;

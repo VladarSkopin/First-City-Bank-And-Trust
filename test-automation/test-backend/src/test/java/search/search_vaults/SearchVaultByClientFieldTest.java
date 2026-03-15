@@ -15,7 +15,7 @@ import org.skopintsev.database.factory.VaultDbFactory;
 import org.skopintsev.database.vaults.VaultDb;
 import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.model.vaults.Vault;
-import org.skopintsev.transport.GetApiReqHelper;
+import org.skopintsev.transport.api.SearchApiClient;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class SearchVaultByClientFieldTest extends BaseSearchVaultsTest {
     @Description("Test uses API to search for vaults by client name.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientNameTest() {
-        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientNameAndValidate(BASE_CLIENT_NAME, SC_OK);
+        List<Vault> vaultsApiFound = SearchApiClient.searchVaultsByClientNameAndValidate(BASE_CLIENT_NAME, SC_OK);
         SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 
@@ -61,7 +61,7 @@ public class SearchVaultByClientFieldTest extends BaseSearchVaultsTest {
     @Description("Test uses API to search for vaults by client social rank.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientRankTest() {
-        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientRankAndValidate(BASE_SOCIAL_RANK_CODE, SC_OK);
+        List<Vault> vaultsApiFound = SearchApiClient.searchVaultsByClientRankAndValidate(BASE_SOCIAL_RANK_CODE, SC_OK);
         SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 
@@ -70,7 +70,7 @@ public class SearchVaultByClientFieldTest extends BaseSearchVaultsTest {
     @Description("Test uses API to search for vaults by client type.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientTypeTest() {
-        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientTypeAndValidate(BASE_CLIENT_TYPE_CODE, SC_OK);
+        List<Vault> vaultsApiFound = SearchApiClient.searchVaultsByClientTypeAndValidate(BASE_CLIENT_TYPE_CODE, SC_OK);
         SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 
@@ -79,7 +79,7 @@ public class SearchVaultByClientFieldTest extends BaseSearchVaultsTest {
     @Description("Test uses API to search for vaults by client sector.")
     @Severity(SeverityLevel.CRITICAL)
     public void searchVaultsByClientSectorTest() {
-        List<Vault> vaultsApiFound = GetApiReqHelper.searchVaultsByClientSectorAndValidate(BASE_SECTOR_CODE, SC_OK);
+        List<Vault> vaultsApiFound = SearchApiClient.searchVaultsByClientSectorAndValidate(BASE_SECTOR_CODE, SC_OK);
         SearchVaultsApiAssertions.checkSearchVaultsResponseMatchesExpected(vaultsApiFound, vaultsApiExpected);
     }
 }

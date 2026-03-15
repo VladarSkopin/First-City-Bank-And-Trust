@@ -15,7 +15,6 @@ import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.Client;
 import org.skopintsev.model.factory.ClientApiFactory;
-import org.skopintsev.transport.PostApiReqHelper;
 import org.skopintsev.transport.api.ClientsApiClient;
 
 import java.util.stream.Stream;
