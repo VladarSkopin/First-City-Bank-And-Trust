@@ -14,7 +14,7 @@ import org.skopintsev.database.social_ranks.SocialRankDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.PrivilegeLevel;
 import org.skopintsev.model.SocialRank;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.SocialRanksApiClient;
 
 import java.util.stream.Stream;
 
@@ -46,7 +46,7 @@ public class SocialRankPrivilegeLevelTest extends BaseSocialRankTest {
                 .rankName(RANK_NAME)
                 .privilegeLevel(privilegeLevel)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(socialRank, SC_SERVER_ERROR);
+        SocialRanksApiClient.saveSocialRankAndValidate(socialRank, SC_SERVER_ERROR);
 
         SocialRankDb socialRankDb = SocialRankDbHelper.selectSocialRankByCode(RANK_CODE);
         SocialRankDbAssertions.checkSocialRankPresence(socialRankDb, false);
@@ -73,7 +73,7 @@ public class SocialRankPrivilegeLevelTest extends BaseSocialRankTest {
                 .rankName(RANK_NAME)
                 .privilegeLevel(privilegeLevel)
                 .build();
-        PostApiReqHelper.saveSocialRankAndValidate(socialRank, SC_OK);
+        SocialRanksApiClient.saveSocialRankAndValidate(socialRank, SC_OK);
 
         SocialRankDb socialRankDb = SocialRankDbHelper.selectSocialRankByCode(RANK_CODE);
         SocialRankDbAssertions.checkSocialRankPresence(socialRankDb, true);

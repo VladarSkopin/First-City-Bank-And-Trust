@@ -19,7 +19,7 @@ import org.skopintsev.database.currencies.CurrencyDb;
 import org.skopintsev.database.currencies.CurrencyDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.Currency;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.CurrenciesApiClient;
 
 import java.util.stream.Stream;
 
@@ -42,10 +42,10 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
                 .currencyCode(CURRENCY_CODE)
                 .currencyName(CURRENCY_NAME)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_OK);
+        CurrenciesApiClient.saveCurrencyAndValidate(newCurrencyApi, SC_OK);
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
-        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
+        CurrenciesApiClient.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
         CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
     }
@@ -69,7 +69,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
                 .currencyCode(currencyCode)
                 .currencyName(CURRENCY_NAME)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
+        CurrenciesApiClient.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
         CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
@@ -97,7 +97,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
                 .currencyCode(currencyCode)
                 .currencyName(CURRENCY_NAME)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(currencyApi, SC_OK);
+        CurrenciesApiClient.saveCurrencyAndValidate(currencyApi, SC_OK);
 
         CurrencyDb currencyDb = CurrencyDbHelper.selectCurrencyByCode(currencyCodeTrimmedUppercase);
         CurrencyDbAssertions.checkCurrencyPresence(currencyDb, true);
@@ -125,7 +125,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
                 .currencyCode(GeneratorBuilder.generateTestCode())
                 .currencyName(CURRENCY_NAME)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApiSameName, SC_SERVER_ERROR);
+        CurrenciesApiClient.saveCurrencyAndValidate(newCurrencyApiSameName, SC_SERVER_ERROR);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
         CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
@@ -143,7 +143,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
                 .currencyCode(CURRENCY_CODE)
                 .currencyName(currencyNameToTrim)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(currencyApi, SC_OK);
+        CurrenciesApiClient.saveCurrencyAndValidate(currencyApi, SC_OK);
 
         CurrencyDb currencyDb = CurrencyDbHelper.selectCurrencyByCode(CURRENCY_CODE);
         CurrencyDbAssertions.checkCurrencyPresence(currencyDb, true);
@@ -169,7 +169,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
                 .currencyCode(CURRENCY_CODE)
                 .currencyName(currencyName)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
+        CurrenciesApiClient.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
         CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
@@ -198,7 +198,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
                 .currencyName(CURRENCY_NAME)
                 .currencySymbol(currencySymbol)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
+        CurrenciesApiClient.saveCurrencyAndValidate(newCurrencyApi, SC_SERVER_ERROR);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
         CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);
@@ -227,7 +227,7 @@ public class CreateCurrencyTest extends BaseCurrencyTest {
                 .currencyName(CURRENCY_NAME)
                 .metalType(metalType)
                 .build();
-        PostApiReqHelper.saveCurrencyAndValidate(newCurrencyApi, SC_OK);
+        CurrenciesApiClient.saveCurrencyAndValidate(newCurrencyApi, SC_OK);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
         CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld + 1);

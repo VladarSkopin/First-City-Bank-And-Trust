@@ -16,7 +16,7 @@ import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.database.client_types.ClientTypeDb;
 import org.skopintsev.database.client_types.ClientTypeDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.transport.DeleteApiReqHelper;
+import org.skopintsev.transport.api.ClientsApiClient;
 
 import java.util.stream.Stream;
 
@@ -43,7 +43,7 @@ public class DeleteClientTypeTest extends BaseClientTypeTest {
         int rowsInserted = ClientTypeDbHelper.insertClientType(clientTypeDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        DeleteApiReqHelper.deleteClientTypeAndValidate(CLIENT_TYPE_CODE, SC_OK);
+        ClientsApiClient.deleteClientTypeAndValidate(CLIENT_TYPE_CODE, SC_OK);
 
         clientTypeDb = ClientTypeDbHelper.selectClientTypeByCode(CLIENT_TYPE_CODE);
         ClientTypeDbAssertions.checkClientTypePresence(clientTypeDb, false);
@@ -67,7 +67,7 @@ public class DeleteClientTypeTest extends BaseClientTypeTest {
     public void deleteClientTypeNegativeTest(String clientTypeCode) {
         int clientTypesCountOld = ClientTypeDbHelper.getClientTypesCount();
 
-        DeleteApiReqHelper.deleteClientTypeAndValidate(clientTypeCode, SC_NOT_FOUND);
+        ClientsApiClient.deleteClientTypeAndValidate(clientTypeCode, SC_NOT_FOUND);
 
         int clientTypesCountNew = ClientTypeDbHelper.getClientTypesCount();
         CommonDbAssertions.checkCounts(clientTypesCountNew, clientTypesCountOld);

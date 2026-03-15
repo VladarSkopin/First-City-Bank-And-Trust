@@ -2,7 +2,6 @@ package org.skopintsev.transport;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import lombok.SneakyThrows;
 import org.skopintsev.constants.Api;
 import org.skopintsev.model.*;
 import org.skopintsev.model.sectors.Sector;
@@ -10,43 +9,34 @@ import org.skopintsev.model.sectors.SubSector;
 import org.skopintsev.model.vaults.Vault;
 import org.skopintsev.model.vaults.VaultOperation;
 
-import static org.skopintsev.constants.Constants.OBJECT_MAPPER;
+import static org.skopintsev.transport.CommonApiReqHelper.postApiReq;
 
 public class PostApiReqHelper {
 
-    @SneakyThrows
-    public static Response postApiReq(Object request, String endpoint) {
-        String requestJson = OBJECT_MAPPER.writeValueAsString(request);
-        return postApiReq(requestJson, endpoint);
-    }
 
-    public static Response postApiReq(String bodyReq, String endpoint) {
-        return CommonApiReqHelper.postRequest(bodyReq, endpoint);
-    }
+//    @Step("POST " + Api.CURRENCIES + " with expected status code {1}")
+//    public static void saveCurrencyAndValidate(Currency currency, int expectedStatusCode) {
+//        Response response = postApiReq(currency, Api.CURRENCIES);
+//        response.then().statusCode(expectedStatusCode);
+//    }
 
-    @Step("POST " + Api.CURRENCIES + " with expected status code {1}")
-    public static void saveCurrencyAndValidate(Currency currency, int expectedStatusCode) {
-        Response response = postApiReq(currency, Api.CURRENCIES);
-        response.then().statusCode(expectedStatusCode);
-    }
+//    @Step("POST " + Api.DISTRICTS + " with expected status code {1}")
+//    public static void saveDistrictAndValidate(District district, int expectedStatusCode) {
+//        Response response = postApiReq(district, Api.DISTRICTS);
+//        response.then().statusCode(expectedStatusCode);
+//    }
 
-    @Step("POST " + Api.DISTRICTS + " with expected status code {1}")
-    public static void saveDistrictAndValidate(District district, int expectedStatusCode) {
-        Response response = postApiReq(district, Api.DISTRICTS);
-        response.then().statusCode(expectedStatusCode);
-    }
+//    @Step("POST " + Api.SOCIAL_RANKS + " with expected status code {1}")
+//    public static void saveSocialRankAndValidate(SocialRank socialRank, int expectedStatusCode) {
+//        Response response = postApiReq(socialRank, Api.SOCIAL_RANKS);
+//        response.then().statusCode(expectedStatusCode);
+//    }
 
-    @Step("POST " + Api.SOCIAL_RANKS + " with expected status code {1}")
-    public static void saveSocialRankAndValidate(SocialRank socialRank, int expectedStatusCode) {
-        Response response = postApiReq(socialRank, Api.SOCIAL_RANKS);
-        response.then().statusCode(expectedStatusCode);
-    }
-
-    @Step("POST " + Api.CLIENT_TYPES + " with expected status code {1}")
-    public static void saveClientTypeAndValidate(ClientType clientType, int expectedStatusCode) {
-        Response response = postApiReq(clientType, Api.CLIENT_TYPES);
-        response.then().statusCode(expectedStatusCode);
-    }
+//    @Step("POST " + Api.CLIENT_TYPES + " with expected status code {1}")
+//    public static void saveClientTypeAndValidate(ClientType clientType, int expectedStatusCode) {
+//        Response response = postApiReq(clientType, Api.CLIENT_TYPES);
+//        response.then().statusCode(expectedStatusCode);
+//    }
 
     @Step("POST " + Api.SECTORS + " with expected status code {1}")
     public static void saveSectorAndValidate(Sector sector, int expectedStatusCode) {

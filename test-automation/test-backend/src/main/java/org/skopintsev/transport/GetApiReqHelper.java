@@ -15,51 +15,41 @@ import java.util.List;
 
 public class GetApiReqHelper {
 
-    @SneakyThrows
-    public static Response getApiRequest(String endpoint) {
-        return CommonApiReqHelper.getRequest(endpoint);
-    }
+//    @Step("GET " + Api.CURRENCIES + " with expected status code {0}")
+//    public static List<Currency> getCurrenciesAndValidate(int expectedStatusCode) {
+//        Response response = CommonApiReqHelper.getRequest(Api.CURRENCIES);
+//        response.then().statusCode(expectedStatusCode);
+//
+//        return response.as(new TypeRef<List<Currency>>() {});
+//    }
 
-    @SneakyThrows
-    public static Response getApiRequest(String endpoint, String entityCode) {
-        return CommonApiReqHelper.getRequest(endpoint, entityCode);
-    }
+//    @Step("GET " + Api.DISTRICTS + " with expected status code {0}")
+//    public static List<District> getDistrictsAndValidate(int expectedStatusCode) {
+//        Response response = CommonApiReqHelper.getRequest(Api.DISTRICTS);
+//        response.then().statusCode(expectedStatusCode);
+//
+//        return response.as(new TypeRef<List<District>>() {});
+//    }
 
-    @Step("GET " + Api.CURRENCIES + " with expected status code {0}")
-    public static List<Currency> getCurrenciesAndValidate(int expectedStatusCode) {
-        Response response = getApiRequest(Api.CURRENCIES);
-        response.then().statusCode(expectedStatusCode);
+//    @Step("GET " + Api.SOCIAL_RANKS + " with expected status code {0}")
+//    public static List<SocialRank> getSocialRanksAndValidate(int expectedStatusCode) {
+//        Response response = CommonApiReqHelper.getRequest(Api.SOCIAL_RANKS);
+//        response.then().statusCode(expectedStatusCode);
+//
+//        return response.as(new TypeRef<List<SocialRank>>() {});
+//    }
 
-        return response.as(new TypeRef<List<Currency>>() {});
-    }
-
-    @Step("GET " + Api.DISTRICTS + " with expected status code {0}")
-    public static List<District> getDistrictsAndValidate(int expectedStatusCode) {
-        Response response = getApiRequest(Api.DISTRICTS);
-        response.then().statusCode(expectedStatusCode);
-
-        return response.as(new TypeRef<List<District>>() {});
-    }
-
-    @Step("GET " + Api.SOCIAL_RANKS + " with expected status code {0}")
-    public static List<SocialRank> getSocialRanksAndValidate(int expectedStatusCode) {
-        Response response = getApiRequest(Api.SOCIAL_RANKS);
-        response.then().statusCode(expectedStatusCode);
-
-        return response.as(new TypeRef<List<SocialRank>>() {});
-    }
-
-    @Step("GET " + Api.CLIENT_TYPES + " with expected status code {0}")
-    public static List<ClientType> getClientTypesAndValidate(int expectedStatusCode) {
-        Response response = getApiRequest(Api.CLIENT_TYPES);
-        response.then().statusCode(expectedStatusCode);
-
-        return response.as(new TypeRef<List<ClientType>>() {});
-    }
+//    @Step("GET " + Api.CLIENT_TYPES + " with expected status code {0}")
+//    public static List<ClientType> getClientTypesAndValidate(int expectedStatusCode) {
+//        Response response = CommonApiReqHelper.getRequest(Api.CLIENT_TYPES);
+//        response.then().statusCode(expectedStatusCode);
+//
+//        return response.as(new TypeRef<List<ClientType>>() {});
+//    }
 
     @Step("GET " + Api.SECTORS + " with expected status code {0}")
     public static List<Sector> getSectorsAndValidate(int expectedStatusCode) {
-        Response response = getApiRequest(Api.SECTORS);
+        Response response = CommonApiReqHelper.getRequest(Api.SECTORS);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Sector>>() {});
@@ -67,7 +57,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SUB_SECTORS + " with expected status code {0}")
     public static List<SubSector> getSubSectorsAndValidate(int expectedStatusCode) {
-        Response response = getApiRequest(Api.SUB_SECTORS);
+        Response response = CommonApiReqHelper.getRequest(Api.SUB_SECTORS);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<SubSector>>() {});
@@ -75,7 +65,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.CLIENTS + " with expected status code {0}")
     public static List<Client> getClientsAndValidate(int expectedStatusCode) {
-        Response response = getApiRequest(Api.CLIENTS);
+        Response response = CommonApiReqHelper.getRequest(Api.CLIENTS);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Client>>() {});
@@ -83,7 +73,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.VAULTS + " with expected status code {0}")
     public static List<Vault> getVaultsAndValidate(int expectedStatusCode) {
-        Response response = getApiRequest(Api.VAULTS);
+        Response response = CommonApiReqHelper.getRequest(Api.VAULTS);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Vault>>() {});
@@ -91,7 +81,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SEARCH_CLIENTS_BY_SOCIAL_RANK + " with expected status code {0}")
     public static List<Client> searchClientsByRankAndValidate(String socialRankCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_SOCIAL_RANK, socialRankCode);
+        Response response = CommonApiReqHelper.getRequest(Api.SEARCH_CLIENTS_BY_SOCIAL_RANK, socialRankCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Client>>() {});
@@ -99,7 +89,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SEARCH_CLIENTS_BY_CLIENT_TYPE + " with expected status code {0}")
     public static List<Client> searchClientsByClientTypeAndValidate(String clientTypeCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_CLIENT_TYPE, clientTypeCode);
+        Response response = CommonApiReqHelper.getRequest(Api.SEARCH_CLIENTS_BY_CLIENT_TYPE, clientTypeCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Client>>() {});
@@ -107,7 +97,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SEARCH_CLIENTS_BY_SUB_SECTOR + " with expected status code {0}")
     public static List<Client> searchClientsBySubSectorAndValidate(String subSectorCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_SUB_SECTOR, subSectorCode);
+        Response response = CommonApiReqHelper.getRequest(Api.SEARCH_CLIENTS_BY_SUB_SECTOR, subSectorCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Client>>() {});
@@ -115,7 +105,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SEARCH_CLIENTS_BY_SECTOR + " with expected status code {0}")
     public static List<Client> searchClientsBySectorAndValidate(String sectorCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_SECTOR, sectorCode);
+        Response response = CommonApiReqHelper.getRequest(Api.SEARCH_CLIENTS_BY_SECTOR, sectorCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Client>>() {});
@@ -123,7 +113,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SEARCH_CLIENTS_BY_DISTRICT + " with expected status code {0}")
     public static List<Client> searchClientsByDistrictAndValidate(String districtCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_CLIENTS_BY_DISTRICT, districtCode);
+        Response response = CommonApiReqHelper.getRequest(Api.SEARCH_CLIENTS_BY_DISTRICT, districtCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Client>>() {});
@@ -149,7 +139,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.COUNT_CLIENTS_ALL + " with expected status code {0}")
     public static Integer countAllClientsAndValidate(int expectedStatusCode) {
-        Response response = getApiRequest(Api.COUNT_CLIENTS_ALL);
+        Response response = CommonApiReqHelper.getRequest(Api.COUNT_CLIENTS_ALL);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<Integer>() {});
@@ -157,7 +147,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.COUNT_CLIENTS_ACTIVE + " with expected status code {0}")
     public static Integer countActiveClientsAndValidate(int expectedStatusCode) {
-        Response response = getApiRequest(Api.COUNT_CLIENTS_ACTIVE);
+        Response response = CommonApiReqHelper.getRequest(Api.COUNT_CLIENTS_ACTIVE);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<Integer>() {});
@@ -165,7 +155,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.COUNT_CLIENTS_BLOCKED + " with expected status code {0}")
     public static Integer countBlockedClientsAndValidate(int expectedStatusCode) {
-        Response response = getApiRequest(Api.COUNT_CLIENTS_BLOCKED);
+        Response response = CommonApiReqHelper.getRequest(Api.COUNT_CLIENTS_BLOCKED);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<Integer>() {});
@@ -173,7 +163,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.COUNT_CLIENTS_BY_RANK + " with expected status code {0}")
     public static Integer countClientsByRankAndValidate(String rankCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.COUNT_CLIENTS_BY_RANK, rankCode);
+        Response response = CommonApiReqHelper.getRequest(Api.COUNT_CLIENTS_BY_RANK, rankCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<Integer>() {});
@@ -181,7 +171,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.COUNT_CLIENTS_BY_TYPE + " with expected status code {0}")
     public static Integer countClientsByClientTypeAndValidate(String clientTypeCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.COUNT_CLIENTS_BY_TYPE, clientTypeCode);
+        Response response = CommonApiReqHelper.getRequest(Api.COUNT_CLIENTS_BY_TYPE, clientTypeCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<Integer>() {});
@@ -189,7 +179,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.COUNT_CLIENTS_BY_SECTOR + " with expected status code {0}")
     public static Integer countClientsBySectorAndValidate(String sectorCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.COUNT_CLIENTS_BY_SECTOR, sectorCode);
+        Response response = CommonApiReqHelper.getRequest(Api.COUNT_CLIENTS_BY_SECTOR, sectorCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<Integer>() {});
@@ -197,7 +187,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SEARCH_VAULTS_BY_CURRENCY + " with expected status code {0}")
     public static List<Vault> searchVaultsByCurrencyAndValidate(String currencyCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CURRENCY, currencyCode);
+        Response response = CommonApiReqHelper.getRequest(Api.SEARCH_VAULTS_BY_CURRENCY, currencyCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Vault>>() {});
@@ -205,7 +195,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SEARCH_VAULTS_BY_CLIENT_CODE + " with expected status code {0}")
     public static List<Vault> searchVaultsByClientCodeAndValidate(String clientCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CLIENT_CODE, clientCode);
+        Response response = CommonApiReqHelper.getRequest(Api.SEARCH_VAULTS_BY_CLIENT_CODE, clientCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Vault>>() {});
@@ -213,7 +203,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SEARCH_VAULTS_BY_CLIENT_NAME + " with expected status code {0}")
     public static List<Vault> searchVaultsByClientNameAndValidate(String clientNameOrTitle, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CLIENT_NAME, clientNameOrTitle);
+        Response response = CommonApiReqHelper.getRequest(Api.SEARCH_VAULTS_BY_CLIENT_NAME, clientNameOrTitle);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Vault>>() {});
@@ -221,7 +211,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SEARCH_VAULTS_BY_CLIENT_RANK + " with expected status code {0}")
     public static List<Vault> searchVaultsByClientRankAndValidate(String clientRankCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CLIENT_RANK, clientRankCode);
+        Response response = CommonApiReqHelper.getRequest(Api.SEARCH_VAULTS_BY_CLIENT_RANK, clientRankCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Vault>>() {});
@@ -229,7 +219,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SEARCH_VAULTS_BY_CLIENT_TYPE + " with expected status code {0}")
     public static List<Vault> searchVaultsByClientTypeAndValidate(String clientTypeCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CLIENT_TYPE, clientTypeCode);
+        Response response = CommonApiReqHelper.getRequest(Api.SEARCH_VAULTS_BY_CLIENT_TYPE, clientTypeCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Vault>>() {});
@@ -237,7 +227,7 @@ public class GetApiReqHelper {
 
     @Step("GET " + Api.SEARCH_VAULTS_BY_CLIENT_SECTOR + " with expected status code {0}")
     public static List<Vault> searchVaultsByClientSectorAndValidate(String clientSectorCode, int expectedStatusCode) {
-        Response response = getApiRequest(Api.SEARCH_VAULTS_BY_CLIENT_SECTOR, clientSectorCode);
+        Response response = CommonApiReqHelper.getRequest(Api.SEARCH_VAULTS_BY_CLIENT_SECTOR, clientSectorCode);
         response.then().statusCode(expectedStatusCode);
 
         return response.as(new TypeRef<List<Vault>>() {});
