@@ -15,8 +15,7 @@ import org.skopintsev.database.sectors.SectorDb;
 import org.skopintsev.database.sectors.SectorDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.sectors.Sector;
-import org.skopintsev.transport.GetApiReqHelper;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.SectorsApiClient;
 
 import java.util.List;
 
@@ -43,7 +42,7 @@ public class BasicSectorTest extends BaseSectorTest {
         int rowsInserted = SectorDbHelper.insertSector(newSectorDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        List<Sector> sectors = GetApiReqHelper.getSectorsAndValidate(SC_OK);
+        List<Sector> sectors = SectorsApiClient.getSectorsAndValidate(SC_OK);
         SectorApiAssertions.checkNotNullSectors(sectors);
 
         Sector newAddedSectorApi = sectors
@@ -65,9 +64,9 @@ public class BasicSectorTest extends BaseSectorTest {
                 .sectorName(SECTOR_NAME)
                 .description(DESCRIPTION)
                 .build();
-        PostApiReqHelper.saveSectorAndValidate(newAddedSectorApi, SC_OK);
+        SectorsApiClient.saveSectorAndValidate(newAddedSectorApi, SC_OK);
 
-        List<Sector> sectors = GetApiReqHelper.getSectorsAndValidate(SC_OK);
+        List<Sector> sectors = SectorsApiClient.getSectorsAndValidate(SC_OK);
         SectorApiAssertions.checkNotNullSectors(sectors);
 
         SectorDb newAddedSectorDb = SectorDbHelper.selectSectorByCode(SECTOR_CODE);

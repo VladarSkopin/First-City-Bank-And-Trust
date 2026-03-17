@@ -16,8 +16,7 @@ import org.skopintsev.database.client_types.ClientTypeDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.ClientTypeName;
 import org.skopintsev.model.ClientType;
-import org.skopintsev.transport.GetApiReqHelper;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.ClientsApiClient;
 
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class BasicClientTypeTest extends BaseClientTypeTest {
         int rowsInserted = ClientTypeDbHelper.insertClientType(newClientTypeDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        List<ClientType> clientTypes = GetApiReqHelper.getClientTypesAndValidate(SC_OK);
+        List<ClientType> clientTypes = ClientsApiClient.getClientTypesAndValidate(SC_OK);
         ClientTypeApiAssertions.checkNotNullClientTypes(clientTypes);
 
         ClientType newAddedClientTypeApi = clientTypes
@@ -68,9 +67,9 @@ public class BasicClientTypeTest extends BaseClientTypeTest {
                 .clientTypeName(CLIENT_TYPE_NAME)
                 .description(DESCRIPTION)
                 .build();
-        PostApiReqHelper.saveClientTypeAndValidate(newAddedClientTypeApi, SC_OK);
+        ClientsApiClient.saveClientTypeAndValidate(newAddedClientTypeApi, SC_OK);
 
-        List<ClientType> currencies = GetApiReqHelper.getClientTypesAndValidate(SC_OK);
+        List<ClientType> currencies = ClientsApiClient.getClientTypesAndValidate(SC_OK);
         ClientTypeApiAssertions.checkNotNullClientTypes(currencies);
 
         ClientTypeDb newAddedClientTypeDb = ClientTypeDbHelper.selectClientTypeByCode(CLIENT_TYPE_CODE);

@@ -19,7 +19,7 @@ import org.skopintsev.database.sectors.subsectors.SubSectorDb;
 import org.skopintsev.database.sectors.subsectors.SubSectorDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.sectors.SubSector;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.SectorsApiClient;
 
 import java.util.stream.Stream;
 
@@ -43,10 +43,10 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
                 .subSectorCode(SUB_SECTOR_CODE)
                 .subSectorName(SUB_SECTOR_NAME)
                 .build();
-        PostApiReqHelper.saveSubSectorAndValidate(subSector, SC_OK);
+        SectorsApiClient.saveSubSectorAndValidate(subSector, SC_OK);
         int subSectorsCountOld = SubSectorDbHelper.getSubSectorsCount();
 
-        PostApiReqHelper.saveSubSectorAndValidate(subSector, SC_SERVER_ERROR);
+        SectorsApiClient.saveSubSectorAndValidate(subSector, SC_SERVER_ERROR);
         int subSectorsCountNew = SubSectorDbHelper.getSubSectorsCount();
         CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld);
     }
@@ -71,7 +71,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
                 .subSectorCode(subSectorCode)
                 .subSectorName(SUB_SECTOR_NAME)
                 .build();
-        PostApiReqHelper.saveSubSectorAndValidate(subSector, SC_SERVER_ERROR);
+        SectorsApiClient.saveSubSectorAndValidate(subSector, SC_SERVER_ERROR);
 
         int subSectorsCountNew = SubSectorDbHelper.getSubSectorsCount();
         CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld);
@@ -96,7 +96,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
                 .subSectorCode(subSectorCode)
                 .subSectorName(SUB_SECTOR_NAME)
                 .build();
-        PostApiReqHelper.saveSubSectorAndValidate(subSector, SC_OK);
+        SectorsApiClient.saveSubSectorAndValidate(subSector, SC_OK);
 
         SubSectorDb subSectorDb = SubSectorDbHelper.selectSubSectorByCode(subSectorCodeTrimmedUppercase);
         SubSectorDbAssertions.checkSubSectorPresence(subSectorDb, true);
@@ -125,7 +125,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
                 .subSectorCode(GeneratorBuilder.generateTestCode())
                 .subSectorName(SUB_SECTOR_NAME)
                 .build();
-        PostApiReqHelper.saveSubSectorAndValidate(subSectorApiSameName, SC_SERVER_ERROR);
+        SectorsApiClient.saveSubSectorAndValidate(subSectorApiSameName, SC_SERVER_ERROR);
 
         int subSectorsCountNew = SubSectorDbHelper.getSubSectorsCount();
         CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld);
@@ -151,7 +151,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
                 .subSectorCode(SUB_SECTOR_CODE)
                 .subSectorName(subSectorName)
                 .build();
-        PostApiReqHelper.saveSubSectorAndValidate(subSectorApi, SC_SERVER_ERROR);
+        SectorsApiClient.saveSubSectorAndValidate(subSectorApi, SC_SERVER_ERROR);
 
         int subSectorsCountNew = SubSectorDbHelper.getSubSectorsCount();
         CommonDbAssertions.checkCounts(subSectorsCountNew, subSectorsCountOld);
@@ -172,7 +172,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
                 .subSectorCode(SUB_SECTOR_CODE)
                 .subSectorName(subSectorNameToTrim)
                 .build();
-        PostApiReqHelper.saveSubSectorAndValidate(subSectorApi, SC_OK);
+        SectorsApiClient.saveSubSectorAndValidate(subSectorApi, SC_OK);
 
         SubSectorDb subSectorDb = SubSectorDbHelper.selectSubSectorByCode(SUB_SECTOR_CODE);
         SubSectorDbAssertions.checkSubSectorPresence(subSectorDb, true);
@@ -195,7 +195,7 @@ public class CreateSubSectorTest extends BaseSubSectorTest {
                 .subSectorCode(SUB_SECTOR_CODE)
                 .subSectorName(SUB_SECTOR_NAME)
                 .build();
-        PostApiReqHelper.saveSubSectorAndValidate(subSectorApi, SC_SERVER_ERROR);
+        SectorsApiClient.saveSubSectorAndValidate(subSectorApi, SC_SERVER_ERROR);
 
         SubSectorDb subSectorDb = SubSectorDbHelper.selectSubSectorByCode(SUB_SECTOR_CODE);
         SubSectorDbAssertions.checkSubSectorPresence(subSectorDb, false);

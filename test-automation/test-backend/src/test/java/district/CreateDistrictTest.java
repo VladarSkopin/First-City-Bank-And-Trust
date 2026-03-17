@@ -19,7 +19,7 @@ import org.skopintsev.database.districts.DistrictDb;
 import org.skopintsev.database.districts.DistrictDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.model.District;
-import org.skopintsev.transport.PostApiReqHelper;
+import org.skopintsev.transport.api.DistrictsApiClient;
 
 
 import java.util.stream.Stream;
@@ -43,10 +43,10 @@ public class CreateDistrictTest extends BaseDistrictTest {
                 .districtCode(DISTRICT_CODE)
                 .districtName(DISTRICT_NAME)
                 .build();
-        PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_OK);
+        DistrictsApiClient.saveDistrictAndValidate(districtApi, SC_OK);
         int districtsCountOld = DistrictDbHelper.getDistrictsCount();
 
-        PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_SERVER_ERROR);
+        DistrictsApiClient.saveDistrictAndValidate(districtApi, SC_SERVER_ERROR);
         int districtsCountNew = DistrictDbHelper.getDistrictsCount();
         CommonDbAssertions.checkCounts(districtsCountNew, districtsCountOld);
     }
@@ -70,7 +70,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
                 .districtCode(districtCode)
                 .districtName(DISTRICT_NAME)
                 .build();
-        PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_SERVER_ERROR);
+        DistrictsApiClient.saveDistrictAndValidate(districtApi, SC_SERVER_ERROR);
 
         int districtsCountNew = DistrictDbHelper.getDistrictsCount();
         CommonDbAssertions.checkCounts(districtsCountNew, districtsCountOld);
@@ -95,7 +95,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
                 .districtCode(districtCode)
                 .districtName(DISTRICT_NAME)
                 .build();
-        PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_OK);
+        DistrictsApiClient.saveDistrictAndValidate(districtApi, SC_OK);
 
         DistrictDb districtDb = DistrictDbHelper.selectDistrictByCode(districtCodeTrimmedUppercase);
         DistrictDbAssertions.checkDistrictPresence(districtDb, true);
@@ -122,7 +122,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
                 .districtCode(GeneratorBuilder.generateTestCode())
                 .districtName(DISTRICT_NAME)
                 .build();
-        PostApiReqHelper.saveDistrictAndValidate(districtApiSameName, SC_SERVER_ERROR);
+        DistrictsApiClient.saveDistrictAndValidate(districtApiSameName, SC_SERVER_ERROR);
 
         int districtsCountNew = DistrictDbHelper.getDistrictsCount();
         CommonDbAssertions.checkCounts(districtsCountNew, districtsCountOld);
@@ -147,7 +147,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
                 .districtCode(DISTRICT_CODE)
                 .districtName(districtName)
                 .build();
-        PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_SERVER_ERROR);
+        DistrictsApiClient.saveDistrictAndValidate(districtApi, SC_SERVER_ERROR);
 
         int districtsCountNew = DistrictDbHelper.getDistrictsCount();
         CommonDbAssertions.checkCounts(districtsCountNew, districtsCountOld);
@@ -167,7 +167,7 @@ public class CreateDistrictTest extends BaseDistrictTest {
                 .districtCode(DISTRICT_CODE)
                 .districtName(districtNameToTrim)
                 .build();
-        PostApiReqHelper.saveDistrictAndValidate(districtApi, SC_OK);
+        DistrictsApiClient.saveDistrictAndValidate(districtApi, SC_OK);
 
         DistrictDb districtDb = DistrictDbHelper.selectDistrictByCode(DISTRICT_CODE);
         DistrictDbAssertions.checkDistrictPresence(districtDb, true);

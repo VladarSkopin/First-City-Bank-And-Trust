@@ -13,7 +13,7 @@ import org.skopintsev.assertions.db.SocialRankDbAssertions;
 import org.skopintsev.database.social_ranks.SocialRankDb;
 import org.skopintsev.database.social_ranks.SocialRankDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.transport.DeleteApiReqHelper;
+import org.skopintsev.transport.api.SocialRanksApiClient;
 
 import java.util.stream.Stream;
 
@@ -37,7 +37,7 @@ public class DeleteSocialRankTest extends BaseSocialRankTest {
         int rowsInserted = SocialRankDbHelper.insertSocialRank(newSocialRankDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        DeleteApiReqHelper.deleteSocialRankAndValidate(rankCode, SC_OK);
+        SocialRanksApiClient.deleteSocialRankAndValidate(rankCode, SC_OK);
 
         newSocialRankDb = SocialRankDbHelper.selectSocialRankByCode(rankCode);
         SocialRankDbAssertions.checkSocialRankPresence(newSocialRankDb, false);
@@ -61,7 +61,7 @@ public class DeleteSocialRankTest extends BaseSocialRankTest {
     public void deleteSocialRankNegativeTest(String rankCode) {
         int socialRanksCountOld = SocialRankDbHelper.getSocialRanksCount();
 
-        DeleteApiReqHelper.deleteSocialRankAndValidate(rankCode, SC_NOT_FOUND);
+        SocialRanksApiClient.deleteSocialRankAndValidate(rankCode, SC_NOT_FOUND);
 
         int socialRanksCountNew = SocialRankDbHelper.getSocialRanksCount();
         CommonDbAssertions.checkCounts(socialRanksCountNew, socialRanksCountOld);

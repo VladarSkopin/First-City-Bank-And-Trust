@@ -16,7 +16,7 @@ import org.skopintsev.assertions.db.CurrencyDbAssertions;
 import org.skopintsev.database.currencies.CurrencyDb;
 import org.skopintsev.database.currencies.CurrencyDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.transport.DeleteApiReqHelper;
+import org.skopintsev.transport.api.CurrenciesApiClient;
 
 import java.util.stream.Stream;
 
@@ -42,7 +42,7 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
         int rowsInserted = CurrencyDbHelper.insertCurrency(newCurrencyDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        DeleteApiReqHelper.deleteCurrencyAndValidate(CURRENCY_CODE, SC_OK);
+        CurrenciesApiClient.deleteCurrencyAndValidate(CURRENCY_CODE, SC_OK);
 
         newCurrencyDb = CurrencyDbHelper.selectCurrencyByCode(CURRENCY_CODE);
         CurrencyDbAssertions.checkCurrencyPresence(newCurrencyDb, false);
@@ -66,7 +66,7 @@ public class DeleteCurrencyTest extends BaseCurrencyTest {
     public void deleteCurrencyNegativeTest(String currencyCode) {
         int currenciesCountOld = CurrencyDbHelper.getCurrenciesCount();
 
-        DeleteApiReqHelper.deleteCurrencyAndValidate(currencyCode, SC_NOT_FOUND);
+        CurrenciesApiClient.deleteCurrencyAndValidate(currencyCode, SC_NOT_FOUND);
 
         int currenciesCountNew = CurrencyDbHelper.getCurrenciesCount();
         CommonDbAssertions.checkCounts(currenciesCountNew, currenciesCountOld);

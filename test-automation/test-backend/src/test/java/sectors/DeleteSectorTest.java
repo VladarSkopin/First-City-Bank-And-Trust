@@ -18,7 +18,7 @@ import org.skopintsev.database.sectors.SectorDbHelper;
 import org.skopintsev.database.sectors.subsectors.SubSectorDb;
 import org.skopintsev.database.sectors.subsectors.SubSectorDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.transport.DeleteApiReqHelper;
+import org.skopintsev.transport.api.SectorsApiClient;
 
 import java.util.stream.Stream;
 
@@ -45,7 +45,7 @@ public class DeleteSectorTest extends BaseSectorTest {
         int rowsInserted = SectorDbHelper.insertSector(sectorDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        DeleteApiReqHelper.deleteSectorAndValidate(SECTOR_CODE, SC_OK);
+        SectorsApiClient.deleteSectorAndValidate(SECTOR_CODE, SC_OK);
 
         sectorDb = SectorDbHelper.selectSectorByCode(SECTOR_CODE);
         SectorDbAssertions.checkSectorPresence(sectorDb, false);
@@ -69,7 +69,7 @@ public class DeleteSectorTest extends BaseSectorTest {
     public void deleteSectorNegativeTest(String sectorCode) {
         int sectorsCountOld = SectorDbHelper.getSectorsCount();
 
-        DeleteApiReqHelper.deleteSectorAndValidate(sectorCode, SC_NOT_FOUND);
+        SectorsApiClient.deleteSectorAndValidate(sectorCode, SC_NOT_FOUND);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
         CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld);
@@ -97,7 +97,7 @@ public class DeleteSectorTest extends BaseSectorTest {
         rowsInserted = SubSectorDbHelper.insertSubSector(subSectorDb);
         CommonDbAssertions.checkRowsInserted(rowsInserted);
 
-        DeleteApiReqHelper.deleteSectorAndValidate(SECTOR_CODE, SC_SERVER_ERROR);
+        SectorsApiClient.deleteSectorAndValidate(SECTOR_CODE, SC_SERVER_ERROR);
 
         int sectorsCountNew = SectorDbHelper.getSectorsCount();
         CommonDbAssertions.checkCounts(sectorsCountNew, sectorsCountOld + 1);
