@@ -5,16 +5,16 @@ import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.skopintsev.BaseTest;
 import org.skopintsev.models.api.Currency;
-import org.skopintsev.models.api.CurrencyFactory;
+import org.skopintsev.models.api.factory.CurrencyFactory;
 import org.skopintsev.transport.PostApiResponseHelper;
 import org.skopintsev.util.OpenUrl;
 
 import java.util.List;
 
-@FieldDefaults(level = AccessLevel.PROTECTED)
+@FieldDefaults(makeFinal = true, level = AccessLevel.PROTECTED)
 public class BaseCurrencyTest extends BaseTest {
 
-    final List<Currency> BASE_CURRENCIES_LIST = CurrencyFactory.generateCurrenciesList();
+    List<Currency> BASE_CURRENCIES_LIST = CurrencyFactory.generateCurrenciesList();
 
     @BeforeEach
     public void openCurrenciesPage() {
