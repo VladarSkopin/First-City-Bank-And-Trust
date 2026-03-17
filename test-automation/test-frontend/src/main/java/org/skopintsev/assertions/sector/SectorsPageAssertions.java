@@ -2,7 +2,7 @@ package org.skopintsev.assertions.sector;
 
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
-import org.skopintsev.models.gui.sector.SectorsPage;
+import org.skopintsev.models.gui.sectors.SectorsPage;
 
 public class SectorsPageAssertions {
 

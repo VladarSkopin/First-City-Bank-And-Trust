@@ -1,7 +1,7 @@
 package org.skopintsev.steps.sector;
 
 import io.qameta.allure.Step;
-import org.skopintsev.models.gui.sector.SectorCard;
+import org.skopintsev.models.gui.sectors.SectorCard;
 
 public class SectorCardSteps {
 

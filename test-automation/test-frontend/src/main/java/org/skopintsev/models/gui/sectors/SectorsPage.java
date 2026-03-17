@@ -1,4 +1,4 @@
-package org.skopintsev.models.gui.sector;
+package org.skopintsev.models.gui.sectors;
 
 import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
