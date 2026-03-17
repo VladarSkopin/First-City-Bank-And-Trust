@@ -11,13 +11,13 @@ public class SectorDescriptionWindowAssertions {
         SectorDescriptionWindow.getSubSectorCodeWindow().shouldBe(Condition.visible).shouldHave(Condition.text(subSectorCode));
     }
 
-    @Step("Check sub-sector name is displayed with text '{0}'.")
+    @Step("Check sector name is displayed with text '{0}'.")
     public static void checkSectorName(String sectorName) {
         SectorDescriptionWindow.getSectorNameWindow().shouldBe(Condition.visible).shouldHave(Condition.text(sectorName));
     }
 
-    @Step("Check sub-sector name is displayed with text '{0}'.")
-    public static void checkSectorDescription(String description) {
+    @Step("Check sub-sector description is displayed with text '{0}'.")
+    public static void checkSubSectorDescription(String description) {
         SectorDescriptionWindow.getSectorDescription().shouldBe(Condition.visible).shouldHave(Condition.text(description));
     }
 

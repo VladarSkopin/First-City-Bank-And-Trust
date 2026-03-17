@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.assertions.sector.SectorCardAssertions;
 import org.skopintsev.assertions.sector.SectorsPageAssertions;
-import org.skopintsev.models.api.Sector;
 import org.skopintsev.models.api.SubSector;
 import org.skopintsev.transport.PostApiResponseHelper;
 
@@ -86,15 +85,5 @@ public class SectorInfoTest extends BaseSectorTest {
         ButtonElementAssertions.checkRetryBtnExists(true);
         ButtonElementAssertions.checkRetryBtnIsVisible();
         ButtonElementAssertions.checkRetryBtnEnabled(true);
-    }
-
-
-    public String getSectorName(String sectorCode) {
-        Sector sector = BASE_SECTORS_LIST
-                .stream()
-                .filter(s -> s.getSectorCode().equals(sectorCode))
-                .findFirst()
-                .orElse(null);
-        return sector.getSectorName();
     }
 }

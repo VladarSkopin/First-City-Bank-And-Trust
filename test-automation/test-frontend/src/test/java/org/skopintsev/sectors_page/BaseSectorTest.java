@@ -27,4 +27,13 @@ public class BaseSectorTest extends BaseTest {
         OpenUrl.openSectorsPage();
     }
 
+
+    protected String getSectorName(String sectorCode) {
+        Sector sector = BASE_SECTORS_LIST
+                .stream()
+                .filter(s -> s.getSectorCode().equals(sectorCode))
+                .findFirst()
+                .orElse(null);
+        return sector.getSectorName();
+    }
 }
