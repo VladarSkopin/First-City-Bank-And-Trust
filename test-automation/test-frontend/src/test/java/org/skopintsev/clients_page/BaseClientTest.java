@@ -23,7 +23,7 @@ public class BaseClientTest extends BaseTest {
     List<Client> BASE_CLIENTS_LIST = List.of(
             ClientFactory.generateClient(
                     BASE_CLIENT_TYPES_LIST.get(0).getClientTypeCode(),
-                    BASE_SOCIAL_RANKS_LIST.get(0).getRankCode(),
+                    null,
                     null,
                     null,
                     true),
