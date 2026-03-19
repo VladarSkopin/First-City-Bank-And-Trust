@@ -173,16 +173,6 @@ public class PostApiResponseHelper {
         stubGetDefaultApi(CLIENT_TYPES, clientTypesList);
     }
 
-    @Step("POST /__admin/mappings: response for " + CLIENT_TYPES)
-    public static void stubGetClientTypesNotFound(List<ClientType> clientTypesList) {
-        stubGetNotFoundApi(CLIENT_TYPES, clientTypesList);
-    }
-
-    @Step("POST /__admin/mappings: response for " + CLIENT_TYPES)
-    public static void stubGetClientTypesServerError(List<ClientType> clientTypesList) {
-        stubGetServerErrorApi(CLIENT_TYPES, clientTypesList);
-    }
-
     @Step("POST /__admin/mappings: response for " + CLIENTS)
     public static void stubGetClients(List<Client> clientsList) {
         stubGetDefaultApi(CLIENTS, clientsList);
