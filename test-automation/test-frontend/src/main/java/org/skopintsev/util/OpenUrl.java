@@ -46,4 +46,10 @@ public class OpenUrl {
         Selenide.open(SECTORS_PAGE_URL);
         LoadingSpinnerSteps.waitingForPageLoading();
     }
+
+    @Step("Open clients page.")
+    public static void openClientsPage() {
+        Selenide.open(CLIENTS_PAGE_URL);
+        LoadingSpinnerSteps.waitingForPageLoading();
+    }
 }

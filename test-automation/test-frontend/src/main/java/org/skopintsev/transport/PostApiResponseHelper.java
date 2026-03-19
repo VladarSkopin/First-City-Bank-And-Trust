@@ -168,4 +168,23 @@ public class PostApiResponseHelper {
         stubGetServerErrorApi(SUB_SECTORS, socialRanksList);
     }
 
+    @Step("POST /__admin/mappings: response for " + CLIENT_TYPES)
+    public static void stubGetClientTypes(List<ClientType> clientTypesList) {
+        stubGetDefaultApi(CLIENT_TYPES, clientTypesList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + CLIENTS)
+    public static void stubGetClients(List<Client> clientsList) {
+        stubGetDefaultApi(CLIENTS, clientsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + CLIENTS)
+    public static void stubGetClientsNotFound(List<Client> clientsList) {
+        stubGetNotFoundApi(CLIENTS, clientsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + CLIENTS)
+    public static void stubGetClientsServerError(List<Client> clientsList) {
+        stubGetServerErrorApi(CLIENTS, clientsList);
+    }
 }

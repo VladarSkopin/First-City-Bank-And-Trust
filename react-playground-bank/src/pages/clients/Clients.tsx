@@ -289,12 +289,12 @@ function Clients() {
             className={`client-card ${client.isBlocked ? 'blocked' : ''}`}
           >
             <div className="card-header">
-              <div className="avatar" style={{ backgroundColor: getClientTypeColor(client.clientTypeCode) }}>
+              <div className="avatar" style={{ backgroundColor: getClientTypeColor(client.clientTypeCode) }} data-testid="avatar">
                 {client.nameOrTitle.charAt(0).toUpperCase()}
               </div>
               <div className="client-name">
-                <h2>{client.nameOrTitle}</h2>
-                <span className={`rank-badge ${getRankBadgeClass(client.socialRankCode)}`}>
+                <h2 data-testid="nameOrTitle">{client.nameOrTitle}</h2>
+                <span className={`rank-badge ${getRankBadgeClass(client.socialRankCode)}`} data-testid="rankName">
                   {getSocialRankName(client.socialRankCode)}
                 </span>
               </div>
@@ -302,43 +302,43 @@ function Clients() {
               {client.isBlocked && (
                 <div className="blocked-badge">
                   <span className="blocked-icon">🔒</span>
-                  <span>BLOCKED</span>
+                  <span data-testid="blockedBanner">BLOCKED</span>
                 </div>
               )}
             </div>
 
             <div className="card-body">
               <div className="info-item">
-                <span className="label">CLIENT ID:</span>
-                <span className="value code">{client.clientCode}</span>
+                <span className="label" data-testid="clientCodeLabel">CLIENT ID:</span>
+                <span className="value code" data-testid="clientCodeValue">{client.clientCode}</span>
               </div>
               
               <div className="info-item">
-                <span className="label">CLIENT TYPE:</span>
-                <span className="value">
+                <span className="label" data-testid="clientTypeLabel">CLIENT TYPE:</span>
+                <span className="value" data-testid="clientTypeValue">
                   <span className="type-icon">{getClientTypeIcon(client.clientTypeCode)}</span>
                   {getClientTypeName(client.clientTypeCode)}
                 </span>
               </div>
               
               <div className="info-item">
-                <span className="label">DISTRICT:</span>
-                <span className="value">
+                <span className="label" data-testid="districtLabel">DISTRICT:</span>
+                <span className="value" data-testid="districtValue">
                   <span className="district-icon">📍</span>
                   {getDistrictName(client.districtCode) || 'Unknown District'}
                 </span>
               </div>
               
               <div className="info-item">
-                <span className="label">STATUS:</span>
-                <span className={`value status ${client.isBlocked ? 'blocked' : 'active'}`}>
+                <span className="label" data-testid="statusLabel">STATUS:</span>
+                <span className={`value status ${client.isBlocked ? 'blocked' : 'active'}`} data-testid="statusValue">
                   {client.isBlocked ? 'BLOCKED 🔒' : 'ACTIVE ✅'}
                 </span>
               </div>
 
               <div className="info-item">
-                <span className="label">SECTOR:</span>
-                <span className={`value status ${client.isBlocked ? 'blocked' : 'active'}`}>
+                <span className="label" data-testid="sectorLabel">SECTOR:</span>
+                <span className={`value status ${client.isBlocked ? 'blocked' : 'active'}`} data-testid="sectorValue">
                   {getSectorName(client.subSectorCode) || 'Unknown Sector'}
                 </span>
               </div>
@@ -349,7 +349,7 @@ function Clients() {
       </div>
       
       <div className="clients-footer">
-        <div className="footnote">
+        <div className="footnote" data-testid="warningNote">
           <span className="warning-icon">⚠️</span>
           Client information is confidential. Unauthorized access is prohibited.
         </div>
