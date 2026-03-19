@@ -35,7 +35,7 @@ public class BaseClientTest extends BaseTest {
                     false));
 
     @BeforeEach
-    public void openSectorsPage() {
+    public void openClientsPage() {
         PostApiResponseHelper.stubGetClients(BASE_CLIENTS_LIST);
         PostApiResponseHelper.stubGetClientTypes(BASE_CLIENT_TYPES_LIST);
         PostApiResponseHelper.stubGetSocialRanks(BASE_SOCIAL_RANKS_LIST);

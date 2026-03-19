@@ -7,8 +7,9 @@ import org.skopintsev.models.gui.clients.ClientCard;
 public class ClientsCardAssertions {
 
     @Step("Check client avatar is displayed with text '{0}'.")
-    public static void checkAvatar(String avatarText) {
-        ClientCard.getAvatar().shouldBe(Condition.visible).shouldHave(Condition.text(avatarText));
+    public static void checkAvatar(char avatarText) {
+        ClientCard.getAvatar().shouldBe(Condition.visible).shouldHave(
+                Condition.text(String.valueOf(avatarText)));
     }
 
     @Step("Check client name or title is displayed with text '{0}'.")
@@ -18,7 +19,12 @@ public class ClientsCardAssertions {
 
     @Step("Check rank name is displayed with text '{0}'.")
     public static void checkRankName(String rankName) {
-        ClientCard.getRankName().shouldBe(Condition.visible).shouldHave(Condition.text(rankName));
+        ClientCard.getRankName().shouldBe(Condition.visible).shouldHave(Condition.exactText(rankName));
+    }
+
+    @Step("Check blocked banner should exist = '{0}'.")
+    public static void checkBlockedBannerExist(boolean shouldExist) {
+        ClientCard.getBlockedBanner().should(shouldExist ? Condition.exist : Condition.not(Condition.exist));
     }
 
     @Step("Check blocked banner is displayed with text '{0}'.")

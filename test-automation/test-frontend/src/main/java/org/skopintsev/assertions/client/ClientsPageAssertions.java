@@ -17,7 +17,7 @@ public class ClientsPageAssertions {
     }
 
     @Step("Check total clients count value is displayed with text '{0}'.")
-    public static void checkTotalClientsCountValueText(int countValue) {
+    public static void checkTotalClientsCountValueText(long countValue) {
         ClientsPage.getCountValue().shouldBe(Condition.visible).shouldHave(
                 Condition.text(String.valueOf(countValue)));
     }
@@ -28,7 +28,7 @@ public class ClientsPageAssertions {
     }
 
     @Step("Check active clients count value is displayed with text '{0}'.")
-    public static void checkActiveClientsCountValueText(int countValue) {
+    public static void checkActiveClientsCountValueText(long countValue) {
         ClientsPage.getCountValueActive().shouldBe(Condition.visible).shouldHave(
                 Condition.text(String.valueOf(countValue)));
     }
@@ -39,7 +39,7 @@ public class ClientsPageAssertions {
     }
 
     @Step("Check blocked clients count value is displayed with text '{0}'.")
-    public static void checkBlockedClientsCountValueText(int countValue) {
+    public static void checkBlockedClientsCountValueText(long countValue) {
         ClientsPage.getCountValueBlocked().shouldBe(Condition.visible).shouldHave(
                 Condition.text(String.valueOf(countValue)));
     }
