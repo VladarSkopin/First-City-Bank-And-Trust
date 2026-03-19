@@ -1,0 +1,23 @@
+package org.skopintsev.models.api.factory;
+
+import org.skopintsev.models.api.Vault;
+import org.skopintsev.util.GeneratorBuilder;
+
+import java.math.BigInteger;
+
+
+public class VaultFactory {
+
+    public static Vault generateVault(
+            String clientCode,
+            String currencyCode,
+            boolean isArchived) {
+        return Vault.builder()
+                    .vaultCode(GeneratorBuilder.generateTestCode())
+                    .clientCode(clientCode)
+                    .amount(BigInteger.valueOf(GeneratorBuilder.generateAmount()))
+                    .currencyCode(currencyCode)
+                    .isArchived(isArchived)
+                    .build();
+    }
+}

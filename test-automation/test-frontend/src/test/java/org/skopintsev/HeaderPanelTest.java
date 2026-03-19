@@ -22,8 +22,8 @@ public class HeaderPanelTest extends BaseTest {
     @Description("Test checks the display of all the header panel tabs.")
     @Severity(SeverityLevel.BLOCKER)
     public void headerPanelTabsTest() {
-        //  todo: PostApiResponseHelper.stubGetVaults(Collections.emptyList());
-        //  todo: PostApiResponseHelper.stubGetClients(Collections.emptyList());
+        PostApiResponseHelper.stubGetVaults(Collections.emptyList());
+        PostApiResponseHelper.stubGetClients(Collections.emptyList());
         PostApiResponseHelper.stubGetCurrencies(Collections.emptyList());
         PostApiResponseHelper.stubGetSocialRanks(Collections.emptyList());
         PostApiResponseHelper.stubGetDistricts(Collections.emptyList());

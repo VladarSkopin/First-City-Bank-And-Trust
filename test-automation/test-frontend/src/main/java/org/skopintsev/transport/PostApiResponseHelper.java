@@ -187,4 +187,19 @@ public class PostApiResponseHelper {
     public static void stubGetClientsServerError(List<Client> clientsList) {
         stubGetServerErrorApi(CLIENTS, clientsList);
     }
+
+    @Step("POST /__admin/mappings: response for " + VAULTS)
+    public static void stubGetVaults(List<Vault> vaultsList) {
+        stubGetDefaultApi(VAULTS, vaultsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + VAULTS)
+    public static void stubGetVaultsNotFound(List<Vault> vaultsList) {
+        stubGetNotFoundApi(VAULTS, vaultsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + VAULTS)
+    public static void stubGetVaultsServerError(List<Vault> vaultsList) {
+        stubGetServerErrorApi(VAULTS, vaultsList);
+    }
 }
