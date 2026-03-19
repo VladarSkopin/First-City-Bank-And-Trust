@@ -40,16 +40,4 @@ public class OpenUrl {
         Selenide.open(SOCIAL_RANKS_PAGE_URL);
         LoadingSpinnerSteps.waitingForPageLoading();
     }
-
-    @Step("Open sectors page.")
-    public static void openSectorsPage() {
-        Selenide.open(SECTORS_PAGE_URL);
-        LoadingSpinnerSteps.waitingForPageLoading();
-    }
-
-    @Step("Open clients page.")
-    public static void openClientsPage() {
-        Selenide.open(CLIENTS_PAGE_URL);
-        LoadingSpinnerSteps.waitingForPageLoading();
-    }
 }

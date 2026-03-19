@@ -13,7 +13,9 @@ import io.qameta.allure.Step;
 import lombok.AccessLevel;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
-import org.skopintsev.models.api.*;
+import org.skopintsev.models.api.Currency;
+import org.skopintsev.models.api.District;
+import org.skopintsev.models.api.SocialRank;
 import org.skopintsev.util.LocalDateAdapter;
 
 
@@ -138,53 +140,4 @@ public class PostApiResponseHelper {
         stubGetServerErrorApi(SOCIAL_RANKS, socialRanksList);
     }
 
-    @Step("POST /__admin/mappings: response for " + SECTORS)
-    public static void stubGetSectors(List<Sector> socialRanksList) {
-        stubGetDefaultApi(SECTORS, socialRanksList);
-    }
-
-    @Step("POST /__admin/mappings: response for " + SECTORS)
-    public static void stubGetSectorsNotFound(List<Sector> socialRanksList) {
-        stubGetNotFoundApi(SECTORS, socialRanksList);
-    }
-
-    @Step("POST /__admin/mappings: response for " + SECTORS)
-    public static void stubGetSectorsServerError(List<Sector> socialRanksList) {
-        stubGetServerErrorApi(SECTORS, socialRanksList);
-    }
-
-    @Step("POST /__admin/mappings: response for " + SUB_SECTORS)
-    public static void stubGetSubSectors(List<SubSector> socialRanksList) {
-        stubGetDefaultApi(SUB_SECTORS, socialRanksList);
-    }
-
-    @Step("POST /__admin/mappings: response for " + SUB_SECTORS)
-    public static void stubGetSubSectorsNotFound(List<SubSector> socialRanksList) {
-        stubGetNotFoundApi(SUB_SECTORS, socialRanksList);
-    }
-
-    @Step("POST /__admin/mappings: response for " + SUB_SECTORS)
-    public static void stubGetSubSectorsServerError(List<SubSector> socialRanksList) {
-        stubGetServerErrorApi(SUB_SECTORS, socialRanksList);
-    }
-
-    @Step("POST /__admin/mappings: response for " + CLIENT_TYPES)
-    public static void stubGetClientTypes(List<ClientType> clientTypesList) {
-        stubGetDefaultApi(CLIENT_TYPES, clientTypesList);
-    }
-
-    @Step("POST /__admin/mappings: response for " + CLIENTS)
-    public static void stubGetClients(List<Client> clientsList) {
-        stubGetDefaultApi(CLIENTS, clientsList);
-    }
-
-    @Step("POST /__admin/mappings: response for " + CLIENTS)
-    public static void stubGetClientsNotFound(List<Client> clientsList) {
-        stubGetNotFoundApi(CLIENTS, clientsList);
-    }
-
-    @Step("POST /__admin/mappings: response for " + CLIENTS)
-    public static void stubGetClientsServerError(List<Client> clientsList) {
-        stubGetServerErrorApi(CLIENTS, clientsList);
-    }
 }
