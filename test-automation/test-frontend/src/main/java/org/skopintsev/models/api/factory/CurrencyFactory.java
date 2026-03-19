@@ -1,6 +1,7 @@
-package org.skopintsev.models.api;
+package org.skopintsev.models.api.factory;
 
 import org.skopintsev.enums.MetalTypeEnum;
+import org.skopintsev.models.api.Currency;
 import org.skopintsev.util.GeneratorBuilder;
 
 import java.util.List;

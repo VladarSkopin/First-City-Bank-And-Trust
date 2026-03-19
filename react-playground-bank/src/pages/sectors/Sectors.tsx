@@ -183,26 +183,26 @@ function Sectors() {
                 <div key={subSector.subSectorCode} className="sector-card">
                     <div className="card-header">
                         <div className="client-name">
-                            <h2>{subSector.subSectorName}</h2>
+                            <h2 data-testid="subSectorName">{subSector.subSectorName}</h2>
                         </div>
                     </div>
 
                     <div className="card-body">
                         <div className="info-item">
-                            <span className="label">SUB-SECTOR ID: </span>
-                            <span className="value code">{subSector.subSectorCode}</span>
+                            <span className="label" data-testid="subSectorCodeLabel">SUB-SECTOR ID: </span>
+                            <span className="value code" data-testid="subSectorCodeValue">{subSector.subSectorCode}</span>
                         </div>
 
                         <div className="info-item">
-                            <span className="label">SECTOR: </span>
-                            <span className="value">
+                            <span className="label" data-testid="sectorNameLabel">SECTOR: </span>
+                            <span className="value" data-testid="sectorNameValue">
                             {getSectorName(subSector.sectorCode) || 'Unknown Sector'}
                             </span>
                         </div>
                     </div>
 
                     <div className="sector-footer">
-                        <button className="view-description-btn" 
+                        <button className="view-description-btn" data-testid="viewDescriptionBtn" 
                         onClick={() => handleViewInfo(subSector)}>INFO</button>
                     </div>
                     
@@ -223,12 +223,12 @@ function Sectors() {
             <div className="modal-body" data-testid="modalBody">
               <div className="regulation-info">
                 <div className="regulation-meta">
-                  <span className="regulation-code">CODE: {selectedSubSector.subSectorCode}</span>
-                  <span className="regulation-code">SECTOR: {getSectorName(selectedSubSector.sectorCode)}</span>
+                  <span className="regulation-code" data-testid="subSectorCodeWindow">CODE: {selectedSubSector.subSectorCode}</span>
+                  <span className="regulation-code" data-testid="sectorNameWindow">SECTOR: {getSectorName(selectedSubSector.sectorCode)}</span>
                 </div>
                 
                 <div className="regulation-text">
-                  <p>{selectedSubSector.description}</p>
+                  <p data-testid="sectorDescription">{selectedSubSector.description}</p>
                 </div>
                 
               </div>
