@@ -4,6 +4,7 @@ import org.skopintsev.models.api.Vault;
 import org.skopintsev.util.GeneratorBuilder;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 
 
 public class VaultFactory {
@@ -18,6 +19,8 @@ public class VaultFactory {
                     .amount(BigInteger.valueOf(GeneratorBuilder.generateAmount()))
                     .currencyCode(currencyCode)
                     .isArchived(isArchived)
+                    .createdAt(LocalDateTime.now().minusMonths(1))
+                    .modifiedAt(LocalDateTime.now().minusDays(1))
                     .build();
     }
 }

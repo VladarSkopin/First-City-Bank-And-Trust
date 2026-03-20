@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -16,4 +17,6 @@ public class Vault {
     BigInteger amount;
     String currencyCode;
     Boolean isArchived;
+    LocalDateTime createdAt;
+    LocalDateTime modifiedAt;
 }
