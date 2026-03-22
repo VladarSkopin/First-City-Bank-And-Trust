@@ -43,8 +43,7 @@ public class BaseVaultTest extends BaseTest {
             VaultFactory.generateVault(
                     BASE_CURRENCIES_LIST.get(2).getCurrencyCode(),
                     BASE_CLIENTS_LIST.get(1).getClientCode(),
-                    true)
-    );
+                    true));
 
 
     @BeforeEach

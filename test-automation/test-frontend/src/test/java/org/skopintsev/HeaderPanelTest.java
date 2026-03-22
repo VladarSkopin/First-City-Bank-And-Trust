@@ -22,13 +22,14 @@ public class HeaderPanelTest extends BaseTest {
     @Description("Test checks the display of all the header panel tabs.")
     @Severity(SeverityLevel.BLOCKER)
     public void headerPanelTabsTest() {
-        PostApiResponseHelper.stubGetVaults(Collections.emptyList());
-        PostApiResponseHelper.stubGetClients(Collections.emptyList());
         PostApiResponseHelper.stubGetCurrencies(Collections.emptyList());
         PostApiResponseHelper.stubGetSocialRanks(Collections.emptyList());
         PostApiResponseHelper.stubGetDistricts(Collections.emptyList());
         PostApiResponseHelper.stubGetSectors(Collections.emptyList());
         PostApiResponseHelper.stubGetSubSectors(Collections.emptyList());
+        PostApiResponseHelper.stubGetClientTypes(Collections.emptyList());
+        PostApiResponseHelper.stubGetClients(Collections.emptyList());
+        PostApiResponseHelper.stubGetVaults(Collections.emptyList());
 
         // Clients page tab
         HeaderPanelSteps.clickClientsPageBtn();
