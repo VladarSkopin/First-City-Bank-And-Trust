@@ -28,6 +28,8 @@ import java.util.stream.Collectors;
 
 public class VaultInfoTest extends BaseVaultTest {
 
+    String CURRENCY_CODE = BASE_CURRENCIES_LIST.get(0).getCurrencyCode();
+
     @Test
     @Tag("smoke")
     @Description("Test checks the display of Vaults page information.")
@@ -59,21 +61,20 @@ public class VaultInfoTest extends BaseVaultTest {
             """)
     @Severity(SeverityLevel.BLOCKER)
     public void vaultCardInfoTest(boolean isBlockedClient) {
-        String currencyCode = BASE_CURRENCIES_LIST.get(0).getCurrencyCode();
         Client client = BASE_CLIENTS_LIST.stream()
                 .filter(c -> c.getIsBlocked() == isBlockedClient)
                 .findFirst()
                 .orElse(null);
         Vault vault = VaultFactory.generateVault(
                 client.getClientCode(),
-                currencyCode,
+                CURRENCY_CODE,
                 false);
         List<Vault> vaultsList = List.of(vault);
         PostApiResponseHelper.stubGetVaults(vaultsList);
         Selenide.refresh();
 
         VaultCardAssertions.checkVaultTitle("VAULT " + vault.getVaultCode());
-        VaultCardAssertions.checkCurrencyName(getCurrencyName(currencyCode));
+        VaultCardAssertions.checkCurrencyName(getCurrencyName(CURRENCY_CODE));
         VaultCardAssertions.checkClientIdLabelText("CLIENT ID:");
         VaultCardAssertions.checkClientCodeText(vault.getClientCode());
         VaultCardAssertions.checkClientNameLabelText("CLIENT:");
@@ -93,10 +94,43 @@ public class VaultInfoTest extends BaseVaultTest {
         VaultCardAssertions.checkWithdrawBtnEnabled(isBlockedClient ? false : true);
     }
 
-    // todo: current balance = 0 -> deposit btn enabled, withdraw btn disabled
+    @Test
+    @Tag("regression")
+    @Description("Test checks the display of a vault card when its balance is zero.")
+    @Severity(SeverityLevel.BLOCKER)
+    public void vaultsZeroBalanceTest() {
+        Client client = BASE_CLIENTS_LIST.stream()
+                .filter(c -> !c.getIsBlocked())
+                .findFirst()
+                .orElse(null);
+        Vault vault = VaultFactory.generateVault(
+                client.getClientCode(),
+                CURRENCY_CODE,
+                false);
+        vault.setAmount(BigInteger.valueOf(0));
+        PostApiResponseHelper.stubGetVaults(List.of(vault));
+        Selenide.refresh();
 
+        VaultCardAssertions.checkBalanceLabelText("CURRENT BALANCE:");
+        VaultCardAssertions.checkBalanceValueText(formatAmount(vault.getAmount()));
+        VaultCardAssertions.checkDepositBtnText("DEPOSIT");
+        VaultCardAssertions.checkDepositBtnEnabled(true);
+        VaultCardAssertions.checkWithdrawBtnText("WITHDRAW");
+        VaultCardAssertions.checkWithdrawBtnEnabled(false);
+    }
 
-    // todo: only archived vaults + many unique currencies
+    @Test
+    @Tag("regression")
+    @Description("Test checks the display of the Vaults page when all the vaults are archived.")
+    @Severity(SeverityLevel.NORMAL)
+    public void vaultsOnlyArchivedTest() {
+        BASE_VAULTS_LIST.forEach(vault -> vault.setIsArchived(true));
+        PostApiResponseHelper.stubGetVaults(BASE_VAULTS_LIST);
+        Selenide.refresh();
+
+        VaultsPageAssertions.checkPageTitleText("No Active Vaults");
+        ButtonElementAssertions.checkRetryBtnExists(false);
+    }
 
     @Test
     @Tag("regression")
