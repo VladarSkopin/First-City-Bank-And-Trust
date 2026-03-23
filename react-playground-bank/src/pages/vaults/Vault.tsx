@@ -434,13 +434,14 @@ function Vault() {
             <div className="safe-wheel">⚙️</div>
           </div>
           <div className="vault-info">
-            <h2>VAULT {vault.vaultCode}</h2>
+            <h2 data-testid="vaultTitle">VAULT {vault.vaultCode}</h2>
             <span 
               className={`security-level ${isDisabled ? 'blocked' : ''}`}
               style={{ 
                 color: getCurrencyColor(vault.currencyCode),
                 borderColor: getCurrencyColor(vault.currencyCode)
               }}
+              data-testid="vaultCurrencyName"
             >
               {vault.currencyName}
             </span>
@@ -449,32 +450,32 @@ function Vault() {
         
         <div className="vault-body">
           <div className="data-row">
-            <span className="data-label">CLIENT ID:</span>
-            <span className={`data-value code ${isDisabled ? 'blocked-text' : ''}`}>
+            <span className="data-label" data-testid="clientIdLabel">CLIENT ID:</span>
+            <span className={`data-value code ${isDisabled ? 'blocked-text' : ''}`} data-testid="clientIdCode">
               {vault.clientCode}
             </span>
           </div>
           <div className="data-row">
-            <span className="data-label">CLIENT:</span>
-            <span className={`data-value ${isDisabled ? 'blocked-text' : ''}`}>
+            <span className="data-label" data-testid="clientNameLabel">CLIENT:</span>
+            <span className={`data-value ${isDisabled ? 'blocked-text' : ''}`} data-testid="clientNameValue">
               {vault.clientName} {vault.clientTitle && <span className="client-title">{vault.clientTitle}</span>}
               {vault.clientIsBlocked && <span className="blocked-indicator"> (BLOCKED)</span>}
             </span>
           </div>
           <div className="data-row">
-            <span className="data-label">STATUS:</span>
-            <span className={`data-value ${isDisabled ? 'blocked-text' : 'active-text'}`}>
+            <span className="data-label" data-testid="statusLabel">STATUS:</span>
+            <span className={`data-value ${isDisabled ? 'blocked-text' : 'active-text'}`} data-testid="statusValue">
               {vault.clientIsBlocked ? 'BLOCKED 🔒' : 'ACTIVE ✅'}
             </span>
           </div>
           <div className="data-row">
-            <span className="data-label">LAST ACCESS:</span>
-            <span className="data-value">{formatDateTime(vault.modifiedAt)}</span>
+            <span className="data-label" data-testid="lastAccessLabel">LAST ACCESS:</span>
+            <span className="data-value" data-testid="lastAccessDateTime">{formatDateTime(vault.modifiedAt)}</span>
           </div>
           
           <div className="amount-display">
-            <div className="amount-label">CURRENT BALANCE:</div>
-            <div className={`amount-value ${isDisabled ? 'disabled-amount' : ''}`}>
+            <div className="amount-label" data-testid="balanceLabel">CURRENT BALANCE:</div>
+            <div className={`amount-value ${isDisabled ? 'disabled-amount' : ''}`} data-testid="balanceValue">
               {formatAmount(vault.amount)}
             </div>
           </div>
@@ -486,6 +487,7 @@ function Vault() {
             onClick={() => openModal(vault, 'INSERT')}
             disabled={isDisabled}
             title={isDisabled ? 'Client is blocked. No operations allowed.' : 'Deposit into vault'}
+            data-testid="depositBtn"
           >
             DEPOSIT
           </button>
@@ -497,6 +499,7 @@ function Vault() {
               isDisabled ? 'Client is blocked. No operations allowed.' : 
               vault.amount <= 0 ? 'Insufficient funds' : 'Withdraw from vault'
             }
+            data-testid="withdrawBtn"
           >
             WITHDRAW
           </button>
