@@ -4,7 +4,6 @@ import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import org.skopintsev.models.gui.vaults.VaultCard;
 
-import java.math.BigInteger;
 
 public class VaultCardAssertions {
 

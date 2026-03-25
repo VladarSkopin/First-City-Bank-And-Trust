@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.assertions.common.windows.ModalWindowAssertions;
 import org.skopintsev.assertions.sector.SectorDescriptionWindowAssertions;
-import org.skopintsev.models.api.SubSector;
+import org.skopintsev.models.api.sector.SubSector;
 import org.skopintsev.steps.sector.SectorCardSteps;
 
 public class SectorDescriptionTest extends BaseSectorTest {

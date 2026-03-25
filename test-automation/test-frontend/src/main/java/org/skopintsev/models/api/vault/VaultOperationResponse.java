@@ -1,22 +1,23 @@
-package org.skopintsev.models.api;
+package org.skopintsev.models.api.vault;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Vault {
+public class VaultOperationResponse {
     String vaultCode;
     String clientCode;
-    BigInteger amount;
-    String currencyCode;
-    Boolean isArchived;
+    Long amount;
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;
+    String currencyCode;
+    Boolean isArchived;
 }

@@ -14,6 +14,9 @@ import lombok.AccessLevel;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.skopintsev.models.api.*;
+import org.skopintsev.models.api.sector.Sector;
+import org.skopintsev.models.api.sector.SubSector;
+import org.skopintsev.models.api.vault.Vault;
 import org.skopintsev.util.LocalDateAdapter;
 
 
