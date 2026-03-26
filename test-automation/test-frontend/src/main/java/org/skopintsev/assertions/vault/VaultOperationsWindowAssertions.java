@@ -68,11 +68,11 @@ public class VaultOperationsWindowAssertions {
 
     @Step("Check 'SUBMIT' button has text '{0}'.")
     public static void checkSubmitBtnText(String buttonText) {
-        VaultOperationsWindow.getSubmitButton().shouldBe(Condition.visible).shouldHave(Condition.text(buttonText));
+        VaultOperationsWindow.getSubmitBtn().shouldBe(Condition.visible).shouldHave(Condition.text(buttonText));
     }
 
     @Step("Check 'SUBMIT' should be enabled = '{0}'.")
     public static void checkSubmitBtnEnabled(boolean shouldBeEnabled) {
-        VaultOperationsWindow.getSubmitButton().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
+        VaultOperationsWindow.getSubmitBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }
 }

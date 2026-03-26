@@ -17,6 +17,7 @@ import org.skopintsev.models.api.*;
 import org.skopintsev.models.api.sector.Sector;
 import org.skopintsev.models.api.sector.SubSector;
 import org.skopintsev.models.api.vault.Vault;
+import org.skopintsev.models.api.vault.VaultOperationResponse;
 import org.skopintsev.util.LocalDateAdapter;
 
 
@@ -67,7 +68,7 @@ public class PostApiResponseHelper {
     }
 
     @SneakyThrows
-    public static void stubGet(String fullPath, Object responseObject, int statusCode) {
+    private static void stubGet(String fullPath, Object responseObject, int statusCode) {
         WireMock.stubFor(
                 WireMock.get(fullPath).willReturn(
                         WireMock.okJson(objectMapper.writeValueAsString(responseObject))
@@ -79,19 +80,33 @@ public class PostApiResponseHelper {
     }
 
     @SneakyThrows
-    public static void stubGetDefaultApi(String path, Object responseObject) {
+    private static void stubPost(String fullPath, Object responseObject, int statusCode) {
+        WireMock.stubFor(
+                WireMock.post(fullPath).willReturn(
+                        WireMock.okJson(objectMapper.writeValueAsString(responseObject))
+                                .withStatus(statusCode)
+                                .withHeader("Content-Type", "application/json")
+                                .withHeader("Access-Control-Allow-Origin", "*")
+                )
+        );
+    }
+
+
+    @SneakyThrows
+    private static void stubGetDefaultApi(String path, Object responseObject) {
         stubGet(path, responseObject, SC_OK);
     }
 
     @SneakyThrows
-    public static void stubGetNotFoundApi(String path, Object responseObject) {
+    private static void stubGetNotFoundApi(String path, Object responseObject) {
         stubGet(path, responseObject, SC_NOT_FOUND);
     }
 
     @SneakyThrows
-    public static void stubGetServerErrorApi(String path, Object responseObject) {
+    private static void stubGetServerErrorApi(String path, Object responseObject) {
         stubGet(path, responseObject, SC_SERVER_ERROR);
     }
+
 
 
     // Mocks
@@ -204,5 +219,10 @@ public class PostApiResponseHelper {
     @Step("POST /__admin/mappings: response for " + VAULTS)
     public static void stubGetVaultsServerError(List<Vault> vaultsList) {
         stubGetServerErrorApi(VAULTS, vaultsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + VAULT_OPERATIONS)
+    public static void stubPostVaultOperation(VaultOperationResponse response) {
+        stubPost(VAULT_OPERATIONS, response, 200);
     }
 }

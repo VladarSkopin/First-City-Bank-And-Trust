@@ -10,8 +10,8 @@ public class VaultOperationsWindowSteps {
         VaultOperationsWindow.getCancelBtn().click();
     }
 
-    @Step("Click 'INFO' button.")
+    @Step("Click 'CONFIRM' button.")
     public static void clickSubmitBtn() {
-        VaultOperationsWindow.getSubmitButton().click();
+        VaultOperationsWindow.getSubmitBtn().click();
     }
 }

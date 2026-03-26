@@ -1,6 +1,6 @@
 package org.skopintsev.models.api.factory;
 
-import org.skopintsev.enums.ClientTypeName;
+import org.skopintsev.enums.ClientTypeNameEnum;
 import org.skopintsev.models.api.ClientType;
 import org.skopintsev.util.GeneratorBuilder;
 
@@ -12,12 +12,12 @@ public class ClientTypeFactory {
         return List.of(
                 ClientType.builder()
                         .clientTypeCode(GeneratorBuilder.generateTestCode())
-                        .clientTypeName(ClientTypeName.UNK.getText())
+                        .clientTypeName(ClientTypeNameEnum.UNK.getText())
                         .description(GeneratorBuilder.generateString(30))
                         .build(),
                 ClientType.builder()
                         .clientTypeCode(GeneratorBuilder.generateTestCode())
-                        .clientTypeName(ClientTypeName.INDV.getText())
+                        .clientTypeName(ClientTypeNameEnum.INDV.getText())
                         .description(GeneratorBuilder.generateString(30))
                         .build()
         );

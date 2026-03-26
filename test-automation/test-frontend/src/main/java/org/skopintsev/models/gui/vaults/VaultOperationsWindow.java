@@ -30,5 +30,5 @@ public class VaultOperationsWindow {
 
     @Getter static final SelenideElement cancelBtn = $(byTestId("cancelButton"));
 
-    @Getter static final SelenideElement submitButton = $(byTestId("submitButton"));
+    @Getter static final SelenideElement submitBtn = $(byTestId("submitButton"));
 }
