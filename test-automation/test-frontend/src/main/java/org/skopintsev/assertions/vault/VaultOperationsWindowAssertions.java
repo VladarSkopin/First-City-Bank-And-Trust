@@ -4,6 +4,8 @@ import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import org.skopintsev.models.gui.vaults.VaultOperationsWindow;
 
+import java.math.BigInteger;
+
 public class VaultOperationsWindowAssertions {
 
     @Step("Check client label is displayed with text '{0}'.")
@@ -43,7 +45,7 @@ public class VaultOperationsWindowAssertions {
 
     @Step("Check amount input is displayed with text '{0}'.")
     public static void checkAmountInput(String amountInputText) {
-        VaultOperationsWindow.getAmountInput().shouldBe(Condition.visible).shouldHave(Condition.text(amountInputText));
+        VaultOperationsWindow.getAmountInput().shouldBe(Condition.visible).shouldHave(Condition.exactText(amountInputText));
     }
 
     @Step("Check validation message is displayed with text '{0}'.")
