@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum OperationTypeEnum {
 
     WITHDRAW("WITHDRAW"),
-    DEPOSIT("DEPOSIT"),
+    DEPOSIT("INSERT"),
     TRANSFER("TRANSFER");
 
     private final String text;

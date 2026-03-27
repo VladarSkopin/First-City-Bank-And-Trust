@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.assertions.common.windows.ModalWindowAssertions;
+import org.skopintsev.assertions.vault.VaultCardAssertions;
 import org.skopintsev.assertions.vault.VaultOperationsWindowAssertions;
 import org.skopintsev.enums.OperationTypeEnum;
 import org.skopintsev.models.api.Client;
@@ -22,6 +23,7 @@ import org.skopintsev.steps.vault.VaultCardSteps;
 import org.skopintsev.steps.vault.VaultOperationsWindowSteps;
 import org.skopintsev.transport.CheckApiRequestHelper;
 import org.skopintsev.transport.PostApiResponseHelper;
+import org.skopintsev.util.GeneratorBuilder;
 import org.skopintsev.util.helpers.AmountHelper;
 
 import java.math.BigInteger;
@@ -31,7 +33,6 @@ import java.util.List;
 public class VaultOperationsDepositTest extends BaseVaultTest {
 
     final String CURRENCY_CODE = BASE_CURRENCIES_LIST.get(0).getCurrencyCode();
-
     final Client client = BASE_CLIENTS_LIST.stream()
             .filter(c -> c.getIsBlocked() == false)
             .findFirst()
@@ -85,16 +86,21 @@ public class VaultOperationsDepositTest extends BaseVaultTest {
         Selenide.refresh();
 
         VaultCardSteps.clickDepositBtn();
-        // todo: generate random amount
-        // todo: input amount
-        // todo: confirm enabled
+        int randomAmount = GeneratorBuilder.generateAmount();
+        VaultOperationsWindowSteps.typeInputAmount(randomAmount);
+        VaultOperationsWindowAssertions.checkAmountInput(AmountHelper.formatAmount(BigInteger.valueOf(randomAmount)));
+
+        VaultOperationsWindowAssertions.checkCancelBtnEnabled(true);
+        VaultOperationsWindowAssertions.checkCancelBtnText("CANCEL");
+        VaultOperationsWindowAssertions.checkSubmitBtnEnabled(true);
+        VaultOperationsWindowAssertions.checkSubmitBtnText("CONFIRM");
 
         VaultOperationsWindowSteps.clickCancelBtn();
-        // todo: check current vault balance
+        VaultCardAssertions.checkBalanceValueText("0");
 
         VaultOperationRequest vaultOperationRequest = VaultOperationRequest.builder()
                 .operationName(OperationTypeEnum.DEPOSIT.getText())
-                .amount(0L)
+                .amount((long) randomAmount)
                 .vaultCode(vault.getVaultCode())
                 .build();
         CheckApiRequestHelper.checkRequestNotFoundByContainsJson(vaultOperationRequest);
@@ -116,14 +122,23 @@ public class VaultOperationsDepositTest extends BaseVaultTest {
 
         Selenide.refresh();
 
-        // todo: balance > 0, deposit > 0 random, confirm enabled, operation new balance, click confirm, check current balance
         VaultCardSteps.clickDepositBtn();
+        int randomAmount = GeneratorBuilder.generateAmount();
+        VaultOperationsWindowSteps.typeInputAmount(randomAmount);
+        VaultOperationsWindowAssertions.checkAmountInput(AmountHelper.formatAmount(BigInteger.valueOf(randomAmount)));
+
+        VaultOperationsWindowAssertions.checkCancelBtnEnabled(true);
+        VaultOperationsWindowAssertions.checkCancelBtnText("CANCEL");
+        VaultOperationsWindowAssertions.checkSubmitBtnEnabled(true);
+        VaultOperationsWindowAssertions.checkSubmitBtnText("CONFIRM");
 
         VaultOperationsWindowSteps.clickSubmitBtn();
 
-
-        VaultOperationRequest vaultOperationRequest = VaultOperationRequest.builder().build();
-
+        VaultOperationRequest vaultOperationRequest = VaultOperationRequest.builder()
+                .operationName(OperationTypeEnum.DEPOSIT.getText())
+                .amount((long) randomAmount)
+                .vaultCode(vault.getVaultCode())
+                .build();
         CheckApiRequestHelper.checkRequestFoundByContainsJson(vaultOperationRequest);
     }
 

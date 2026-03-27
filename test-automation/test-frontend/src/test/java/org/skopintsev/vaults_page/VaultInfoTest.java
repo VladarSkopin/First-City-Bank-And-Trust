@@ -45,6 +45,7 @@ public class VaultInfoTest extends BaseVaultTest {
         VaultsPageAssertions.checkCurrenciesCountLabelText("UNIQUE CURRENCIES: ");
         VaultsPageAssertions.checkCurrenciesCountValueText(
                 BASE_VAULTS_LIST.stream()
+                        .filter(v -> v.getIsArchived() != true)
                         .map(Vault::getCurrencyCode)
                         .collect(Collectors.toSet())
                         .size());

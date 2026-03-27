@@ -14,4 +14,9 @@ public class VaultOperationsWindowSteps {
     public static void clickSubmitBtn() {
         VaultOperationsWindow.getSubmitBtn().click();
     }
+
+    @Step("Input amount = '{0}'.")
+    public static void typeInputAmount(int amount) {
+        VaultOperationsWindow.getAmountInput().type(String.valueOf(amount));
+    }
 }

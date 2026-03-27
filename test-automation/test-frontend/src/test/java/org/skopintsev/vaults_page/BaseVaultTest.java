@@ -36,16 +36,16 @@ public class BaseVaultTest extends BaseTest {
                     false));
     List<Vault> BASE_VAULTS_LIST = List.of(
             VaultFactory.generateVault(
-                    BASE_CURRENCIES_LIST.get(0).getCurrencyCode(),
                     BASE_CLIENTS_LIST.get(0).getClientCode(),
+                    BASE_CURRENCIES_LIST.get(0).getCurrencyCode(),
                     false),
             VaultFactory.generateVault(
+                    BASE_CLIENTS_LIST.get(1).getClientCode(),
                     BASE_CURRENCIES_LIST.get(1).getCurrencyCode(),
-                    BASE_CLIENTS_LIST.get(1).getClientCode(),
                     false),
             VaultFactory.generateVault(
-                    BASE_CURRENCIES_LIST.get(2).getCurrencyCode(),
                     BASE_CLIENTS_LIST.get(1).getClientCode(),
+                    BASE_CURRENCIES_LIST.get(2).getCurrencyCode(),
                     true));
 
 

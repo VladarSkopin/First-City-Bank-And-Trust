@@ -43,9 +43,9 @@ public class VaultOperationsWindowAssertions {
         VaultOperationsWindow.getAmountLabel().shouldBe(Condition.visible).shouldHave(Condition.text(labelText));
     }
 
-    @Step("Check amount input is displayed with text '{0}'.")
+    @Step("Check amount input has value '{0}'.")
     public static void checkAmountInput(String amountInputText) {
-        VaultOperationsWindow.getAmountInput().shouldBe(Condition.visible).shouldHave(Condition.exactText(amountInputText));
+        VaultOperationsWindow.getAmountInput().shouldBe(Condition.visible).shouldHave(Condition.value(amountInputText));
     }
 
     @Step("Check validation message is displayed with text '{0}'.")

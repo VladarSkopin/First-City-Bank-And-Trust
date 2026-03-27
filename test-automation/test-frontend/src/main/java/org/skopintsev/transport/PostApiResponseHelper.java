@@ -67,6 +67,18 @@ public class PostApiResponseHelper {
         WireMock.stubFor(WireMock.get("/__admin/mappings").willReturn(ok()));
     }
 
+    private static void stubOptions(String fullPath) {
+        WireMock.stubFor(
+                WireMock.options(WireMock.urlPathEqualTo(fullPath)).willReturn(
+                        WireMock.ok()
+                                .withHeader("Access-Control-Allow-Origin", "*")
+                                .withHeader("Access-Control-Allow-Methods", "POST, OPTIONS")
+                                .withHeader("Access-Control-Allow-Headers", "Content-Type, Authorization")
+                                .withHeader("Access-Control-Allow-Credentials", "true")
+                )
+        );
+    }
+
     @SneakyThrows
     private static void stubGet(String fullPath, Object responseObject, int statusCode) {
         WireMock.stubFor(
@@ -223,6 +235,7 @@ public class PostApiResponseHelper {
 
     @Step("POST /__admin/mappings: response for " + VAULT_OPERATIONS)
     public static void stubPostVaultOperation(VaultOperationResponse response) {
+        stubOptions(VAULT_OPERATIONS);
         stubPost(VAULT_OPERATIONS, response, 200);
     }
 }
