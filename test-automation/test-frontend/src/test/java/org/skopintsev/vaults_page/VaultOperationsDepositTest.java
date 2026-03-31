@@ -48,8 +48,7 @@ public class VaultOperationsDepositTest extends BaseVaultTest {
     @Severity(SeverityLevel.BLOCKER)
     public void depositZeroAmountTest() {
         vault.setAmount(BigInteger.valueOf(0));
-        List<Vault> vaultsList = List.of(vault);
-        PostApiResponseHelper.stubGetVaults(vaultsList);
+        PostApiResponseHelper.stubGetVaults(List.of(vault));
         Selenide.refresh();
 
         VaultCardSteps.clickDepositBtn();
