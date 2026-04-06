@@ -14,10 +14,13 @@ import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.models.api.*;
 import org.skopintsev.models.api.factory.ClientFactory;
 import org.skopintsev.models.api.sector.SubSector;
+import org.skopintsev.transport.CheckApiRequestHelper;
 import org.skopintsev.transport.PostApiResponseHelper;
 
 import java.util.Collections;
 import java.util.List;
+
+import static org.skopintsev.constants.Api.CLIENTS;
 
 public class ClientInfoTest extends BaseClientTest {
 

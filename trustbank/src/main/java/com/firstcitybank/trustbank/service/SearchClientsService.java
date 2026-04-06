@@ -1,7 +1,7 @@
 package com.firstcitybank.trustbank.service;
 
 import com.firstcitybank.trustbank.database.dao.ClientDao;
-import com.firstcitybank.trustbank.model.Client;
+import com.firstcitybank.trustbank.model.client.Client;
 import org.springframework.stereotype.Service;
 import com.firstcitybank.trustbank.helper.ClientValidator;
 

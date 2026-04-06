@@ -1,6 +1,6 @@
 package com.firstcitybank.trustbank.controller;
 
-import com.firstcitybank.trustbank.model.Vault;
+import com.firstcitybank.trustbank.model.vault.Vault;
 import com.firstcitybank.trustbank.service.SearchVaultsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

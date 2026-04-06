@@ -1,6 +1,6 @@
 package com.firstcitybank.trustbank.controller;
 
-import com.firstcitybank.trustbank.model.Sector;
+import com.firstcitybank.trustbank.model.sector.Sector;
 import com.firstcitybank.trustbank.service.SectorService;
 import org.springframework.web.bind.annotation.*;
 

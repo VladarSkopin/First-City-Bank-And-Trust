@@ -2,7 +2,7 @@ package com.firstcitybank.trustbank.service;
 
 import com.firstcitybank.trustbank.database.dao.SectorDao;
 import com.firstcitybank.trustbank.exception.NotFoundException;
-import com.firstcitybank.trustbank.model.Sector;
+import com.firstcitybank.trustbank.model.sector.Sector;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

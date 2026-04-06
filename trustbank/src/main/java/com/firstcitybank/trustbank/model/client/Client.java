@@ -1,4 +1,4 @@
-package com.firstcitybank.trustbank.model;
+package com.firstcitybank.trustbank.model.client;
 
 public record Client (
         String clientCode,

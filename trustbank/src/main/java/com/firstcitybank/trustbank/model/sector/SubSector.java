@@ -1,4 +1,4 @@
-package com.firstcitybank.trustbank.model;
+package com.firstcitybank.trustbank.model.sector;
 
 public record SubSector (
         String subSectorCode,

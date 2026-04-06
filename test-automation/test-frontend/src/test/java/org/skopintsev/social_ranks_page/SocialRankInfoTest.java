@@ -11,9 +11,12 @@ import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.assertions.social_rank.SocialRankCardAssertions;
 import org.skopintsev.assertions.social_rank.SocialRanksPageAssertions;
 import org.skopintsev.models.api.SocialRank;
+import org.skopintsev.transport.CheckApiRequestHelper;
 import org.skopintsev.transport.PostApiResponseHelper;
 
 import java.util.Collections;
+
+import static org.skopintsev.constants.Api.CLIENTS;
 
 public class SocialRankInfoTest extends BaseSocialRankTest {
 
