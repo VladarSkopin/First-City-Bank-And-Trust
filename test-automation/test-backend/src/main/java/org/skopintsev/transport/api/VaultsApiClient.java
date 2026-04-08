@@ -6,6 +6,8 @@ import io.restassured.response.Response;
 import org.skopintsev.constants.Api;
 import org.skopintsev.model.vaults.Vault;
 import org.skopintsev.model.vaults.VaultOperation;
+import org.skopintsev.model.vaults.vaultstats.VaultStatsRequest;
+import org.skopintsev.model.vaults.vaultstats.VaultStatsResponse;
 import org.skopintsev.transport.CommonApiReqHelper;
 
 import java.util.List;
@@ -39,6 +41,14 @@ public class VaultsApiClient {
     public static void saveVaultOperationAndValidate(VaultOperation vaultOperation, int expectedStatusCode) {
         Response response = postApiReq(vaultOperation, Api.VAULT_OPERATIONS);
         response.then().statusCode(expectedStatusCode);
+    }
+
+    @Step("POST " + Api.VAULT_STATS + " with expected status code {1}")
+    public static VaultStatsResponse getVaultStats(VaultStatsRequest vaultStatsRequest, int expectedStatusCode) {
+        Response response = postApiReq(vaultStatsRequest, Api.VAULT_STATS);
+        response.then().statusCode(expectedStatusCode);
+
+        return response.as(VaultStatsResponse.class);
     }
 
 }

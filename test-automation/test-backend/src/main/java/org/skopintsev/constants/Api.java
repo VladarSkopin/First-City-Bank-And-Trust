@@ -18,6 +18,8 @@ public interface Api {
 
     String VAULTS = "/api/v1/vaults";
 
+    String VAULT_STATS = "/api/v1/vaultStats";
+
     String VAULT_OPERATIONS = VAULTS + "/operations";
 
     String SEARCH_CLIENTS = CLIENTS + "/search";
