@@ -524,23 +524,23 @@ function Vault() {
             <div className="modal-body" data-testid="modalBody">
               <div className="vault-info-summary">
                 <div className="info-row">
-                  <span>Client:</span>
-                  <span className="highlight">{currentVault.clientName} {currentVault.clientTitle}</span>
+                  <span data-testid="clientLabelWindow">Client:</span>
+                  <span className="highlight" data-testid="clientNameWindow">{currentVault.clientName} {currentVault.clientTitle}</span>
                 </div>
                 <div className="info-row">
-                  <span>Vault ID:</span>
-                  <span className="code">{currentVault.vaultCode}</span>
+                  <span data-testid="vaultLabelWindow">Vault ID:</span>
+                  <span className="code" data-testid="vaultCodeWindow">{currentVault.vaultCode}</span>
                 </div>
                 <div className="info-row">
-                  <span>Current Balance:</span>
-                  <span className="amount-highlight">
+                  <span data-testid="currentBalanceLabelWindow">Current Balance:</span>
+                  <span className="amount-highlight" data-testid="currentBalanceValueWindow">
                     {formatAmount(currentVault.amount)} {currentVault.currencyName}
                   </span>
                 </div>
               </div>
               
               <div className="amount-input-section">
-                <label htmlFor="amount-input" className="amount-label">
+                <label htmlFor="amount-input" className="amount-label" data-testid="amountLabelWindow">
                   Enter Amount ({currentVault.currencyName}):
                 </label>
                 <div className="input-wrapper">
@@ -554,12 +554,13 @@ function Vault() {
                     placeholder="0"
                     disabled={isLoadingOperation}
                     autoFocus
+                    data-testid="amountInput"
                   />
                 </div>
                 
                 {/* Validation message */}
                 {amount && parseInt(amount) > 0 && currentOperation === 'WITHDRAW' && (
-                  <div className={`validation-message ${parseInt(amount) > currentVault.amount ? 'error' : 'success'}`}>
+                  <div className={`validation-message ${parseInt(amount) > currentVault.amount ? 'error' : 'success'}`} data-testid="validationMessage">
                     {parseInt(amount) > currentVault.amount 
                       ? `❌ Exceeds available balance of ${formatAmount(currentVault.amount)}`
                       : `✅ Within available balance`
@@ -567,7 +568,7 @@ function Vault() {
                   </div>
                 )}
                 
-                <div className="input-hint">
+                <div className="input-hint" data-testid="inputHint">
                   Enter numeric value only.
                 </div>
                 
@@ -610,6 +611,7 @@ function Vault() {
                 className="vault-btn"
                 onClick={closeModal}
                 disabled={isLoadingOperation}
+                data-testid="cancelButton"
               >
                 CANCEL
               </button>
@@ -618,6 +620,7 @@ function Vault() {
                 onClick={handleSubmit}
                 disabled={!amount || parseInt(amount) <= 0 || isLoadingOperation ||
                   (currentOperation === 'WITHDRAW' && parseInt(amount) > currentVault.amount)}
+                data-testid="submitButton"
               >
                 {isLoadingOperation ? (
                   <>

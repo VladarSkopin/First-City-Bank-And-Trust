@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.assertions.sector.SectorCardAssertions;
 import org.skopintsev.assertions.sector.SectorsPageAssertions;
-import org.skopintsev.models.api.SubSector;
+import org.skopintsev.models.api.sector.SubSector;
 import org.skopintsev.transport.PostApiResponseHelper;
 
 import java.util.Collections;

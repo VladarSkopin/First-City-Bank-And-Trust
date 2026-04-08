@@ -13,9 +13,11 @@ import io.qameta.allure.Step;
 import lombok.AccessLevel;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
-import org.skopintsev.models.api.Currency;
-import org.skopintsev.models.api.District;
-import org.skopintsev.models.api.SocialRank;
+import org.skopintsev.models.api.*;
+import org.skopintsev.models.api.sector.Sector;
+import org.skopintsev.models.api.sector.SubSector;
+import org.skopintsev.models.api.vault.Vault;
+import org.skopintsev.models.api.vault.VaultOperationResponse;
 import org.skopintsev.util.LocalDateAdapter;
 
 
@@ -65,8 +67,20 @@ public class PostApiResponseHelper {
         WireMock.stubFor(WireMock.get("/__admin/mappings").willReturn(ok()));
     }
 
+    private static void stubOptions(String fullPath) {
+        WireMock.stubFor(
+                WireMock.options(WireMock.urlPathEqualTo(fullPath)).willReturn(
+                        WireMock.ok()
+                                .withHeader("Access-Control-Allow-Origin", "*")
+                                .withHeader("Access-Control-Allow-Methods", "POST, OPTIONS")
+                                .withHeader("Access-Control-Allow-Headers", "Content-Type, Authorization")
+                                .withHeader("Access-Control-Allow-Credentials", "true")
+                )
+        );
+    }
+
     @SneakyThrows
-    public static void stubGet(String fullPath, Object responseObject, int statusCode) {
+    private static void stubGet(String fullPath, Object responseObject, int statusCode) {
         WireMock.stubFor(
                 WireMock.get(fullPath).willReturn(
                         WireMock.okJson(objectMapper.writeValueAsString(responseObject))
@@ -78,19 +92,33 @@ public class PostApiResponseHelper {
     }
 
     @SneakyThrows
-    public static void stubGetDefaultApi(String path, Object responseObject) {
+    private static void stubPost(String fullPath, Object responseObject, int statusCode) {
+        WireMock.stubFor(
+                WireMock.post(fullPath).willReturn(
+                        WireMock.okJson(objectMapper.writeValueAsString(responseObject))
+                                .withStatus(statusCode)
+                                .withHeader("Content-Type", "application/json")
+                                .withHeader("Access-Control-Allow-Origin", "*")
+                )
+        );
+    }
+
+
+    @SneakyThrows
+    private static void stubGetDefaultApi(String path, Object responseObject) {
         stubGet(path, responseObject, SC_OK);
     }
 
     @SneakyThrows
-    public static void stubGetNotFoundApi(String path, Object responseObject) {
+    private static void stubGetNotFoundApi(String path, Object responseObject) {
         stubGet(path, responseObject, SC_NOT_FOUND);
     }
 
     @SneakyThrows
-    public static void stubGetServerErrorApi(String path, Object responseObject) {
+    private static void stubGetServerErrorApi(String path, Object responseObject) {
         stubGet(path, responseObject, SC_SERVER_ERROR);
     }
+
 
 
     // Mocks
@@ -140,4 +168,74 @@ public class PostApiResponseHelper {
         stubGetServerErrorApi(SOCIAL_RANKS, socialRanksList);
     }
 
+    @Step("POST /__admin/mappings: response for " + SECTORS)
+    public static void stubGetSectors(List<Sector> socialRanksList) {
+        stubGetDefaultApi(SECTORS, socialRanksList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + SECTORS)
+    public static void stubGetSectorsNotFound(List<Sector> socialRanksList) {
+        stubGetNotFoundApi(SECTORS, socialRanksList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + SECTORS)
+    public static void stubGetSectorsServerError(List<Sector> socialRanksList) {
+        stubGetServerErrorApi(SECTORS, socialRanksList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + SUB_SECTORS)
+    public static void stubGetSubSectors(List<SubSector> socialRanksList) {
+        stubGetDefaultApi(SUB_SECTORS, socialRanksList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + SUB_SECTORS)
+    public static void stubGetSubSectorsNotFound(List<SubSector> socialRanksList) {
+        stubGetNotFoundApi(SUB_SECTORS, socialRanksList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + SUB_SECTORS)
+    public static void stubGetSubSectorsServerError(List<SubSector> socialRanksList) {
+        stubGetServerErrorApi(SUB_SECTORS, socialRanksList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + CLIENT_TYPES)
+    public static void stubGetClientTypes(List<ClientType> clientTypesList) {
+        stubGetDefaultApi(CLIENT_TYPES, clientTypesList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + CLIENTS)
+    public static void stubGetClients(List<Client> clientsList) {
+        stubGetDefaultApi(CLIENTS, clientsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + CLIENTS)
+    public static void stubGetClientsNotFound(List<Client> clientsList) {
+        stubGetNotFoundApi(CLIENTS, clientsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + CLIENTS)
+    public static void stubGetClientsServerError(List<Client> clientsList) {
+        stubGetServerErrorApi(CLIENTS, clientsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + VAULTS)
+    public static void stubGetVaults(List<Vault> vaultsList) {
+        stubGetDefaultApi(VAULTS, vaultsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + VAULTS)
+    public static void stubGetVaultsNotFound(List<Vault> vaultsList) {
+        stubGetNotFoundApi(VAULTS, vaultsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + VAULTS)
+    public static void stubGetVaultsServerError(List<Vault> vaultsList) {
+        stubGetServerErrorApi(VAULTS, vaultsList);
+    }
+
+    @Step("POST /__admin/mappings: response for " + VAULT_OPERATIONS)
+    public static void stubPostVaultOperation(VaultOperationResponse response) {
+        stubOptions(VAULT_OPERATIONS);
+        stubPost(VAULT_OPERATIONS, response, 200);
+    }
 }

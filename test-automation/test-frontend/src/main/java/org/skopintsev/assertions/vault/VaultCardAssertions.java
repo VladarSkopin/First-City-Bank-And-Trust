@@ -4,7 +4,6 @@ import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import org.skopintsev.models.gui.vaults.VaultCard;
 
-import java.math.BigInteger;
 
 public class VaultCardAssertions {
 
@@ -73,7 +72,7 @@ public class VaultCardAssertions {
         VaultCard.getDepositBtn().shouldBe(Condition.visible).shouldHave(Condition.text(buttonText));
     }
 
-    @Step("Check 'DEPOSIT' button is enabled = '{0}'.")
+    @Step("Check 'DEPOSIT' button should be enabled = '{0}'.")
     public static void checkDepositBtnEnabled(boolean shouldBeEnabled) {
         VaultCard.getDepositBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }
@@ -83,7 +82,7 @@ public class VaultCardAssertions {
         VaultCard.getWithdrawBtn().shouldBe(Condition.visible).shouldHave(Condition.text(buttonText));
     }
 
-    @Step("Check 'WITHDRAW' button is enabled = '{0}'.")
+    @Step("Check 'WITHDRAW' button should be enabled = '{0}'.")
     public static void checkWithdrawBtnEnabled(boolean shouldBeEnabled) {
         VaultCard.getWithdrawBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }
