@@ -44,7 +44,7 @@ public class VaultsApiClient {
     }
 
     @Step("POST " + Api.VAULT_STATS + " with expected status code {1}")
-    public static VaultStatsResponse getVaultStats(VaultStatsRequest vaultStatsRequest, int expectedStatusCode) {
+    public static VaultStatsResponse getVaultStatsAndValidate(VaultStatsRequest vaultStatsRequest, int expectedStatusCode) {
         Response response = postApiReq(vaultStatsRequest, Api.VAULT_STATS);
         response.then().statusCode(expectedStatusCode);
 

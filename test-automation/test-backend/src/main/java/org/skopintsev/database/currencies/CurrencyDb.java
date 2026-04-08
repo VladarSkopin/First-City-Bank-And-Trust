@@ -3,7 +3,7 @@ package org.skopintsev.database.currencies;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.skopintsev.helper.enums.MetalType;
+import org.skopintsev.helper.enums.MetalTypeEnum;
 
 @Data
 @Builder
@@ -15,5 +15,5 @@ public class CurrencyDb {
     String currencyCode;
     String currencyName;
     @Builder.Default String currencySymbol = "*";
-    @Builder.Default String metalType = MetalType.UNKNOWN.getText();
+    @Builder.Default String metalType = MetalTypeEnum.UNKNOWN.getText();
 }

@@ -18,7 +18,7 @@ import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.database.client_types.ClientTypeDb;
 import org.skopintsev.database.client_types.ClientTypeDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.helper.enums.ClientTypeName;
+import org.skopintsev.helper.enums.ClientTypeNameEnum;
 import org.skopintsev.model.ClientType;
 import org.skopintsev.transport.api.ClientsApiClient;
 
@@ -32,7 +32,7 @@ import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 public class CreateClientTypeTest extends BaseClientTypeTest {
 
     final String CLIENT_TYPE_CODE = GeneratorBuilder.generateTestCode();
-    final String CLIENT_TYPE_NAME = ClientTypeName.SS.getText();
+    final String CLIENT_TYPE_NAME = ClientTypeNameEnum.SS.getText();
 
     @Test
     @Tag("regression")

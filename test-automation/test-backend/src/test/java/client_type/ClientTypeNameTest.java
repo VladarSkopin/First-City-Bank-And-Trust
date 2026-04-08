@@ -15,7 +15,7 @@ import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.database.client_types.ClientTypeDb;
 import org.skopintsev.database.client_types.ClientTypeDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.helper.enums.ClientTypeName;
+import org.skopintsev.helper.enums.ClientTypeNameEnum;
 import org.skopintsev.model.ClientType;
 import org.skopintsev.transport.api.ClientsApiClient;
 
@@ -29,7 +29,7 @@ import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 public class ClientTypeNameTest extends BaseClientTypeTest {
 
     final String CLIENT_TYPE_CODE = GeneratorBuilder.generateTestCode();
-    private static final String CLIENT_TYPE_NAME = ClientTypeName.SS.getText();
+    private static final String CLIENT_TYPE_NAME = ClientTypeNameEnum.SS.getText();
 
     @ParameterizedTest(name = "[{index}] clientTypeName = {0}")
     @MethodSource("invalidClientTypeNameRequest")
@@ -100,7 +100,7 @@ public class ClientTypeNameTest extends BaseClientTypeTest {
 
     private static Stream<Arguments> validClientTypeNameProvider() {
         return Stream.of(
-                Arguments.of(ClientTypeName.SS.name()),
+                Arguments.of(ClientTypeNameEnum.SS.name()),
                 Arguments.of(CLIENT_TYPE_NAME.toLowerCase()),
                 Arguments.of(CLIENT_TYPE_NAME.toUpperCase()),
                 Arguments.of(CLIENT_TYPE_NAME.charAt(0) + CLIENT_TYPE_NAME.substring(1).toLowerCase()),
@@ -111,11 +111,11 @@ public class ClientTypeNameTest extends BaseClientTypeTest {
     private static String validateAndGetClientTypeName(String clientTypeName) {
         try {
             // Convert string to enum to validate it exists
-            ClientTypeName clientType = ClientTypeName.valueOf(clientTypeName.toUpperCase());
+            ClientTypeNameEnum clientType = ClientTypeNameEnum.valueOf(clientTypeName.toUpperCase());
             return clientType.getText();
         } catch (IllegalArgumentException e) {
             // Try matching by text
-            for (ClientTypeName ctn : ClientTypeName.values()) {
+            for (ClientTypeNameEnum ctn : ClientTypeNameEnum.values()) {
                 if (ctn.getText().equalsIgnoreCase(clientTypeName)) {
                     return ctn.getText();
                 }

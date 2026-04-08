@@ -19,7 +19,7 @@ import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.database.vaults.VaultTransactionsDb;
 import org.skopintsev.database.vaults.VaultTransactionsDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.helper.enums.TransactionType;
+import org.skopintsev.helper.enums.TransactionTypeEnum;
 import org.skopintsev.model.vaults.VaultOperation;
 import org.skopintsev.transport.api.VaultsApiClient;
 
@@ -34,7 +34,7 @@ import static org.skopintsev.constants.Constants.SC_SERVER_ERROR;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class VaultOperationWithdrawTest extends BaseVaultTest {
 
-    final String WITHDRAW_OPERATION = TransactionType.WITHDRAW.getText();
+    final String WITHDRAW_OPERATION = TransactionTypeEnum.WITHDRAW.getText();
     final int INITIAL_AMOUNT = 100;
     final int AMOUNT_TO_WITHDRAW = 10;
 

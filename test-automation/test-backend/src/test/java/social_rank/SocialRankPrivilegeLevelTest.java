@@ -12,7 +12,7 @@ import org.skopintsev.assertions.db.SocialRankDbAssertions;
 import org.skopintsev.database.social_ranks.SocialRankDb;
 import org.skopintsev.database.social_ranks.SocialRankDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.helper.enums.PrivilegeLevel;
+import org.skopintsev.helper.enums.PrivilegeLevelEnum;
 import org.skopintsev.model.SocialRank;
 import org.skopintsev.transport.api.SocialRanksApiClient;
 
@@ -25,7 +25,7 @@ public class SocialRankPrivilegeLevelTest extends BaseSocialRankTest {
 
     private final String RANK_CODE = GeneratorBuilder.generateTestCode();
     private final String RANK_NAME = GeneratorBuilder.generateString(10);
-    private static final String PRIVILEGE_LEVEL = PrivilegeLevel.HIGHEST.getText();
+    private static final String PRIVILEGE_LEVEL = PrivilegeLevelEnum.HIGHEST.getText();
 
     @ParameterizedTest(name = "[{index}] privilegeLevel = {0}")
     @MethodSource("invalidPrivilegeLevelProvider")
