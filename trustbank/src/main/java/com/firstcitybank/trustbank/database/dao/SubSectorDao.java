@@ -1,6 +1,6 @@
 package com.firstcitybank.trustbank.database.dao;
 
-import com.firstcitybank.trustbank.model.SubSector;
+import com.firstcitybank.trustbank.model.sector.SubSector;
 
 import java.util.List;
 import java.util.Optional;

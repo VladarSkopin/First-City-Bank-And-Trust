@@ -1,7 +1,7 @@
 package com.firstcitybank.trustbank.database.sector;
 
 import com.firstcitybank.trustbank.database.dao.SectorDao;
-import com.firstcitybank.trustbank.model.Sector;
+import com.firstcitybank.trustbank.model.sector.Sector;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

@@ -2,7 +2,7 @@ package com.firstcitybank.trustbank.service;
 
 import com.firstcitybank.trustbank.database.dao.ClientTypeDao;
 import com.firstcitybank.trustbank.exception.NotFoundException;
-import com.firstcitybank.trustbank.model.ClientType;
+import com.firstcitybank.trustbank.model.client.ClientType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

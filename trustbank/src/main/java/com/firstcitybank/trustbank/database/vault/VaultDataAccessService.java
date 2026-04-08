@@ -1,7 +1,7 @@
 package com.firstcitybank.trustbank.database.vault;
 
 import com.firstcitybank.trustbank.database.dao.VaultDao;
-import com.firstcitybank.trustbank.model.Vault;
+import com.firstcitybank.trustbank.model.vault.Vault;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -252,6 +252,38 @@ public class VaultDataAccessService implements VaultDao {
         return jdbcTemplate.query(sql, new VaultRowMapper(), vaultCode)
                 .stream()
                 .findFirst();
+    }
+
+    @Override
+    public List<Vault> selectVaultsBySectorWithLimit(String sectorCode, int limit) {
+        var sql = """
+            SELECT v.vault_code, v.client_code, v.created_at, v.modified_at, 
+                   v.amount, v.currency_code, v.is_archived
+            FROM vault v
+            JOIN clients c ON v.client_code = c.client_code
+            JOIN sub_sectors ss ON c.sub_sector_code = ss.sub_sector_code
+            JOIN sectors s ON ss.sector_code = s.sector_code
+            WHERE s.sector_code = ?
+              AND v.is_archived = false
+              AND c.is_blocked = false
+            LIMIT ?
+            """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), sectorCode.trim().toUpperCase(), limit);
+    }
+
+    @Override
+    public List<Vault> selectVaultsBySubSectorWithLimit(String subSectorCode, int limit) {
+        var sql = """
+            SELECT v.vault_code, v.client_code, v.created_at, v.modified_at, 
+                   v.amount, v.currency_code, v.is_archived
+            FROM vault v
+            JOIN clients c ON v.client_code = c.client_code
+            WHERE c.sub_sector_code = ?
+              AND v.is_archived = false
+              AND c.is_blocked = false
+            LIMIT ?
+            """;
+        return jdbcTemplate.query(sql, new VaultRowMapper(), subSectorCode.trim().toUpperCase(), limit);
     }
 
 

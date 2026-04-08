@@ -102,7 +102,6 @@ public class CheckApiRequestHelper {
         );
     }
 
-    // todo: use in HeaderPanelTest !!!
     @Step("Check that GET request '{0}' was sent successfully from the web.")
     public static void checkGetSuccessfulSendRequests(String contextReq) {
         WireMock.verify(

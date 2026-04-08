@@ -1,7 +1,7 @@
 package com.firstcitybank.trustbank.database.dao;
 
 
-import com.firstcitybank.trustbank.model.ClientType;
+import com.firstcitybank.trustbank.model.client.ClientType;
 
 import java.util.List;
 import java.util.Optional;

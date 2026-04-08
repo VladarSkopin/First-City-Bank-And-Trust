@@ -1,6 +1,6 @@
 package com.firstcitybank.trustbank.database.vault;
 
-import com.firstcitybank.trustbank.model.Vault;
+import com.firstcitybank.trustbank.model.vault.Vault;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.math.BigInteger;

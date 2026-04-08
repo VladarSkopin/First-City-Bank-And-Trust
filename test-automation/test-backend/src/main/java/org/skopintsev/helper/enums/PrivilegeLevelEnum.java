@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum PrivilegeLevel {
+public enum PrivilegeLevelEnum {
 
     HIGHEST(1, "HIGHEST"),
     HIGH(2, "HIGH"),

@@ -16,7 +16,7 @@ import org.skopintsev.database.vaults.VaultDbHelper;
 import org.skopintsev.database.vaults.VaultTransactionsDb;
 import org.skopintsev.database.vaults.VaultTransactionsDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.helper.enums.TransactionType;
+import org.skopintsev.helper.enums.TransactionTypeEnum;
 import org.skopintsev.model.vaults.VaultOperation;
 import org.skopintsev.transport.api.VaultsApiClient;
 
@@ -31,7 +31,7 @@ import static org.skopintsev.constants.Constants.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class VaultOperationInsertTest extends BaseVaultTest {
 
-    final String INSERT_OPERATION = TransactionType.INSERT.getText();
+    final String INSERT_OPERATION = TransactionTypeEnum.INSERT.getText();
     final int AMOUNT_TO_INSERT = GeneratorBuilder.generateAmount();
 
     String vaultCode;

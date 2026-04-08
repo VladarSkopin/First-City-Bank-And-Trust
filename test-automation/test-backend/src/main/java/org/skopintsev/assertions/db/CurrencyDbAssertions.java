@@ -3,7 +3,7 @@ package org.skopintsev.assertions.db;
 import io.qameta.allure.Step;
 import org.assertj.core.api.Assertions;
 import org.skopintsev.database.currencies.CurrencyDb;
-import org.skopintsev.helper.enums.MetalType;
+import org.skopintsev.helper.enums.MetalTypeEnum;
 
 
 public class CurrencyDbAssertions {
@@ -31,7 +31,7 @@ public class CurrencyDbAssertions {
 
     @Step("Check currency default metal type.")
     public static void checkDefaultMetalType(String actualMetalType) {
-        String defaultMetalType = MetalType.UNKNOWN.getText();
+        String defaultMetalType = MetalTypeEnum.UNKNOWN.getText();
         Assertions.assertThat(actualMetalType)
                 .withFailMessage("Expected default metal type = '%s', but actual = '%s'", defaultMetalType, actualMetalType)
                 .isEqualTo(defaultMetalType);

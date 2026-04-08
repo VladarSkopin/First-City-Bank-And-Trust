@@ -10,9 +10,12 @@ import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.assertions.currency.CurrenciesPageAssertions;
 import org.skopintsev.assertions.currency.CurrencyCardAssertions;
 import org.skopintsev.models.api.Currency;
+import org.skopintsev.transport.CheckApiRequestHelper;
 import org.skopintsev.transport.PostApiResponseHelper;
 
 import java.util.Collections;
+
+import static org.skopintsev.constants.Api.CLIENTS;
 
 public class CurrencyInfoTest extends BaseCurrencyTest {
 

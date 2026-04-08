@@ -17,6 +17,7 @@ import org.skopintsev.models.api.Client;
 import org.skopintsev.models.api.Currency;
 import org.skopintsev.models.api.vault.Vault;
 import org.skopintsev.models.api.factory.VaultFactory;
+import org.skopintsev.transport.CheckApiRequestHelper;
 import org.skopintsev.transport.PostApiResponseHelper;
 import org.skopintsev.util.helpers.AmountHelper;
 import org.skopintsev.util.helpers.DateHelper;
@@ -25,6 +26,8 @@ import java.math.BigInteger;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.skopintsev.constants.Api.CLIENTS;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class VaultInfoTest extends BaseVaultTest {

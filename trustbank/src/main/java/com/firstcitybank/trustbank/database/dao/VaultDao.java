@@ -1,6 +1,6 @@
 package com.firstcitybank.trustbank.database.dao;
 
-import com.firstcitybank.trustbank.model.Vault;
+import com.firstcitybank.trustbank.model.vault.Vault;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -20,4 +20,6 @@ public interface VaultDao {
     boolean existsByCode(String vaultCode);
     int deleteVault(String vaultCode);
     Optional<Vault> selectVaultByCode(String vaultCode);
+    List<Vault> selectVaultsBySectorWithLimit(String sectorCode, int limit);
+    List<Vault> selectVaultsBySubSectorWithLimit(String subSectorCode, int limit);
 }
