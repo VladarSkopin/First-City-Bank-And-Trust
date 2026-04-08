@@ -1,6 +1,6 @@
 package org.skopintsev.models.api.factory;
 
-import org.skopintsev.models.api.Vault;
+import org.skopintsev.models.api.vault.Vault;
 import org.skopintsev.util.GeneratorBuilder;
 
 import java.math.BigInteger;

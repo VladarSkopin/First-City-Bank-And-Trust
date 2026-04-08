@@ -1,6 +1,6 @@
 package org.skopintsev.models.api.factory;
 
-import org.skopintsev.models.api.SubSector;
+import org.skopintsev.models.api.sector.SubSector;
 import org.skopintsev.util.GeneratorBuilder;
 
 import java.util.List;

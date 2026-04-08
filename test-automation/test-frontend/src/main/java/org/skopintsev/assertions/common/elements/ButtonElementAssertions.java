@@ -18,7 +18,7 @@ public class ButtonElementAssertions {
         ButtonElement.getRetryBtn().shouldBe(Condition.visible);
     }
 
-    @Step("Check that 'Retry' button is enabled = '{0}'.")
+    @Step("Check 'Retry' button should be enabled = '{0}'.")
     public static void checkRetryBtnEnabled(boolean shouldBeEnabled) {
         ButtonElement.getRetryBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }
@@ -28,7 +28,7 @@ public class ButtonElementAssertions {
         ButtonElement.getOkBtn().shouldBe(Condition.visible);
     }
 
-    @Step("Check that 'Ok' button is enabled = '{0}'.")
+    @Step("Check 'Ok' button should be enabled = '{0}'.")
     public static void checkOkBtnEnabled(boolean shouldBeEnabled) {
         ButtonElement.getOkBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }
@@ -38,7 +38,7 @@ public class ButtonElementAssertions {
         ButtonElement.getCrossCloseBtn().shouldBe(Condition.visible);
     }
 
-    @Step("Check that cross '[X]' button is enabled = '{0}'.")
+    @Step("Check cross '[X]' button should be enabled = '{0}'.")
     public static void checkCrossCloseBtnEnabled(boolean shouldBeEnabled) {
         ButtonElement.getCrossCloseBtn().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }

@@ -13,6 +13,7 @@ import org.skopintsev.assertions.client.ClientsPageAssertions;
 import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.models.api.*;
 import org.skopintsev.models.api.factory.ClientFactory;
+import org.skopintsev.models.api.sector.SubSector;
 import org.skopintsev.transport.PostApiResponseHelper;
 
 import java.util.Collections;

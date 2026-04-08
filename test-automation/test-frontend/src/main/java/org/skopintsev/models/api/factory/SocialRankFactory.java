@@ -1,6 +1,6 @@
 package org.skopintsev.models.api.factory;
 
-import org.skopintsev.enums.PrivilegeLevel;
+import org.skopintsev.enums.PrivilegeLevelEnum;
 import org.skopintsev.models.api.SocialRank;
 import org.skopintsev.util.GeneratorBuilder;
 
@@ -13,7 +13,7 @@ public class SocialRankFactory {
                 SocialRank.builder()
                         .rankCode(GeneratorBuilder.generateTestCode())
                         .rankName(GeneratorBuilder.generateString(12))
-                        .privilegeLevel(PrivilegeLevel.STANDARD.getText())
+                        .privilegeLevel(PrivilegeLevelEnum.STANDARD.getText())
                         .description(GeneratorBuilder.generateString(20))
                         .regulations(GeneratorBuilder.generateString(50))
                         .build()

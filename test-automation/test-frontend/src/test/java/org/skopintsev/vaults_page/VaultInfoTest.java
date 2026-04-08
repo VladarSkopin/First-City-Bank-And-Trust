@@ -4,6 +4,8 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,22 +15,21 @@ import org.skopintsev.assertions.vault.VaultCardAssertions;
 import org.skopintsev.assertions.vault.VaultsPageAssertions;
 import org.skopintsev.models.api.Client;
 import org.skopintsev.models.api.Currency;
-import org.skopintsev.models.api.Vault;
+import org.skopintsev.models.api.vault.Vault;
 import org.skopintsev.models.api.factory.VaultFactory;
 import org.skopintsev.transport.PostApiResponseHelper;
+import org.skopintsev.util.helpers.AmountHelper;
+import org.skopintsev.util.helpers.DateHelper;
 
 import java.math.BigInteger;
-import java.text.NumberFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class VaultInfoTest extends BaseVaultTest {
 
-    String CURRENCY_CODE = BASE_CURRENCIES_LIST.get(0).getCurrencyCode();
+    final String CURRENCY_CODE = BASE_CURRENCIES_LIST.get(0).getCurrencyCode();
 
     @Test
     @Tag("smoke")
@@ -44,6 +45,7 @@ public class VaultInfoTest extends BaseVaultTest {
         VaultsPageAssertions.checkCurrenciesCountLabelText("UNIQUE CURRENCIES: ");
         VaultsPageAssertions.checkCurrenciesCountValueText(
                 BASE_VAULTS_LIST.stream()
+                        .filter(v -> v.getIsArchived() != true)
                         .map(Vault::getCurrencyCode)
                         .collect(Collectors.toSet())
                         .size());
@@ -85,9 +87,9 @@ public class VaultInfoTest extends BaseVaultTest {
                 isBlockedClient ? "BLOCKED 🔒" : "ACTIVE ✅"
         );
         VaultCardAssertions.checkLastAccessLabelText("LAST ACCESS:");
-        VaultCardAssertions.checkLastAccessDateTimeText(formatLocalDateTime(vault.getModifiedAt()));
+        VaultCardAssertions.checkLastAccessDateTimeText(DateHelper.formatLocalDateTime(vault.getModifiedAt()));
         VaultCardAssertions.checkBalanceLabelText("CURRENT BALANCE:");
-        VaultCardAssertions.checkBalanceValueText(formatAmount(vault.getAmount()));
+        VaultCardAssertions.checkBalanceValueText(AmountHelper.formatAmount(vault.getAmount()));
         VaultCardAssertions.checkDepositBtnText("DEPOSIT");
         VaultCardAssertions.checkDepositBtnEnabled(isBlockedClient ? false : true);
         VaultCardAssertions.checkWithdrawBtnText("WITHDRAW");
@@ -95,7 +97,7 @@ public class VaultInfoTest extends BaseVaultTest {
     }
 
     @Test
-    @Tag("regression")
+    @Tag("smoke")
     @Description("Test checks the display of a vault card when its balance is zero.")
     @Severity(SeverityLevel.BLOCKER)
     public void vaultsZeroBalanceTest() {
@@ -112,7 +114,7 @@ public class VaultInfoTest extends BaseVaultTest {
         Selenide.refresh();
 
         VaultCardAssertions.checkBalanceLabelText("CURRENT BALANCE:");
-        VaultCardAssertions.checkBalanceValueText(formatAmount(vault.getAmount()));
+        VaultCardAssertions.checkBalanceValueText(AmountHelper.formatAmount(vault.getAmount()));
         VaultCardAssertions.checkDepositBtnText("DEPOSIT");
         VaultCardAssertions.checkDepositBtnEnabled(true);
         VaultCardAssertions.checkWithdrawBtnText("WITHDRAW");
@@ -135,7 +137,7 @@ public class VaultInfoTest extends BaseVaultTest {
     @Test
     @Tag("regression")
     @Description("Test checks the display of the Vaults page in case of empty response list.")
-    @Severity(SeverityLevel.BLOCKER)
+    @Severity(SeverityLevel.CRITICAL)
     public void vaultsEmptyResponseTest() {
         PostApiResponseHelper.stubGetVaults(Collections.emptyList());
         Selenide.refresh();
@@ -147,7 +149,7 @@ public class VaultInfoTest extends BaseVaultTest {
     @Test
     @Tag("regression")
     @Description("Test checks the display of the Vaults page when no vaults were found.")
-    @Severity(SeverityLevel.BLOCKER)
+    @Severity(SeverityLevel.CRITICAL)
     public void vaultsNotFoundTest() {
         PostApiResponseHelper.stubGetVaultsNotFound(Collections.emptyList());
         Selenide.refresh();
@@ -161,7 +163,7 @@ public class VaultInfoTest extends BaseVaultTest {
     @Test
     @Tag("regression")
     @Description("Test checks the display of the Vaults page in case of server error response.")
-    @Severity(SeverityLevel.BLOCKER)
+    @Severity(SeverityLevel.CRITICAL)
     public void vaultsServerErrorTest() {
         PostApiResponseHelper.stubGetVaultsServerError(Collections.emptyList());
         Selenide.refresh();
@@ -180,15 +182,5 @@ public class VaultInfoTest extends BaseVaultTest {
                 .findFirst()
                 .orElse(null);
         return currency.getCurrencyName();
-    }
-
-    public static String formatAmount(BigInteger amount) {
-        NumberFormat formatter = NumberFormat.getInstance();
-        return formatter.format(amount);
-    }
-
-    public static String formatLocalDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy, hh:mm a", Locale.ENGLISH);
-        return dateTime.format(formatter);
     }
 }
