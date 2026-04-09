@@ -31,7 +31,6 @@ public class VaultStatsApiAssertions {
                 .isEqualTo(systemNameExpected);
     }
 
-    // check LocalDateTime dateReceived
     @Step("Check vault stats date received API response matches expected.")
     public static void checkVaultStatsDateReceivedResponse(
             LocalDateTime dateReceivedActual, LocalDateTime dateReceivedExpected) {

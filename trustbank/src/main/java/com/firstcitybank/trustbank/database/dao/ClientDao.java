@@ -20,6 +20,7 @@ public interface ClientDao {
 
     // Advanced search with multiple criteria
     List<Client> searchClients(
+            String nameOrTitle,
             String socialRankCode,
             String clientTypeCode,
             String subSectorCode,

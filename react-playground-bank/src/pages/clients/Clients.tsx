@@ -1,5 +1,6 @@
 import './ClientsStyles.css';
 import './LoadingStyles.css';
+import './SearchStyles.css';
 import { useState, useEffect } from 'react';
 
 interface Client {
@@ -56,90 +57,139 @@ function Clients() {
     subSectors: false
   });
 
-  // Fetch all required data in parallel
-  useEffect(() => {
-    const fetchAllData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+  // Search criteria
+  const [searchName, setSearchName] = useState('');
+  const [selectedSocialRank, setSelectedSocialRank] = useState('');
+  const [selectedClientType, setSelectedClientType] = useState('');
+  const [selectedSubSector, setSelectedSubSector] = useState('');
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [isBlockedFilter, setIsBlockedFilter] = useState<boolean | null>(null); // null = any
 
-        // Fetch all data in parallel
-        const [clientsRes, clientTypesRes, socialRanksRes, districtsRes, subSectorsRes] = await Promise.allSettled([
-          fetch('http://localhost:8080/api/v1/clients'),
-          fetch('http://localhost:8080/api/v1/clienttypes'),
-          fetch('http://localhost:8080/api/v1/socialranks'),
-          fetch('http://localhost:8080/api/v1/districts'),
-          fetch('http://localhost:8080/api/v1/subsectors'),
-        ]);
+  // Search loading indicator
+  const [searching, setSearching] = useState(false);
 
-        // Process each response
-        let hasError = false;
-        const errors: string[] = [];
+  // Fetch all required data in parallel (reusable)
+  const fetchAllData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        // Clients
-        if (clientsRes.status === 'fulfilled' && clientsRes.value.ok) {
-          const data = await clientsRes.value.json();
-          setClients(data);
-          setFetchStatus(prev => ({ ...prev, clients: true }));
-        } else {
-          hasError = true;
-          errors.push('Failed to fetch clients');
-        }
+      // Fetch all data in parallel
+      const [clientsRes, clientTypesRes, socialRanksRes, districtsRes, subSectorsRes] = await Promise.allSettled([
+        fetch('http://localhost:8080/api/v1/clients'),
+        fetch('http://localhost:8080/api/v1/clienttypes'),
+        fetch('http://localhost:8080/api/v1/socialranks'),
+        fetch('http://localhost:8080/api/v1/districts'),
+        fetch('http://localhost:8080/api/v1/subsectors'),
+      ]);
 
-        // Client Types
-        if (clientTypesRes.status === 'fulfilled' && clientTypesRes.value.ok) {
-          const data = await clientTypesRes.value.json();
-          setClientTypes(data);
-          setFetchStatus(prev => ({ ...prev, clientTypes: true }));
-        } else {
-          hasError = true;
-          errors.push('Failed to fetch client types');
-        }
+      // Process each response
+      let hasError = false;
+      const errors: string[] = [];
 
-        // Social Ranks
-        if (socialRanksRes.status === 'fulfilled' && socialRanksRes.value.ok) {
-          const data = await socialRanksRes.value.json();
-          setSocialRanks(data);
-          setFetchStatus(prev => ({ ...prev, socialRanks: true }));
-        } else {
-          hasError = true;
-          errors.push('Failed to fetch social ranks');
-        }
-
-        // Districts
-        if (districtsRes.status === 'fulfilled' && districtsRes.value.ok) {
-          const data = await districtsRes.value.json();
-          setDistricts(data);
-          setFetchStatus(prev => ({ ...prev, districts: true }));
-        } else {
-          hasError = true;
-          errors.push('Failed to fetch districts');
-        }
-
-        // Sub-Sectors
-        if (subSectorsRes.status === 'fulfilled' && subSectorsRes.value.ok) {
-          const data = await subSectorsRes.value.json();
-          setSubSectors(data);
-          setFetchStatus(prev => ({ ...prev, subSectors: true }));
-        } else {
-          hasError = true;
-          errors.push('Failed to fetch sub-sectors');
-        }
-
-        if (hasError) {
-          setError(errors.join(', '));
-        }
-
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch data');
-        console.error('Error fetching data:', err);
-      } finally {
-        setLoading(false);
+      // Clients
+      if (clientsRes.status === 'fulfilled' && clientsRes.value.ok) {
+        const data = await clientsRes.value.json();
+        setClients(data);
+        setFetchStatus(prev => ({ ...prev, clients: true }));
+      } else {
+        hasError = true;
+        errors.push('Failed to fetch clients');
       }
-    };
 
+      // Client Types
+      if (clientTypesRes.status === 'fulfilled' && clientTypesRes.value.ok) {
+        const data = await clientTypesRes.value.json();
+        setClientTypes(data);
+        setFetchStatus(prev => ({ ...prev, clientTypes: true }));
+      } else {
+        hasError = true;
+        errors.push('Failed to fetch client types');
+      }
+
+      // Social Ranks
+      if (socialRanksRes.status === 'fulfilled' && socialRanksRes.value.ok) {
+        const data = await socialRanksRes.value.json();
+        setSocialRanks(data);
+        setFetchStatus(prev => ({ ...prev, socialRanks: true }));
+      } else {
+        hasError = true;
+        errors.push('Failed to fetch social ranks');
+      }
+
+      // Districts
+      if (districtsRes.status === 'fulfilled' && districtsRes.value.ok) {
+        const data = await districtsRes.value.json();
+        setDistricts(data);
+        setFetchStatus(prev => ({ ...prev, districts: true }));
+      } else {
+        hasError = true;
+        errors.push('Failed to fetch districts');
+      }
+
+      // Sub-Sectors
+      if (subSectorsRes.status === 'fulfilled' && subSectorsRes.value.ok) {
+        const data = await subSectorsRes.value.json();
+        setSubSectors(data);
+        setFetchStatus(prev => ({ ...prev, subSectors: true }));
+      } else {
+        hasError = true;
+        errors.push('Failed to fetch sub-sectors');
+      }
+
+      if (hasError) {
+        setError(errors.join(', '));
+      }
+
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch data');
+      console.error('Error fetching data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchAllData();
   }, []);
+
+
+  // Search handler
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSearching(true);
+    setError(null);
+
+    try {
+      const params = new URLSearchParams();
+      if (searchName.trim()) params.append('nameOrTitle', searchName.trim());
+      if (selectedSocialRank) params.append('socialRankCode', selectedSocialRank);
+      if (selectedClientType) params.append('clientTypeCode', selectedClientType);
+      if (selectedSubSector) params.append('subSectorCode', selectedSubSector);
+      if (selectedDistrict) params.append('districtCode', selectedDistrict);
+      if (isBlockedFilter !== null) params.append('isBlocked', String(isBlockedFilter));
+
+      const response = await fetch(`http://localhost:8080/api/v1/clients/search?${params.toString()}`);
+      if (!response.ok) throw new Error('Search failed');
+      const data = await response.json();
+      setClients(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to search clients');
+    } finally {
+      setSearching(false);
+    }
+  };
+
+  // Reset filters and reload all clients
+  const resetFilters = () => {
+    setSearchName('');
+    setSelectedSocialRank('');
+    setSelectedClientType('');
+    setSelectedSubSector('');
+    setSelectedDistrict('');
+    setIsBlockedFilter(null);
+    fetchAllData(); // Reload all clients
+  };
 
 
 
@@ -251,7 +301,7 @@ function Clients() {
         <div className="empty-state">
           <div className="empty-icon">🤵</div>
           <h3 data-testid="pageTitle">No Clients Found</h3>
-          <p>No Clients data is currently available</p>
+          <p>No clients match your search criteria or the database is empty.</p>
         </div>
       </div>
     );
@@ -261,6 +311,63 @@ function Clients() {
   return (
     <div className="clients-container">
       <h1 className="page-title" data-testid="pageTitle">Banking Clients</h1>
+
+      {/* Search Form */}
+      <div className="search-section">
+        <form onSubmit={handleSearch} className="search-form">
+          <div className="search-row">
+            <input
+              type="text"
+              placeholder="Client name..."
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
+              className="search-input"
+            />
+            <select value={selectedSocialRank} onChange={(e) => setSelectedSocialRank(e.target.value)}>
+              <option value="">All Social Ranks</option>
+              {socialRanks.map(rank => (
+                <option key={rank.rankCode} value={rank.rankCode}>{rank.rankName}</option>
+              ))}
+            </select>
+            <select value={selectedClientType} onChange={(e) => setSelectedClientType(e.target.value)}>
+              <option value="">All Client Types</option>
+              {clientTypes.map(type => (
+                <option key={type.clientTypeCode} value={type.clientTypeCode}>{type.clientTypeName}</option>
+              ))}
+            </select>
+          </div>
+          <div className="search-row">
+            <select value={selectedSubSector} onChange={(e) => setSelectedSubSector(e.target.value)}>
+              <option value="">All Sub‑Sectors</option>
+              {subSectors.map(ss => (
+                <option key={ss.subSectorCode} value={ss.subSectorCode}>{ss.subSectorName}</option>
+              ))}
+            </select>
+            <select value={selectedDistrict} onChange={(e) => setSelectedDistrict(e.target.value)}>
+              <option value="">All Districts</option>
+              {districts.map(d => (
+                <option key={d.districtCode} value={d.districtCode}>{d.districtName}</option>
+              ))}
+            </select>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={isBlockedFilter === true}
+                onChange={(e) => setIsBlockedFilter(e.target.checked ? true : null)}
+              />
+              Blocked only
+            </label>
+          </div>
+          <div className="search-actions">
+            <button type="submit" disabled={searching}>
+              {searching ? 'Searching...' : 'Search Clients'}
+            </button>
+            <button type="button" onClick={resetFilters} disabled={searching}>
+              Reset
+            </button>
+          </div>
+        </form>
+      </div>
       
       {/* Stats bar */}
       <div className="clients-stats">

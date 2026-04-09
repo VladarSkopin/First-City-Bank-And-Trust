@@ -48,6 +48,7 @@ public class SearchClientsService {
     // Advanced search with multiple criteria
 
     public List<Client> searchClients(
+            String nameOrTitle,
             String socialRankCode,
             String clientTypeCode,
             String subSectorCode,
@@ -56,6 +57,7 @@ public class SearchClientsService {
             Boolean isBlocked) {
 
         // Validate all provided parameters
+        if (nameOrTitle != null) ClientValidator.validateClientNameOrTitle(nameOrTitle);
         if (socialRankCode != null) ClientValidator.validateSocialRankCode(socialRankCode);
         if (clientTypeCode != null) ClientValidator.validateClientTypeCode(clientTypeCode);
         if (subSectorCode != null) ClientValidator.validateSubSectorCode(subSectorCode);
@@ -63,7 +65,7 @@ public class SearchClientsService {
         if (districtCode != null) ClientValidator.validateDistrictCode(districtCode);
 
         return clientDao.searchClients(
-                socialRankCode, clientTypeCode, subSectorCode,
+                nameOrTitle, socialRankCode, clientTypeCode, subSectorCode,
                 sectorCode, districtCode, isBlocked
         );
     }
