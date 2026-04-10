@@ -1,15 +1,16 @@
 .search-section {
-  margin-bottom: 30px;
+  margin: 20px 0 30px;
   padding: 20px;
-  background: rgba(30, 30, 30, 0.8);
-  border-radius: 4px;
-  border: 1px solid #333;
+  background: #0e1014;
+  border: 1px solid #3a2e1e;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 2px 5px rgba(0,0,0,0.4);
+  position: relative;
 }
 
 .search-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
 }
 
 .search-row {
@@ -22,41 +23,70 @@
 .search-input, select {
   flex: 1;
   min-width: 150px;
-  padding: 10px;
-  background: #1a1a1a;
-  border: 1px solid #444;
-  color: #f1f1f1;
-  border-radius: 2px;
+  padding: 10px 12px;
+  background: #06080a;
+  border: 1px solid #4a3e28;
+  color: #d4cfb8;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.search-input:focus, select:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 6px #ffcc44;
+  background: #0c0e12;
 }
 
 .checkbox-label {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: #f1f1f1;
+  gap: 10px;
+  color: #b8aa7a;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.checkbox-label input {
+  width: 18px;
+  height: 18px;
+  accent-color: #b8860b;
+  cursor: pointer;
 }
 
 .search-actions {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   justify-content: flex-end;
+  margin-top: 5px;
 }
 
 .search-actions button {
-  padding: 8px 20px;
-  background: #b8860b;
-  border: none;
-  color: #1a1a1a;
+  padding: 8px 24px;
+  background: #1f1c14;
+  border: 1px solid #7a663a;
+  color: #d4af37;
+  font-family: 'Times New Roman', serif;
   font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 2px 3px black;
 }
 
 .search-actions button:hover:not(:disabled) {
-  background: #ffd700;
+  background: #3a2e1e;
+  border-color: #d4af37;
+  color: #ffeaac;
+  text-shadow: 0 0 3px #b8860b;
+  box-shadow: 0 0 8px rgba(184,134,11,0.4);
 }
 
 .search-actions button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  filter: grayscale(0.2);
 }
