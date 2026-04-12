@@ -15,7 +15,7 @@ import org.skopintsev.database.client_types.ClientTypeDb;
 import org.skopintsev.database.client_types.ClientTypeDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
 import org.skopintsev.helper.enums.ClientTypeNameEnum;
-import org.skopintsev.model.ClientType;
+import org.skopintsev.model.client.ClientType;
 import org.skopintsev.transport.api.ClientsApiClient;
 
 import java.util.List;

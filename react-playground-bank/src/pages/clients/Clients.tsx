@@ -322,14 +322,15 @@ function Clients() {
               value={searchName}
               onChange={(e) => setSearchName(e.target.value)}
               className="search-input"
+              data-testid="inputTextClientName"
             />
-            <select value={selectedSocialRank} onChange={(e) => setSelectedSocialRank(e.target.value)}>
+            <select value={selectedSocialRank} onChange={(e) => setSelectedSocialRank(e.target.value)} data-testid="selectRank">
               <option value="">All Social Ranks</option>
               {socialRanks.map(rank => (
                 <option key={rank.rankCode} value={rank.rankCode}>{rank.rankName}</option>
               ))}
             </select>
-            <select value={selectedClientType} onChange={(e) => setSelectedClientType(e.target.value)}>
+            <select value={selectedClientType} onChange={(e) => setSelectedClientType(e.target.value)} data-testid="selectType">
               <option value="">All Client Types</option>
               {clientTypes.map(type => (
                 <option key={type.clientTypeCode} value={type.clientTypeCode}>{type.clientTypeName}</option>
@@ -337,32 +338,33 @@ function Clients() {
             </select>
           </div>
           <div className="search-row">
-            <select value={selectedSubSector} onChange={(e) => setSelectedSubSector(e.target.value)}>
+            <select value={selectedSubSector} onChange={(e) => setSelectedSubSector(e.target.value)} data-testid="selectSubSector">
               <option value="">All Sub‑Sectors</option>
               {subSectors.map(ss => (
                 <option key={ss.subSectorCode} value={ss.subSectorCode}>{ss.subSectorName}</option>
               ))}
             </select>
-            <select value={selectedDistrict} onChange={(e) => setSelectedDistrict(e.target.value)}>
+            <select value={selectedDistrict} onChange={(e) => setSelectedDistrict(e.target.value)} data-testid="selectDistrict">
               <option value="">All Districts</option>
               {districts.map(d => (
                 <option key={d.districtCode} value={d.districtCode}>{d.districtName}</option>
               ))}
             </select>
-            <label className="checkbox-label">
+            <label className="checkbox-label" data-testid="isBlockedLabel">
               <input
                 type="checkbox"
                 checked={isBlockedFilter === true}
                 onChange={(e) => setIsBlockedFilter(e.target.checked ? true : null)}
+                data-testid="inputCheckboxIsBlocked"
               />
               Blocked only
             </label>
           </div>
           <div className="search-actions">
-            <button type="submit" disabled={searching}>
+            <button type="submit" disabled={searching} data-testid="btnSearch">
               {searching ? 'Searching...' : 'Search Clients'}
             </button>
-            <button type="button" onClick={resetFilters} disabled={searching}>
+            <button type="button" onClick={resetFilters} disabled={searching} data-testid="btnReset">
               Reset
             </button>
           </div>

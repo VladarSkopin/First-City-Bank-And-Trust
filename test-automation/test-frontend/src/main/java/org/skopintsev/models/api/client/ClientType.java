@@ -1,4 +1,4 @@
-package org.skopintsev.model;
+package org.skopintsev.models.api.client;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -11,5 +11,5 @@ import lombok.experimental.FieldDefaults;
 public class ClientType {
     String clientTypeCode;
     String clientTypeName;
-    @Builder.Default String description = "";
+    String description;
 }
