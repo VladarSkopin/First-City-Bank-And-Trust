@@ -1,11 +1,14 @@
 package org.skopintsev.models.gui.vaults;
 
 import com.codeborne.selenide.SelenideElement;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 
 import static com.codeborne.selenide.Selenide.$;
 import static org.skopintsev.util.helpers.SelenideHelper.byTestId;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class VaultCard {
 
     @Getter static final SelenideElement vaultTitle = $(byTestId("vaultTitle"));
@@ -35,5 +38,4 @@ public class VaultCard {
     @Getter static final SelenideElement depositBtn = $(byTestId("depositBtn"));
 
     @Getter static final SelenideElement withdrawBtn = $(byTestId("withdrawBtn"));
-
 }

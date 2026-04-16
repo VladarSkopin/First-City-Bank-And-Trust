@@ -20,7 +20,7 @@ public class SelenideHelper {
         return $(byXpath("//li[text()='" + text + "']"));
     }
 
-    @Step("Get web element by its data-testid.")
+    @Step("Get web element by its data-testid and text.")
     public static By byXpathText(String testIdValue, String text) {
         return byXpath("//*[@data-testid='" + testIdValue + "'][text()='" + text + "']");
     }

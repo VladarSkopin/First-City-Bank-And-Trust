@@ -66,8 +66,7 @@ public class ClientInfoTest extends BaseClientTest {
                         BASE_DISTRICTS_LIST.get(0).getDistrictCode(),
                         BASE_SUB_SECTORS_LIST.get(0).getSubSectorCode(),
                         false);
-        List<Client> clientsList = List.of(client);
-        PostApiResponseHelper.stubGetClients(clientsList);
+        PostApiResponseHelper.stubGetClients(List.of(client));
         Selenide.refresh();
 
         ClientsCardAssertions.checkAvatar(Character.toUpperCase(client.getNameOrTitle().charAt(0)));

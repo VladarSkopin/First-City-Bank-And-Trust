@@ -5,17 +5,21 @@ import org.skopintsev.models.gui.clients.ClientSearchPanel;
 
 public class ClientSearchPanelSteps {
 
-    @Step("Input client name = '{0}'.")
+    @Step("Type client name = '{0}'.")
     public static void typeClientName(String searchText) {
         ClientSearchPanel.getInputTextClientName().type(searchText);
     }
 
-    @Step("Click select social ranks.")
-    public static void clickSocialRanksSelect() {
-        ClientSearchPanel.getSelectRank().click();
+
+    @Step("Select social rank option by visible text = '{0}'.")
+    public static void selectOptionSocialRankByVisibleText(String optionText) {
+        ClientSearchPanel.getSelectRank().selectOption(optionText);
     }
 
-    // todo: click social rank option
+    @Step("Select social rank option by value = '{0}'.")
+    public static void selectOptionSocialRankByValue(String optionValue) {
+        ClientSearchPanel.getSelectRank().selectOptionByValue(optionValue);
+    }
 
 
     @Step("Click select client types.")
@@ -23,7 +27,15 @@ public class ClientSearchPanelSteps {
         ClientSearchPanel.getSelectType().click();
     }
 
-    // todo: click client type option
+    @Step("Select client type option by visible text = '{0}'.")
+    public static void selectOptionClientTypeByVisibleText(String optionText) {
+        ClientSearchPanel.getSelectType().selectOption(optionText);
+    }
+
+    @Step("Select client type option by value = '{0}'.")
+    public static void selectOptionClientTypeByValue(String optionValue) {
+        ClientSearchPanel.getSelectType().selectOptionByValue(optionValue);
+    }
 
 
     @Step("Click select sub-sectors.")
@@ -31,7 +43,15 @@ public class ClientSearchPanelSteps {
         ClientSearchPanel.getSelectSubSector().click();
     }
 
-    // todo: click sub-sector option
+    @Step("Select sub-sector option by visible text = '{0}'.")
+    public static void selectOptionSubSectorByVisibleText(String optionText) {
+        ClientSearchPanel.getSelectSubSector().selectOption(optionText);
+    }
+
+    @Step("Select sub-sector option by value = '{0}'.")
+    public static void selectOptionSubSectorByValue(String optionValue) {
+        ClientSearchPanel.getSelectSubSector().selectOptionByValue(optionValue);
+    }
 
 
     @Step("Click select districts.")
@@ -39,7 +59,15 @@ public class ClientSearchPanelSteps {
         ClientSearchPanel.getSelectDistrict().click();
     }
 
-    // todo: click district option
+    @Step("Select district option by visible text = '{0}'.")
+    public static void selectOptionDistrictByVisibleText(String optionText) {
+        ClientSearchPanel.getSelectDistrict().selectOption(optionText);
+    }
+
+    @Step("Select district option by value = '{0}'.")
+    public static void selectOptionDistrictByValue(String optionValue) {
+        ClientSearchPanel.getSelectDistrict().selectOptionByValue(optionValue);
+    }
 
 
     @Step("Click 'isBlocked' checkbox.")

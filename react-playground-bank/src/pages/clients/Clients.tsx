@@ -312,6 +312,27 @@ function Clients() {
     <div className="clients-container">
       <h1 className="page-title" data-testid="pageTitle">Banking Clients</h1>
 
+      {/* Stats bar */}
+      <div className="clients-stats">
+        <div className="stat-item">
+          <span className="count-label" data-testid="countLabel">TOTAL CLIENTS: </span>
+          <span className="count-value" data-testid="countValue">{clients.length}</span>
+        </div>
+        <div className="stat-item">
+          <span className="count-label" data-testid="countLabelActive">ACTIVE: </span>
+          <span className="count-value" data-testid="countValueActive">
+            {clients.filter(c => !c.isBlocked).length}
+          </span>
+        </div>
+        <div className="stat-item">
+          <span className="count-label" data-testid="countLabelBlocked">BLOCKED: </span>
+          <span className="count-value" data-testid="countValueBlocked">
+            {clients.filter(c => c.isBlocked).length}
+          </span>
+        </div>
+      </div>
+      
+
       {/* Search Form */}
       <div className="search-section">
         <form onSubmit={handleSearch} className="search-form">
@@ -371,25 +392,7 @@ function Clients() {
         </form>
       </div>
       
-      {/* Stats bar */}
-      <div className="clients-stats">
-        <div className="stat-item">
-          <span className="count-label" data-testid="countLabel">TOTAL CLIENTS: </span>
-          <span className="count-value" data-testid="countValue">{clients.length}</span>
-        </div>
-        <div className="stat-item">
-          <span className="count-label" data-testid="countLabelActive">ACTIVE: </span>
-          <span className="count-value" data-testid="countValueActive">
-            {clients.filter(c => !c.isBlocked).length}
-          </span>
-        </div>
-        <div className="stat-item">
-          <span className="count-label" data-testid="countLabelBlocked">BLOCKED: </span>
-          <span className="count-value" data-testid="countValueBlocked">
-            {clients.filter(c => c.isBlocked).length}
-          </span>
-        </div>
-      </div>
+
       
       <div className="clients-grid">
         {clients.map(client => (

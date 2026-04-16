@@ -1,95 +1,119 @@
 package org.skopintsev.clients_page;
 
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.skopintsev.assertions.client.ClientsPageAssertions;
 import org.skopintsev.assertions.client.ClientsSearchAssertions;
 import org.skopintsev.steps.client.ClientSearchPanelSteps;
+import org.skopintsev.transport.PostApiResponseHelper;
+import org.skopintsev.util.GeneratorBuilder;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SearchClientsTest extends BaseClientTest {
 
-    // todo: initial values of inputs
     @Test
     @Tag("smoke")
     @Description("Test checks the initial values of the clients search panel.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchInitialValuesTest() {
+        ClientsSearchAssertions.checkInputClientNameText("");
+        ClientsSearchAssertions.checkSocialRanksSelectionText("All Social Ranks");
+        ClientsSearchAssertions.checkClientTypesSelectionText("All Client Types");
+        ClientsSearchAssertions.checkSubSectorsSelectionText("All Sub‑Sectors");
+        ClientsSearchAssertions.checkDistrictSelectionText("All Districts");
+        ClientsSearchAssertions.checkIsBlockedLabelText("Blocked only");
+        ClientsSearchAssertions.checkIsBlockedCheckboxChecked(false);
         ClientsSearchAssertions.checkSearchBtnEnabled(true);
         ClientsSearchAssertions.checkResetBtnEnabled(true);
     }
 
-    // todo: search by client name
     @Test
     @Tag("smoke")
     @Description("Test checks the search functionality by client name.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchByNameTest() {
+        ClientSearchPanelSteps.typeClientName(BASE_CLIENTS_LIST.get(0).getNameOrTitle());
         ClientSearchPanelSteps.clickSearchClientsBtn();
+
+        ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
 
-    // todo: search by social rank
     @Test
     @Tag("smoke")
     @Description("Test checks the search functionality by social rank.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchBySocialRankTest() {
+        ClientSearchPanelSteps.selectOptionSocialRankByVisibleText(BASE_SOCIAL_RANKS_LIST.get(0).getRankName());
         ClientSearchPanelSteps.clickSearchClientsBtn();
+
+        ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
 
-    // todo: search by client type
     @Test
     @Tag("smoke")
     @Description("Test checks the search functionality by client type.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchByClientTypeTest() {
+        ClientSearchPanelSteps.selectOptionClientTypeByVisibleText(BASE_CLIENT_TYPES_LIST.get(0).getClientTypeName());
         ClientSearchPanelSteps.clickSearchClientsBtn();
+
+        ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
 
-    // todo: search by sub-sector
     @Test
     @Tag("smoke")
     @Description("Test checks the search functionality by sub-sector.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchBySubSectorTest() {
+        ClientSearchPanelSteps.selectOptionSubSectorByVisibleText(BASE_SUB_SECTORS_LIST.get(0).getSubSectorName());
         ClientSearchPanelSteps.clickSearchClientsBtn();
+
+        ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
 
-    // todo: search by district
     @Test
     @Tag("smoke")
     @Description("Test checks the search functionality by district.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchByDistrictTest() {
+        ClientSearchPanelSteps.selectOptionDistrictByVisibleText(BASE_DISTRICTS_LIST.get(0).getDistrictName());
         ClientSearchPanelSteps.clickSearchClientsBtn();
+
+        ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
 
-    // todo: search by isBlocked
     @Test
     @Tag("smoke")
     @Description("Test checks the search functionality by isBlocked status.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchByIsBlockedTest() {
+        ClientSearchPanelSteps.clickIsBlockedCheckbox();
         ClientSearchPanelSteps.clickSearchClientsBtn();
+
+        ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
 
-    // todo: search by name + rank + type + sub-sector + district + isBlocked + reset btn
     @Test
     @Tag("smoke")
-    @Description("""
-            Test checks the search functionality by multiple parameters:.
-            1) by client name,
-            2) by social rank,
-            3) by client type,
-            4) by sub-sector,
-            5) by district,
-            6) by isBlocked status.
-            After performing the search, test checks the "RESET" button functionality.
-            """)
+    @Description("Test checks the search functionality when no clients satisfied the search parameters.")
     @Severity(SeverityLevel.CRITICAL)
-    public void clientsSearchByMultipleParametersTest() {
-        ClientSearchPanelSteps.clickSearchClientsBtn();
-    }
+    public void clientsSearchNotFoundTest() {
+        String randomName = GeneratorBuilder.generateString(10);
+        Map<String, String> params = new HashMap<>();
+        params.put("nameOrTitle", randomName);
+        PostApiResponseHelper.stubGetSearchClientsWithParams(params, Collections.emptyList());
+        Selenide.refresh();
 
+        ClientSearchPanelSteps.typeClientName(randomName);
+        ClientSearchPanelSteps.clickSearchClientsBtn();
+
+        ClientsPageAssertions.checkPageTitleText("No Clients Found");
+    }
 }
