@@ -10,7 +10,6 @@ public class ClientSearchPanelSteps {
         ClientSearchPanel.getInputTextClientName().type(searchText);
     }
 
-
     @Step("Select social rank option by visible text = '{0}'.")
     public static void selectOptionSocialRankByVisibleText(String optionText) {
         ClientSearchPanel.getSelectRank().selectOption(optionText);
@@ -19,12 +18,6 @@ public class ClientSearchPanelSteps {
     @Step("Select social rank option by value = '{0}'.")
     public static void selectOptionSocialRankByValue(String optionValue) {
         ClientSearchPanel.getSelectRank().selectOptionByValue(optionValue);
-    }
-
-
-    @Step("Click select client types.")
-    public static void clickClientTypesSelect() {
-        ClientSearchPanel.getSelectType().click();
     }
 
     @Step("Select client type option by visible text = '{0}'.")
@@ -37,12 +30,6 @@ public class ClientSearchPanelSteps {
         ClientSearchPanel.getSelectType().selectOptionByValue(optionValue);
     }
 
-
-    @Step("Click select sub-sectors.")
-    public static void clickSubSectorsSelect() {
-        ClientSearchPanel.getSelectSubSector().click();
-    }
-
     @Step("Select sub-sector option by visible text = '{0}'.")
     public static void selectOptionSubSectorByVisibleText(String optionText) {
         ClientSearchPanel.getSelectSubSector().selectOption(optionText);
@@ -51,12 +38,6 @@ public class ClientSearchPanelSteps {
     @Step("Select sub-sector option by value = '{0}'.")
     public static void selectOptionSubSectorByValue(String optionValue) {
         ClientSearchPanel.getSelectSubSector().selectOptionByValue(optionValue);
-    }
-
-
-    @Step("Click select districts.")
-    public static void clickDistrictsSelect() {
-        ClientSearchPanel.getSelectDistrict().click();
     }
 
     @Step("Select district option by visible text = '{0}'.")
@@ -68,7 +49,6 @@ public class ClientSearchPanelSteps {
     public static void selectOptionDistrictByValue(String optionValue) {
         ClientSearchPanel.getSelectDistrict().selectOptionByValue(optionValue);
     }
-
 
     @Step("Click 'isBlocked' checkbox.")
     public static void clickIsBlockedCheckbox() {
@@ -84,5 +64,4 @@ public class ClientSearchPanelSteps {
     public static void clickResetBtn() {
         ClientSearchPanel.getBtnReset().click();
     }
-
 }
