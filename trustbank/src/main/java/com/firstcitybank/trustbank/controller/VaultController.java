@@ -1,7 +1,7 @@
 package com.firstcitybank.trustbank.controller;
 
-import com.firstcitybank.trustbank.model.Vault;
-import com.firstcitybank.trustbank.model.VaultOperationRequest;
+import com.firstcitybank.trustbank.model.vault.Vault;
+import com.firstcitybank.trustbank.model.vault.VaultOperationRequest;
 import com.firstcitybank.trustbank.service.VaultService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

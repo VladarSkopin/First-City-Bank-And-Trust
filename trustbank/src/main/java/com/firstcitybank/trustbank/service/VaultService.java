@@ -3,8 +3,8 @@ package com.firstcitybank.trustbank.service;
 import com.firstcitybank.trustbank.database.dao.VaultDao;
 import com.firstcitybank.trustbank.exception.NotFoundException;
 import com.firstcitybank.trustbank.helper.VaultValidator;
-import com.firstcitybank.trustbank.model.Vault;
-import com.firstcitybank.trustbank.model.VaultOperationRequest;
+import com.firstcitybank.trustbank.model.vault.Vault;
+import com.firstcitybank.trustbank.model.vault.VaultOperationRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

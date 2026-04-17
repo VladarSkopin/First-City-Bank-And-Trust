@@ -1,4 +1,4 @@
-package com.firstcitybank.trustbank.model;
+package com.firstcitybank.trustbank.model.vault;
 
 import java.math.BigInteger;
 

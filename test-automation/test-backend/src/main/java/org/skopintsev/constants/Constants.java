@@ -23,6 +23,9 @@ public class Constants {
 
     public static final String BEARER = "Bearer ";
 
+    public static final String SYSTEM_NAME_CORE = "CoreBank";
+
+    public static final String SYSTEM_NAME_VAULTS = "Vaults";
 
     // HTTP status codes
 

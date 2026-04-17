@@ -3,7 +3,7 @@ package com.firstcitybank.trustbank.service;
 import com.firstcitybank.trustbank.database.dao.VaultDao;
 import com.firstcitybank.trustbank.helper.ClientValidator;
 import com.firstcitybank.trustbank.helper.VaultValidator;
-import com.firstcitybank.trustbank.model.Vault;
+import com.firstcitybank.trustbank.model.vault.Vault;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -14,6 +14,8 @@ import lombok.AccessLevel;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.skopintsev.models.api.*;
+import org.skopintsev.models.api.client.Client;
+import org.skopintsev.models.api.client.ClientType;
 import org.skopintsev.models.api.sector.Sector;
 import org.skopintsev.models.api.sector.SubSector;
 import org.skopintsev.models.api.vault.Vault;
@@ -23,6 +25,7 @@ import org.skopintsev.util.LocalDateAdapter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static org.skopintsev.constants.Api.*;
@@ -67,6 +70,7 @@ public class PostApiResponseHelper {
         WireMock.stubFor(WireMock.get("/__admin/mappings").willReturn(ok()));
     }
 
+
     private static void stubOptions(String fullPath) {
         WireMock.stubFor(
                 WireMock.options(WireMock.urlPathEqualTo(fullPath)).willReturn(
@@ -83,6 +87,23 @@ public class PostApiResponseHelper {
     private static void stubGet(String fullPath, Object responseObject, int statusCode) {
         WireMock.stubFor(
                 WireMock.get(fullPath).willReturn(
+                        WireMock.okJson(objectMapper.writeValueAsString(responseObject))
+                                .withStatus(statusCode)
+                                .withHeader("Content-Type", "application/json")
+                                .withHeader("Access-Control-Allow-Origin", "*")
+                )
+        );
+    }
+
+    @SneakyThrows
+    private static void stubGetWithQueryParams(
+            String path, Map<String, String> queryParams, Object responseObject, int statusCode) {
+        var requestBuilder = WireMock.get(WireMock.urlPathEqualTo(path));
+        for (Map.Entry<String, String> entry : queryParams.entrySet()) {
+            requestBuilder = requestBuilder.withQueryParam(entry.getKey(), WireMock.equalTo(entry.getValue()));
+        }
+        WireMock.stubFor(
+                requestBuilder.willReturn(
                         WireMock.okJson(objectMapper.writeValueAsString(responseObject))
                                 .withStatus(statusCode)
                                 .withHeader("Content-Type", "application/json")
@@ -237,5 +258,10 @@ public class PostApiResponseHelper {
     public static void stubPostVaultOperation(VaultOperationResponse response) {
         stubOptions(VAULT_OPERATIONS);
         stubPost(VAULT_OPERATIONS, response, 200);
+    }
+
+    @Step("Stub GET " + SEARCH_CLIENTS + " with query parameters: {0}")
+    public static void stubGetSearchClientsWithParams(Map<String, String> queryParams, List<Client> clientsList) {
+        stubGetWithQueryParams(SEARCH_CLIENTS, queryParams, clientsList, SC_OK);
     }
 }

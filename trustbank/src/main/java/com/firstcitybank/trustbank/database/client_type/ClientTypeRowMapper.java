@@ -1,6 +1,6 @@
 package com.firstcitybank.trustbank.database.client_type;
 
-import com.firstcitybank.trustbank.model.ClientType;
+import com.firstcitybank.trustbank.model.client.ClientType;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

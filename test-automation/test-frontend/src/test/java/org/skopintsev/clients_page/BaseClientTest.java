@@ -5,6 +5,8 @@ import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.skopintsev.BaseTest;
 import org.skopintsev.models.api.*;
+import org.skopintsev.models.api.client.Client;
+import org.skopintsev.models.api.client.ClientType;
 import org.skopintsev.models.api.factory.*;
 import org.skopintsev.models.api.sector.Sector;
 import org.skopintsev.models.api.sector.SubSector;

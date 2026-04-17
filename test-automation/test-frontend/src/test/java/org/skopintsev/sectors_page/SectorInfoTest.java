@@ -10,9 +10,12 @@ import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.assertions.sector.SectorCardAssertions;
 import org.skopintsev.assertions.sector.SectorsPageAssertions;
 import org.skopintsev.models.api.sector.SubSector;
+import org.skopintsev.transport.CheckApiRequestHelper;
 import org.skopintsev.transport.PostApiResponseHelper;
 
 import java.util.Collections;
+
+import static org.skopintsev.constants.Api.CLIENTS;
 
 public class SectorInfoTest extends BaseSectorTest {
 

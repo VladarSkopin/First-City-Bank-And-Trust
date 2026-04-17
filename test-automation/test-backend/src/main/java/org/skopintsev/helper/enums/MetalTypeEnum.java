@@ -3,14 +3,17 @@ package org.skopintsev.helper.enums;
 import lombok.Getter;
 
 @Getter
-public enum TransactionType {
+public enum MetalTypeEnum {
 
-    INSERT("INSERT"),
-    WITHDRAW("WITHDRAW");
+    UNKNOWN("UNKNOWN"),
+    BRONZE("BRONZE"),
+    GOLD("GOLD"),
+    SILVER("SILVER"),
+    COPPER("COPPER");
 
     private final String text;
 
-    TransactionType(String text) {
+    MetalTypeEnum(String text) {
         this.text = text;
     }
 

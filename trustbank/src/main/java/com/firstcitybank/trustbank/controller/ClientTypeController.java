@@ -1,6 +1,6 @@
 package com.firstcitybank.trustbank.controller;
 
-import com.firstcitybank.trustbank.model.ClientType;
+import com.firstcitybank.trustbank.model.client.ClientType;
 import com.firstcitybank.trustbank.service.ClientTypeService;
 import org.springframework.web.bind.annotation.*;
 

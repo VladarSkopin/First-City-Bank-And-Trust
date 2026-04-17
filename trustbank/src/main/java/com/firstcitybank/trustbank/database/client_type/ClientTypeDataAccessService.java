@@ -2,7 +2,7 @@ package com.firstcitybank.trustbank.database.client_type;
 
 import com.firstcitybank.trustbank.database.dao.ClientTypeDao;
 import com.firstcitybank.trustbank.helper.Utils;
-import com.firstcitybank.trustbank.model.ClientType;
+import com.firstcitybank.trustbank.model.client.ClientType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

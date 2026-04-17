@@ -1,4 +1,4 @@
-package org.skopintsev.models.api;
+package org.skopintsev.models.api.client;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

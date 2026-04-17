@@ -12,7 +12,7 @@ import org.skopintsev.assertions.db.CurrencyDbAssertions;
 import org.skopintsev.database.currencies.CurrencyDb;
 import org.skopintsev.database.currencies.CurrencyDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.helper.enums.MetalType;
+import org.skopintsev.helper.enums.MetalTypeEnum;
 import org.skopintsev.model.Currency;
 import org.skopintsev.transport.api.CurrenciesApiClient;
 
@@ -59,7 +59,7 @@ public class BasicCurrencyTest extends BaseCurrencyTest {
     @Description("Test uses API to post a new Currency object and checks Database for the new added currency.")
     @Severity(SeverityLevel.BLOCKER)
     public void createCurrencyApiTest() {
-        String metalType = MetalType.SILVER.getText();
+        String metalType = MetalTypeEnum.SILVER.getText();
         Currency newAddedCurrencyApi = Currency.builder()
                 .currencyCode(CURRENCY_CODE)
                 .currencyName(CURRENCY_NAME)

@@ -10,9 +10,12 @@ import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.assertions.district.DistrictCardAssertions;
 import org.skopintsev.assertions.district.DistrictsPageAssertions;
 import org.skopintsev.models.api.District;
+import org.skopintsev.transport.CheckApiRequestHelper;
 import org.skopintsev.transport.PostApiResponseHelper;
 
 import java.util.Collections;
+
+import static org.skopintsev.constants.Api.CLIENTS;
 
 public class DistrictInfoTest extends BaseDistrictTest {
 

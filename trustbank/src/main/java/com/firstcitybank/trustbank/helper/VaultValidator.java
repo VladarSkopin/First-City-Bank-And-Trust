@@ -1,8 +1,8 @@
 package com.firstcitybank.trustbank.helper;
 
 import com.firstcitybank.trustbank.exception.BusinessRuleException;
-import com.firstcitybank.trustbank.model.Vault;
-import com.firstcitybank.trustbank.model.VaultOperationRequest;
+import com.firstcitybank.trustbank.model.vault.Vault;
+import com.firstcitybank.trustbank.model.vault.VaultOperationRequest;
 
 import java.math.BigInteger;
 

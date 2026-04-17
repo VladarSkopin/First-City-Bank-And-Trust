@@ -3,7 +3,7 @@ package org.skopintsev.helper.enums;
 import lombok.Getter;
 
 @Getter
-public enum ClientTypeName {
+public enum ClientTypeNameEnum {
 
     INDV("Individual"),
     CORP("Corporation"),
@@ -18,7 +18,7 @@ public enum ClientTypeName {
 
     private final String text;
 
-    ClientTypeName(String text) {
+    ClientTypeNameEnum(String text) {
         this.text = text;
     }
 

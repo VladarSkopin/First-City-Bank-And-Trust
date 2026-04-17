@@ -3,7 +3,7 @@ package org.skopintsev.assertions.db;
 import io.qameta.allure.Step;
 import org.assertj.core.api.Assertions;
 import org.skopintsev.database.social_ranks.SocialRankDb;
-import org.skopintsev.helper.enums.PrivilegeLevel;
+import org.skopintsev.helper.enums.PrivilegeLevelEnum;
 
 public class SocialRankDbAssertions {
 
@@ -16,7 +16,7 @@ public class SocialRankDbAssertions {
 
     @Step("Check currency default metal type.")
     public static void checkDefaultPrivilegeLevel(String actualPrivilegeLevel) {
-        String defaultPrivilegeLevel = PrivilegeLevel.STANDARD.getText();
+        String defaultPrivilegeLevel = PrivilegeLevelEnum.STANDARD.getText();
         Assertions.assertThat(actualPrivilegeLevel)
                 .withFailMessage("Expected default privilege level = '%s', but actual = '%s'", defaultPrivilegeLevel, actualPrivilegeLevel)
                 .isEqualTo(defaultPrivilegeLevel);

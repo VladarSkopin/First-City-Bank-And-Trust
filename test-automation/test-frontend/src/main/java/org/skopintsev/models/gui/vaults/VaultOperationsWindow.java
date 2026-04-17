@@ -1,11 +1,14 @@
 package org.skopintsev.models.gui.vaults;
 
 import com.codeborne.selenide.SelenideElement;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 
 import static com.codeborne.selenide.Selenide.$;
 import static org.skopintsev.util.helpers.SelenideHelper.byTestId;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class VaultOperationsWindow {
 
     @Getter static final SelenideElement clientLabel = $(byTestId("clientLabelWindow"));

@@ -1,6 +1,6 @@
 package com.firstcitybank.trustbank.controller;
 
-import com.firstcitybank.trustbank.model.Client;
+import com.firstcitybank.trustbank.model.client.Client;
 import com.firstcitybank.trustbank.service.SearchClientsService;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +45,7 @@ public class SearchClientsController {
 
     @GetMapping
     public List<Client> searchClients(
+            @RequestParam(required = false) String nameOrTitle,
             @RequestParam(required = false) String socialRankCode,
             @RequestParam(required = false) String clientTypeCode,
             @RequestParam(required = false) String subSectorCode,
@@ -53,7 +54,7 @@ public class SearchClientsController {
             @RequestParam(required = false) Boolean isBlocked) {
 
         return searchClientsService.searchClients(
-                socialRankCode, clientTypeCode, subSectorCode, sectorCode, districtCode, isBlocked
+                nameOrTitle, socialRankCode, clientTypeCode, subSectorCode, sectorCode, districtCode, isBlocked
         );
     }
 

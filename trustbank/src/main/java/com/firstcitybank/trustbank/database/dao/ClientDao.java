@@ -1,6 +1,6 @@
 package com.firstcitybank.trustbank.database.dao;
 
-import com.firstcitybank.trustbank.model.Client;
+import com.firstcitybank.trustbank.model.client.Client;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +20,7 @@ public interface ClientDao {
 
     // Advanced search with multiple criteria
     List<Client> searchClients(
+            String nameOrTitle,
             String socialRankCode,
             String clientTypeCode,
             String subSectorCode,

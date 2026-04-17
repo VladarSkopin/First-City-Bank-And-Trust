@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.assertions.vault.VaultCardAssertions;
 import org.skopintsev.assertions.vault.VaultsPageAssertions;
-import org.skopintsev.models.api.Client;
+import org.skopintsev.models.api.client.Client;
 import org.skopintsev.models.api.Currency;
 import org.skopintsev.models.api.vault.Vault;
 import org.skopintsev.models.api.factory.VaultFactory;

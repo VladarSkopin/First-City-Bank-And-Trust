@@ -1,6 +1,6 @@
 package com.firstcitybank.trustbank.database.sub_sector;
 
-import com.firstcitybank.trustbank.model.SubSector;
+import com.firstcitybank.trustbank.model.sector.SubSector;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

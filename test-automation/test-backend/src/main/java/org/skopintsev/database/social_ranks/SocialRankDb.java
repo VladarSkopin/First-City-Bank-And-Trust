@@ -3,7 +3,7 @@ package org.skopintsev.database.social_ranks;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.skopintsev.helper.enums.PrivilegeLevel;
+import org.skopintsev.helper.enums.PrivilegeLevelEnum;
 
 @Data
 @Builder
@@ -15,6 +15,6 @@ public class SocialRankDb {
     String rankCode;
     String rankName;
     @Builder.Default String description = "";
-    @Builder.Default String privilegeLevel = PrivilegeLevel.STANDARD.getText();
+    @Builder.Default String privilegeLevel = PrivilegeLevelEnum.STANDARD.getText();
     @Builder.Default String regulations = "";
 }

@@ -1,7 +1,7 @@
 package org.skopintsev.models.api.factory;
 
 import org.skopintsev.enums.ClientTypeNameEnum;
-import org.skopintsev.models.api.ClientType;
+import org.skopintsev.models.api.client.ClientType;
 import org.skopintsev.util.GeneratorBuilder;
 
 import java.util.List;

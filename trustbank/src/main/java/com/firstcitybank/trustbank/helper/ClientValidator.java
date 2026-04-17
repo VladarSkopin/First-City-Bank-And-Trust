@@ -2,6 +2,12 @@ package com.firstcitybank.trustbank.helper;
 
 public class ClientValidator {
 
+    public static void validateClientNameOrTitle(String nameOrTitle) {
+        if (nameOrTitle == null || nameOrTitle.trim().isEmpty()) {
+            throw new IllegalArgumentException("Client name cannot be null or empty");
+        }
+    }
+
     public static void validateClientCode(String code) {
         if (code == null || code.trim().isEmpty()) {
             throw new IllegalArgumentException("Client code cannot be null or empty");

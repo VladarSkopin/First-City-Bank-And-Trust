@@ -15,7 +15,7 @@ import org.skopintsev.assertions.db.CommonDbAssertions;
 import org.skopintsev.database.clients.ClientDb;
 import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.database.factory.ClientDbFactory;
-import org.skopintsev.model.Client;
+import org.skopintsev.model.client.Client;
 import org.skopintsev.transport.api.SearchApiClient;
 
 import java.util.List;
