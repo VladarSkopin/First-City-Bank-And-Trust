@@ -10,7 +10,7 @@ import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.assertions.common.windows.ModalWindowAssertions;
 import org.skopintsev.assertions.vault.VaultOperationsWindowAssertions;
 import org.skopintsev.enums.OperationTypeEnum;
-import org.skopintsev.models.api.Client;
+import org.skopintsev.models.api.client.Client;
 import org.skopintsev.models.api.Currency;
 import org.skopintsev.models.api.factory.VaultFactory;
 import org.skopintsev.models.api.vault.Vault;

@@ -20,5 +20,4 @@ public class CurrenciesPage {
     @Getter static final SelenideElement exchangeRateValue = $(byTestId("exchangeRateValue"));
 
     @Getter static final SelenideElement footerNote = $(byTestId("warningNote"));
-
 }

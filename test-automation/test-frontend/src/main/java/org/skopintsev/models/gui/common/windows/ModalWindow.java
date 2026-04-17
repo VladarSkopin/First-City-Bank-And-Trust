@@ -14,5 +14,4 @@ public class ModalWindow {
     @Getter static final SelenideElement modalHeader = $(byTestId("modalHeader"));
 
     @Getter static final SelenideElement modalBody = $(byTestId("modalBody"));
-
 }

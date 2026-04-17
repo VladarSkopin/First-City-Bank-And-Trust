@@ -19,7 +19,7 @@ import org.skopintsev.database.factory.ClientDbFactory;
 import org.skopintsev.database.clients.ClientDb;
 import org.skopintsev.database.clients.ClientDbHelper;
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.model.Client;
+import org.skopintsev.model.client.Client;
 import org.skopintsev.model.factory.ClientApiFactory;
 import org.skopintsev.transport.api.ClientsApiClient;
 

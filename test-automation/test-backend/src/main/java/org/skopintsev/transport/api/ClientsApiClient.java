@@ -4,8 +4,8 @@ import io.qameta.allure.Step;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 import org.skopintsev.constants.Api;
-import org.skopintsev.model.Client;
-import org.skopintsev.model.ClientType;
+import org.skopintsev.model.client.Client;
+import org.skopintsev.model.client.ClientType;
 import org.skopintsev.transport.CommonApiReqHelper;
 
 import java.util.List;

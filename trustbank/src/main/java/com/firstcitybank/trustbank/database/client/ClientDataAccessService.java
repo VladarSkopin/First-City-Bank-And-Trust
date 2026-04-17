@@ -142,6 +142,7 @@ public class ClientDataAccessService implements ClientDao {
 
     @Override
     public List<Client> searchClients(
+            String nameOrTitle,
             String socialRankCode,
             String clientTypeCode,
             String subSectorCode,
@@ -161,11 +162,15 @@ public class ClientDataAccessService implements ClientDao {
         }
 
         // Add WHERE clause if any conditions exist
-        if (!conditions.isEmpty() || socialRankCode != null || clientTypeCode != null ||
+        if (!conditions.isEmpty() || nameOrTitle != null || socialRankCode != null || clientTypeCode != null ||
                 subSectorCode != null || districtCode != null || isBlocked != null) {
             sqlBuilder.append("WHERE ");
 
             // Add simple conditions
+            if (nameOrTitle != null && !nameOrTitle.isBlank()) {
+                conditions.add("c.name_or_title LIKE ?");
+                params.add("%" + nameOrTitle.trim() + "%");
+            }
             if (socialRankCode != null) {
                 conditions.add("c.social_rank_code = ?");
                 params.add(socialRankCode.trim().toUpperCase());

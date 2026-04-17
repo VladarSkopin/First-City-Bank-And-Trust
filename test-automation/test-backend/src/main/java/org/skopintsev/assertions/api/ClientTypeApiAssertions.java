@@ -2,7 +2,7 @@ package org.skopintsev.assertions.api;
 
 import io.qameta.allure.Step;
 import org.assertj.core.api.Assertions;
-import org.skopintsev.model.ClientType;
+import org.skopintsev.model.client.ClientType;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package org.skopintsev.model.factory;
 
 import org.skopintsev.helper.GeneratorBuilder;
-import org.skopintsev.model.Client;
+import org.skopintsev.model.client.Client;
 
 
 public class ClientApiFactory {

@@ -1,6 +1,6 @@
 package org.skopintsev.models.api.factory;
 
-import org.skopintsev.models.api.Client;
+import org.skopintsev.models.api.client.Client;
 import org.skopintsev.util.GeneratorBuilder;
 
 

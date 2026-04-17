@@ -20,5 +20,4 @@ public class CurrencyCard {
     @Getter static final SelenideElement currencyMetalTypeValue = $(byTestId("currencyMetalTypeValue"));
 
     @Getter static final SelenideElement currencySymbol = $(byTestId("currencySymbol"));
-
 }

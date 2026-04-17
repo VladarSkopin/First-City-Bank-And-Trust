@@ -12,15 +12,14 @@ import org.skopintsev.assertions.client.ClientsCardAssertions;
 import org.skopintsev.assertions.client.ClientsPageAssertions;
 import org.skopintsev.assertions.common.elements.ButtonElementAssertions;
 import org.skopintsev.models.api.*;
+import org.skopintsev.models.api.client.Client;
+import org.skopintsev.models.api.client.ClientType;
 import org.skopintsev.models.api.factory.ClientFactory;
 import org.skopintsev.models.api.sector.SubSector;
-import org.skopintsev.transport.CheckApiRequestHelper;
 import org.skopintsev.transport.PostApiResponseHelper;
 
 import java.util.Collections;
 import java.util.List;
-
-import static org.skopintsev.constants.Api.CLIENTS;
 
 public class ClientInfoTest extends BaseClientTest {
 
@@ -67,8 +66,7 @@ public class ClientInfoTest extends BaseClientTest {
                         BASE_DISTRICTS_LIST.get(0).getDistrictCode(),
                         BASE_SUB_SECTORS_LIST.get(0).getSubSectorCode(),
                         false);
-        List<Client> clientsList = List.of(client);
-        PostApiResponseHelper.stubGetClients(clientsList);
+        PostApiResponseHelper.stubGetClients(List.of(client));
         Selenide.refresh();
 
         ClientsCardAssertions.checkAvatar(Character.toUpperCase(client.getNameOrTitle().charAt(0)));

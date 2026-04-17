@@ -21,4 +21,6 @@ public interface Api {
 
     String VAULT_OPERATIONS = VAULTS + "/operations";
 
+    String SEARCH_CLIENTS = CLIENTS + "/search";
+
 }
