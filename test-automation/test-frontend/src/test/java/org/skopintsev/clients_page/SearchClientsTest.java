@@ -20,10 +20,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SearchClientsTest extends BaseClientTest {
 
-    List<Client> CLIENTS = List.of(BASE_CLIENTS_LIST.get(0));
+    Client client = BASE_CLIENTS_LIST.stream()
+            .filter(c -> c.getIsBlocked() == false)
+            .findFirst()
+            .orElse(null);
 
     @Test
     @Tag("smoke")
@@ -46,15 +49,15 @@ public class SearchClientsTest extends BaseClientTest {
     @Description("Test checks the search functionality by client name.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchByNameTest() {
-        String randomName = GeneratorBuilder.generateString(10);
+        String clientName = client.getNameOrTitle();
+
         Map<String, String> params = new HashMap<>();
-        params.put("nameOrTitle", randomName);
-        PostApiResponseHelper.stubGetSearchClientsWithParams(params, CLIENTS);
+        params.put("nameOrTitle", clientName);
+        PostApiResponseHelper.stubGetSearchClientsWithParams(params, List.of(client));
         Selenide.refresh();
 
-        ClientSearchPanelSteps.typeClientName(BASE_CLIENTS_LIST.get(0).getNameOrTitle());
+        ClientSearchPanelSteps.typeClientName(clientName);
         ClientSearchPanelSteps.clickSearchClientsBtn();
-        // todo: check request was sent
 
         ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
@@ -64,15 +67,21 @@ public class SearchClientsTest extends BaseClientTest {
     @Description("Test checks the search functionality by social rank.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchBySocialRankTest() {
-        String randomName = GeneratorBuilder.generateString(10);
+        String socialRankCode = client.getSocialRankCode();
+
         Map<String, String> params = new HashMap<>();
-        params.put("nameOrTitle", randomName);
-        PostApiResponseHelper.stubGetSearchClientsWithParams(params, CLIENTS);
+        params.put("socialRankCode", socialRankCode);
+        PostApiResponseHelper.stubGetSearchClientsWithParams(params, List.of(client));
         Selenide.refresh();
 
-        ClientSearchPanelSteps.selectOptionSocialRankByVisibleText(BASE_SOCIAL_RANKS_LIST.get(0).getRankName());
+        String socialRank = BASE_SOCIAL_RANKS_LIST
+                .stream()
+                .filter(s -> s.getRankCode().equals(socialRankCode))
+                .findFirst()
+                .orElse(null).getRankName();
+
+        ClientSearchPanelSteps.selectOptionSocialRankByVisibleText(socialRank);
         ClientSearchPanelSteps.clickSearchClientsBtn();
-        // todo: check request was sent
 
         ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
@@ -82,15 +91,21 @@ public class SearchClientsTest extends BaseClientTest {
     @Description("Test checks the search functionality by client type.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchByClientTypeTest() {
-        String randomName = GeneratorBuilder.generateString(10);
+        String clientTypeCode = client.getClientTypeCode();
+
         Map<String, String> params = new HashMap<>();
-        params.put("nameOrTitle", randomName);
-        PostApiResponseHelper.stubGetSearchClientsWithParams(params, CLIENTS);
+        params.put("clientTypeCode", clientTypeCode);
+        PostApiResponseHelper.stubGetSearchClientsWithParams(params, List.of(client));
         Selenide.refresh();
 
-        ClientSearchPanelSteps.selectOptionClientTypeByVisibleText(BASE_CLIENT_TYPES_LIST.get(0).getClientTypeName());
+        String clientType = BASE_CLIENT_TYPES_LIST
+                .stream()
+                .filter(c -> c.getClientTypeCode().equals(clientTypeCode))
+                .findFirst()
+                .orElse(null).getClientTypeName();
+
+        ClientSearchPanelSteps.selectOptionClientTypeByVisibleText(clientType);
         ClientSearchPanelSteps.clickSearchClientsBtn();
-        // todo: check request was sent
 
         ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
@@ -100,15 +115,21 @@ public class SearchClientsTest extends BaseClientTest {
     @Description("Test checks the search functionality by sub-sector.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchBySubSectorTest() {
-        String randomName = GeneratorBuilder.generateString(10);
+        String subSectorCode = client.getSubSectorCode();
+
         Map<String, String> params = new HashMap<>();
-        params.put("nameOrTitle", randomName);
-        PostApiResponseHelper.stubGetSearchClientsWithParams(params, CLIENTS);
+        params.put("subSectorCode", subSectorCode);
+        PostApiResponseHelper.stubGetSearchClientsWithParams(params, List.of(client));
         Selenide.refresh();
 
-        ClientSearchPanelSteps.selectOptionSubSectorByVisibleText(BASE_SUB_SECTORS_LIST.get(0).getSubSectorName());
+        String subSector = BASE_SUB_SECTORS_LIST
+                .stream()
+                .filter(s -> s.getSubSectorCode().equals(subSectorCode))
+                .findFirst()
+                .orElse(null).getSubSectorName();
+
+        ClientSearchPanelSteps.selectOptionSubSectorByVisibleText(subSector);
         ClientSearchPanelSteps.clickSearchClientsBtn();
-        // todo: check request was sent
 
         ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
@@ -118,15 +139,21 @@ public class SearchClientsTest extends BaseClientTest {
     @Description("Test checks the search functionality by district.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchByDistrictTest() {
-        String randomName = GeneratorBuilder.generateString(10);
+        String districtCode = client.getDistrictCode();
+
         Map<String, String> params = new HashMap<>();
-        params.put("nameOrTitle", randomName);
-        PostApiResponseHelper.stubGetSearchClientsWithParams(params, CLIENTS);
+        params.put("districtCode", districtCode);
+        PostApiResponseHelper.stubGetSearchClientsWithParams(params, List.of(client));
         Selenide.refresh();
 
-        ClientSearchPanelSteps.selectOptionDistrictByVisibleText(BASE_DISTRICTS_LIST.get(0).getDistrictName());
+        String district = BASE_DISTRICTS_LIST
+                .stream()
+                .filter(d -> d.getDistrictCode().equals(districtCode))
+                .findFirst()
+                .orElse(null).getDistrictName();
+
+        ClientSearchPanelSteps.selectOptionDistrictByVisibleText(district);
         ClientSearchPanelSteps.clickSearchClientsBtn();
-        // todo: check request was sent
 
         ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
@@ -136,15 +163,15 @@ public class SearchClientsTest extends BaseClientTest {
     @Description("Test checks the search functionality by isBlocked status.")
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchByIsBlockedTest() {
-        String randomName = GeneratorBuilder.generateString(10);
+        client.setIsBlocked(true);
+
         Map<String, String> params = new HashMap<>();
-        params.put("nameOrTitle", randomName);
-        PostApiResponseHelper.stubGetSearchClientsWithParams(params, CLIENTS);
+        params.put("isBlocked", String.valueOf(client.getIsBlocked()));
+        PostApiResponseHelper.stubGetSearchClientsWithParams(params, List.of(client));
         Selenide.refresh();
 
         ClientSearchPanelSteps.clickIsBlockedCheckbox();
         ClientSearchPanelSteps.clickSearchClientsBtn();
-        // todo: check request was sent
 
         ClientsPageAssertions.checkTotalClientsCountValueText(1);
     }
@@ -162,7 +189,6 @@ public class SearchClientsTest extends BaseClientTest {
 
         ClientSearchPanelSteps.typeClientName(randomName);
         ClientSearchPanelSteps.clickSearchClientsBtn();
-        // todo: check request was sent
 
         ClientsPageAssertions.checkPageTitleText("No Clients Found");
     }

@@ -29,36 +29,43 @@ public class SearchClientsMultipleParamsTest extends BaseClientTest {
 
     @Test
     @Tag("smoke")
-    @Description("""
-            Test checks the search functionality by multiple parameters:.
-            1) by client name,
-            2) by social rank,
-            3) by client type,
-            4) by sub-sector,
-            5) by district,
-            6) by isBlocked status.
-            After performing the search, test checks the "RESET" button functionality.
-            """)
+    @Description(
+        """
+        Test checks the search functionality by multiple parameters:.
+        1) by client name,
+        2) by social rank,
+        3) by client type,
+        4) by sub-sector,
+        5) by district,
+        6) by isBlocked status.
+        After performing the search, test checks the "RESET" button functionality.
+        """)
     @Severity(SeverityLevel.CRITICAL)
     public void clientsSearchByMultipleParametersTest() {
         client.setIsBlocked(true);
+        String clientName = client.getNameOrTitle();
+        String socialRankCode = client.getSocialRankCode();
+        String clientTypeCode = client.getClientTypeCode();
+        String subSectorCode = client.getSubSectorCode();
+        String districtCode = client.getDistrictCode();
+
         Map<String, String> params = new HashMap<>();
-        params.put("nameOrTitle", client.getNameOrTitle());
-        params.put("socialRankCode", client.getSocialRankCode());
-        params.put("clientTypeCode", client.getClientTypeCode());
-        params.put("subSectorCode", client.getSubSectorCode());
-        params.put("districtCode", client.getDistrictCode());
+        params.put("nameOrTitle", clientName);
+        params.put("socialRankCode", socialRankCode);
+        params.put("clientTypeCode", clientTypeCode);
+        params.put("subSectorCode", subSectorCode);
+        params.put("districtCode", districtCode);
         params.put("isBlocked", String.valueOf(client.getIsBlocked()));
         PostApiResponseHelper.stubGetSearchClientsWithParams(params, List.of(client));
         Selenide.refresh();
 
         ClientsPageAssertions.checkTotalClientsCountValueText(BASE_CLIENTS_LIST.size());
 
-        ClientSearchPanelSteps.typeClientName(client.getNameOrTitle());
-        ClientSearchPanelSteps.selectOptionSocialRankByValue(client.getSocialRankCode());
-        ClientSearchPanelSteps.selectOptionClientTypeByValue(client.getClientTypeCode());
-        ClientSearchPanelSteps.selectOptionSubSectorByValue(client.getSubSectorCode());
-        ClientSearchPanelSteps.selectOptionDistrictByValue(client.getDistrictCode());
+        ClientSearchPanelSteps.typeClientName(clientName);
+        ClientSearchPanelSteps.selectOptionSocialRankByValue(socialRankCode);
+        ClientSearchPanelSteps.selectOptionClientTypeByValue(clientTypeCode);
+        ClientSearchPanelSteps.selectOptionSubSectorByValue(subSectorCode);
+        ClientSearchPanelSteps.selectOptionDistrictByValue(districtCode);
         ClientSearchPanelSteps.clickIsBlockedCheckbox();
         ClientSearchPanelSteps.clickSearchClientsBtn();
 

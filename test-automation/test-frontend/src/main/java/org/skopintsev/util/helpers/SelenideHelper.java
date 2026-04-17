@@ -21,7 +21,7 @@ public class SelenideHelper {
     }
 
     @Step("Get web element by its data-testid and text.")
-    public static By byXpathText(String testIdValue, String text) {
+    public static By byXpathDataTestIdAndText(String testIdValue, String text) {
         return byXpath("//*[@data-testid='" + testIdValue + "'][text()='" + text + "']");
     }
 
