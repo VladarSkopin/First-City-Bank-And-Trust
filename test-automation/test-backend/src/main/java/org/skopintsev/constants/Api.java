@@ -60,4 +60,6 @@ public interface Api {
 
     String SEARCH_VAULTS_BY_CLIENT_SECTOR = SEARCH_VAULTS + "/by-client-sector";
 
+    String VAULT_POOLS = "/api/v1/vault-pools";
+
 }

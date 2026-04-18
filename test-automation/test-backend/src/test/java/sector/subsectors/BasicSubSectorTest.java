@@ -1,4 +1,4 @@
-package sectors.subsectors;
+package sector.subsectors;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;

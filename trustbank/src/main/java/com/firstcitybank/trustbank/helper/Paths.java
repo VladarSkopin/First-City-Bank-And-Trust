@@ -26,5 +26,5 @@ public class Paths {
 
     public static final String VAULT_STATS = "api/v1/vaultStats";
 
-    public static final String VAULT_POOLS = "api/v1/api/v1/vault-pools";
+    public static final String VAULT_POOLS = "api/v1/vault-pools";
 }

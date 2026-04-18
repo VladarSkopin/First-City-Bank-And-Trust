@@ -1,4 +1,4 @@
-package sectors.subsectors;
+package sector.subsectors;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
