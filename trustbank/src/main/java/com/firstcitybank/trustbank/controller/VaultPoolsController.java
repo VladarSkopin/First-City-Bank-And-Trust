@@ -3,12 +3,15 @@ package com.firstcitybank.trustbank.controller;
 import com.firstcitybank.trustbank.model.vault.vault_pools.CreateVaultPoolRequest;
 import com.firstcitybank.trustbank.model.vault.vault_pools.DeleteVaultPoolRequest;
 import com.firstcitybank.trustbank.model.vault.vault_pools.VaultPool;
+import com.firstcitybank.trustbank.model.vault.vault_pools.VaultPoolResponse;
 import com.firstcitybank.trustbank.service.VaultPoolsService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.firstcitybank.trustbank.helper.Paths.VAULT_POOLS;
 
@@ -33,5 +36,11 @@ public class VaultPoolsController {
     public ResponseEntity<Void> deleteVaultPool(@RequestBody DeleteVaultPoolRequest request) {
         vaultPoolsService.deleteVaultPool(request.vaultPoolName());
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<VaultPoolResponse>> getAllVaultPools() {
+        List<VaultPoolResponse> pools = vaultPoolsService.getAllVaultPools();
+        return ResponseEntity.ok(pools);
     }
 }

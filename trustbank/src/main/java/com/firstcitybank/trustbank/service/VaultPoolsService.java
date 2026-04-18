@@ -4,10 +4,13 @@ import com.firstcitybank.trustbank.database.dao.VaultPoolsDao;
 import com.firstcitybank.trustbank.exception.NotFoundException;
 import com.firstcitybank.trustbank.model.vault.vault_pools.CreateVaultPoolRequest;
 import com.firstcitybank.trustbank.model.vault.vault_pools.VaultPool;
+import com.firstcitybank.trustbank.model.vault.vault_pools.VaultPoolResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VaultPoolsService {
@@ -98,5 +101,12 @@ public class VaultPoolsService {
                             vaultPoolName, rowsDeleted)
             );
         }
+    }
+
+    public List<VaultPoolResponse> getAllVaultPools() {
+        List<VaultPool> vaultPools = vaultPoolsDao.selectAllVaultPools();
+        return vaultPools.stream()
+                .map(VaultPoolResponse::from)
+                .collect(Collectors.toList());
     }
 }

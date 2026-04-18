@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -90,6 +91,17 @@ public class VaultPoolsDataAccessService implements VaultPoolsDao {
             WHERE vault_pool_name = ?
             """;
         return jdbcTemplate.update(sql, vaultPoolName);
+    }
+
+    @Override
+    public List<VaultPool> selectAllVaultPools() {
+        var sql = """
+            SELECT id, vault_pool_name, is_archived, currency_code, sector_code,
+                   amount_from, amount_to, created_from, created_to
+            FROM vault_pools
+            ORDER BY id
+            """;
+        return jdbcTemplate.query(sql, new VaultPoolRowMapper());
     }
 
 
