@@ -31,7 +31,7 @@ public class SearchClientsMultipleParamsTest extends BaseClientTest {
     @Tag("smoke")
     @Description(
         """
-        Test checks the search functionality by multiple parameters:.
+        Test checks the search functionality by multiple parameters:
         1) by client name,
         2) by social rank,
         3) by client type,
@@ -85,5 +85,7 @@ public class SearchClientsMultipleParamsTest extends BaseClientTest {
         ClientsSearchAssertions.checkIsBlockedCheckboxChecked(false);
         ClientsSearchAssertions.checkSearchBtnEnabled(true);
         ClientsSearchAssertions.checkResetBtnEnabled(true);
+        ClientsSearchAssertions.checkSearchBtnText("SEARCH CLIENTS");
+        ClientsSearchAssertions.checkResetBtnText("RESET");
     }
 }

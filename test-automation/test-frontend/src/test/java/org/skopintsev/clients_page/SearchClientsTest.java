@@ -42,6 +42,8 @@ public class SearchClientsTest extends BaseClientTest {
         ClientsSearchAssertions.checkIsBlockedCheckboxChecked(false);
         ClientsSearchAssertions.checkSearchBtnEnabled(true);
         ClientsSearchAssertions.checkResetBtnEnabled(true);
+        ClientsSearchAssertions.checkSearchBtnText("SEARCH CLIENTS");
+        ClientsSearchAssertions.checkResetBtnText("RESET");
     }
 
     @Test
