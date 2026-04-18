@@ -61,5 +61,4 @@ public class ClientsSearchAssertions {
     public static void checkResetBtnEnabled(boolean shouldBeEnabled) {
         ClientSearchPanel.getBtnReset().shouldBe(shouldBeEnabled ? Condition.enabled : Condition.disabled);
     }
-
 }
