@@ -2,7 +2,7 @@ package org.skopintsev.database.clients;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
-import org.skopintsev.database.DatabaseHelper;
+import org.skopintsev.database.CommonDatabaseHelper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +29,7 @@ public class ClientDbHelper {
     @Step("Select client by code: {clientCode}")
     public static ClientDb selectClientByCode(String clientCode) {
         String query = "SELECT client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked, sub_sector_code FROM clients WHERE client_code = ?";
-        return DatabaseHelper.queryForObject(query, ClientDbHelper::mapRow, clientCode);
+        return CommonDatabaseHelper.queryForObject(query, ClientDbHelper::mapRow, clientCode);
     }
 
     @Step("Insert new client: {clientDb}")
@@ -38,7 +38,7 @@ public class ClientDbHelper {
             INSERT INTO clients (client_code, name_or_title, client_type_code, social_rank_code, district_code, is_blocked, sub_sector_code)
             VALUES (?, ?, ?, ?, ?, ?, ?)
             """;
-        return DatabaseHelper.executeUpdate(
+        return CommonDatabaseHelper.executeUpdate(
                 query,
                 clientDb.getClientCode(),
                 clientDb.getNameOrTitle(),
@@ -53,19 +53,19 @@ public class ClientDbHelper {
     @Step("Delete client by code: {clientCode}")
     public static void deleteClient(String clientCode) {
         String query = "DELETE FROM clients WHERE client_code = ?";
-        DatabaseHelper.executeUpdate(query, clientCode);
+        CommonDatabaseHelper.executeUpdate(query, clientCode);
     }
 
     @Step("Delete all test clients.")
     public static void deleteAllTestClients() {
         String query = "DELETE FROM clients WHERE client_code LIKE 'TEST-%'";
-        DatabaseHelper.executeUpdate(query);
+        CommonDatabaseHelper.executeUpdate(query);
     }
 
     @Step("Get clients count.")
     public static int getClientsCount() {
         String query = "SELECT COUNT(*) FROM clients";
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);
@@ -80,7 +80,7 @@ public class ClientDbHelper {
     @Step("Get clients count with field is_blocked = {0}.")
     public static int getClientsCountByIsBlockedField(boolean isBlocked) {
         String query = "SELECT COUNT(*) FROM clients WHERE is_blocked = " + isBlocked;
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);
@@ -95,7 +95,7 @@ public class ClientDbHelper {
     @Step("Get clients count with field social_rank_code = {0}.")
     public static int getClientsCountByRank(String rankCode) {
         String query = "SELECT COUNT(*) FROM clients WHERE social_rank_code = '" + rankCode + "'";
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);
@@ -110,7 +110,7 @@ public class ClientDbHelper {
     @Step("Get clients count with field client_type_code = {0}.")
     public static int getClientsCountByClientType(String clientTypeCode) {
         String query = "SELECT COUNT(*) FROM clients WHERE client_type_code = '" + clientTypeCode+ "'";
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);
@@ -131,7 +131,7 @@ public class ClientDbHelper {
         WHERE ss.sector_code = ?
         """;
 
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);

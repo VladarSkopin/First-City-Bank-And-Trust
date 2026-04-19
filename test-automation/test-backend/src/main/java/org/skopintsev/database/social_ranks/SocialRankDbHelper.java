@@ -2,7 +2,7 @@ package org.skopintsev.database.social_ranks;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
-import org.skopintsev.database.DatabaseHelper;
+import org.skopintsev.database.CommonDatabaseHelper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +27,7 @@ public class SocialRankDbHelper {
     @Step("Select social rank by code: {rankCode}")
     public static SocialRankDb selectSocialRankByCode(String rankCode) {
         String query = "SELECT rank_code, rank_name, description, privilege_level, regulations FROM social_ranks WHERE rank_code = ?";
-        return DatabaseHelper.queryForObject(query, SocialRankDbHelper::mapRow, rankCode);
+        return CommonDatabaseHelper.queryForObject(query, SocialRankDbHelper::mapRow, rankCode);
     }
 
     @Step("Insert new social rank: {socialRankDb}")
@@ -36,7 +36,7 @@ public class SocialRankDbHelper {
             INSERT INTO social_ranks (rank_code, rank_name, description, privilege_level, regulations)
             VALUES (?, ?, ?, ?, ?)
             """;
-        return DatabaseHelper.executeUpdate(
+        return CommonDatabaseHelper.executeUpdate(
                 query,
                 socialRankDb.getRankCode(),
                 socialRankDb.getRankName(),
@@ -49,19 +49,19 @@ public class SocialRankDbHelper {
     @Step("Delete social rank by code: {rankCode}")
     public static void deleteSocialRank(String rankCode) {
         String query = "DELETE FROM social_ranks WHERE rank_code = ?";
-        DatabaseHelper.executeUpdate(query, rankCode);
+        CommonDatabaseHelper.executeUpdate(query, rankCode);
     }
 
     @Step("Delete all test social ranks.")
     public static void deleteAllTestSocialRanks() {
         String query = "DELETE FROM social_ranks WHERE rank_code LIKE 'TEST-%'";
-        DatabaseHelper.executeUpdate(query);
+        CommonDatabaseHelper.executeUpdate(query);
     }
 
     @Step("Get social ranks count.")
     public static int getSocialRanksCount() {
         String query = "SELECT COUNT(*) FROM social_ranks";
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);

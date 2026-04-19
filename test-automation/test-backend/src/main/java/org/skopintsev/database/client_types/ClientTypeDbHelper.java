@@ -2,7 +2,7 @@ package org.skopintsev.database.client_types;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
-import org.skopintsev.database.DatabaseHelper;
+import org.skopintsev.database.CommonDatabaseHelper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +25,7 @@ public class ClientTypeDbHelper {
     @Step("Select client type by code: {clientTypeCode}")
     public static ClientTypeDb selectClientTypeByCode(String clientTypeCode) {
         String query = "SELECT client_type_code, client_type_name, description FROM client_types WHERE client_type_code = ?";
-        return DatabaseHelper.queryForObject(query, ClientTypeDbHelper::mapRow, clientTypeCode);
+        return CommonDatabaseHelper.queryForObject(query, ClientTypeDbHelper::mapRow, clientTypeCode);
     }
 
     @Step("Insert new client type: {clientTypeDb}")
@@ -34,7 +34,7 @@ public class ClientTypeDbHelper {
             INSERT INTO client_types (client_type_code, client_type_name, description)
             VALUES (?, ?, ?)
             """;
-        return DatabaseHelper.executeUpdate(
+        return CommonDatabaseHelper.executeUpdate(
                 query,
                 clientTypeDb.getClientTypeCode(),
                 clientTypeDb.getClientTypeName(),
@@ -45,19 +45,19 @@ public class ClientTypeDbHelper {
     @Step("Delete client type by code: {clientTypeCode}")
     public static void deleteClientType(String clientTypeCode) {
         String query = "DELETE FROM client_types WHERE client_type_code = ?";
-        DatabaseHelper.executeUpdate(query, clientTypeCode);
+        CommonDatabaseHelper.executeUpdate(query, clientTypeCode);
     }
 
     @Step("Delete all test client types.")
     public static void deleteAllTestClientTypes() {
         String query = "DELETE FROM client_types WHERE client_type_code LIKE 'TEST-%'";
-        DatabaseHelper.executeUpdate(query);
+        CommonDatabaseHelper.executeUpdate(query);
     }
 
     @Step("Get client types count.")
     public static int getClientTypesCount() {
         String query = "SELECT COUNT(*) FROM client_types";
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);

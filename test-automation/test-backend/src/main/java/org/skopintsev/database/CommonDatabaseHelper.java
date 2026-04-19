@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.function.Function;
 
 @Slf4j
-public class DatabaseHelper {
+public class CommonDatabaseHelper {
     private static final DatabaseConfig config = DatabaseConfig.getInstance();
 
     // No static initializer - lazy initialization

@@ -2,7 +2,7 @@ package org.skopintsev.database.currencies;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
-import org.skopintsev.database.DatabaseHelper;
+import org.skopintsev.database.CommonDatabaseHelper;
 
 import java.util.List;
 
@@ -29,14 +29,14 @@ public class CurrencyDbHelper {
     @Step("Select all currencies from database.")
     public static List<CurrencyDb> selectAllCurrencies() {
         String query = "SELECT currency_code, currency_name, currency_symbol, metal_type FROM currencies ORDER BY currency_code";
-        return DatabaseHelper.executeQuery(query, CurrencyDbHelper::mapRow);
+        return CommonDatabaseHelper.executeQuery(query, CurrencyDbHelper::mapRow);
     }
 
     @SneakyThrows
     @Step("Select currency by code: {currencyCode}")
     public static CurrencyDb selectCurrencyByCode(String currencyCode) {
         String query = "SELECT currency_code, currency_name, currency_symbol, metal_type FROM currencies WHERE currency_code = ?";
-        return DatabaseHelper.queryForObject(query, CurrencyDbHelper::mapRow, currencyCode);
+        return CommonDatabaseHelper.queryForObject(query, CurrencyDbHelper::mapRow, currencyCode);
     }
 
     @Step("Insert new currency: {currencyDb}")
@@ -45,7 +45,7 @@ public class CurrencyDbHelper {
             INSERT INTO currencies (currency_code, currency_name, currency_symbol, metal_type)
             VALUES (?, ?, ?, ?)
             """;
-        return DatabaseHelper.executeUpdate(
+        return CommonDatabaseHelper.executeUpdate(
                 query,
                 currencyDb.getCurrencyCode(),
                 currencyDb.getCurrencyName(),
@@ -57,19 +57,19 @@ public class CurrencyDbHelper {
     @Step("Delete currency by code: {currencyCode}")
     public static int deleteCurrency(String currencyCode) {
         String query = "DELETE FROM currencies WHERE currency_code = ?";
-        return DatabaseHelper.executeUpdate(query, currencyCode);
+        return CommonDatabaseHelper.executeUpdate(query, currencyCode);
     }
 
     @Step("Delete all test currencies.")
     public static void deleteAllTestCurrencies() {
         String query = "DELETE FROM currencies WHERE currency_code LIKE 'TEST-%'";
-        DatabaseHelper.executeUpdate(query);
+        CommonDatabaseHelper.executeUpdate(query);
     }
 
     @Step("Get currencies count.")
     public static int getCurrenciesCount() {
         String query = "SELECT COUNT(*) FROM currencies";
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);

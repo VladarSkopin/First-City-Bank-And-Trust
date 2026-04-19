@@ -2,7 +2,7 @@ package org.skopintsev.database.sectors.subsectors;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
-import org.skopintsev.database.DatabaseHelper;
+import org.skopintsev.database.CommonDatabaseHelper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +26,7 @@ public class SubSectorDbHelper {
     @Step("Select sub-sector by code: {subSectorCode}")
     public static SubSectorDb selectSubSectorByCode(String subSectorCode) {
         String query = "SELECT sub_sector_code, sub_sector_name, description, sector_code FROM sub_sectors WHERE sub_sector_code = ?";
-        return DatabaseHelper.queryForObject(query, SubSectorDbHelper::mapRow, subSectorCode);
+        return CommonDatabaseHelper.queryForObject(query, SubSectorDbHelper::mapRow, subSectorCode);
     }
 
     @Step("Insert new sub-sector: {subSectorDb}")
@@ -35,7 +35,7 @@ public class SubSectorDbHelper {
                 INSERT INTO sub_sectors (sub_sector_code, sub_sector_name, description, sector_code)
                 VALUES (?, ?, ?, ?)
                 """;
-        return DatabaseHelper.executeUpdate(
+        return CommonDatabaseHelper.executeUpdate(
                 query,
                 subSectorDb.getSubSectorCode(),
                 subSectorDb.getSubSectorName(),
@@ -47,19 +47,19 @@ public class SubSectorDbHelper {
     @Step("Delete sub-sector by code: {subSectorCode}")
     public static void deleteSubSector(String subSectorCode) {
         String query = "DELETE FROM sub_sectors WHERE sub_sector_code = ?";
-        DatabaseHelper.executeUpdate(query, subSectorCode);
+        CommonDatabaseHelper.executeUpdate(query, subSectorCode);
     }
 
     @Step("Delete all test sub-sectors.")
     public static void deleteAllTestSubSectors() {
         String query = "DELETE FROM sub_sectors WHERE sub_sector_code LIKE 'TEST-%'";
-        DatabaseHelper.executeUpdate(query);
+        CommonDatabaseHelper.executeUpdate(query);
     }
 
     @Step("Get sub-sectors count.")
     public static int getSubSectorsCount() {
         String query = "SELECT COUNT(*) FROM sub_sectors";
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);

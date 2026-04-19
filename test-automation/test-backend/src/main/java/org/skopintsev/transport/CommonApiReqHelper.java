@@ -43,6 +43,12 @@ public class CommonApiReqHelper {
         return deleteRequestWithPathParams(completePath);
     }
 
+    @SneakyThrows
+    public static Response deleteRequest(Object request, String endpoint) {
+        String requestJson = OBJECT_MAPPER.writeValueAsString(request);
+        return deleteRequestWithQueryParams(requestJson, endpoint, Collections.emptyMap());
+    }
+
     public static Response postRequestWithQueryParams(
             String bodyreq,
             String contextReq,
@@ -97,6 +103,22 @@ public class CommonApiReqHelper {
         RequestSpecification requestSpecification = prepareRequest();  // todo: add auth token here
 
         return requestSpecification.delete(completePath);
+    }
+
+    public static Response deleteRequestWithQueryParams(
+            String bodyreq,
+            String contextReq,
+            // String authToken,
+            Map<String, Object> params) {
+        RequestSpecification requestSpecification = prepareRequest();  // todo: add auth token here
+
+        if (bodyreq != null) {
+            requestSpecification.body(bodyreq);
+        }
+
+        requestSpecification.queryParams(params);
+
+        return requestSpecification.delete(contextReq);
     }
 
     private static RequestSpecification prepareRequest() {

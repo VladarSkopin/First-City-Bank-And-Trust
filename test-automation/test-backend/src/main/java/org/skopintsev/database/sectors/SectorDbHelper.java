@@ -2,7 +2,7 @@ package org.skopintsev.database.sectors;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
-import org.skopintsev.database.DatabaseHelper;
+import org.skopintsev.database.CommonDatabaseHelper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +25,7 @@ public class SectorDbHelper {
     @Step("Select sector by code: {sectorCode}")
     public static SectorDb selectSectorByCode(String sectorCode) {
         String query = "SELECT sector_code, sector_name, description FROM sectors WHERE sector_code = ?";
-        return DatabaseHelper.queryForObject(query, SectorDbHelper::mapRow, sectorCode);
+        return CommonDatabaseHelper.queryForObject(query, SectorDbHelper::mapRow, sectorCode);
     }
 
     @Step("Insert new sector: {sectorDb}")
@@ -34,7 +34,7 @@ public class SectorDbHelper {
                 INSERT INTO sectors (sector_code, sector_name, description)
                 VALUES (?, ?, ?)
                 """;
-        return DatabaseHelper.executeUpdate(
+        return CommonDatabaseHelper.executeUpdate(
                 query,
                 sectorDb.getSectorCode(),
                 sectorDb.getSectorName(),
@@ -45,19 +45,19 @@ public class SectorDbHelper {
     @Step("Delete sector by code: {sectorCode}")
     public static void deleteSector(String sectorCode) {
         String query = "DELETE FROM sectors WHERE sector_code = ?";
-        DatabaseHelper.executeUpdate(query, sectorCode);
+        CommonDatabaseHelper.executeUpdate(query, sectorCode);
     }
 
     @Step("Delete all test sectors.")
     public static void deleteAllTestSectors() {
         String query = "DELETE FROM sectors WHERE sector_code LIKE 'TEST-%'";
-        DatabaseHelper.executeUpdate(query);
+        CommonDatabaseHelper.executeUpdate(query);
     }
 
     @Step("Get sectors count.")
     public static int getSectorsCount() {
         String query = "SELECT COUNT(*) FROM sectors";
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);

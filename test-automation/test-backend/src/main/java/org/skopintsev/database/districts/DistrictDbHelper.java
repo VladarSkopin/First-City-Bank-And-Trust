@@ -2,7 +2,7 @@ package org.skopintsev.database.districts;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
-import org.skopintsev.database.DatabaseHelper;
+import org.skopintsev.database.CommonDatabaseHelper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +24,7 @@ public class DistrictDbHelper {
     @Step("Select district by code: {districtCode}")
     public static DistrictDb selectDistrictByCode(String districtCode) {
         String query = "SELECT district_code, district_name FROM districts WHERE district_code = ?";
-        return DatabaseHelper.queryForObject(query, DistrictDbHelper::mapRow, districtCode);
+        return CommonDatabaseHelper.queryForObject(query, DistrictDbHelper::mapRow, districtCode);
     }
 
     @Step("Insert new district: {districtDb}")
@@ -33,7 +33,7 @@ public class DistrictDbHelper {
                 INSERT INTO districts (district_code, district_name)
                 VALUES (?, ?)
                 """;
-        return DatabaseHelper.executeUpdate(
+        return CommonDatabaseHelper.executeUpdate(
                 query,
                 districtDb.getDistrictCode(),
                 districtDb.getDistrictName()
@@ -43,19 +43,19 @@ public class DistrictDbHelper {
     @Step("Delete district by code: {districtCode}")
     public static void deleteDistrict(String districtCode) {
         String query = "DELETE FROM districts WHERE district_code = ?";
-        DatabaseHelper.executeUpdate(query, districtCode);
+        CommonDatabaseHelper.executeUpdate(query, districtCode);
     }
 
     @Step("Delete all test districts.")
     public static void deleteAllTestDistricts() {
         String query = "DELETE FROM districts WHERE district_code LIKE 'TEST-%'";
-        DatabaseHelper.executeUpdate(query);
+        CommonDatabaseHelper.executeUpdate(query);
     }
 
     @Step("Get districts count.")
     public static int getDistrictsCount() {
         String query = "SELECT COUNT(*) FROM districts";
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);

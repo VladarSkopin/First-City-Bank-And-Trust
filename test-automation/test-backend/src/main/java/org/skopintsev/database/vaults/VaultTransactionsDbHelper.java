@@ -2,7 +2,7 @@ package org.skopintsev.database.vaults;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
-import org.skopintsev.database.DatabaseHelper;
+import org.skopintsev.database.CommonDatabaseHelper;
 
 import java.math.BigInteger;
 import java.sql.ResultSet;
@@ -35,7 +35,7 @@ public class VaultTransactionsDbHelper {
                 FROM vault_transactions
                 WHERE vault_code = ?
                 """;
-        return DatabaseHelper.executeQuery(query, VaultTransactionsDbHelper::mapRow, vaultCode);
+        return CommonDatabaseHelper.executeQuery(query, VaultTransactionsDbHelper::mapRow, vaultCode);
     }
 
     @SneakyThrows
@@ -47,19 +47,19 @@ public class VaultTransactionsDbHelper {
                 ORDER BY transaction_time DESC
                 LIMIT 1;
                 """;
-        return DatabaseHelper.queryForObject(query, VaultTransactionsDbHelper::mapRow);
+        return CommonDatabaseHelper.queryForObject(query, VaultTransactionsDbHelper::mapRow);
     }
 
     @Step("Delete all test vault transactions.")
     public static void deleteAllTestVaultTransactions() {
         String query = "DELETE FROM vault_transactions WHERE vault_code LIKE 'TEST-%'";
-        DatabaseHelper.executeUpdate(query);
+        CommonDatabaseHelper.executeUpdate(query);
     }
 
     @Step("Get vault transactions count.")
     public static int getVaultTransactionsCount() {
         String query = "SELECT COUNT(*) FROM vault_transactions";
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);

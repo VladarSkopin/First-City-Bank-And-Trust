@@ -2,7 +2,7 @@ package org.skopintsev.database.vaults;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
-import org.skopintsev.database.DatabaseHelper;
+import org.skopintsev.database.CommonDatabaseHelper;
 
 import java.math.BigInteger;
 import java.sql.ResultSet;
@@ -31,7 +31,7 @@ public class VaultDbHelper {
     @Step("Select vault by code: {vaultCode}")
     public static VaultDb selectVaultByCode(String vaultCode) {
         String query = "SELECT vault_code, client_code, created_at, modified_at, amount, currency_code, is_archived FROM vault WHERE vault_code = ?";
-        return DatabaseHelper.queryForObject(query, VaultDbHelper::mapRow, vaultCode);
+        return CommonDatabaseHelper.queryForObject(query, VaultDbHelper::mapRow, vaultCode);
     }
 
     @Step("Insert new vault: {vaultDb}")
@@ -40,7 +40,7 @@ public class VaultDbHelper {
                 INSERT INTO vault(vault_code, client_code, created_at, modified_at, amount, currency_code, is_archived)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
                 """;
-        return DatabaseHelper.executeUpdate(
+        return CommonDatabaseHelper.executeUpdate(
                 query,
                 vaultDb.getVaultCode(),
                 vaultDb.getClientCode(),
@@ -55,13 +55,13 @@ public class VaultDbHelper {
     @Step("Delete all test vaults.")
     public static void deleteAllTestVaults() {
         String query = "DELETE FROM vault WHERE vault_code LIKE 'TEST-%'";
-        DatabaseHelper.executeUpdate(query);
+        CommonDatabaseHelper.executeUpdate(query);
     }
 
     @Step("Get vaults count.")
     public static int getVaultsCount() {
         String query = "SELECT COUNT(*) FROM vault";
-        Integer count = DatabaseHelper.queryForObject(query,
+        Integer count = CommonDatabaseHelper.queryForObject(query,
                 rs -> {
                     try {
                         return rs.getInt(1);

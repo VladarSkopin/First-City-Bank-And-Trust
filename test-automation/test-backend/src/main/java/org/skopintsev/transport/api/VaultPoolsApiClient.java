@@ -32,9 +32,8 @@ public class VaultPoolsApiClient {
 
     @Step("DELETE " + Api.VAULT_POOLS + " with expected status code {1}")
     public static void deleteVaultPoolAndValidate(DeleteVaultPoolRequest deleteVaultPoolRequest, int expectedStatusCode) {
-        String vaultPoolName = deleteVaultPoolRequest.getVaultPoolName();
         // todo: create new API method to execute DELETE with a JSON body
-        Response response = CommonApiReqHelper.deleteRequest(Api.VAULT_POOLS, vaultPoolName);
+        Response response = CommonApiReqHelper.deleteRequest(deleteVaultPoolRequest, Api.VAULT_POOLS);
         response.then().statusCode(expectedStatusCode);
     }
 }
