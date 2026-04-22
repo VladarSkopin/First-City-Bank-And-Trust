@@ -52,6 +52,12 @@ public class VaultDbHelper {
         );
     }
 
+    @Step("Delete vault by code: {vaultCode}")
+    public static void deleteVault(String vaultCode) {
+        String query = "DELETE FROM vault WHERE vault_code = ?";
+        CommonDatabaseHelper.executeUpdate(query, vaultCode);
+    }
+
     @Step("Delete all test vaults.")
     public static void deleteAllTestVaults() {
         String query = "DELETE FROM vault WHERE vault_code LIKE 'TEST-%'";

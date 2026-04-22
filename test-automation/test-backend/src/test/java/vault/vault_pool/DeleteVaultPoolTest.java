@@ -2,7 +2,7 @@ package vault.vault_pool;
 
 import vault.BaseVaultTest;
 
-public class DeleteVaultPoolTest extends BaseVaultTest {
+public class DeleteVaultPoolTest extends BaseVaultPoolTest {
 
     // DeleteVaultPoolRequest
 

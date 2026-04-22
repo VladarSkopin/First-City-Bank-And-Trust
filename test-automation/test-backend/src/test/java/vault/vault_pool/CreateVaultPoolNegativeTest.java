@@ -2,7 +2,7 @@ package vault.vault_pool;
 
 import vault.BaseVaultTest;
 
-public class CreateVaultPoolNegativeTest extends BaseVaultTest {
+public class CreateVaultPoolNegativeTest extends BaseVaultPoolTest {
 
     // todo: invalid currency null + "" + " " + random pool name
 

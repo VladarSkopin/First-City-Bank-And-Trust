@@ -16,6 +16,10 @@ public class GeneratorBuilder {
         return "TEST-" + generateRandomNumberInclusive(100, 99999);
     }
 
+    public static String generateTestName() {
+        return "TEST-" + generateString(10);
+    }
+
     public static String generateString(int size) {
         String characters = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
         return new Random()

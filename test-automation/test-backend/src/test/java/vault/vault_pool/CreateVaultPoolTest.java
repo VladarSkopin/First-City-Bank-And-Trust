@@ -2,7 +2,7 @@ package vault.vault_pool;
 
 import vault.BaseVaultTest;
 
-public class CreateVaultPoolTest extends BaseVaultTest {
+public class CreateVaultPoolTest extends BaseVaultPoolTest {
 
     // todo: minimal fields
 
